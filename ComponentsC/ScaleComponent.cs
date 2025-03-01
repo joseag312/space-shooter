@@ -5,7 +5,7 @@ public partial class ScaleComponent : Node
 {
 	[Export] Node2D sprite;
 	[Export] Vector2 scaleAmount = new Vector2(1.5f, 1.5f);
-	[Export] float scaleDuration = 0.4f;
+	[Export] float scaleDuration = 0.5f;
 
 	public void TweenScale()
 	{
