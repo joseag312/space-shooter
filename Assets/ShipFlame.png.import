@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8rwxwqt1cdu2"
-path="res://.godot/imported/pink_enemy_projectile.png-c80fb4a0531dc161f8371377ab1c6d49.ctex"
+uid="uid://cq04ouhvo844p"
+path="res://.godot/imported/ShipFlame.png-97be64ee25fd51aa72613df662988696.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/pink_enemy_projectile.png"
-dest_files=["res://.godot/imported/pink_enemy_projectile.png-c80fb4a0531dc161f8371377ab1c6d49.ctex"]
+source_file="res://Assets/ShipFlame.png"
+dest_files=["res://.godot/imported/ShipFlame.png-97be64ee25fd51aa72613df662988696.ctex"]
 
 [params]
 

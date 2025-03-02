@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://piojodn8c8r8"
-path="res://.godot/imported/yellow_enemy.png-6c489904b3174126efc07d913ad62e36.ctex"
+uid="uid://c8rwxwqt1cdu2"
+path="res://.godot/imported/PinkEnemyProjectile.png-9b1dd8b459634587c27eacf031243dbe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/yellow_enemy.png"
-dest_files=["res://.godot/imported/yellow_enemy.png-6c489904b3174126efc07d913ad62e36.ctex"]
+source_file="res://Assets/PinkEnemyProjectile.png"
+dest_files=["res://.godot/imported/PinkEnemyProjectile.png-9b1dd8b459634587c27eacf031243dbe.ctex"]
 
 [params]
 

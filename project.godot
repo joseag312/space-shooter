@@ -18,11 +18,6 @@ config/icon="res://icon.svg"
 
 project/assembly_name="galaxy-navigator-c"
 
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
-
 [rendering]
 
 renderer/rendering_method="mobile"

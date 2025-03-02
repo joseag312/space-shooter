@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj0l4y0txpuc"
-path="res://.godot/imported/close_stars.png-5b31c92a89fd616b8b2c2741a7dbdaf3.ctex"
+path="res://.godot/imported/CloseStars.png-10b56c76f2d30a1a60a08ab82fe012c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/close_stars.png"
-dest_files=["res://.godot/imported/close_stars.png-5b31c92a89fd616b8b2c2741a7dbdaf3.ctex"]
+source_file="res://Assets/CloseStars.png"
+dest_files=["res://.godot/imported/CloseStars.png-10b56c76f2d30a1a60a08ab82fe012c7.ctex"]
 
 [params]
 
