@@ -13,7 +13,7 @@ public partial class ScaleComponent : Node
 		Tween tween = GetTree().CreateTween();
 		tween.SetTrans(Tween.TransitionType.Expo);
 		tween.SetEase(Tween.EaseType.Out);
-		tween.TweenProperty(sprite, Node2D.PropertyName.Scaale.ToString(), scaleAmount, scaleDuration * 0.1f).FromCurrent();
+		tween.TweenProperty(sprite, Node2D.PropertyName.Scale.ToString(), scaleAmount, scaleDuration * 0.1f).FromCurrent();
 		tween.TweenProperty(sprite, Node2D.PropertyName.Scale.ToString(), Vector2.One, scaleDuration * 0.9f).From(scaleAmount);
 	}
 }

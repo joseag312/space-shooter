@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 [GlobalClass]
@@ -7,7 +8,7 @@ public partial class SpawnerComponent : Node2D
 
     public Node Spawn(Vector2 globalSpawnPosition, Node parent = null)
     {
-        GD.Assert(Scene != null, "Error: The scene export was never set on this spawner component.");
+        Debug.Assert(Scene != null, "Error: The scene export was never set on this spawner component.");
 
         Node instance = Scene.Instantiate();
         parent ??= GetTree().CurrentScene;

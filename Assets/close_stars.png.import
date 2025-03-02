@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj0l4y0txpuc"
-path="res://.godot/imported/CloseStars.png-10b56c76f2d30a1a60a08ab82fe012c7.ctex"
+uid="uid://pe1gfws3uu4m"
+path="res://.godot/imported/close_stars.png-907b1b678e758e570e24d29e71369769.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CloseStars.png"
-dest_files=["res://.godot/imported/CloseStars.png-10b56c76f2d30a1a60a08ab82fe012c7.ctex"]
+source_file="res://assets/close_stars.png"
+dest_files=["res://.godot/imported/close_stars.png-907b1b678e758e570e24d29e71369769.ctex"]
 
 [params]
 

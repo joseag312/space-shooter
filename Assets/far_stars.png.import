@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tulcmth3np3r"
-path="res://.godot/imported/GreenEnemy.png-b175b95ffaf429bce0298010329718a6.ctex"
+uid="uid://cisqsv8k7es5c"
+path="res://.godot/imported/far_stars.png-93f409df27ac618a8e5ca0fd4161934c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/GreenEnemy.png"
-dest_files=["res://.godot/imported/GreenEnemy.png-b175b95ffaf429bce0298010329718a6.ctex"]
+source_file="res://assets/far_stars.png"
+dest_files=["res://.godot/imported/far_stars.png-93f409df27ac618a8e5ca0fd4161934c.ctex"]
 
 [params]
 

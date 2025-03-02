@@ -8,12 +8,14 @@ public partial class PositionClampComponent : Node2D
 
     private readonly float _leftBorder = 0;
     private readonly float _rightBorder = (float)ProjectSettings.GetSetting("display/window/size/viewport_width");
+    private readonly float _topBorder = 0;
+    private readonly float _bottomBorder = (float)ProjectSettings.GetSetting("display/window/size/viewport_height");
 
     public override void _Process(double delta)
     {
         Actor.GlobalPosition = new Vector2(
             Mathf.Clamp(Actor.GlobalPosition.X, _leftBorder + Margin, _rightBorder - Margin),
-            Actor.GlobalPosition.Y
+            Mathf.Clamp(Actor.GlobalPosition.Y, _topBorder + Margin, _bottomBorder - Margin)
         );
     }
 }

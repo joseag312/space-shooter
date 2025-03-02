@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl7ww3lfs21h8"
-path="res://.godot/imported/LaserSmall.png-0d744c6a09acfe86662a1ed1982dfe8c.ctex"
+uid="uid://cfya6iw21qap2"
+path="res://.godot/imported/pink_enemy_projectile.png-3486bc767f391d285a310f7040905ea9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/LaserSmall.png"
-dest_files=["res://.godot/imported/LaserSmall.png-0d744c6a09acfe86662a1ed1982dfe8c.ctex"]
+source_file="res://assets/pink_enemy_projectile.png"
+dest_files=["res://.godot/imported/pink_enemy_projectile.png-3486bc767f391d285a310f7040905ea9.ctex"]
 
 [params]
 

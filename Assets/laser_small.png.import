@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvamln8mladib"
-path="res://.godot/imported/FarStars.png-835969e8c174be3819b0d09afb8c17ff.ctex"
+uid="uid://kqgvvgc52iof"
+path="res://.godot/imported/laser_small.png-9c237a2b335e5d3cdfbe74d8a775a0ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/FarStars.png"
-dest_files=["res://.godot/imported/FarStars.png-835969e8c174be3819b0d09afb8c17ff.ctex"]
+source_file="res://assets/laser_small.png"
+dest_files=["res://.godot/imported/laser_small.png-9c237a2b335e5d3cdfbe74d8a775a0ee.ctex"]
 
 [params]
 

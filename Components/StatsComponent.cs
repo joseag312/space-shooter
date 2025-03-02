@@ -6,10 +6,10 @@ public partial class StatsComponent : Node
     [Signal] public delegate void HealthChangedEventHandler();
     [Signal] public delegate void NoHealthEventHandler();
 
-    private int _health = 1;
+    private float _health = 1;
 
     [Export]
-    public int Health
+    public float Health
     {
         get => _health;
         set

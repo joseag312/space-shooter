@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf3lfvdrpyar4"
-path="res://.godot/imported/PinkEnemy.png-ac64a22dcb56d6b0f31da03e90db8667.ctex"
+uid="uid://cu7yhhp31bh3"
+path="res://.godot/imported/ship_flame.png-bc43fec9605dbce8d67472445ff2068e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/PinkEnemy.png"
-dest_files=["res://.godot/imported/PinkEnemy.png-ac64a22dcb56d6b0f31da03e90db8667.ctex"]
+source_file="res://assets/ship_flame.png"
+dest_files=["res://.godot/imported/ship_flame.png-bc43fec9605dbce8d67472445ff2068e.ctex"]
 
 [params]
 
