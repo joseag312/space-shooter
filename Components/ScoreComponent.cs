@@ -3,7 +3,6 @@ using Godot;
 [GlobalClass]
 public partial class ScoreComponent : Node
 {
-    [Export] public GameStats GameStats { get; set; }
     [Export] public int AdjustAmount { get; set; } = 5;
 
     public void AdjustScore(int amount = -1)
@@ -11,6 +10,13 @@ public partial class ScoreComponent : Node
         if (amount == -1)
             amount = AdjustAmount;
 
-        GameStats.Score += amount;
+        if (GameStats.Instance != null)
+        {
+            GameStats.Instance.Score += amount;
+        }
+        else
+        {
+            GD.PrintErr("GameStats singleton not initialized.");
+        }
     }
 }
