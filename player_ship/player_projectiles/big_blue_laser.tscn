@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://ciqogkwhge6o4"]
+
+[ext_resource type="Script" path="res://player_ship/player_projectiles/BasicBlueLaser.cs" id="1_dhpv2"]
+[ext_resource type="Script" path="res://player_ship/player_projectiles/WeaponData.cs" id="2_ualcw"]
+[ext_resource type="Texture2D" uid="uid://drwcveosb0n6c" path="res://assets/laser_big.png" id="3_bwye7"]
+[ext_resource type="Script" path="res://components/MoveComponent.cs" id="4_k580c"]
+[ext_resource type="Script" path="res://components/FlashComponent.cs" id="5_xmmup"]
+[ext_resource type="Script" path="res://components/ScaleComponent.cs" id="6_v5fke"]
+[ext_resource type="Script" path="res://components/DespawnOnExit.cs" id="7_5then"]
+
+[node name="Laser" type="Node2D" node_paths=PackedStringArray("scaleComponent", "flashComponent")]
+script = ExtResource("1_dhpv2")
+scaleComponent = NodePath("ScaleComponent")
+flashComponent = NodePath("FlashComponent")
+
+[node name="WeaponData" type="Node" parent="."]
+script = ExtResource("2_ualcw")
+CooldownTime = 0.3
+spawnLocation = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_bwye7")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
+script = ExtResource("4_k580c")
+Actor = NodePath("..")
+Velocity = Vector2(0, -300)
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_xmmup")
+sprite = NodePath("../Sprite2D")
+flashDuration = 0.4
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("6_v5fke")
+sprite = NodePath("../Sprite2D")
+scaleAmount = Vector2(1.6, 1.6)
+scaleDuration = 0.6
+
+[node name="DespawnOnExit" type="Node" parent="."]
+script = ExtResource("7_5then")
+notifierPath = NodePath("../VisibleOnScreenNotifier2D")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

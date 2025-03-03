@@ -1,32 +1,22 @@
 using Godot;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class FlashComponent : Node
 {
-    [Export] private NodePath spritePath;
+    [Export] public Node2D sprite;
     [Export] private float flashDuration = 0.1f; // Duration of the flash
 
-    private Sprite2D sprite;
-
-    public override void _Ready()
+    public void Flash()
     {
-        sprite = GetNodeOrNull<Sprite2D>(spritePath);
         if (sprite == null)
         {
-            Debug.Print("FlashEffect: No Sprite2D found at " + spritePath);
+            GD.PrintErr("ERROR: Sprite not assigned to Flash Component.");
             return;
         }
-        Flash();
-    }
 
-    private async void Flash()
-    {
-        if (sprite == null) return;
-
-        sprite.Modulate = new Color(2, 2, 2, 1);
-        await Task.Delay((int)(flashDuration * 1000));
-        sprite.Modulate = new Color(1, 1, 1, 1);
+        Tween tween = GetTree().CreateTween();
+        sprite.Modulate = new Color(10, 10, 10, 1);
+        tween.TweenProperty(sprite, "modulate", new Color(1, 1, 1, 1), flashDuration);
     }
 }

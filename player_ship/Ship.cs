@@ -5,6 +5,8 @@ using System.Diagnostics;
 public partial class Ship : Node2D
 {
 	[Export] private ShipWeaponManager weaponManager;
+	[Export] private MoveComponent moveComponent;
+	[Export] private Node2D anchor;
 
 	public override void _Ready()
 	{
@@ -72,5 +74,26 @@ public partial class Ship : Node2D
 
 		if (Input.IsActionJustPressed("fire_special_4"))
 			weaponManager?.SpawnWeapon(5);
+
+		AnimateShip();
+	}
+
+	public void AnimateShip()
+	{
+		foreach (AnimatedSprite2D sprite in anchor.GetChildren())
+		{
+			if (moveComponent.Velocity.X < 0)
+			{
+				sprite.Play("BankLeft");
+			}
+			else if (moveComponent.Velocity.X > 0)
+			{
+				sprite.Play("BankRight");
+			}
+			else
+			{
+				sprite.Play("Center");
+			}
+		}
 	}
 }

@@ -13,12 +13,11 @@ public partial class GameStats : Node
 		if (Instance == null)
 		{
 			Instance = this;
-			GetTree().Root.AddChild(this);
 			ProcessMode = ProcessModeEnum.Always;
 		}
 		else
 		{
-			QueueFree();
+			QueueFree(); // Prevent duplicate instances
 		}
 	}
 }

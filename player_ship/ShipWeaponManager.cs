@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using Godot;
 
@@ -16,15 +17,42 @@ public partial class ShipWeaponManager : Node
 	private PackedScene largeWeapon;
 	private PackedScene[] specialWeapons = new PackedScene[4];
 
+	private Dictionary<int, float> weaponCooldowns = new();
+	private Dictionary<int, float> currentCooldowns = new();
+
 	public override void _Ready()
 	{
 		leftMuzzle = GetNode<Marker2D>(leftMuzzlePath);
 		rightMuzzle = GetNode<Marker2D>(rightMuzzlePath);
 		centerCannon = GetNode<Marker2D>(centerCannonPath);
+		ProcessMode = ProcessModeEnum.Always;
+	}
+
+	public override void _Process(double delta)
+	{
+		if (currentCooldowns.Count == 0)
+		{
+			GD.PrintErr("ERROR: currentCooldowns is EMPTY! Cooldowns aren't being tracked.");
+			return;
+		}
+
+		foreach (var key in currentCooldowns.Keys)
+		{
+			// GD.Print($"DEBUG: Weapon {key} cooldown remaining: {currentCooldowns[key]:F2} seconds");
+			if (currentCooldowns[key] > 0f)
+			{
+				currentCooldowns[key] -= (float)delta;
+				if (currentCooldowns[key] < 0f)
+				{
+					currentCooldowns[key] = 0f;
+				}
+			}
+		}
 	}
 
 	public void AssignWeapons(PackedScene basic, PackedScene large, PackedScene[] specials)
 	{
+		GD.Print("DEBUG: AssignWeapons() is being called!");
 		if (basic == null)
 		{
 			GD.PrintErr("ERROR: Basic weapon is NULL when assigned!");
@@ -43,11 +71,54 @@ public partial class ShipWeaponManager : Node
 		basicWeapon = basic;
 		largeWeapon = large;
 		specialWeapons = specials;
+
+		weaponCooldowns[0] = GetWeaponCooldown(basicWeapon);
+		weaponCooldowns[1] = GetWeaponCooldown(largeWeapon);
+		for (int i = 0; i < specialWeapons.Length; i++)
+		{
+			weaponCooldowns[i + 2] = GetWeaponCooldown(specialWeapons[i]);
+		}
+		foreach (var key in weaponCooldowns.Keys)
+		{
+			currentCooldowns[key] = 0f;
+		}
+		foreach (var key in weaponCooldowns.Keys)
+		{
+			GD.Print($"DEBUG: Weapon slot {key} has cooldown: {weaponCooldowns[key]}");
+		}
+		GD.Print($"DEBUG: currentCooldowns initialized with {currentCooldowns.Count} entries.");
+
 	}
 
+	private float GetWeaponCooldown(PackedScene weaponScene)
+	{
+		if (weaponScene == null)
+		{
+			GD.PrintErr("ERROR: Trying to get cooldown from NULL weapon!");
+			return 0.5f;
+		}
+
+		Node2D tempWeapon = weaponScene.Instantiate<Node2D>();
+		WeaponData weaponData = tempWeapon.GetNodeOrNull<WeaponData>("WeaponData");
+
+		if (weaponData == null)
+		{
+			GD.PrintErr($"ERROR: Weapon scene {weaponScene.ResourcePath} has no WeaponData component!");
+			return 0.5f;
+		}
+
+		float cooldown = weaponData.CooldownTime;
+		tempWeapon.QueueFree();
+		return cooldown;
+	}
 
 	public void SpawnWeapon(int weaponSlot)
 	{
+		if (currentCooldowns.ContainsKey(weaponSlot) && currentCooldowns[weaponSlot] > 0)
+		{
+			return;
+		}
+
 		if (leftMuzzle == null || rightMuzzle == null || centerCannon == null)
 		{
 			GD.PrintErr("ERROR: Muzzle points are not assigned in ShipWeaponManager!");
@@ -70,26 +141,23 @@ public partial class ShipWeaponManager : Node
 
 			if (weaponData != null)
 			{
-				// Get the correct spawn position
-				Vector2 spawnPosition = Vector2.Zero;
-
 				switch (weaponData.spawnLocation)
 				{
 					case WeaponData.LeftMuzzle:
-						spawnPosition = leftMuzzle.GlobalPosition;
+						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition);
 						break;
 
 					case WeaponData.RightMuzzle:
-						spawnPosition = rightMuzzle.GlobalPosition;
+						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition);
 						break;
 
 					case WeaponData.BothMuzzles:
 						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition);
 						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition);
-						return;
+						break;
 
 					case WeaponData.CenterCannon:
-						spawnPosition = centerCannon.GlobalPosition;
+						SpawnAtPosition(weaponToSpawn, centerCannon.GlobalPosition);
 						break;
 
 					default:
@@ -97,8 +165,7 @@ public partial class ShipWeaponManager : Node
 						return;
 				}
 
-				// Spawn weapon at correct position
-				SpawnAtPosition(weaponToSpawn, spawnPosition);
+				currentCooldowns[weaponSlot] = weaponCooldowns[weaponSlot];
 			}
 			else
 			{
@@ -106,6 +173,7 @@ public partial class ShipWeaponManager : Node
 			}
 		}
 	}
+
 	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position)
 	{
 		Node2D weaponInstance = (Node2D)weaponScene.Instantiate();
@@ -113,5 +181,4 @@ public partial class ShipWeaponManager : Node
 
 		GetTree().CurrentScene.AddChild(weaponInstance);
 	}
-
 }

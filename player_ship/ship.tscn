@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cm2ehypi27656"]
+[gd_scene load_steps=20 format=3 uid="uid://cm2ehypi27656"]
 
 [ext_resource type="Texture2D" uid="uid://bic23o4qn37ft" path="res://assets/ship.png" id="1_ikw1t"]
 [ext_resource type="Script" path="res://player_ship/Ship.cs" id="1_pfwoo"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://components/MoveInputComponent.cs" id="5_3qev6"]
 [ext_resource type="Script" path="res://components/PositionClampComponent.cs" id="6_rwyts"]
 [ext_resource type="Script" path="res://player_ship/ShipWeaponManager.cs" id="7_axu33"]
+[ext_resource type="Texture2D" uid="uid://cu7yhhp31bh3" path="res://assets/ship_flame.png" id="8_tjvgr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pq56t"]
 atlas = ExtResource("1_ikw1t")
@@ -47,12 +48,83 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqyeu"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uohsf"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxocy"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvgi0"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu3un"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hrvs"]
+atlas = ExtResource("8_tjvgr")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uc118"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqyeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uohsf")
+}],
+"loop": true,
+"name": &"BankLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxocy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvgi0")
+}],
+"loop": true,
+"name": &"BankRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu3un")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hrvs")
+}],
+"loop": true,
+"name": &"Center",
+"speed": 5.0
+}]
+
+[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager", "moveComponent", "anchor")]
 script = ExtResource("1_pfwoo")
 weaponManager = NodePath("ShipWeaponManager")
+moveComponent = NodePath("MoveComponent")
+anchor = NodePath("Anchor")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="ShipAnimatedSprite" type="AnimatedSprite2D" parent="Anchor"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_r3vrl")
+animation = &"Center"
+autoplay = "Center"
+
+[node name="FlameAnimatedSprite" type="AnimatedSprite2D" parent="Anchor"]
+position = Vector2(0, 15)
+sprite_frames = SubResource("SpriteFrames_uc118")
 animation = &"Center"
 autoplay = "Center"
 
