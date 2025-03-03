@@ -4,11 +4,15 @@ using Godot;
 [GlobalClass]
 public partial class SpawnerComponent : Node2D
 {
+    [Export] private Marker2D Location { get; set; }
     [Export] public PackedScene Scene { get; set; }
 
     public Node Spawn(Vector2 globalSpawnPosition, Node parent = null)
     {
-        Debug.Assert(Scene != null, "Error: The scene export was never set on this spawner component.");
+        if (Scene == null)
+        {
+            GD.PrintErr("ERROR: The scene export was never set on this spawner component.");
+        }
 
         Node instance = Scene.Instantiate();
         parent ??= GetTree().CurrentScene;

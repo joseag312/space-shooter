@@ -16,7 +16,7 @@ public partial class ScoreComponent : Node
         }
         else
         {
-            GD.PrintErr("GameStats singleton not initialized.");
+            GD.PrintErr("ERROR: GameStats singleton not initialized.");
         }
     }
 }

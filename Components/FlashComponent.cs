@@ -1,27 +1,32 @@
 using Godot;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class FlashComponent : Node
 {
-    private static readonly Material FlashMaterial = GD.Load<Material>("res://effects/white_flash_material.tres");
+    [Export] private NodePath spritePath;
+    [Export] private float flashDuration = 0.1f; // Duration of the flash
 
-    [Export] public CanvasItem Sprite { get; set; }
-    [Export] public float FlashDuration { get; set; } = 0.2f;
-
-    private Material _originalSpriteMaterial;
-    private Timer _timer = new Timer();
+    private Sprite2D sprite;
 
     public override void _Ready()
     {
-        AddChild(_timer);
-        _originalSpriteMaterial = Sprite.Material;
+        sprite = GetNodeOrNull<Sprite2D>(spritePath);
+        if (sprite == null)
+        {
+            Debug.Print("FlashEffect: No Sprite2D found at " + spritePath);
+            return;
+        }
+        Flash();
     }
 
-    public async void Flash()
+    private async void Flash()
     {
-        Sprite.Material = FlashMaterial;
-        _timer.Start(FlashDuration);
-        await ToSignal(_timer, "timeout");
-        Sprite.Material = _originalSpriteMaterial;
+        if (sprite == null) return;
+
+        sprite.Modulate = new Color(2, 2, 2, 1);
+        await Task.Delay((int)(flashDuration * 1000));
+        sprite.Modulate = new Color(1, 1, 1, 1);
     }
 }

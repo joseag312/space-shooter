@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cm2ehypi27656"]
+[gd_scene load_steps=12 format=3 uid="uid://cm2ehypi27656"]
 
 [ext_resource type="Texture2D" uid="uid://bic23o4qn37ft" path="res://assets/ship.png" id="1_ikw1t"]
 [ext_resource type="Script" path="res://player_ship/Ship.cs" id="1_pfwoo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://djcfj83xyaiyr" path="res://player_ship/ship_move_stats.tres" id="4_l430v"]
 [ext_resource type="Script" path="res://components/MoveInputComponent.cs" id="5_3qev6"]
 [ext_resource type="Script" path="res://components/PositionClampComponent.cs" id="6_rwyts"]
+[ext_resource type="Script" path="res://player_ship/ShipWeaponManager.cs" id="7_axu33"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pq56t"]
 atlas = ExtResource("1_ikw1t")
@@ -46,17 +47,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Ship" type="Node2D"]
+[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager")]
 script = ExtResource("1_pfwoo")
+weaponManager = NodePath("ShipWeaponManager")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_r3vrl")
 animation = &"Center"
 autoplay = "Center"
-
-[node name="LeftMuzzle" type="Marker2D" parent="."]
-
-[node name="RightMuzzle" type="Marker2D" parent="."]
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("4_8f8v2")
@@ -70,3 +68,18 @@ MoveStats = ExtResource("4_l430v")
 [node name="PositionClampComponent" type="Node2D" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("6_rwyts")
 Actor = NodePath("..")
+
+[node name="ShipWeaponManager" type="Node" parent="."]
+script = ExtResource("7_axu33")
+leftMuzzlePath = NodePath("../LeftMuzzle")
+rightMuzzlePath = NodePath("../RightMuzzle")
+centerCannonPath = NodePath("../CenterCannon")
+
+[node name="LeftMuzzle" type="Marker2D" parent="."]
+position = Vector2(-5, -4)
+
+[node name="RightMuzzle" type="Marker2D" parent="."]
+position = Vector2(5, -4)
+
+[node name="CenterCannon" type="Marker2D" parent="."]
+position = Vector2(0, -7)
