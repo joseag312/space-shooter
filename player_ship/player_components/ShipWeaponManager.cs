@@ -8,10 +8,12 @@ public partial class ShipWeaponManager : Node
 	[Export] private NodePath leftMuzzlePath;
 	[Export] private NodePath rightMuzzlePath;
 	[Export] private NodePath centerCannonPath;
+	[Export] private NodePath centerPath;
 
 	private Marker2D leftMuzzle;
 	private Marker2D rightMuzzle;
 	private Marker2D centerCannon;
+	private Marker2D center;
 
 	private PackedScene basicWeapon;
 	private PackedScene largeWeapon;
@@ -25,6 +27,7 @@ public partial class ShipWeaponManager : Node
 		leftMuzzle = GetNode<Marker2D>(leftMuzzlePath);
 		rightMuzzle = GetNode<Marker2D>(rightMuzzlePath);
 		centerCannon = GetNode<Marker2D>(centerCannonPath);
+		center = GetNode<Marker2D>(centerPath);
 		ProcessMode = ProcessModeEnum.Always;
 	}
 
@@ -143,20 +146,24 @@ public partial class ShipWeaponManager : Node
 				switch (weaponData.spawnLocation)
 				{
 					case WeaponData.LeftMuzzle:
-						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition);
+						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition, WeaponData.LeftMuzzle);
 						break;
 
 					case WeaponData.RightMuzzle:
-						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition);
+						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition, WeaponData.RightMuzzle);
 						break;
 
 					case WeaponData.BothMuzzles:
-						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition);
-						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition);
+						SpawnAtPosition(weaponToSpawn, leftMuzzle.GlobalPosition, WeaponData.LeftMuzzle);
+						SpawnAtPosition(weaponToSpawn, rightMuzzle.GlobalPosition, WeaponData.RightMuzzle);
 						break;
 
 					case WeaponData.CenterCannon:
-						SpawnAtPosition(weaponToSpawn, centerCannon.GlobalPosition);
+						SpawnAtPosition(weaponToSpawn, centerCannon.GlobalPosition, WeaponData.CenterCannon);
+						break;
+
+					case WeaponData.Center:
+						SpawnAtPosition(weaponToSpawn, center.GlobalPosition, WeaponData.Center);
 						break;
 
 					default:
@@ -173,11 +180,20 @@ public partial class ShipWeaponManager : Node
 		}
 	}
 
-	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position)
+	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType)
 	{
 		Node2D weaponInstance = (Node2D)weaponScene.Instantiate();
-		weaponInstance.GlobalPosition = position;
 
-		GetTree().CurrentScene.AddChild(weaponInstance);
+		if (locationType == 4)
+		{
+			Node2D ship = GetParent<Node2D>();
+			ship.AddChild(weaponInstance);
+		}
+		else
+		{
+			weaponInstance.GlobalPosition = position;
+			GetTree().CurrentScene.AddChild(weaponInstance);
+		}
 	}
+
 }

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 [GlobalClass]
 public partial class HitboxComponent : Area2D
@@ -16,7 +15,13 @@ public partial class HitboxComponent : Area2D
     private void OnHurtboxEntered(Area2D area)
     {
         if (area is not HurtboxComponent hurtbox) return;
-        if (hurtbox.IsInvincible) return;
+
+        // Get InvincibilityComponent from the parent of the hurtbox
+        InvincibilityComponent invincibility = hurtbox.GetParent().GetNodeOrNull<InvincibilityComponent>("InvincibilityComponent");
+
+        // If the target has invincibility and is currently invincible, ignore the hit
+        if (invincibility != null && invincibility.IsInvincible)
+            return;
 
         EmitSignal(SignalName.HitHurtbox, hurtbox);
         hurtbox.EmitSignal(HurtboxComponent.SignalName.Hurt, this);

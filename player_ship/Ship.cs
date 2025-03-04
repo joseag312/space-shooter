@@ -5,6 +5,8 @@ public partial class Ship : Node2D
 {
 	[Export] private ShipWeaponManager weaponManager;
 	[Export] private MoveComponent moveComponent;
+	[Export] private ScaleComponent scaleComponent;
+	[Export] private HurtboxComponent hurtboxComponent;
 	[Export] private Node2D anchor;
 
 	public override void _Ready()
@@ -51,6 +53,8 @@ public partial class Ship : Node2D
 		{
 			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
+
+		hurtboxComponent.Hurt += OnHurt;
 	}
 
 
@@ -100,5 +104,34 @@ public partial class Ship : Node2D
 				sprite.Play("Center");
 			}
 		}
+	}
+
+	private void OnHurt(HitboxComponent hitboxComponent)
+	{
+		scaleComponent.TweenScale();
+		SpawnDamageText((int)hitboxComponent.Damage);
+	}
+
+	private void SpawnDamageText(int damage)
+	{
+		PackedScene damageTextScene = (PackedScene)ResourceLoader.Load("res://player_ship/ship_damage_text.tscn");
+
+		if (damageTextScene == null)
+		{
+			GD.PrintErr("ERROR: Ship - ship_damage_text.tscn could not be loaded!");
+			return;
+		}
+
+		ShipDamageText damageText = damageTextScene.Instantiate<ShipDamageText>();
+
+		if (damageText == null)
+		{
+			GD.PrintErr("ERROR: Ship - Failed to instantiate DamageText!");
+			return;
+		}
+
+		damageText.GlobalPosition = GlobalPosition + new Vector2(0, -10);
+		damageText.Initialize(damage);
+		GetParent().AddChild(damageText);
 	}
 }

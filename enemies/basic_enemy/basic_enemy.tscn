@@ -73,6 +73,9 @@ Velocity = Vector2(0, 4)
 [node name="StatsComponent" parent="." index="7"]
 Health = 100.0
 
+[node name="HurtComponent" parent="." index="9" node_paths=PackedStringArray("HurtboxComponent")]
+HurtboxComponent = NodePath("../HurtboxComponent")
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." index="10"]
 offset_left = -8.0
 offset_top = -31.0

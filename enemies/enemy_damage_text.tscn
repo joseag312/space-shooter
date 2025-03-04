@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd3y3gvyl8e3f"]
+
+[ext_resource type="Script" path="res://enemies/EnemyDamageText.cs" id="1_wrixg"]
+[ext_resource type="LabelSettings" uid="uid://dvf2hkkr65537" path="res://enemies/enemy_damage_text.tres" id="2_i2mtu"]
+
+[node name="EnemyDamageText" type="Node2D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_wrixg")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("2_i2mtu")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://yoifmlf4jcbl"]
+[gd_scene load_steps=13 format=3 uid="uid://yoifmlf4jcbl"]
 
 [ext_resource type="Script" path="res://enemies/Enemy.cs" id="1_ikbbe"]
 [ext_resource type="Script" path="res://components/MoveComponent.cs" id="1_k0wof"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" path="res://components/StatsComponent.cs" id="4_k76c0"]
 [ext_resource type="Script" path="res://components/ShakeComponent.cs" id="5_ovglp"]
 [ext_resource type="Script" path="res://components/HurtComponent.cs" id="9_ges07"]
+[ext_resource type="Script" path="res://components/DestroyedComponent.cs" id="10_hrmi2"]
+[ext_resource type="Script" path="res://components/SpawnerComponent.cs" id="11_p2q1j"]
+[ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/red_explosion_effect.tscn" id="12_psip7"]
 
 [node name="Enemy" type="Node2D" node_paths=PackedStringArray("statsComponent", "moveComponent", "scaleComponent", "flashComponent", "shakeComponent", "visibleOnScreenNotifier2D", "hurtboxComponent", "hitboxComponent")]
 script = ExtResource("1_ikbbe")
@@ -33,6 +36,7 @@ script = ExtResource("2_1unro")
 [node name="HitboxComponent" type="Area2D" parent="."]
 collision_layer = 0
 script = ExtResource("3_evblg")
+Damage = 25.0
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("1_k0wof")
@@ -54,7 +58,19 @@ Health = 3.0
 script = ExtResource("5_ovglp")
 TargetNode = NodePath("../AnimatedSprite2D")
 
-[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "hurtboxComponent")]
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent")]
 script = ExtResource("9_ges07")
 StatsComponent = NodePath("../StatsComponent")
-hurtboxComponent = NodePath("../HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("Actor", "StatsComponent", "DestroyEffectSpawnerComponent")]
+script = ExtResource("10_hrmi2")
+Actor = NodePath("..")
+StatsComponent = NodePath("../StatsComponent")
+DestroyEffectSpawnerComponent = NodePath("../SpawnerComponent")
+
+[node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
+script = ExtResource("11_p2q1j")
+Location = NodePath("../SpawnerMarker")
+Scene = ExtResource("12_psip7")
+
+[node name="SpawnerMarker" type="Marker2D" parent="."]

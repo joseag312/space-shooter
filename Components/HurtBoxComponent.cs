@@ -5,26 +5,8 @@ public partial class HurtboxComponent : Area2D
 {
     [Signal] public delegate void HurtEventHandler(HitboxComponent hitbox);
 
-    private bool _isInvincible = false;
-
-    public override void _Ready()
+    public void HandleHit(HitboxComponent hitbox)
     {
-        return;
-    }
-
-    public bool IsInvincible
-    {
-        get => _isInvincible;
-        set
-        {
-            _isInvincible = value;
-            foreach (var child in GetChildren())
-            {
-                if (child is not CollisionShape2D && child is not CollisionPolygon2D)
-                    continue;
-
-                child.SetDeferred("disabled", _isInvincible);
-            }
-        }
+        EmitSignal(SignalName.Hurt, hitbox);
     }
 }

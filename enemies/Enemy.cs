@@ -19,7 +19,6 @@ public partial class Enemy : Node2D
 		healthBar.MaxValue = statsComponent.Health;
 		healthBar.Value = statsComponent.Health;
 		hurtboxComponent.Hurt += OnHurt;
-		statsComponent.NoHealth += IsDead;
 
 		AdjustHealthBar();
 	}
@@ -62,11 +61,8 @@ public partial class Enemy : Node2D
 			Height = 5
 		};
 
-		// Update health bar width
 		healthBar.TextureUnder = gradientTextureUnder;
 		healthBar.TextureProgress = gradientTextureProgress;
-
-		// Reposition health bar above the sprite
 		healthBar.Position = new Vector2(-healthBar.TextureUnder.GetSize().X / 2, -spriteSize.Y / 2 - healthBarHeightOffset);
 	}
 
@@ -86,15 +82,15 @@ public partial class Enemy : Node2D
 
 	private void SpawnDamageText(int damage)
 	{
-		PackedScene damageTextScene = (PackedScene)ResourceLoader.Load("res://enemies/damage_text.tscn");
+		PackedScene damageTextScene = (PackedScene)ResourceLoader.Load("res://enemies/enemy_damage_text.tscn");
 
 		if (damageTextScene == null)
 		{
-			GD.PrintErr("ERROR: Enemy - DamageText.tscn could not be loaded!");
+			GD.PrintErr("ERROR: Enemy - enemy_damage_text.tscn could not be loaded!");
 			return;
 		}
 
-		DamageText damageText = damageTextScene.Instantiate<DamageText>();
+		EnemyDamageText damageText = damageTextScene.Instantiate<EnemyDamageText>();
 
 		if (damageText == null)
 		{
@@ -102,25 +98,13 @@ public partial class Enemy : Node2D
 			return;
 		}
 
-		// Set position above the enemy in world space
 		damageText.GlobalPosition = GlobalPosition + new Vector2(0, -10);
-
-		// Initialize with damage value
 		damageText.Initialize(damage);
-
-		// Add to the scene
 		GetParent().AddChild(damageText);
-	}
-
-
-	private void IsDead()
-	{
-		QueueFree();
 	}
 
 	public override void _ExitTree()
 	{
 		hurtboxComponent.Hurt -= OnHurt;
-		statsComponent.NoHealth -= IsDead;
 	}
 }

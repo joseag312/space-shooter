@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://djan3duhgdlxt"]
+
+[ext_resource type="Script" path="res://hud/HUD.cs" id="1_oqp1a"]
+[ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://hud/ship_hud.tres" id="2_htj6a"]
+
+[sub_resource type="Gradient" id="Gradient_7dbq8"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b6nf5"]
+gradient = SubResource("Gradient_7dbq8")
+width = 256
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_csota"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mitiv"]
+gradient = SubResource("Gradient_csota")
+width = 256
+height = 20
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthValue")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_oqp1a")
+healthBar = NodePath("VBoxContainer/TextureProgressBar")
+healthValue = NodePath("VBoxContainer/HBoxContainer/HealthValueLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Health:"
+label_settings = ExtResource("2_htj6a")
+
+[node name="HealthValueLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("2_htj6a")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+texture_under = SubResource("GradientTexture2D_b6nf5")
+texture_progress = SubResource("GradientTexture2D_mitiv")
+tint_under = Color(0.380392, 1, 1, 1)

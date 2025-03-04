@@ -1,10 +1,11 @@
 using Godot;
 
 [GlobalClass]
-public partial class OnetimeAnimatedEffect : AnimatedSprite2D
+public partial class OneTimeAnimatedEffect : AnimatedSprite2D
 {
     public override void _Ready()
     {
         AnimationFinished += QueueFree;
+        AnimationLooped += QueueFree;
     }
 }
