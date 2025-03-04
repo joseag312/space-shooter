@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd3y3gvyl8e3f"]
+
+[ext_resource type="Script" path="res://enemies/DamageText.cs" id="1_wrixg"]
+[ext_resource type="FontFile" uid="uid://ppylm4e12qqg" path="res://fonts/kenney_mini_square.ttf" id="2_uw11w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uft0v"]
+font = ExtResource("2_uw11w")
+font_size = 24
+font_color = Color(1, 0, 0, 1)
+
+[node name="DamageText" type="Node2D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_wrixg")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_uft0v")

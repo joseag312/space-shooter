@@ -3,9 +3,9 @@ using System;
 
 public partial class ScrollingComponent : Node
 {
-	[Export] private ParallaxLayer space;
-	[Export] private ParallaxLayer farStars;
-	[Export] private ParallaxLayer closeStars;
+	[Export] private ParallaxLayer background;
+	[Export] private ParallaxLayer slowLayer;
+	[Export] private ParallaxLayer fastLayer;
 	[Export] private int spaceSpeed = 1;
 	[Export] private int farStarsSpeed = 5;
 	[Export] private int closeStarsSpeed = 30;
@@ -16,9 +16,9 @@ public partial class ScrollingComponent : Node
 
 	public override void _Ready()
 	{
-		spaceOffset = space.MotionOffset;
-		farStarsOffset = farStars.MotionOffset;
-		closeStarsOffset = closeStars.MotionOffset;
+		spaceOffset = background.MotionOffset;
+		farStarsOffset = slowLayer.MotionOffset;
+		closeStarsOffset = fastLayer.MotionOffset;
 	}
 
 	public override void _Process(double delta)
@@ -27,8 +27,8 @@ public partial class ScrollingComponent : Node
 		farStarsOffset.Y += (float)delta * farStarsSpeed;
 		closeStarsOffset.Y += (float)delta * closeStarsSpeed;
 
-		space.MotionOffset = spaceOffset;
-		farStars.MotionOffset = farStarsOffset;
-		closeStars.MotionOffset = closeStarsOffset;
+		background.MotionOffset = spaceOffset;
+		slowLayer.MotionOffset = farStarsOffset;
+		fastLayer.MotionOffset = closeStarsOffset;
 	}
 }

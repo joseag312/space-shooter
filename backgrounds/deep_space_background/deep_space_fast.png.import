@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cisqsv8k7es5c"
-path="res://.godot/imported/far_stars.png-93f409df27ac618a8e5ca0fd4161934c.ctex"
+uid="uid://0xpdgnnbfv4f"
+path="res://.godot/imported/deep_space_fast.png-95e3c4d686a3b448abe7700506c1e757.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/far_stars.png"
-dest_files=["res://.godot/imported/far_stars.png-93f409df27ac618a8e5ca0fd4161934c.ctex"]
+source_file="res://backgrounds/deep_space_background/deep_space_fast.png"
+dest_files=["res://.godot/imported/deep_space_fast.png-95e3c4d686a3b448abe7700506c1e757.ctex"]
 
 [params]
 

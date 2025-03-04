@@ -1,42 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://b55qh23l7bon7"]
+[gd_scene load_steps=10 format=3 uid="uid://b55qh23l7bon7"]
 
 [ext_resource type="PackedScene" uid="uid://yoifmlf4jcbl" path="res://enemies/enemy.tscn" id="1_frij7"]
-[ext_resource type="Texture2D" uid="uid://yp4nppk30tyd" path="res://assets/green_enemy.png" id="2_kbre7"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rharo"]
-atlas = ExtResource("2_kbre7")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xc0fs"]
-atlas = ExtResource("2_kbre7")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6mq2q"]
-atlas = ExtResource("2_kbre7")
-region = Rect2(32, 0, 16, 16)
+[ext_resource type="Texture2D" uid="uid://cm3sx2vtm67v4" path="res://enemies/basic_enemy/basic_enemy.png" id="2_0y7mv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_unh6l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rharo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xc0fs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6mq2q")
+"texture": ExtResource("2_0y7mv")
 }],
 "loop": true,
 "name": &"move",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_204ae"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6rre"]
+radius = 12.0
+height = 52.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a5kwb"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_34phb"]
+radius = 13.0
+height = 52.0
 
 [sub_resource type="Gradient" id="Gradient_h22py"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
@@ -52,24 +36,36 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
 gradient = SubResource("Gradient_tvucr")
 width = 16
 
-[node name="GreenEnemy" node_paths=PackedStringArray("healthBar") instance=ExtResource("1_frij7")]
+[node name="BasicEnemy" node_paths=PackedStringArray("healthBar", "animatedSprite") instance=ExtResource("1_frij7")]
 healthBar = NodePath("TextureProgressBar")
+animatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
 position = Vector2(4.17233e-07, 4.17233e-07)
 scale = Vector2(0.8, 0.8)
 
 [node name="AnimatedSprite2D" parent="." index="1"]
+rotation = 3.14159
 sprite_frames = SubResource("SpriteFrames_unh6l")
 animation = &"move"
 autoplay = "move"
 frame_progress = 0.0280467
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
-shape = SubResource("CircleShape2D_204ae")
+[node name="CollisionShape1" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("CapsuleShape2D_m6rre")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
-shape = SubResource("CircleShape2D_a5kwb")
+[node name="CollisionShape2" type="CollisionShape2D" parent="HurtboxComponent" index="1"]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_34phb")
+
+[node name="CollisionShape1" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CapsuleShape2D_m6rre")
+
+[node name="CollisionShape2" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_34phb")
 
 [node name="MoveComponent" parent="." index="4"]
 Velocity = Vector2(0, 4)
@@ -79,9 +75,9 @@ Health = 100.0
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." index="10"]
 offset_left = -8.0
-offset_top = -11.0
+offset_top = -31.0
 offset_right = 8.0
-offset_bottom = -10.0
+offset_bottom = -29.0
 value = 100.0
 texture_under = SubResource("GradientTexture1D_gosko")
 texture_progress = SubResource("GradientTexture1D_aye05")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pe1gfws3uu4m"
-path="res://.godot/imported/close_stars.png-907b1b678e758e570e24d29e71369769.ctex"
+uid="uid://drwcveosb0n6c"
+path="res://.godot/imported/laser_big.png-dd09b249d37e21e96693eb4ce0eb3498.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/close_stars.png"
-dest_files=["res://.godot/imported/close_stars.png-907b1b678e758e570e24d29e71369769.ctex"]
+source_file="res://player_ship/player_projectiles/big_blue_laser/laser_big.png"
+dest_files=["res://.godot/imported/laser_big.png-dd09b249d37e21e96693eb4ce0eb3498.ctex"]
 
 [params]
 

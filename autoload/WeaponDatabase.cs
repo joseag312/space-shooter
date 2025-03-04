@@ -19,8 +19,8 @@ public partial class WeaponDatabase : Node
 
     private void LoadWeapons()
     {
-        string basicWeaponPath = "res://player_ship/player_projectiles/basic_blue_laser.tscn";
-        string largeWeaponPath = "res://player_ship/player_projectiles/big_blue_laser.tscn";
+        string basicWeaponPath = "res://player_ship/player_projectiles/basic_blue_laser/basic_blue_laser.tscn";
+        string largeWeaponPath = "res://player_ship/player_projectiles/big_blue_laser/big_blue_laser.tscn";
 
         GD.Print("DEBUG: WeaponDatabase - Loading weapons...");
         if (!ResourceLoader.Exists(basicWeaponPath) || !ResourceLoader.Exists(largeWeaponPath))
@@ -36,7 +36,7 @@ public partial class WeaponDatabase : Node
 
         for (int i = 0; i < 4; i++)
         {
-            string specialWeaponPath = "res://player_ship/player_projectiles/basic_blue_laser.tscn";
+            string specialWeaponPath = "res://player_ship/player_projectiles/big_blue_laser/big_blue_laser.tscn";
             SpecialWeapons[i] = (PackedScene)ResourceLoader.Load(specialWeaponPath);
             if (SpecialWeapons[i] == null)
             {

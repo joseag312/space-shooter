@@ -83,14 +83,20 @@ public partial class Ship : Node2D
 		{
 			if (moveComponent.Velocity.X < 0)
 			{
+				RotationDegrees = -5;
+				Skew = Mathf.DegToRad(5);
 				sprite.Play("BankLeft");
 			}
 			else if (moveComponent.Velocity.X > 0)
 			{
+				Skew = Mathf.DegToRad(-5);
+				RotationDegrees = 5;
 				sprite.Play("BankRight");
 			}
 			else
 			{
+				Skew = 0;
+				RotationDegrees = 0;
 				sprite.Play("Center");
 			}
 		}

@@ -16,7 +16,6 @@ public partial class BasicBlueLaser : Node2D
 
 	private void OnLaserHit(HurtboxComponent hurtbox)
 	{
-		GD.Print("Laser hit something! Despawning...");
 		QueueFree();
 	}
 
