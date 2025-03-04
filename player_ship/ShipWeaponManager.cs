@@ -32,13 +32,12 @@ public partial class ShipWeaponManager : Node
 	{
 		if (currentCooldowns.Count == 0)
 		{
-			GD.PrintErr("ERROR: currentCooldowns is EMPTY! Cooldowns aren't being tracked.");
+			GD.PrintErr("ERROR: ShipWeaponManager - currentCooldowns is empty, cooldowns aren't being tracked");
 			return;
 		}
 
 		foreach (var key in currentCooldowns.Keys)
 		{
-			// GD.Print($"DEBUG: Weapon {key} cooldown remaining: {currentCooldowns[key]:F2} seconds");
 			if (currentCooldowns[key] > 0f)
 			{
 				currentCooldowns[key] -= (float)delta;
@@ -52,20 +51,20 @@ public partial class ShipWeaponManager : Node
 
 	public void AssignWeapons(PackedScene basic, PackedScene large, PackedScene[] specials)
 	{
-		GD.Print("DEBUG: AssignWeapons() is being called!");
+		GD.Print("DEBUG: ShipWeaponManager - AssignWeapons() is being called...");
 		if (basic == null)
 		{
-			GD.PrintErr("ERROR: Basic weapon is NULL when assigned!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Basic weapon is NULL when assigned");
 		}
 
 		if (large == null)
 		{
-			GD.PrintErr("ERROR: Large weapon is NULL when assigned!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Large weapon is NULL when assigned");
 		}
 
 		if (specials == null)
 		{
-			GD.PrintErr("ERROR: Special weapons array is NULL when assigned!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Special weapons array is NULL when assigned");
 		}
 
 		basicWeapon = basic;
@@ -84,9 +83,9 @@ public partial class ShipWeaponManager : Node
 		}
 		foreach (var key in weaponCooldowns.Keys)
 		{
-			GD.Print($"DEBUG: Weapon slot {key} has cooldown: {weaponCooldowns[key]}");
+			GD.Print($"DEBUG: ShipWeaponManager - Weapon slot {key} has cooldown: {weaponCooldowns[key]}");
 		}
-		GD.Print($"DEBUG: currentCooldowns initialized with {currentCooldowns.Count} entries.");
+		GD.Print($"DEBUG: ShipWeaponManager - currentCooldowns initialized with {currentCooldowns.Count} entries");
 
 	}
 
@@ -94,7 +93,7 @@ public partial class ShipWeaponManager : Node
 	{
 		if (weaponScene == null)
 		{
-			GD.PrintErr("ERROR: Trying to get cooldown from NULL weapon!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Trying to get cooldown from NULL weapon");
 			return 0.5f;
 		}
 
@@ -103,7 +102,7 @@ public partial class ShipWeaponManager : Node
 
 		if (weaponData == null)
 		{
-			GD.PrintErr($"ERROR: Weapon scene {weaponScene.ResourcePath} has no WeaponData component!");
+			GD.PrintErr($"ERROR: ShipWeaponManager - Weapon scene {weaponScene.ResourcePath} has no WeaponData component");
 			return 0.5f;
 		}
 
@@ -121,7 +120,7 @@ public partial class ShipWeaponManager : Node
 
 		if (leftMuzzle == null || rightMuzzle == null || centerCannon == null)
 		{
-			GD.PrintErr("ERROR: Muzzle points are not assigned in ShipWeaponManager!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Muzzle points are not assigned");
 		}
 
 
@@ -131,7 +130,7 @@ public partial class ShipWeaponManager : Node
 
 		if (weaponToSpawn == null)
 		{
-			GD.PrintErr("ERROR: Weapon slot " + weaponSlot + " is not assigned!");
+			GD.PrintErr("ERROR: ShipWeaponManager - Weapon slot " + weaponSlot + " is not assigned");
 		}
 
 		if (weaponToSpawn != null)
@@ -161,7 +160,7 @@ public partial class ShipWeaponManager : Node
 						break;
 
 					default:
-						GD.PrintErr("ERROR: Unknown weapon spawn location: " + weaponData.spawnLocation);
+						GD.PrintErr("ERROR: ShipWeaponManager - Unknown weapon spawn location in " + weaponData.spawnLocation);
 						return;
 				}
 
@@ -169,7 +168,7 @@ public partial class ShipWeaponManager : Node
 			}
 			else
 			{
-				GD.PrintErr("ERROR: WeaponData component is missing in " + weaponInstance.Name);
+				GD.PrintErr("ERROR: ShipWeaponManager - WeaponData component is missing in " + weaponInstance.Name);
 			}
 		}
 	}

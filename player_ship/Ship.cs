@@ -1,5 +1,4 @@
 using Godot;
-using System.Diagnostics;
 
 [GlobalClass]
 public partial class Ship : Node2D
@@ -14,32 +13,32 @@ public partial class Ship : Node2D
 		{
 			if (WeaponDatabase.Instance.BasicWeapon == null)
 			{
-				GD.PrintErr("ERROR: Basic Weapon is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in WeaponDatabase");
 			}
 
 			if (WeaponDatabase.Instance.LargeWeapon == null)
 			{
-				GD.PrintErr("ERROR: Large Weapon is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in WeaponDatabase");
 			}
 
 			if (WeaponDatabase.Instance.SpecialWeapons[0] == null)
 			{
-				GD.PrintErr("ERROR: Special Weapon 1 is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in WeaponDatabase");
 			}
 
 			if (WeaponDatabase.Instance.SpecialWeapons[1] == null)
 			{
-				GD.PrintErr("ERROR: Special Weapon 2 is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in WeaponDatabase");
 			}
 
 			if (WeaponDatabase.Instance.SpecialWeapons[2] == null)
 			{
-				GD.PrintErr("ERROR: Special Weapon 3 is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in WeaponDatabase");
 			}
 
 			if (WeaponDatabase.Instance.SpecialWeapons[3] == null)
 			{
-				GD.PrintErr("ERROR: Special Weapon 4 is NULL in WeaponDatabase!");
+				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in WeaponDatabase");
 			}
 
 			weaponManager.AssignWeapons(
@@ -50,7 +49,7 @@ public partial class Ship : Node2D
 		}
 		else
 		{
-			GD.PrintErr("ERROR: WeaponManager is NOT assigned to Ship!");
+			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
 	}
 

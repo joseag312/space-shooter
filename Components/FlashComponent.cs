@@ -11,7 +11,7 @@ public partial class FlashComponent : Node
     {
         if (sprite == null)
         {
-            GD.PrintErr("ERROR: Sprite not assigned to Flash Component.");
+            GD.PrintErr("ERROR: FlashComponent - Sprite not assigned to Flash Component");
             return;
         }
 

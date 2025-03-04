@@ -22,17 +22,17 @@ public partial class WeaponDatabase : Node
         string basicWeaponPath = "res://player_ship/player_projectiles/basic_blue_laser.tscn";
         string largeWeaponPath = "res://player_ship/player_projectiles/big_blue_laser.tscn";
 
-        GD.Print("DEBUG: Loading weapons...");
+        GD.Print("DEBUG: WeaponDatabase - Loading weapons...");
         if (!ResourceLoader.Exists(basicWeaponPath) || !ResourceLoader.Exists(largeWeaponPath))
         {
-            GD.PrintErr("ERROR: basicWeaponPath or largeWeaponPath missing.");
+            GD.PrintErr("ERROR: WeaponDatabase - basicWeaponPath or largeWeaponPath missing");
             return;
         }
         BasicWeapon = (PackedScene)ResourceLoader.Load(basicWeaponPath);
         LargeWeapon = (PackedScene)ResourceLoader.Load(largeWeaponPath);
 
-        GD.Print($"DEBUG: Basic Weapon loaded.");
-        GD.Print($"DEBUG: Large Weapon loaded.");
+        GD.Print($"DEBUG: WeaponDatabase - Basic Weapon loaded");
+        GD.Print($"DEBUG: WeaponDatabase - Large Weapon loaded");
 
         for (int i = 0; i < 4; i++)
         {
@@ -40,11 +40,11 @@ public partial class WeaponDatabase : Node
             SpecialWeapons[i] = (PackedScene)ResourceLoader.Load(specialWeaponPath);
             if (SpecialWeapons[i] == null)
             {
-                GD.PrintErr($"ERROR: specialWeaponPath[{i}] missing.");
+                GD.PrintErr($"ERROR: WeaponDatabase - specialWeaponPath[{i}] missing");
             }
             else
             {
-                GD.Print($"DEBUG: Special Weapon [{i}] loaded.");
+                GD.Print($"DEBUG: WeaponDatabase - Special Weapon [{i}] loaded");
             }
 
         }

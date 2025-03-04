@@ -11,7 +11,7 @@ public partial class SpawnerComponent : Node2D
     {
         if (Scene == null)
         {
-            GD.PrintErr("ERROR: The scene export was never set on this spawner component.");
+            GD.PrintErr("ERROR: SpawnerComponent - The scene export was never set on this spawner component");
         }
 
         Node instance = Scene.Instantiate();
