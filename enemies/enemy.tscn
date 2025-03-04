@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://yoifmlf4jcbl"]
+
+[ext_resource type="Script" path="res://enemies/Enemy.cs" id="1_ikbbe"]
+[ext_resource type="Script" path="res://components/MoveComponent.cs" id="1_k0wof"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.cs" id="2_1unro"]
+[ext_resource type="Script" path="res://components/FlashComponent.cs" id="2_r1pgw"]
+[ext_resource type="Script" path="res://components/HitboxComponent.cs" id="3_evblg"]
+[ext_resource type="Script" path="res://components/ScaleComponent.cs" id="3_p88w1"]
+[ext_resource type="Script" path="res://components/StatsComponent.cs" id="4_k76c0"]
+[ext_resource type="Script" path="res://components/ShakeComponent.cs" id="5_ovglp"]
+[ext_resource type="Script" path="res://components/HurtComponent.cs" id="9_ges07"]
+
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("statsComponent", "moveComponent", "scaleComponent", "flashComponent", "shakeComponent", "visibleOnScreenNotifier2D", "hurtboxComponent", "hitboxComponent")]
+script = ExtResource("1_ikbbe")
+statsComponent = NodePath("StatsComponent")
+moveComponent = NodePath("MoveComponent")
+scaleComponent = NodePath("ScaleComponent")
+flashComponent = NodePath("FlashComponent")
+shakeComponent = NodePath("ShakeComponent")
+visibleOnScreenNotifier2D = NodePath("VisibleOnScreenNotifier2D")
+hurtboxComponent = NodePath("HurtboxComponent")
+hitboxComponent = NodePath("HitboxComponent")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_1unro")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("3_evblg")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
+script = ExtResource("1_k0wof")
+Actor = NodePath("..")
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_r1pgw")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_p88w1")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("4_k76c0")
+Health = 3.0
+
+[node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("TargetNode")]
+script = ExtResource("5_ovglp")
+TargetNode = NodePath("../AnimatedSprite2D")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "hurtboxComponent")]
+script = ExtResource("9_ges07")
+StatsComponent = NodePath("../StatsComponent")
+hurtboxComponent = NodePath("../HurtboxComponent")

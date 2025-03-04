@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj7260qvjfsfu"]
+[gd_scene load_steps=10 format=3 uid="uid://bj7260qvjfsfu"]
 
 [ext_resource type="Texture2D" uid="uid://kqgvvgc52iof" path="res://assets/laser_small.png" id="1_34jry"]
 [ext_resource type="Script" path="res://player_ship/player_projectiles/BasicBlueLaser.cs" id="1_raweb"]
@@ -7,11 +7,16 @@
 [ext_resource type="Script" path="res://components/DespawnOnExit.cs" id="4_dahy0"]
 [ext_resource type="Script" path="res://components/FlashComponent.cs" id="5_dvscm"]
 [ext_resource type="Script" path="res://components/ScaleComponent.cs" id="7_op6p4"]
+[ext_resource type="Script" path="res://components/HitboxComponent.cs" id="8_ve46k"]
 
-[node name="Laser" type="Node2D" node_paths=PackedStringArray("scaleComponent", "flashComponent")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmknm"]
+size = Vector2(4, 8)
+
+[node name="Laser" type="Node2D" node_paths=PackedStringArray("scaleComponent", "flashComponent", "hitboxComponent")]
 script = ExtResource("1_raweb")
 scaleComponent = NodePath("ScaleComponent")
 flashComponent = NodePath("FlashComponent")
+hitboxComponent = NodePath("HitboxComponent")
 
 [node name="WeaponData" type="Node" parent="."]
 script = ExtResource("3_6ajjx")
@@ -42,3 +47,14 @@ script = ExtResource("4_dahy0")
 notifierPath = NodePath("../VisibleOnScreenNotifier2D")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.86102e-07, 1)
+scale = Vector2(0.2, 0.4)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_ve46k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_nmknm")

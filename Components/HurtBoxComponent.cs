@@ -7,6 +7,11 @@ public partial class HurtboxComponent : Area2D
 
     private bool _isInvincible = false;
 
+    public override void _Ready()
+    {
+        return;
+    }
+
     public bool IsInvincible
     {
         get => _isInvincible;

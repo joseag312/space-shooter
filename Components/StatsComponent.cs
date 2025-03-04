@@ -16,7 +16,7 @@ public partial class StatsComponent : Node
         {
             _health = value;
             EmitSignal(SignalName.HealthChanged);
-            if (_health == 0)
+            if (_health <= 0)
                 EmitSignal(SignalName.NoHealth);
         }
     }
