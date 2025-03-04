@@ -1,15 +1,15 @@
 # 🚀 [2D Space Shooter Game](https://github.com/GGworkz)  
 
-🎮 **A fast-paced 2D space shooter game built with Godot Engine**  
+🎮 **2D space shooter game built with Godot Engine**  
 
-This project is an arcade-style space shooter where players battle waves of enemies, and collect power-ups to survive.  
+Arcade-style space shooter where players battle waves of enemies, and collect power-ups to survive.  
 
 ---
 
 ## 🛠️ **Tech Stack & Features**  
 
 ### Game Engine:  
-- **Godot Engine** - Open-source and lightweight game development platform  
+- **Godot Engine** - Open-source and lightweight
 
 ### Programming Language:  
 - **C#** - Game logic scripting  
