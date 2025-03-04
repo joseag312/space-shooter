@@ -71,7 +71,7 @@ shape = SubResource("CapsuleShape2D_34phb")
 Velocity = Vector2(0, 4)
 
 [node name="StatsComponent" parent="." index="7"]
-Health = 100.0
+Health = 15.0
 
 [node name="HurtComponent" parent="." index="9" node_paths=PackedStringArray("HurtboxComponent")]
 HurtboxComponent = NodePath("../HurtboxComponent")

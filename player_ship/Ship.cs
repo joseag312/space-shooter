@@ -8,6 +8,7 @@ public partial class Ship : Node2D
 	[Export] private ScaleComponent scaleComponent;
 	[Export] private HurtboxComponent hurtboxComponent;
 	[Export] private Node2D anchor;
+	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
 
 	public override void _Ready()
 	{
@@ -109,7 +110,10 @@ public partial class Ship : Node2D
 	private void OnHurt(HitboxComponent hitboxComponent)
 	{
 		scaleComponent.TweenScale();
-		SpawnDamageText((int)hitboxComponent.Damage);
+		int damageInt = (int)hitboxComponent.Damage;
+		SpawnDamageText(damageInt);
+		float damageFloat = hitboxComponent.Damage;
+		EmitSignal(nameof(HealthChanged), damageFloat);
 	}
 
 	private void SpawnDamageText(int damage)
