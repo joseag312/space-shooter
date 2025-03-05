@@ -65,36 +65,24 @@ public partial class HUD : Control
 		}
 		else
 		{
-
-			// 1️⃣ Change color to yellow immediately
 			tween.TweenProperty(lostHealthBar, "modulate", new Color(4f, 0.5f, 0.5f, 1f), 0.1f)
 				 .SetTrans(Tween.TransitionType.Cubic)
 				 .SetEase(Tween.EaseType.Out);
-
-			// 2️⃣ Flash Effect (Brighten to White)
 			tween.TweenProperty(lostHealthBar, "modulate", new Color(2f, 2f, 2f, 1f), 0.1f)
 				 .SetDelay(0.1f)
 				 .SetTrans(Tween.TransitionType.Bounce)
 				 .SetEase(Tween.EaseType.Out);
-
-			// 3️⃣ Return to Normal Yellow Before Fading
 			tween.TweenProperty(lostHealthBar, "modulate", new Color(0.5f, 0.5f, 0.5f, 1f), 0.1f)
 				 .SetDelay(0.2f)
 				 .SetTrans(Tween.TransitionType.Cubic)
 				 .SetEase(Tween.EaseType.Out);
-
-			// 4️⃣ Fade Out (Alpha to 0)
 			tween.TweenProperty(lostHealthBar, "modulate:a", 0f, 0.4f)
 				 .SetDelay(0.3f)
 				 .SetTrans(Tween.TransitionType.Linear);
-
-			// 5️⃣ Queue Free After Fade
-			tween.TweenCallback(Callable.From(() => lostHealthBar.QueueFree()))
-				 .SetDelay(0.7f);
-
 		}
-		tween.TweenCallback(Callable.From(() => lostHealthBar.QueueFree()))
-			 .SetDelay(0.6f);
-
+		tween.TweenCallback(Callable.From(() =>
+		{
+			if (IsInstanceValid(lostHealthBar)) lostHealthBar.QueueFree();
+		})).SetDelay(0.6f);
 	}
 }

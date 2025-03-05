@@ -148,10 +148,6 @@ MoveStatsComponent = ExtResource("6_bo4hn")
 script = ExtResource("7_d46d2")
 Health = 100.0
 
-[node name="StatsComponent" type="Node" parent="StatsComponent"]
-script = ExtResource("7_d46d2")
-Health = 100.0
-
 [node name="ShipWeaponManager" type="Node" parent="."]
 script = ExtResource("7_axu33")
 leftMuzzlePath = NodePath("../LeftMuzzle")
@@ -173,6 +169,7 @@ DestroyEffectSpawnerComponent = NodePath("../DestroyedSpawnerComponent")
 
 [node name="InvincibilityComponent" type="Node" parent="." node_paths=PackedStringArray("OwnerNode")]
 script = ExtResource("12_wdbwy")
+InvincibilityDuration = 0.4
 OwnerNode = NodePath("..")
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
