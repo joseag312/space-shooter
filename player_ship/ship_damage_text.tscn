@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://l7itd7lom6ic"]
 
 [ext_resource type="Script" path="res://player_ship/ShipDamageText.cs" id="1_uwyk1"]
-[ext_resource type="LabelSettings" uid="uid://d0rqlbc3g4ff1" path="res://player_ship/ship_damage_text.tres" id="2_xgos0"]
+[ext_resource type="LabelSettings" uid="uid://d0rqlbc3g4ff1" path="res://resources/materials/ship_damage_text.tres" id="2_xgos0"]
 
 [node name="ShipDamageText" type="Node2D" node_paths=PackedStringArray("label")]
+z_index = 1
 script = ExtResource("1_uwyk1")
 label = NodePath("Label")
 

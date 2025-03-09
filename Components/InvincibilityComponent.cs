@@ -5,7 +5,7 @@ public partial class InvincibilityComponent : Node
 {
 	private bool _isInvincible = false;
 	private Timer invincibilityTimer;
-	private Tween flashTween; // Store tween to stop it later
+	private Tween flashTween;
 
 	[Export] public float InvincibilityDuration { get; set; } = 1.0f;
 	[Export] public Node2D OwnerNode { get; set; }

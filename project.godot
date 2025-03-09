@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="galaxy-navigator-c"
-run/main_scene="res://world.tscn"
+run/main_scene="res://levels/level1/level_1.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 
 [autoload]
 
 GameStats="*res://autoload/GameStats.cs"
-WeaponManager="*res://autoload/WeaponDatabase.cs"
+WeaponDatabase="*res://autoload/WeaponDatabase.cs"
+ShipStats="*res://autoload/ShipStats.cs"
 
 [display]
 

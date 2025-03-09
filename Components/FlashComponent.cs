@@ -5,7 +5,7 @@ using System.Diagnostics;
 public partial class FlashComponent : Node
 {
     [Export] public Node2D sprite;
-    [Export] private float flashDuration = 0.1f; // Duration of the flash
+    [Export] private float flashDuration = 0.1f;
 
     public void Flash()
     {

@@ -28,8 +28,8 @@ public partial class EnemyDamageText : Node2D
 		label.Text = damageValue.ToString();
 
 		Tween tween = CreateTween();
-		float randomXOffset = (float)GD.RandRange(-1, 1) * 40f;
-		float randomYOffset = (float)GD.RandRange(0.5, 1) * 80f;
+		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 40f;
+		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 80f;
 		Vector2 startPosition = Position;
 		if (damageValue < 10)
 		{

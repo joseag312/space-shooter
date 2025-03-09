@@ -1,6 +1,5 @@
 using Godot;
 
-[GlobalClass]
 public partial class GameStats : Node
 {
 	public static GameStats Instance { get; private set; }
@@ -17,7 +16,7 @@ public partial class GameStats : Node
 		}
 		else
 		{
-			QueueFree(); // Prevent duplicate instances
+			QueueFree();
 		}
 	}
 }

@@ -3,7 +3,8 @@ using Godot;
 [GlobalClass]
 public partial class HitboxComponent : Area2D
 {
-    [Export] public float Damage { get; set; } = 1.0f;
+    [Export] public int Damage { get; set; } = 10;
+    [Export] public int DamagePercentage { get; set; } = 0;
 
     [Signal] public delegate void HitHurtboxEventHandler(HurtboxComponent hurtbox);
 
@@ -16,10 +17,7 @@ public partial class HitboxComponent : Area2D
     {
         if (area is not HurtboxComponent hurtbox) return;
 
-        // Get InvincibilityComponent from the parent of the hurtbox
         InvincibilityComponent invincibility = hurtbox.GetParent().GetNodeOrNull<InvincibilityComponent>("InvincibilityComponent");
-
-        // If the target has invincibility and is currently invincible, ignore the hit
         if (invincibility != null && invincibility.IsInvincible)
             return;
 
@@ -27,3 +25,4 @@ public partial class HitboxComponent : Area2D
         hurtbox.EmitSignal(HurtboxComponent.SignalName.Hurt, this);
     }
 }
+

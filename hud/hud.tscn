@@ -1,10 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://djan3duhgdlxt"]
+[gd_scene load_steps=9 format=3 uid="uid://djan3duhgdlxt"]
 
 [ext_resource type="Script" path="res://hud/HUD.cs" id="1_oqp1a"]
 [ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://hud/ship_hud.tres" id="2_htj6a"]
+[ext_resource type="Texture2D" uid="uid://idjvml13crkq" path="res://assets/gui/health_container.png" id="3_skbei"]
+[ext_resource type="Texture2D" uid="uid://daymh8p1tltwj" path="res://assets/gui/top_frame_edge.png" id="5_8s6b2"]
+
+[sub_resource type="Gradient" id="Gradient_csota"]
+colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mitiv"]
+gradient = SubResource("Gradient_csota")
+width = 256
+height = 20
 
 [sub_resource type="Gradient" id="Gradient_7dbq8"]
-offsets = PackedFloat32Array(0.0104603, 1)
+offsets = PackedFloat32Array(0.0125523, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_b6nf5"]
@@ -12,49 +22,69 @@ gradient = SubResource("Gradient_7dbq8")
 width = 256
 height = 20
 
-[sub_resource type="Gradient" id="Gradient_csota"]
-colors = PackedColorArray(0.196078, 0.627451, 0.862745, 1, 0.196078, 0.627451, 0.862745, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mitiv"]
-gradient = SubResource("Gradient_csota")
-width = 256
-height = 20
-
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthValue")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "backgroundBar", "healthValue")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_oqp1a")
 healthBar = NodePath("VBoxContainer/HealthBarControl/HealthBar")
-healthValue = NodePath("VBoxContainer/HBoxContainer/HealthValueLabel")
+backgroundBar = NodePath("VBoxContainer/HealthBarControl/BackgroundBar")
+healthValue = NodePath("VBoxContainer/HealthBarControl/HealthValueLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.5, 1.5)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="HealthLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Health:"
-label_settings = ExtResource("2_htj6a")
-
-[node name="HealthValueLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-label_settings = ExtResource("2_htj6a")
+[node name="HealthBarContainerSprite2D" type="Sprite2D" parent="VBoxContainer"]
+z_index = 12
+position = Vector2(128.667, 9.75)
+scale = Vector2(0.823045, 1.28947)
+texture = ExtResource("3_skbei")
 
 [node name="HealthBarControl" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(260, 24)
 layout_mode = 2
 
-[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/HealthBarControl"]
+[node name="HealthValueLabel" type="Label" parent="VBoxContainer/HealthBarControl"]
+z_index = 105
 layout_mode = 2
-offset_top = 4.0
+offset_left = 9.33333
+offset_top = 2.0
+offset_right = 10.3333
+offset_bottom = 32.0
+label_settings = ExtResource("2_htj6a")
+
+[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/HealthBarControl"]
+z_index = 10
+layout_mode = 2
 offset_right = 256.0
-offset_bottom = 24.0
-scale = Vector2(1, 1.01015)
-texture_under = SubResource("GradientTexture2D_b6nf5")
+offset_bottom = 20.0
 texture_progress = SubResource("GradientTexture2D_mitiv")
+texture_progress_offset = Vector2(1, 0)
 tint_under = Color(0.380392, 1, 1, 1)
+
+[node name="BackgroundBar" type="TextureProgressBar" parent="VBoxContainer/HealthBarControl"]
+layout_mode = 2
+offset_right = 256.0
+offset_bottom = 20.0
+texture_under = SubResource("GradientTexture2D_b6nf5")
+tint_under = Color(0.380392, 1, 1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = 9
+position = Vector2(99, -19)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_8s6b2")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = 9
+position = Vector2(-22, 34.4435)
+rotation = -1.5708
+scale = Vector2(1.02148, 2.5)
+texture = ExtResource("5_8s6b2")
+flip_h = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

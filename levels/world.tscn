@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctiak2j5gpdd"]
+
+[ext_resource type="PackedScene" uid="uid://cm2ehypi27656" path="res://player_ship/ship.tscn" id="1_30gis"]
+[ext_resource type="PackedScene" uid="uid://djan3duhgdlxt" path="res://hud/hud.tscn" id="4_7ojj4"]
+
+[node name="World" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_30gis")]
+position = Vector2(630, 587)
+
+[node name="HUDCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="HUDCanvasLayer" instance=ExtResource("4_7ojj4")]
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 80.0
+offset_bottom = 76.0

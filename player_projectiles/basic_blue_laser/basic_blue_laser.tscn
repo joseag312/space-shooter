@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://bj7260qvjfsfu"]
+
+[ext_resource type="Texture2D" uid="uid://kqgvvgc52iof" path="res://assets/projectiles/laser_small.png" id="1_34jry"]
+[ext_resource type="Script" path="res://components/MoveComponent.cs" id="2_ysowv"]
+[ext_resource type="Script" path="res://components/WeaponDataComponent.cs" id="3_6ajjx"]
+[ext_resource type="Script" path="res://components/WeaponSpawnComponent.cs" id="3_koscm"]
+[ext_resource type="Script" path="res://components/WeaponDataLoaderComponent.cs" id="4_wmx2p"]
+[ext_resource type="Script" path="res://components/FlashComponent.cs" id="5_dvscm"]
+[ext_resource type="Script" path="res://components/ScaleComponent.cs" id="7_op6p4"]
+[ext_resource type="Script" path="res://components/DespawnOnExitComponent.cs" id="7_yds0b"]
+[ext_resource type="Script" path="res://components/HitboxComponent.cs" id="8_ve46k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmknm"]
+size = Vector2(4, 12)
+
+[node name="BasicBlueLaser" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_34jry")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_ve46k")
+Damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_nmknm")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.86102e-07, 1)
+scale = Vector2(0.2, 0.4)
+
+[node name="WeaponSpawnComponent" type="Node" parent="." node_paths=PackedStringArray("scaleComponent", "flashComponent", "hitboxComponent")]
+script = ExtResource("3_koscm")
+scaleComponent = NodePath("../ScaleComponent")
+flashComponent = NodePath("../FlashComponent")
+hitboxComponent = NodePath("../HitboxComponent")
+
+[node name="WeaponDataComponent" type="Node" parent="."]
+script = ExtResource("3_6ajjx")
+projectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn"
+projectileName = "BasicBlueLaser"
+cooldownTime = 5.0
+spawnLocation = 2
+
+[node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("weaponData", "hitboxComponent")]
+script = ExtResource("4_wmx2p")
+weaponData = NodePath("../WeaponDataComponent")
+hitboxComponent = NodePath("../HitboxComponent")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
+script = ExtResource("2_ysowv")
+Actor = NodePath("..")
+Velocity = Vector2(0, -700)
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_dvscm")
+sprite = NodePath("../Sprite2D")
+flashDuration = 0.2
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("7_op6p4")
+sprite = NodePath("../Sprite2D")
+scaleAmount = Vector2(1.3, 1.3)
+scaleDuration = 0.2
+
+[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("visibleNotifier")]
+script = ExtResource("7_yds0b")
+visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://xemhthflry0"]
+
+[ext_resource type="PackedScene" uid="uid://bj7260qvjfsfu" path="res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn" id="1_yecku"]
+[ext_resource type="Texture2D" uid="uid://drwcveosb0n6c" path="res://assets/projectiles/laser_big.png" id="3_7bjmj"]
+
+[node name="BigBlueLaser" instance=ExtResource("1_yecku")]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_7bjmj")
+
+[node name="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 0)
+
+[node name="WeaponDataComponent" parent="." index="4"]
+projectilePath = "res://player_projectiles/big_blue_laser/big_blue_laser.tscn"
+projectileName = "BigBlueLaser"
+
+[node name="MoveComponent" parent="." index="6"]
+Velocity = Vector2(0, -1000)
+
+[node name="FlashComponent" parent="." index="7"]
+flashDuration = 0.4
+
+[node name="ScaleComponent" parent="." index="8"]
+scaleAmount = Vector2(1.5, 1.5)

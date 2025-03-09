@@ -1,8 +1,10 @@
+using System;
 using Godot;
 
 public partial class HUD : Control
 {
 	[Export] public TextureProgressBar healthBar;
+	[Export] public TextureProgressBar backgroundBar;
 	[Export] private float lostHealthDuration = 0.5f;
 	[Export] public Label healthValue;
 	private StatsComponent shipStats;
@@ -19,29 +21,31 @@ public partial class HUD : Control
 
 		if (shipStats != null)
 		{
-			healthBar.MaxValue = shipStats.Health;
+			healthBar.MaxValue = shipStats.MaxHealth;
 			healthBar.Value = shipStats.Health;
-			healthValue.Text = shipStats.Health.ToString();
+			healthValue.Text = shipStats.Health.ToString() + "/" + shipStats.MaxHealth.ToString();
 		}
 
 		healthBar.Size = new Vector2(200, 200);
-		Position = new Vector2(20, 10);
+		Position = new Vector2(20, 40);
 	}
 
-	private void OnHealthChanged(float damage)
+	private void OnHealthChanged(int damage)
 	{
 		if (shipStats == null) return;
-		healthBar.Value = shipStats.Health;
-		healthValue.Text = shipStats.Health.ToString();
+
+		healthBar.Value = Mathf.Max(shipStats.Health, 0);
+		healthValue.Text = healthBar.Value.ToString() + "/" + healthBar.MaxValue.ToString();
 
 		Gradient gradientUnder = new Gradient();
-		gradientUnder.SetColor(0, new Color(50f / 255f, 160f / 255f, 220f / 255f, 1f));
-		gradientUnder.SetColor(1, new Color(50f / 255f, 160f / 255f, 220f / 255f, 1f));
+		Color hurtColor = new Color(145f / 200, 125f / 255f, 230f / 255f, 1f);
+		gradientUnder.SetColor(0, hurtColor);
+		gradientUnder.SetColor(1, hurtColor);
 		GradientTexture2D gradientTextureUnder = new GradientTexture2D
 		{
 			Gradient = gradientUnder,
-			Width = (int)(healthBar.TextureUnder.GetWidth() * (damage / (float)healthBar.MaxValue)),
-			Height = healthBar.TextureUnder.GetHeight()
+			Width = (int)(backgroundBar.TextureUnder.GetWidth() * ((float)damage / (float)healthBar.MaxValue)),
+			Height = backgroundBar.TextureUnder.GetHeight()
 		};
 		TextureProgressBar lostHealthBar = new TextureProgressBar
 		{
@@ -49,7 +53,8 @@ public partial class HUD : Control
 			MinValue = healthBar.MinValue,
 			MaxValue = healthBar.MaxValue,
 			Value = healthBar.MaxValue,
-			TextureProgressOffset = new Vector2(healthBar.TextureUnder.GetWidth() * (shipStats.Health / (float)healthBar.MaxValue), 0f)
+			TextureProgressOffset = new Vector2(backgroundBar.TextureUnder.GetWidth() * (shipStats.Health / (float)healthBar.MaxValue), 0f),
+			ZIndex = 5
 		};
 		healthBar.GetParent().AddChild(lostHealthBar);
 		lostHealthBar.GlobalPosition = healthBar.GlobalPosition;
@@ -65,7 +70,7 @@ public partial class HUD : Control
 		}
 		else
 		{
-			tween.TweenProperty(lostHealthBar, "modulate", new Color(4f, 0.5f, 0.5f, 1f), 0.1f)
+			tween.TweenProperty(lostHealthBar, "modulate", new Color(1f, 1f, 2f, 1f), 0.1f)
 				 .SetTrans(Tween.TransitionType.Cubic)
 				 .SetEase(Tween.EaseType.Out);
 			tween.TweenProperty(lostHealthBar, "modulate", new Color(2f, 2f, 2f, 1f), 0.1f)

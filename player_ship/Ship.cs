@@ -3,15 +3,18 @@ using Godot;
 [GlobalClass]
 public partial class Ship : Node2D
 {
-	[Export] private ShipWeaponManager weaponManager;
+	[Export] private WeaponManagerComponent weaponManager;
 	[Export] private MoveComponent moveComponent;
 	[Export] private ScaleComponent scaleComponent;
 	[Export] private HurtboxComponent hurtboxComponent;
+	[Export] private StatsComponent statsComponent;
 	[Export] private Node2D anchor;
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
 
 	public override void _Ready()
 	{
+		statsComponent.MaxHealth = ShipStats.Instance.Health;
+		statsComponent.Health = ShipStats.Instance.Health;
 		if (weaponManager != null)
 		{
 			if (WeaponDatabase.Instance.BasicWeapon == null)
@@ -44,25 +47,20 @@ public partial class Ship : Node2D
 				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in WeaponDatabase");
 			}
 
-			weaponManager.AssignWeapons(
-				WeaponDatabase.Instance.BasicWeapon,
-				WeaponDatabase.Instance.LargeWeapon,
-				WeaponDatabase.Instance.SpecialWeapons
-			);
+			weaponManager.AssignWeapons();
 		}
 		else
 		{
 			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
 
-		hurtboxComponent.Hurt += OnHurt;
+		hurtboxComponent.Hurt += UpdateHealth;
 	}
 
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("fire_basic"))
-			weaponManager?.SpawnWeapon(0);
+		weaponManager?.SpawnWeapon(0);
 
 		if (Input.IsActionJustPressed("fire_large"))
 			weaponManager?.SpawnWeapon(1);
@@ -107,35 +105,14 @@ public partial class Ship : Node2D
 		}
 	}
 
-	private void OnHurt(HitboxComponent hitboxComponent)
+	private void UpdateHealth(HitboxComponent hitboxComponent)
 	{
-		scaleComponent.TweenScale();
-		int damageInt = (int)hitboxComponent.Damage;
-		SpawnDamageText(damageInt);
-		float damageFloat = hitboxComponent.Damage;
-		EmitSignal(nameof(HealthChanged), damageFloat);
-	}
-
-	private void SpawnDamageText(int damage)
-	{
-		PackedScene damageTextScene = (PackedScene)ResourceLoader.Load("res://player_ship/ship_damage_text.tscn");
-
-		if (damageTextScene == null)
+		int damage = hitboxComponent.Damage;
+		if (hitboxComponent.DamagePercentage > 0)
 		{
-			GD.PrintErr("ERROR: Ship - ship_damage_text.tscn could not be loaded!");
-			return;
+			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * statsComponent.MaxHealth);
+			damage = Mathf.Max(damage, 1);
 		}
-
-		ShipDamageText damageText = damageTextScene.Instantiate<ShipDamageText>();
-
-		if (damageText == null)
-		{
-			GD.PrintErr("ERROR: Ship - Failed to instantiate DamageText!");
-			return;
-		}
-
-		damageText.GlobalPosition = GlobalPosition + new Vector2(0, -10);
-		damageText.Initialize(damage);
-		GetParent().AddChild(damageText);
+		EmitSignal(nameof(HealthChanged), damage);
 	}
 }

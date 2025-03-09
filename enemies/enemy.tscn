@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://yoifmlf4jcbl"]
+[gd_scene load_steps=17 format=3 uid="uid://yoifmlf4jcbl"]
 
-[ext_resource type="Script" path="res://enemies/Enemy.cs" id="1_ikbbe"]
 [ext_resource type="Script" path="res://components/MoveComponent.cs" id="1_k0wof"]
 [ext_resource type="Script" path="res://components/HurtboxComponent.cs" id="2_1unro"]
 [ext_resource type="Script" path="res://components/FlashComponent.cs" id="2_r1pgw"]
@@ -12,19 +11,23 @@
 [ext_resource type="Script" path="res://components/DestroyedComponent.cs" id="10_hrmi2"]
 [ext_resource type="Script" path="res://components/SpawnerComponent.cs" id="11_p2q1j"]
 [ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/red_explosion_effect.tscn" id="12_psip7"]
+[ext_resource type="Script" path="res://components/HealthBarComponent.cs" id="13_d7qd4"]
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("statsComponent", "moveComponent", "scaleComponent", "flashComponent", "shakeComponent", "visibleOnScreenNotifier2D", "hurtboxComponent", "hitboxComponent")]
-script = ExtResource("1_ikbbe")
-statsComponent = NodePath("StatsComponent")
-moveComponent = NodePath("MoveComponent")
-scaleComponent = NodePath("ScaleComponent")
-flashComponent = NodePath("FlashComponent")
-shakeComponent = NodePath("ShakeComponent")
-visibleOnScreenNotifier2D = NodePath("VisibleOnScreenNotifier2D")
-hurtboxComponent = NodePath("HurtboxComponent")
-hitboxComponent = NodePath("HitboxComponent")
+[sub_resource type="Gradient" id="Gradient_h22py"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q0xs6"]
+gradient = SubResource("Gradient_h22py")
+width = 16
+
+[sub_resource type="Gradient" id="Gradient_tvucr"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_27onc"]
+gradient = SubResource("Gradient_tvucr")
+width = 16
+
+[node name="Enemy" type="Node2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
@@ -36,7 +39,15 @@ script = ExtResource("2_1unro")
 [node name="HitboxComponent" type="Area2D" parent="."]
 collision_layer = 0
 script = ExtResource("3_evblg")
-Damage = 25.0
+
+[node name="SpawnerMarker" type="Marker2D" parent="."]
+
+[node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
+script = ExtResource("11_p2q1j")
+Location = NodePath("../SpawnerMarker")
+Scene = ExtResource("12_psip7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("1_k0wof")
@@ -52,15 +63,16 @@ sprite = NodePath("../AnimatedSprite2D")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("4_k76c0")
-Health = 3.0
 
 [node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("TargetNode")]
 script = ExtResource("5_ovglp")
 TargetNode = NodePath("../AnimatedSprite2D")
 
-[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent")]
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "HurtboxComponent")]
 script = ExtResource("9_ges07")
 StatsComponent = NodePath("../StatsComponent")
+HurtboxComponent = NodePath("../HurtboxComponent")
+DamageTextPath = "res://enemies/enemy_damage_text.tscn"
 
 [node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("Actor", "StatsComponent", "DestroyEffectSpawnerComponent")]
 script = ExtResource("10_hrmi2")
@@ -68,9 +80,20 @@ Actor = NodePath("..")
 StatsComponent = NodePath("../StatsComponent")
 DestroyEffectSpawnerComponent = NodePath("../SpawnerComponent")
 
-[node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
-script = ExtResource("11_p2q1j")
-Location = NodePath("../SpawnerMarker")
-Scene = ExtResource("12_psip7")
+[node name="HealthBarComponent" type="Node" parent="." node_paths=PackedStringArray("statsComponent", "scaleComponent", "flashComponent", "hurtboxComponent", "healthBar", "animatedSprite")]
+script = ExtResource("13_d7qd4")
+statsComponent = NodePath("../StatsComponent")
+scaleComponent = NodePath("../ScaleComponent")
+flashComponent = NodePath("../FlashComponent")
+hurtboxComponent = NodePath("../HurtboxComponent")
+healthBar = NodePath("../HealthBarProgressBar")
+animatedSprite = NodePath("../AnimatedSprite2D")
 
-[node name="SpawnerMarker" type="Marker2D" parent="."]
+[node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -31.0
+offset_right = 8.0
+offset_bottom = -29.0
+value = 100.0
+texture_under = SubResource("GradientTexture1D_q0xs6")
+texture_progress = SubResource("GradientTexture1D_27onc")

@@ -3,13 +3,9 @@ using Godot;
 public partial class Enemy : Node2D
 {
 	[Export] private StatsComponent statsComponent;
-	[Export] private MoveComponent moveComponent;
 	[Export] private ScaleComponent scaleComponent;
 	[Export] private FlashComponent flashComponent;
-	[Export] private ShakeComponent shakeComponent;
-	[Export] private VisibleOnScreenNotifier2D visibleOnScreenNotifier2D;
 	[Export] private HurtboxComponent hurtboxComponent;
-	[Export] private HitboxComponent hitboxComponent;
 	[Export] private TextureProgressBar healthBar;
 	[Export] private AnimatedSprite2D animatedSprite;
 	private float healthBarHeightOffset = 10f;
@@ -75,32 +71,7 @@ public partial class Enemy : Node2D
 	{
 		scaleComponent.TweenScale();
 		flashComponent.Flash();
-		shakeComponent.TweenShake();
 		UpdateHealthBar();
-		SpawnDamageText((int)hitboxComponent.Damage);
-	}
-
-	private void SpawnDamageText(int damage)
-	{
-		PackedScene damageTextScene = (PackedScene)ResourceLoader.Load("res://enemies/enemy_damage_text.tscn");
-
-		if (damageTextScene == null)
-		{
-			GD.PrintErr("ERROR: Enemy - enemy_damage_text.tscn could not be loaded!");
-			return;
-		}
-
-		EnemyDamageText damageText = damageTextScene.Instantiate<EnemyDamageText>();
-
-		if (damageText == null)
-		{
-			GD.PrintErr("ERROR: Enemy - Failed to instantiate DamageText!");
-			return;
-		}
-
-		damageText.GlobalPosition = GlobalPosition + new Vector2(0, -10);
-		damageText.Initialize(damage);
-		GetParent().AddChild(damageText);
 	}
 
 	public override void _ExitTree()
