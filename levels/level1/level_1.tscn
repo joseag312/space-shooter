@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://ctiak2j5gpdd" path="res://levels/world.tscn" id="1_tj7e4"]
 [ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/deep_space_background/deep_space_background.tscn" id="2_6iirn"]
-[ext_resource type="Script" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
-[ext_resource type="Script" path="res://components/SpawnerComponent.cs" id="2_loufh"]
+[ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
+[ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
 [ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/basic_enemy/basic_enemy.tscn" id="4_kw6hg"]
 [ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/basic_enemy/basic_enemy_slow.tscn" id="6_1a4kf"]
 

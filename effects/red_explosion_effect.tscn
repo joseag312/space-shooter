@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://b3w8nydcibgec"]
 
 [ext_resource type="Texture2D" uid="uid://csmyyddjg8x7j" path="res://assets/effects/explosions_1.png" id="1_ki35f"]
-[ext_resource type="Script" path="res://components/OneTimeAnimatedEffect.cs" id="2_feilo"]
+[ext_resource type="Script" uid="uid://bcmy8xsjbnpi3" path="res://components/OneTimeAnimatedEffect.cs" id="2_feilo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgcoq"]
 atlas = ExtResource("1_ki35f")

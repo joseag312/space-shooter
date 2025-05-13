@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://uwm62ooy0apb"]
 
-[ext_resource type="Script" path="res://components/ScrollingComponent.cs" id="1_fg3k3"]
+[ext_resource type="Script" uid="uid://cl63fdr5i2w3j" path="res://components/ScrollingComponent.cs" id="1_fg3k3"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
