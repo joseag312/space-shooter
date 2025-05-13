@@ -23,6 +23,7 @@ public partial class SpawnerComponent : Node2D
             node2D.GlobalPosition = globalSpawnPosition;
         }
 
+        instance.AddToGroup("despawnable");
         return instance;
     }
 }

@@ -3,8 +3,8 @@ using Godot;
 public partial class ShipDamageText : Node2D
 {
 	[Export] private Label label;
-	[Export] private float moveSpeed = 80f;
-	[Export] private float fadeDuration = 0.7f;
+	[Export] private float moveSpeed = 40f;
+	[Export] private float fadeDuration = 0.3f;
 
 	private int damageValue;
 	private bool initialized = false;
@@ -28,11 +28,11 @@ public partial class ShipDamageText : Node2D
 		label.Text = damageValue.ToString();
 
 		Tween tween = CreateTween();
-		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 25f;
-		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 40f;
+		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 10f;
+		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 15f;
 
 		int direction = GD.RandRange(0, 1) == 0 ? -1 : 1;
-		float damageOffset = 36 * ((damageValue / 10) + 1) * direction;
+		float damageOffset = 24 * ((damageValue / 10) + 1) * direction;
 
 		Position += new Vector2(damageOffset, 0);
 		Vector2 targetPosition = Position + new Vector2(randomXOffset, -randomYOffset);

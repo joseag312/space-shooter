@@ -9,10 +9,15 @@ public partial class DespawnOnExitComponent : Node
 	{
 		if (visibleNotifier == null)
 		{
-			GD.PrintErr("ERROR: DespawnOnExitComponet - No notifier assigned");
+			GD.PrintErr("ERROR: DespawnOnExitComponent - No notifier assigned");
 			return;
 		}
 		visibleNotifier.ScreenExited += Despawn;
+	}
+
+	public override void _Process(double delta)
+	{
+
 	}
 
 	private void Despawn()

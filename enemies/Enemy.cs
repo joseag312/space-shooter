@@ -15,7 +15,7 @@ public partial class Enemy : Node2D
 		healthBar.MaxValue = statsComponent.Health;
 		healthBar.Value = statsComponent.Health;
 		hurtboxComponent.Hurt += OnHurt;
-
+		AddToGroup("despawnable");
 		AdjustHealthBar();
 	}
 

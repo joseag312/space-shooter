@@ -4,8 +4,8 @@ public partial class ShipStats : Node
 {
 	public static ShipStats Instance { get; private set; }
 
-	[Export] public int Health { get; set; } = 300;
-	[Export] public int Speed { get; set; } = 350;
+	[Export] public int Health { get; set; } = 25;
+	[Export] public int Speed { get; set; } = 250;
 
 	public override void _Ready()
 	{

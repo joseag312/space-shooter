@@ -11,6 +11,7 @@ public partial class BasicBlueLaser : Node2D
 		flashComponent.Flash();
 		scaleComponent.TweenScale();
 		hitboxComponent.HitHurtbox += OnLaserHit;
+		AddToGroup("despawnable");
 	}
 
 	private void OnLaserHit(HurtboxComponent hurtbox)

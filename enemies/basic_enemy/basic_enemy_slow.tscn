@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bosg8wcpy205u"]
+[gd_scene load_steps=23 format=3 uid="uid://bosg8wcpy205u"]
 
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="1_s71b3"]
 [ext_resource type="Texture2D" uid="uid://cm3sx2vtm67v4" path="res://assets/enemies/basic_enemy_slow.png" id="2_ud4ay"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dq0illjjctl11" path="res://components/DestroyedComponent.cs" id="11_d6be0"]
 [ext_resource type="Script" uid="uid://cuxaexqd1d274" path="res://components/HealthBarComponent.cs" id="12_5jflx"]
 [ext_resource type="Script" uid="uid://bv0abqlho38ta" path="res://components/PersistenceComponent.cs" id="13_4bnn2"]
+[ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="15_7a6an"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i1mwl"]
 atlas = ExtResource("2_ud4ay")
@@ -135,6 +136,11 @@ flashComponent = NodePath("../FlashComponent")
 hurtboxComponent = NodePath("../HurtboxComponent")
 healthBar = NodePath("../HealthBarProgressBar")
 animatedSprite = NodePath("../AnimatedSprite2D")
+
+[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("visibleNotifier")]
+script = ExtResource("15_7a6an")
+visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
+metadata/_custom_type_script = "uid://c0p7rysr544jk"
 
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0

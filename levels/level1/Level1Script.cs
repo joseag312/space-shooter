@@ -7,6 +7,7 @@ public partial class Level1Script : Node
 	[Export] SpawnerComponent Enemy1Spawner;
 	[Export] SpawnerComponent Enemy2Spawner;
 	[Export] SpawnerComponent Enemy3Spawner;
+	private double cleanupTimer = 0.0;
 	private bool ShouldSpawn1;
 	private bool ShouldSpawn2;
 	private bool ShouldSpawn3;
@@ -123,5 +124,28 @@ public partial class Level1Script : Node
 
 		tempEnemy.QueueFree();
 		return spriteWidth;
+	}
+
+	public override void _Process(double delta)
+	{
+		cleanupTimer += delta;
+		if (cleanupTimer >= 1.0)
+		{
+			cleanupTimer = 0;
+			CleanupOffscreenEnemies();
+		}
+	}
+
+	private void CleanupOffscreenEnemies()
+	{
+		var viewportRect = GetViewport().GetVisibleRect();
+
+		foreach (var child in GetTree().GetNodesInGroup("despawnable"))
+		{
+			if (child is Node2D node2D && !viewportRect.HasPoint(node2D.GlobalPosition))
+			{
+				node2D.QueueFree();
+			}
+		}
 	}
 }

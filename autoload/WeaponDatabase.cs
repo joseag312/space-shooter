@@ -42,7 +42,7 @@ public partial class WeaponDatabase : Node
         WeaponDataComponent basicLaser = new WeaponDataComponent();
         basicLaser.damage = 1;
         basicLaser.damagePercentage = 0;
-        basicLaser.cooldownTime = 0.2f;
+        basicLaser.cooldownTime = 0.3f;
         basicLaser.spawnLocation = 2;
         basicLaser.projectileName = "BasicBlueLaser";
         basicLaser.projectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn";

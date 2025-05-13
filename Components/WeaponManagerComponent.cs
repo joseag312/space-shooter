@@ -141,6 +141,8 @@ public partial class WeaponManagerComponent : Node
 			weaponInstance.GlobalPosition = position;
 			GetTree().CurrentScene.AddChild(weaponInstance);
 		}
+
+		weaponInstance.AddToGroup("despawnable");
 	}
 
 }
