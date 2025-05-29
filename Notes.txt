@@ -1,0 +1,12 @@
+I want to do a Main Loading Screen and a Game Over Screen
+I want to do the title "OIIA, sure"
+I want to create the drops system, upon an enemy being destroyed by a weapon
+I want to do the cash system
+I want to create 4 different weapons
+    Teleport
+    Missile for AOE
+    Death Ray
+    Shield
+I want to adapt the touch GUI
+I want to build 10 levels
+I want to make the game run on my phone
