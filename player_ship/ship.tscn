@@ -103,7 +103,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager", "moveComponent", "scaleComponent", "hurtboxComponent", "statsComponent", "anchor")]
+[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager", "moveComponent", "scaleComponent", "hurtboxComponent", "statsComponent", "positionClampComponent", "anchor")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_pfwoo")
 weaponManager = NodePath("WeaponManagerComponent")
@@ -111,6 +111,7 @@ moveComponent = NodePath("MoveComponent")
 scaleComponent = NodePath("ScaleComponent")
 hurtboxComponent = NodePath("HurtboxComponent")
 statsComponent = NodePath("StatsComponent")
+positionClampComponent = NodePath("PositionClampComponent")
 anchor = NodePath("Anchor")
 
 [node name="Anchor" type="Node2D" parent="."]

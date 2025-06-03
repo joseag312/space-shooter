@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds4yswdh8nefc"]
+[gd_scene load_steps=6 format=3 uid="uid://ds4yswdh8nefc"]
 
 [ext_resource type="PackedScene" uid="uid://ctiak2j5gpdd" path="res://levels/world.tscn" id="1_tj7e4"]
-[ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/deep_space_background/deep_space_background.tscn" id="2_6iirn"]
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
 [ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/basic_enemy/basic_enemy.tscn" id="4_kw6hg"]
@@ -9,11 +8,12 @@
 
 [node name="Level1" instance=ExtResource("1_tj7e4")]
 
-[node name="Level1Script" type="Node" parent="." index="0" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner")]
+[node name="Level1Script" type="Node" parent="." index="0" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "ship")]
 script = ExtResource("2_f645t")
 Enemy1Spawner = NodePath("../BasicEnemySpawner")
 Enemy2Spawner = NodePath("../BasicEnemySlowSpawner")
 Enemy3Spawner = NodePath("../BasicEnemySpawner")
+ship = NodePath("../Ship")
 
 [node name="BasicEnemySpawner" type="Node2D" parent="." index="1"]
 script = ExtResource("2_loufh")
@@ -23,9 +23,13 @@ Scene = ExtResource("4_kw6hg")
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
 
-[node name="DeepSpaceBackground" parent="." index="5" instance=ExtResource("2_6iirn")]
+[node name="Ship" parent="." index="3"]
+position = Vector2(654, 824)
 
-[node name="BasicEnemyTimer" type="Timer" parent="." index="6"]
+[node name="HUD" parent="HUDCanvasLayer" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="BasicEnemyTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
 one_shot = true
 autostart = true

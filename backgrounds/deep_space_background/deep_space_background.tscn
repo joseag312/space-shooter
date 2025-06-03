@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmkyj16lllnex"]
 
 [ext_resource type="PackedScene" uid="uid://uwm62ooy0apb" path="res://backgrounds/parallax_background.tscn" id="1_cdox1"]
-[ext_resource type="Texture2D" uid="uid://bgmflnq8a5kin" path="res://backgrounds/deep_space_background/deep_space_background.png" id="2_jqv42"]
+[ext_resource type="Texture2D" uid="uid://bgmflnq8a5kin" path="res://backgrounds/deep_space_background/deep_space_stars.png" id="2_jqv42"]
 [ext_resource type="Texture2D" uid="uid://c16eanbx31r6w" path="res://backgrounds/deep_space_background/deep_space_slow.png" id="3_hebfp"]
 [ext_resource type="Texture2D" uid="uid://0xpdgnnbfv4f" path="res://backgrounds/deep_space_background/deep_space_fast.png" id="4_j1mgw"]
 

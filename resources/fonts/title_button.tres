@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://4x047p8dhtyw"]
+
+[ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/Orbitron-VariableFont_wght.ttf" id="1_8o5ag"]
+
+[resource]
+font = ExtResource("1_8o5ag")
+font_size = 48
+outline_color = Color(0.988957, 0.988957, 0.988957, 1)
+shadow_size = 0
+shadow_color = Color(1, 0.306232, 0.242456, 0)

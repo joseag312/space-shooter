@@ -8,11 +8,14 @@ public partial class Ship : Node2D
 	[Export] private ScaleComponent scaleComponent;
 	[Export] private HurtboxComponent hurtboxComponent;
 	[Export] private StatsComponent statsComponent;
+	[Export] private PositionClampComponent positionClampComponent;
 	[Export] private Node2D anchor;
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
+	private bool readyToFire = false;
 
 	public override void _Ready()
 	{
+		AnimateShipEntry(this);
 		statsComponent.MaxHealth = ShipStats.Instance.Health;
 		statsComponent.Health = ShipStats.Instance.Health;
 		if (weaponManager != null)
@@ -60,22 +63,25 @@ public partial class Ship : Node2D
 
 	public override void _Process(double delta)
 	{
-		weaponManager?.SpawnWeapon(0);
+		if (readyToFire)
+		{
+			weaponManager?.SpawnWeapon(0);
 
-		if (Input.IsActionJustPressed("fire_large"))
-			weaponManager?.SpawnWeapon(1);
+			if (Input.IsActionJustPressed("fire_large"))
+				weaponManager?.SpawnWeapon(1);
 
-		if (Input.IsActionJustPressed("fire_special_1"))
-			weaponManager?.SpawnWeapon(2);
+			if (Input.IsActionJustPressed("fire_special_1"))
+				weaponManager?.SpawnWeapon(2);
 
-		if (Input.IsActionJustPressed("fire_special_2"))
-			weaponManager?.SpawnWeapon(3);
+			if (Input.IsActionJustPressed("fire_special_2"))
+				weaponManager?.SpawnWeapon(3);
 
-		if (Input.IsActionJustPressed("fire_special_3"))
-			weaponManager?.SpawnWeapon(4);
+			if (Input.IsActionJustPressed("fire_special_3"))
+				weaponManager?.SpawnWeapon(4);
 
-		if (Input.IsActionJustPressed("fire_special_4"))
-			weaponManager?.SpawnWeapon(5);
+			if (Input.IsActionJustPressed("fire_special_4"))
+				weaponManager?.SpawnWeapon(5);
+		}
 
 		AnimateShip();
 	}
@@ -114,5 +120,31 @@ public partial class Ship : Node2D
 			damage = Mathf.Max(damage, 1);
 		}
 		EmitSignal(nameof(HealthChanged), damage);
+	}
+
+	public async void AnimateShipEntry(Node2D ship)
+	{
+		positionClampComponent.Enabled = false;
+		ship.Position = new Vector2(640, 1080);
+
+		var tween = GetTree().CreateTween();
+		tween.TweenProperty(ship, "position", new Vector2(640, 600), 1.0f)
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+
+		await ToSignal(tween, "finished");
+
+		positionClampComponent.Enabled = true;
+		StartFiring();
+	}
+
+	public void StopFiring()
+	{
+		readyToFire = false;
+	}
+
+	public void StartFiring()
+	{
+		readyToFire = true;
 	}
 }

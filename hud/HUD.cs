@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class HUD : Control
@@ -12,6 +14,7 @@ public partial class HUD : Control
 
 	public override void _Ready()
 	{
+		FadeIn(this);
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
 		if (ship != null)
 		{
@@ -90,4 +93,44 @@ public partial class HUD : Control
 			if (IsInstanceValid(lostHealthBar)) lostHealthBar.QueueFree();
 		})).SetDelay(0.6f);
 	}
+
+	public async Task FadeIn(CanvasItem root, float duration = 0.5f)
+	{
+		var canvasItems = new List<CanvasItem>();
+		CollectCanvasItems(root, canvasItems);
+
+		foreach (var item in canvasItems)
+		{
+			item.Visible = false;
+			item.Modulate = new Color(item.Modulate.R, item.Modulate.G, item.Modulate.B, 0f);
+		}
+
+		await ToSignal(GetTree(), "process_frame");
+
+		foreach (var item in canvasItems)
+			item.Visible = true;
+
+		var completed = 0;
+		var total = canvasItems.Count;
+
+		foreach (var item in canvasItems)
+		{
+			var tween = GetTree().CreateTween();
+			tween.TweenProperty(item, "modulate:a", 1f, duration);
+			tween.Finished += () => completed++;
+		}
+
+		while (completed < total)
+			await ToSignal(GetTree(), "process_frame");
+	}
+
+	private void CollectCanvasItems(Node node, List<CanvasItem> list)
+	{
+		if (node is CanvasItem item)
+			list.Add(item);
+
+		foreach (var child in node.GetChildren())
+			CollectCanvasItems(child, list);
+	}
+
 }

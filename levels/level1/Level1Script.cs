@@ -4,6 +4,7 @@ using Godot;
 
 public partial class Level1Script : Node
 {
+	[Export] Ship ship;
 	[Export] SpawnerComponent Enemy1Spawner;
 	[Export] SpawnerComponent Enemy2Spawner;
 	[Export] SpawnerComponent Enemy3Spawner;
@@ -18,10 +19,21 @@ public partial class Level1Script : Node
 
 	public override void _Ready()
 	{
+		MenuBackground.Instance.UnblockInput();
 		margin = 8;
 		leftBorder = margin;
 		rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - margin;
 		levelScript();
+	}
+
+	public override void _Process(double delta)
+	{
+		cleanupTimer += delta;
+		if (cleanupTimer >= 1.0)
+		{
+			cleanupTimer = 0;
+			CleanupOffscreenEnemies();
+		}
 	}
 
 	private async void levelScript()
@@ -124,16 +136,6 @@ public partial class Level1Script : Node
 
 		tempEnemy.QueueFree();
 		return spriteWidth;
-	}
-
-	public override void _Process(double delta)
-	{
-		cleanupTimer += delta;
-		if (cleanupTimer >= 1.0)
-		{
-			cleanupTimer = 0;
-			CleanupOffscreenEnemies();
-		}
 	}
 
 	private void CleanupOffscreenEnemies()

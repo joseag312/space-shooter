@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1b53yfc4sd67"]
+
+[ext_resource type="PackedScene" uid="uid://uwm62ooy0apb" path="res://backgrounds/parallax_background.tscn" id="1_811hq"]
+[ext_resource type="Texture2D" uid="uid://bgmflnq8a5kin" path="res://backgrounds/deep_space_background/deep_space_stars.png" id="2_u6ny1"]
+[ext_resource type="Script" uid="uid://c0hx4vrlqhq7d" path="res://backgrounds/menu_background/MenuBackground.cs" id="2_uf2qx"]
+[ext_resource type="Texture2D" uid="uid://c16eanbx31r6w" path="res://backgrounds/deep_space_background/deep_space_slow.png" id="3_tn3ya"]
+[ext_resource type="Texture2D" uid="uid://0xpdgnnbfv4f" path="res://backgrounds/deep_space_background/deep_space_fast.png" id="4_a7axm"]
+
+[node name="MenuBackground" node_paths=PackedStringArray("starLayer", "slowLayer", "fastLayer", "fadeBlack", "inputBlocker") instance=ExtResource("1_811hq")]
+script = ExtResource("2_uf2qx")
+starLayer = NodePath("Background")
+slowLayer = NodePath("SlowLayer")
+fastLayer = NodePath("FastLayer")
+fadeBlack = NodePath("FadeOverlay")
+inputBlocker = NodePath("InputBlockerWrapper/InputBlocker")
+
+[node name="ScrollingComponent" parent="." index="0"]
+spaceSpeed = 10
+farStarsSpeed = 20
+closeStarsSpeed = 60
+
+[node name="BlackOverlay" type="ColorRect" parent="." index="1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundTexture" parent="Background" index="0"]
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("2_u6ny1")
+
+[node name="SlowLayerTexture" parent="SlowLayer" index="0"]
+texture = ExtResource("3_tn3ya")
+
+[node name="FastLayerTexture" parent="FastLayer" index="0"]
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("4_a7axm")
+expand_mode = 2
+
+[node name="FadeOverlay" type="ColorRect" parent="." index="5"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="InputBlockerWrapper" type="CanvasLayer" parent="." index="6"]
+layer = 10
+
+[node name="InputBlocker" type="Control" parent="InputBlockerWrapper" index="0"]
+visible = false
+z_index = 4096
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
