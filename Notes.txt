@@ -1,5 +1,4 @@
-I want to do a Main Loading Screen and a Game Over Screen
-I want to do the title "OIIA, sure"
+I want to make a loading scene before loading the level
 I want to create the drops system, upon an enemy being destroyed by a weapon
 I want to do the cash system
 I want to create 4 different weapons

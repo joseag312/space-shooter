@@ -19,7 +19,7 @@ config/features=PackedStringArray("4.4", "C#", "Mobile")
 GameStats="*res://autoload/GameStats.cs"
 WeaponDatabase="*res://autoload/WeaponDatabase.cs"
 ShipStats="*res://autoload/ShipStats.cs"
-MenuBackground="*res://backgrounds/menu_background/menu_background.tscn"
+MenuBackground="*res://autoload/menu_background/menu_background.tscn"
 
 [display]
 

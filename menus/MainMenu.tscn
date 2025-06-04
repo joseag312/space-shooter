@@ -1,9 +1,74 @@
-[gd_scene load_steps=113 format=3 uid="uid://c632ptddagx6c"]
+[gd_scene load_steps=115 format=3 uid="uid://c632ptddagx6c"]
 
 [ext_resource type="Script" uid="uid://sopuvbwbgiek" path="res://menus/MainMenu.cs" id="1_ot3ob"]
+[ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/title_black.tres" id="2_e2awe"]
 [ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/oiia-cat.png" id="3_218cn"]
-[ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/Orbitron-VariableFont_wght.ttf" id="3_vp83o"]
+[ext_resource type="Texture2D" uid="uid://c163cpn2ftkt" path="res://assets/gui/Logo 2.png" id="3_e2awe"]
+[ext_resource type="LabelSettings" uid="uid://dsic76ebx4uvq" path="res://resources/fonts/title_white.tres" id="3_vp83o"]
 [ext_resource type="LabelSettings" uid="uid://4x047p8dhtyw" path="res://resources/fonts/title_button.tres" id="4_vp83o"]
+
+[sub_resource type="Animation" id="Animation_218cn"]
+resource_name = "FadeIn"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(11.8667, 13),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.53333, 7.46667, 13),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [1.0],
+"method": &"FadeInWhite"
+}, {
+"args": [3.0],
+"method": &"FadeOutWhite"
+}, {
+"args": [],
+"method": &"FadeInStars"
+}, {
+"args": [],
+"method": &"UnblockInput"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../OpeningLayer1/OpeningContainer1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.833333, 2, 3.63333, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../OpeningLayer2/OpeningContainer2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(4.6, 6.83333, 11.0667, 11.7667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_vp83o"]
 resource_name = "FadeOut"
@@ -14,7 +79,7 @@ tracks/0/path = NodePath("MainContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 0.5),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -48,10 +113,35 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../OpeningLayer1/OpeningContainer1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../OpeningLayer2/OpeningContainer2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lb38e"]
 _data = {
-&"FadeOut": SubResource("Animation_vp83o"),
+&"MainMenuLoad": SubResource("Animation_218cn"),
+&"MenuFadeOut": SubResource("Animation_vp83o"),
 &"RESET": SubResource("Animation_e2awe")
 }
 
@@ -784,14 +874,6 @@ animations = [{
 "speed": 28.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_e2awe"]
-font = ExtResource("3_vp83o")
-font_size = 128
-font_color = Color(0, 1, 1, 1)
-outline_color = Color(0.988957, 0.988957, 0.988957, 1)
-shadow_size = 0
-shadow_color = Color(1, 0.306232, 0.242456, 0)
-
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "settingsButton", "quitButton", "animationPlayer")]
 layout_mode = 3
 anchors_preset = 15
@@ -810,6 +892,50 @@ root_node = NodePath("../UILayer")
 libraries = {
 &"": SubResource("AnimationLibrary_lb38e")
 }
+
+[node name="OpeningLayer1" type="CanvasLayer" parent="."]
+
+[node name="OpeningContainer1" type="CenterContainer" parent="OpeningLayer1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="OpeningLayer1/OpeningContainer1"]
+position = Vector2(639, 288)
+scale = Vector2(0.216559, 0.2004)
+texture = ExtResource("3_e2awe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OpeningLayer1/OpeningContainer1"]
+layout_mode = 2
+
+[node name="m150begin" type="Control" parent="OpeningLayer1/OpeningContainer1/VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="TitleLabel2" type="Label" parent="OpeningLayer1/OpeningContainer1/VBoxContainer"]
+layout_mode = 2
+text = "GGWorkz"
+label_settings = ExtResource("2_e2awe")
+
+[node name="OpeningLayer2" type="CanvasLayer" parent="."]
+
+[node name="OpeningContainer2" type="CenterContainer" parent="OpeningLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OpeningAnimatedSprited2D" type="AnimatedSprite2D" parent="OpeningLayer2/OpeningContainer2"]
+z_index = -1
+position = Vector2(320, -9)
+scale = Vector2(0.99325, 0.972396)
+sprite_frames = SubResource("SpriteFrames_rmsp1")
+autoplay = "default"
+frame_progress = 0.604417
+offset = Vector2(300, 365)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -832,7 +958,7 @@ custom_minimum_size = Vector2(150, 162)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="IconAnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/MainVBox/TitleHBox/IconWrapper"]
+[node name="IconAnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/MainVBox/TitleHBox"]
 scale = Vector2(0.254, 0.25)
 sprite_frames = SubResource("SpriteFrames_rmsp1")
 autoplay = "default"
@@ -841,8 +967,8 @@ offset = Vector2(300, 365)
 
 [node name="TitleLabel" type="Label" parent="UILayer/MainContainer/MainVBox/TitleHBox"]
 layout_mode = 2
-text = "OIIA, Sure..."
-label_settings = SubResource("LabelSettings_e2awe")
+text = "OIIA,Sure.."
+label_settings = ExtResource("3_vp83o")
 
 [node name="m50begin" type="Control" parent="UILayer/MainContainer/MainVBox"]
 custom_minimum_size = Vector2(0, 50)
