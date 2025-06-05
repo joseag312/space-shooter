@@ -10,11 +10,12 @@ public partial class WeaponDataComponent : Node
 	public const int CenterCannon = 3;
 	public const int Center = 4;
 
-	[Export] public String projectilePath;
-	[Export] public String projectileName;
-	[Export] public int damage;
-	[Export] public int damagePercentage;
-	[Export] public float cooldownTime = 3.0f;
+	[Export] public string ProjectilePath { get; set; }
+	[Export] public string ProjectileName { get; set; }
+	[Export] public int Damage { get; set; }
+	[Export] public int DamagePercentage { get; set; }
+	[Export] public float CooldownTime { get; set; } = 3.0f;
+
 	[Export(PropertyHint.Enum, "Left Muzzle,Right Muzzle,Both Muzzles,Center Cannon,Center")]
-	public int spawnLocation = LeftMuzzle;
+	public int SpawnLocation { get; set; } = LeftMuzzle;
 }

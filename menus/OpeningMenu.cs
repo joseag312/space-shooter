@@ -3,16 +3,16 @@ using System;
 
 public partial class OpeningMenu : Control
 {
-    [Export] AnimationPlayer animationPlayer;
+    [Export] public AnimationPlayer AnimationPlayer { get; set; }
 
     public override void _Ready()
     {
-        Opening();
+        PlayOpening();
     }
 
-    public void Opening()
+    public void PlayOpening()
     {
-        animationPlayer.Play("OpeningMenu/Opening");
+        AnimationPlayer.Play("OpeningMenu/Opening");
     }
 
     public void MainMenuLoad()

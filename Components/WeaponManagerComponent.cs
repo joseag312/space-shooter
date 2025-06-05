@@ -61,11 +61,11 @@ public partial class WeaponManagerComponent : Node
 		largeWeapon = WeaponDatabase.Instance.LargeWeapon;
 		specialWeapons = WeaponDatabase.Instance.SpecialWeapons;
 
-		weaponCooldowns[0] = basicWeapon.cooldownTime;
-		weaponCooldowns[1] = largeWeapon.cooldownTime;
+		weaponCooldowns[0] = basicWeapon.CooldownTime;
+		weaponCooldowns[1] = largeWeapon.CooldownTime;
 		for (int i = 0; i < specialWeapons.Length; i++)
 		{
-			weaponCooldowns[i + 2] = specialWeapons[i].cooldownTime;
+			weaponCooldowns[i + 2] = specialWeapons[i].CooldownTime;
 		}
 		foreach (var key in weaponCooldowns.Keys)
 		{
@@ -94,9 +94,9 @@ public partial class WeaponManagerComponent : Node
 			GD.PrintErr("ERROR: WeaponManagerComponent - Weapon slot " + weaponSlot + " is not assigned");
 		}
 
-		PackedScene weaponScene = ResourceLoader.Load<PackedScene>(weaponData.projectilePath);
+		PackedScene weaponScene = ResourceLoader.Load<PackedScene>(weaponData.ProjectilePath);
 
-		switch (weaponData.spawnLocation)
+		switch (weaponData.SpawnLocation)
 		{
 			case WeaponDataComponent.LeftMuzzle:
 				SpawnAtPosition(weaponScene, leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle);
@@ -120,7 +120,7 @@ public partial class WeaponManagerComponent : Node
 				break;
 
 			default:
-				GD.PrintErr("ERROR: WeaponManagerComponent - Unknown weapon spawn location in " + weaponData.spawnLocation);
+				GD.PrintErr("ERROR: WeaponManagerComponent - Unknown weapon spawn location in " + weaponData.SpawnLocation);
 				return;
 		}
 

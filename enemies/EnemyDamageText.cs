@@ -2,47 +2,41 @@ using Godot;
 
 public partial class EnemyDamageText : Node2D
 {
-	[Export] private Label label;
-	[Export] private float moveSpeed = 80f;
-	[Export] private float fadeDuration = 0.5f;
+	[Export] private Label _label;
+	[Export] private float _moveSpeed = 80f;
+	[Export] private float _fadeDuration = 0.5f;
 
-	private int damageValue;
-	private bool initialized = false;
+	private int _damageValue;
+	private bool _initialized = false;
 
 	public void Initialize(int damage)
 	{
-		damageValue = damage;
-		initialized = true;
+		_damageValue = damage;
+		_initialized = true;
 	}
 
 	public override void _Ready()
 	{
-		if (!initialized) return;
+		if (!_initialized) return;
 
-		if (label == null)
+		if (_label == null)
 		{
 			GD.PrintErr("ERROR: EnemyDamageText - Label is not assigned in DamageText!");
 			return;
 		}
 
-		label.Text = damageValue.ToString();
+		_label.Text = _damageValue.ToString();
 
 		Tween tween = CreateTween();
 		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 40f;
 		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 80f;
 		Vector2 startPosition = Position;
-		if (damageValue < 10)
-		{
-			startPosition.X -= 12;
-		}
-		else
-		{
-			startPosition.X -= 24;
-		}
+
+		startPosition.X -= _damageValue < 10 ? 12 : 24;
 
 		Vector2 targetPosition = startPosition + new Vector2(randomXOffset, -randomYOffset);
-		tween.TweenProperty(this, "position", targetPosition, fadeDuration);
-		tween.TweenProperty(this, "modulate:a", 0, fadeDuration).SetTrans(Tween.TransitionType.Linear);
+		tween.TweenProperty(this, "position", targetPosition, _fadeDuration);
+		tween.TweenProperty(this, "modulate:a", 0, _fadeDuration).SetTrans(Tween.TransitionType.Linear);
 		tween.TweenCallback(Callable.From(QueueFree));
 	}
 }

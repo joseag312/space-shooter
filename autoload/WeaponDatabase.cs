@@ -42,21 +42,21 @@ public partial class WeaponDatabase : Node
     public void LoadWeaponData()
     {
         WeaponDataComponent basicLaser = new WeaponDataComponent();
-        basicLaser.damage = 1;
-        basicLaser.damagePercentage = 0;
-        basicLaser.cooldownTime = 0.3f;
-        basicLaser.spawnLocation = 2;
-        basicLaser.projectileName = "BasicBlueLaser";
-        basicLaser.projectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn";
+        basicLaser.Damage = 1;
+        basicLaser.DamagePercentage = 0;
+        basicLaser.CooldownTime = 0.3f;
+        basicLaser.SpawnLocation = 2;
+        basicLaser.ProjectileName = "BasicBlueLaser";
+        basicLaser.ProjectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn";
         WeaponDataComponent bigLaser = new WeaponDataComponent();
-        bigLaser.damage = 5;
-        bigLaser.damagePercentage = 0;
-        bigLaser.cooldownTime = 0.5f;
-        bigLaser.spawnLocation = 3;
-        bigLaser.projectileName = "BigBlueLaser";
-        bigLaser.projectilePath = "res://player_projectiles/big_blue_laser/big_blue_laser.tscn";
-        _weaponMapping.Add(basicLaser.projectileName, basicLaser);
-        _weaponMapping.Add(bigLaser.projectileName, bigLaser);
+        bigLaser.Damage = 5;
+        bigLaser.DamagePercentage = 0;
+        bigLaser.CooldownTime = 0.5f;
+        bigLaser.SpawnLocation = 3;
+        bigLaser.ProjectileName = "BigBlueLaser";
+        bigLaser.ProjectilePath = "res://player_projectiles/big_blue_laser/big_blue_laser.tscn";
+        _weaponMapping.Add(basicLaser.ProjectileName, basicLaser);
+        _weaponMapping.Add(bigLaser.ProjectileName, bigLaser);
     }
 
     public WeaponDataComponent GetWeaponData(string id)

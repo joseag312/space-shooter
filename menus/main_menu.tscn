@@ -877,7 +877,7 @@ animations = [{
 "speed": 28.0
 }]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "settingsButton", "quitButton", "animationPlayer")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("StartButton", "SettingsButton", "QuitButton", "AnimationPlayer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -885,10 +885,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a63lr")
-startButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/StartButton")
-settingsButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/SettingsButton")
-quitButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/QuitButton")
-animationPlayer = NodePath("UIAnimator")
+StartButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/StartButton")
+SettingsButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/SettingsButton")
+QuitButton = NodePath("UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/QuitButton")
+AnimationPlayer = NodePath("UIAnimator")
 
 [node name="GameFlowTriggerComponent" type="Node" parent="."]
 script = ExtResource("2_oblsv")

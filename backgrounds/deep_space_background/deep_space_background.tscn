@@ -7,11 +7,6 @@
 
 [node name="DeepSpaceBackground" instance=ExtResource("1_cdox1")]
 
-[node name="ScrollingComponent" parent="." index="0"]
-spaceSpeed = 10
-farStarsSpeed = 20
-closeStarsSpeed = 60
-
 [node name="BackgroundTexture" parent="Background" index="0"]
 offset_right = 1280.0
 offset_bottom = 720.0

@@ -4,59 +4,60 @@ using Godot;
 
 public partial class Level1Script : Node
 {
-	[Export] Ship ship;
-	[Export] SpawnerComponent Enemy1Spawner;
-	[Export] SpawnerComponent Enemy2Spawner;
-	[Export] SpawnerComponent Enemy3Spawner;
-	private double cleanupTimer = 0.0;
-	private bool ShouldSpawn1;
-	private bool ShouldSpawn2;
-	private bool ShouldSpawn3;
-	private int margin;
-	private int leftBorder;
-	private int rightBorder;
-	private bool complete;
+	[Export] public Ship Ship { get; set; }
+	[Export] public SpawnerComponent Enemy1Spawner { get; set; }
+	[Export] public SpawnerComponent Enemy2Spawner { get; set; }
+	[Export] public SpawnerComponent Enemy3Spawner { get; set; }
+
+	private double _cleanupTimer = 0.0;
+	private bool _shouldSpawn1;
+	private bool _shouldSpawn2;
+	private bool _shouldSpawn3;
+	private int _margin;
+	private int _leftBorder;
+	private int _rightBorder;
+	private bool _complete;
 
 	public override void _Ready()
 	{
 		GameFlow.Instance.UnblockInput();
-		margin = 8;
-		leftBorder = margin;
-		rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - margin;
-		levelScript();
+		_margin = 8;
+		_leftBorder = _margin;
+		_rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - _margin;
+		LevelScript();
 	}
 
 	public override void _Process(double delta)
 	{
-		cleanupTimer += delta;
-		if (cleanupTimer >= 1.0)
+		_cleanupTimer += delta;
+		if (_cleanupTimer >= 1.0)
 		{
-			cleanupTimer = 0;
+			_cleanupTimer = 0;
 			CleanupOffscreenEnemies();
 		}
 	}
 
-	private async void levelScript()
+	private async void LevelScript()
 	{
 		await Task.Delay(3000);
 		SpawnWave(Enemy2Spawner, 10, 15);
 		await Task.Delay(3000);
 
 		await Task.Delay(3000);
-		ShouldSpawn1 = true;
+		_shouldSpawn1 = true;
 		RecurrentSpawn1(Enemy1Spawner, 300);
 		await Task.Delay(20000);
-		ShouldSpawn1 = false;
+		_shouldSpawn1 = false;
 
 		await Task.Delay(3000);
 		SpawnWave(Enemy2Spawner, 10, 30);
 		await Task.Delay(3000);
 
 		await Task.Delay(500);
-		ShouldSpawn1 = true;
+		_shouldSpawn1 = true;
 		RecurrentSpawn1(Enemy1Spawner, 300);
 		await Task.Delay(20000);
-		ShouldSpawn1 = false;
+		_shouldSpawn1 = false;
 		await Task.Delay(500);
 	}
 
@@ -76,7 +77,7 @@ public partial class Level1Script : Node
 			return;
 		}
 
-		int screenCenter = (leftBorder + rightBorder) / 2;
+		int screenCenter = (_leftBorder + _rightBorder) / 2;
 		int totalSpacing = spriteWidth + margin;
 
 		for (int i = 0; i < count; i++)
@@ -89,12 +90,11 @@ public partial class Level1Script : Node
 		}
 	}
 
-
 	public async void RecurrentSpawn1(SpawnerComponent spawner, int time)
 	{
-		while (ShouldSpawn1)
+		while (_shouldSpawn1)
 		{
-			Vector2 position = new Vector2(GD.RandRange(leftBorder + margin, rightBorder - margin), -120);
+			Vector2 position = new Vector2(GD.RandRange(_leftBorder + _margin, _rightBorder - _margin), -120);
 			spawner.Spawn(position, GetParent());
 			await Task.Delay(time);
 		}
@@ -102,9 +102,9 @@ public partial class Level1Script : Node
 
 	public async void RecurrentSpawn2(SpawnerComponent spawner, int time)
 	{
-		while (ShouldSpawn2)
+		while (_shouldSpawn2)
 		{
-			Vector2 position = new Vector2(GD.RandRange(leftBorder + margin, rightBorder - margin), -120);
+			Vector2 position = new Vector2(GD.RandRange(_leftBorder + _margin, _rightBorder - _margin), -120);
 			spawner.Spawn(position, GetParent());
 			await Task.Delay(time);
 		}
@@ -112,9 +112,9 @@ public partial class Level1Script : Node
 
 	public async void RecurrentSpawn3(SpawnerComponent spawner, int time)
 	{
-		while (ShouldSpawn3)
+		while (_shouldSpawn3)
 		{
-			Vector2 position = new Vector2(GD.RandRange(leftBorder + margin, rightBorder - margin), -120);
+			Vector2 position = new Vector2(GD.RandRange(_leftBorder + _margin, _rightBorder - _margin), -120);
 			spawner.Spawn(position, GetParent());
 			await Task.Delay(time);
 		}
@@ -125,6 +125,7 @@ public partial class Level1Script : Node
 		int spriteWidth = 0;
 		Node2D tempEnemy = enemyScene.Instantiate<Node2D>();
 		AnimatedSprite2D animatedSprite = tempEnemy.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+
 		if (animatedSprite != null)
 		{
 			SpriteFrames frames = animatedSprite.SpriteFrames;

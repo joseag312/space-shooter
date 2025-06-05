@@ -83,10 +83,10 @@ shape = SubResource("CapsuleShape2D_f6qim")
 
 [node name="SpawnerMarker" type="Marker2D" parent="."]
 
-[node name="PersistenceComponent" type="Node2D" parent="." node_paths=PackedStringArray("moveComponent")]
+[node name="PersistenceComponent" type="Node2D" parent="." node_paths=PackedStringArray("MoveComponent")]
 script = ExtResource("13_4bnn2")
-moveComponent = NodePath("../MoveComponent")
-PersistenceMiliseconds = 10000
+MoveComponent = NodePath("../MoveComponent")
+PersistenceMilliseconds = 4000
 
 [node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
 script = ExtResource("3_x0hgl")
@@ -104,9 +104,9 @@ Velocity = Vector2(0, 100)
 script = ExtResource("6_jck0d")
 _sprite = NodePath("../AnimatedSprite2D")
 
-[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("7_hx3x4")
-sprite = NodePath("../AnimatedSprite2D")
+Sprite = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("8_n7hfh")

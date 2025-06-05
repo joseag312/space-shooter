@@ -2,15 +2,15 @@ using Godot;
 
 public partial class BasicBlueLaser : Node2D
 {
-	[Export] private ScaleComponent scaleComponent;
-	[Export] private FlashComponent flashComponent;
-	[Export] private HitboxComponent hitboxComponent;
+	[Export] private ScaleComponent _scaleComponent;
+	[Export] private FlashComponent _flashComponent;
+	[Export] private HitboxComponent _hitboxComponent;
 
 	public override void _Ready()
 	{
-		flashComponent.Flash();
-		scaleComponent.TweenScale();
-		hitboxComponent.HitHurtbox += OnLaserHit;
+		_flashComponent.Flash();
+		_scaleComponent.TweenScale();
+		_hitboxComponent.HitHurtbox += OnLaserHit;
 		AddToGroup("despawnable");
 	}
 

@@ -103,16 +103,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("weaponManager", "moveComponent", "scaleComponent", "hurtboxComponent", "statsComponent", "positionClampComponent", "anchor")]
+[node name="Ship" type="Node2D" node_paths=PackedStringArray("_weaponManager", "_moveComponent", "_scaleComponent", "_hurtboxComponent", "_statsComponent", "_positionClampComponent", "_anchor")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_pfwoo")
-weaponManager = NodePath("WeaponManagerComponent")
-moveComponent = NodePath("MoveComponent")
-scaleComponent = NodePath("ScaleComponent")
-hurtboxComponent = NodePath("HurtboxComponent")
-statsComponent = NodePath("StatsComponent")
-positionClampComponent = NodePath("PositionClampComponent")
-anchor = NodePath("Anchor")
+_weaponManager = NodePath("WeaponManagerComponent")
+_moveComponent = NodePath("MoveComponent")
+_scaleComponent = NodePath("ScaleComponent")
+_hurtboxComponent = NodePath("HurtboxComponent")
+_statsComponent = NodePath("StatsComponent")
+_positionClampComponent = NodePath("PositionClampComponent")
+_anchor = NodePath("Anchor")
 
 [node name="Anchor" type="Node2D" parent="."]
 
@@ -178,10 +178,9 @@ script = ExtResource("7_d46d2")
 MaxHealth = 10
 Health = 10
 
-[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("13_vtaof")
-sprite = NodePath("../Anchor")
-scaleAmount = Vector2(1.2, 1.2)
+Sprite = NodePath("../Anchor")
 
 [node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "HurtboxComponent", "InvincibilityComponent")]
 script = ExtResource("10_reh8u")

@@ -33,18 +33,16 @@ shape = SubResource("RectangleShape2D_nmknm")
 position = Vector2(2.86102e-07, 1)
 scale = Vector2(0.2, 0.4)
 
-[node name="WeaponSpawnComponent" type="Node" parent="." node_paths=PackedStringArray("scaleComponent", "flashComponent", "hitboxComponent")]
+[node name="WeaponSpawnComponent" type="Node" parent="." node_paths=PackedStringArray("_scaleComponent", "_flashComponent", "_hitboxComponent")]
 script = ExtResource("3_koscm")
-scaleComponent = NodePath("../ScaleComponent")
-flashComponent = NodePath("../FlashComponent")
-hitboxComponent = NodePath("../HitboxComponent")
+_scaleComponent = NodePath("../ScaleComponent")
+_flashComponent = NodePath("../FlashComponent")
+_hitboxComponent = NodePath("../HitboxComponent")
 
 [node name="WeaponDataComponent" type="Node" parent="."]
 script = ExtResource("3_6ajjx")
-projectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn"
-projectileName = "BasicBlueLaser"
-cooldownTime = 5.0
-spawnLocation = 2
+ProjectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn"
+ProjectileName = "BasicBlueLaser"
 
 [node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("weaponData", "hitboxComponent")]
 script = ExtResource("4_wmx2p")
@@ -60,11 +58,10 @@ Velocity = Vector2(0, -700)
 script = ExtResource("5_dvscm")
 _sprite = NodePath("../Sprite2D")
 
-[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("7_op6p4")
-sprite = NodePath("../Sprite2D")
-scaleAmount = Vector2(1.3, 1.3)
-scaleDuration = 0.2
+Sprite = NodePath("..")
+ScaleAmount = Vector2(2, 2)
 
 [node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("_visibleNotifier")]
 script = ExtResource("7_yds0b")

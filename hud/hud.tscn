@@ -23,15 +23,15 @@ gradient = SubResource("Gradient_7dbq8")
 width = 256
 height = 20
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "backgroundBar", "healthValue")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("HealthBar", "BackgroundBar", "HealthValue")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_oqp1a")
-healthBar = NodePath("VBoxContainer/HealthBarControl/HealthBar")
-backgroundBar = NodePath("VBoxContainer/HealthBarControl/BackgroundBar")
-healthValue = NodePath("VBoxContainer/HealthBarControl/HealthValueLabel")
+HealthBar = NodePath("VBoxContainer/HealthBarControl/HealthBar")
+BackgroundBar = NodePath("VBoxContainer/HealthBarControl/BackgroundBar")
+HealthValue = NodePath("VBoxContainer/HealthBarControl/HealthValueLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1.90735e-06)

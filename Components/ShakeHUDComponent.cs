@@ -3,7 +3,7 @@ using Godot;
 [GlobalClass]
 public partial class ShakeHUDComponent : Node
 {
-	[Export] public Control target;
+	[Export] public Control Target;
 	[Export] public float ShakeAmount { get; set; } = 10.0f;
 	[Export] public float ShakeDuration { get; set; } = 0.4f;
 
@@ -14,7 +14,7 @@ public partial class ShakeHUDComponent : Node
 
 	public void TweenShake()
 	{
-		if (target == null) return;
+		if (Target == null) return;
 
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(this, "Shake", 0.0f, ShakeDuration)

@@ -57,9 +57,9 @@ Actor = NodePath("..")
 script = ExtResource("2_r1pgw")
 _sprite = NodePath("../AnimatedSprite2D")
 
-[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("3_p88w1")
-sprite = NodePath("../AnimatedSprite2D")
+Sprite = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("4_k76c0")

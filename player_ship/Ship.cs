@@ -3,84 +3,66 @@ using Godot;
 [GlobalClass]
 public partial class Ship : Node2D
 {
-	[Export] private WeaponManagerComponent weaponManager;
-	[Export] private MoveComponent moveComponent;
-	[Export] private ScaleComponent scaleComponent;
-	[Export] private HurtboxComponent hurtboxComponent;
-	[Export] private StatsComponent statsComponent;
-	[Export] private PositionClampComponent positionClampComponent;
-	[Export] private Node2D anchor;
+	[Export] private WeaponManagerComponent _weaponManager;
+	[Export] private MoveComponent _moveComponent;
+	[Export] private ScaleComponent _scaleComponent;
+	[Export] private HurtboxComponent _hurtboxComponent;
+	[Export] private StatsComponent _statsComponent;
+	[Export] private PositionClampComponent _positionClampComponent;
+	[Export] private Node2D _anchor;
+
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
-	private bool readyToFire = false;
+
+	private bool _readyToFire = false;
 
 	public override void _Ready()
 	{
 		AnimateShipEntry(this);
-		statsComponent.MaxHealth = ShipStats.Instance.Health;
-		statsComponent.Health = ShipStats.Instance.Health;
-		if (weaponManager != null)
+
+		_statsComponent.MaxHealth = ShipStats.Instance.Health;
+		_statsComponent.Health = ShipStats.Instance.Health;
+
+		if (_weaponManager != null)
 		{
 			if (WeaponDatabase.Instance.BasicWeapon == null)
-			{
 				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in WeaponDatabase");
-			}
-
 			if (WeaponDatabase.Instance.LargeWeapon == null)
-			{
 				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in WeaponDatabase");
-			}
-
 			if (WeaponDatabase.Instance.SpecialWeapons[0] == null)
-			{
 				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in WeaponDatabase");
-			}
-
 			if (WeaponDatabase.Instance.SpecialWeapons[1] == null)
-			{
 				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in WeaponDatabase");
-			}
-
 			if (WeaponDatabase.Instance.SpecialWeapons[2] == null)
-			{
 				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in WeaponDatabase");
-			}
-
 			if (WeaponDatabase.Instance.SpecialWeapons[3] == null)
-			{
 				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in WeaponDatabase");
-			}
 
-			weaponManager.AssignWeapons();
+			_weaponManager.AssignWeapons();
 		}
 		else
 		{
 			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
 
-		hurtboxComponent.Hurt += UpdateHealth;
+		_hurtboxComponent.Hurt += UpdateHealth;
 	}
-
 
 	public override void _Process(double delta)
 	{
-		if (readyToFire)
+		if (_readyToFire)
 		{
-			weaponManager?.SpawnWeapon(0);
+			_weaponManager?.SpawnWeapon(0);
 
 			if (Input.IsActionJustPressed("fire_large"))
-				weaponManager?.SpawnWeapon(1);
-
+				_weaponManager?.SpawnWeapon(1);
 			if (Input.IsActionJustPressed("fire_special_1"))
-				weaponManager?.SpawnWeapon(2);
-
+				_weaponManager?.SpawnWeapon(2);
 			if (Input.IsActionJustPressed("fire_special_2"))
-				weaponManager?.SpawnWeapon(3);
-
+				_weaponManager?.SpawnWeapon(3);
 			if (Input.IsActionJustPressed("fire_special_3"))
-				weaponManager?.SpawnWeapon(4);
-
+				_weaponManager?.SpawnWeapon(4);
 			if (Input.IsActionJustPressed("fire_special_4"))
-				weaponManager?.SpawnWeapon(5);
+				_weaponManager?.SpawnWeapon(5);
 		}
 
 		AnimateShip();
@@ -88,24 +70,24 @@ public partial class Ship : Node2D
 
 	public void AnimateShip()
 	{
-		foreach (AnimatedSprite2D sprite in anchor.GetChildren())
+		foreach (AnimatedSprite2D sprite in _anchor.GetChildren())
 		{
-			if (moveComponent.Velocity.X < 0)
+			if (_moveComponent.Velocity.X < 0)
 			{
 				RotationDegrees = -5;
 				Skew = Mathf.DegToRad(5);
 				sprite.Play("BankLeft");
 			}
-			else if (moveComponent.Velocity.X > 0)
+			else if (_moveComponent.Velocity.X > 0)
 			{
-				Skew = Mathf.DegToRad(-5);
 				RotationDegrees = 5;
+				Skew = Mathf.DegToRad(-5);
 				sprite.Play("BankRight");
 			}
 			else
 			{
-				Skew = 0;
 				RotationDegrees = 0;
+				Skew = 0;
 				sprite.Play("Center");
 			}
 		}
@@ -114,17 +96,19 @@ public partial class Ship : Node2D
 	private void UpdateHealth(HitboxComponent hitboxComponent)
 	{
 		int damage = hitboxComponent.Damage;
+
 		if (hitboxComponent.DamagePercentage > 0)
 		{
-			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * statsComponent.MaxHealth);
+			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * _statsComponent.MaxHealth);
 			damage = Mathf.Max(damage, 1);
 		}
+
 		EmitSignal(nameof(HealthChanged), damage);
 	}
 
 	public async void AnimateShipEntry(Node2D ship)
 	{
-		positionClampComponent.Enabled = false;
+		_positionClampComponent.Enabled = false;
 		ship.Position = new Vector2(640, 1080);
 
 		var tween = GetTree().CreateTween();
@@ -134,17 +118,11 @@ public partial class Ship : Node2D
 
 		await ToSignal(tween, "finished");
 
-		positionClampComponent.Enabled = true;
+		_positionClampComponent.Enabled = true;
 		StartFiring();
 	}
 
-	public void StopFiring()
-	{
-		readyToFire = false;
-	}
+	public void StartFiring() => _readyToFire = true;
 
-	public void StartFiring()
-	{
-		readyToFire = true;
-	}
+	public void StopFiring() => _readyToFire = false;
 }

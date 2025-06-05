@@ -847,11 +847,11 @@ animations = [{
 "speed": 28.0
 }]
 
-[node name="OpeningMenu" type="Control" node_paths=PackedStringArray("animationPlayer")]
+[node name="OpeningMenu" type="Control" node_paths=PackedStringArray("AnimationPlayer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_tsucw")
-animationPlayer = NodePath("UIAnimator")
+AnimationPlayer = NodePath("UIAnimator")
 metadata/_edit_use_anchors_ = true
 
 [node name="GameFlowTriggerComponent" type="Node" parent="."]

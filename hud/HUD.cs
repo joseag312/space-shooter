@@ -5,71 +5,76 @@ using Godot;
 
 public partial class HUD : Control
 {
-	[Export] public TextureProgressBar healthBar;
-	[Export] public TextureProgressBar backgroundBar;
-	[Export] private float lostHealthDuration = 0.5f;
-	[Export] public Label healthValue;
-	private StatsComponent shipStats;
-	private Tween tween;
+	[Export] public TextureProgressBar HealthBar { get; set; }
+	[Export] public TextureProgressBar BackgroundBar { get; set; }
+	[Export] public Label HealthValue { get; set; }
+	[Export] private float _lostHealthDuration = 0.5f;
+
+	private StatsComponent _shipStats;
+	private Tween _tween;
 
 	public override void _Ready()
 	{
 		FadeIn(this);
+
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
 		if (ship != null)
 		{
-			shipStats = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
+			_shipStats = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
 			ship.Connect(nameof(Ship.HealthChanged), new Callable(this, nameof(OnHealthChanged)));
 		}
 
-		if (shipStats != null)
+		if (_shipStats != null)
 		{
-			healthBar.MaxValue = shipStats.MaxHealth;
-			healthBar.Value = shipStats.Health;
-			healthValue.Text = shipStats.Health.ToString() + "/" + shipStats.MaxHealth.ToString();
+			HealthBar.MaxValue = _shipStats.MaxHealth;
+			HealthBar.Value = _shipStats.Health;
+			HealthValue.Text = $"{_shipStats.Health}/{_shipStats.MaxHealth}";
 		}
 
-		healthBar.Size = new Vector2(200, 200);
+		HealthBar.Size = new Vector2(200, 200);
 		Position = new Vector2(20, 40);
 	}
 
 	private void OnHealthChanged(int damage)
 	{
-		if (shipStats == null) return;
+		if (_shipStats == null) return;
 
-		healthBar.Value = Mathf.Max(shipStats.Health, 0);
-		healthValue.Text = healthBar.Value.ToString() + "/" + healthBar.MaxValue.ToString();
+		HealthBar.Value = Mathf.Max(_shipStats.Health, 0);
+		HealthValue.Text = $"{HealthBar.Value}/{HealthBar.MaxValue}";
 
-		Gradient gradientUnder = new Gradient();
-		Color hurtColor = new Color(145f / 200, 125f / 255f, 230f / 255f, 1f);
+		var gradientUnder = new Gradient();
+		var hurtColor = new Color(145f / 200f, 125f / 255f, 230f / 255f, 1f);
 		gradientUnder.SetColor(0, hurtColor);
 		gradientUnder.SetColor(1, hurtColor);
-		GradientTexture2D gradientTextureUnder = new GradientTexture2D
+
+		var gradientTexture = new GradientTexture2D
 		{
 			Gradient = gradientUnder,
-			Width = (int)(backgroundBar.TextureUnder.GetWidth() * ((float)damage / (float)healthBar.MaxValue)),
-			Height = backgroundBar.TextureUnder.GetHeight()
+			Width = (int)(BackgroundBar.TextureUnder.GetWidth() * ((float)damage / HealthBar.MaxValue)),
+			Height = BackgroundBar.TextureUnder.GetHeight()
 		};
-		TextureProgressBar lostHealthBar = new TextureProgressBar
+
+		var lostHealthBar = new TextureProgressBar
 		{
-			TextureProgress = gradientTextureUnder,
-			MinValue = healthBar.MinValue,
-			MaxValue = healthBar.MaxValue,
-			Value = healthBar.MaxValue,
-			TextureProgressOffset = new Vector2(backgroundBar.TextureUnder.GetWidth() * (shipStats.Health / (float)healthBar.MaxValue), 0f),
+			TextureProgress = gradientTexture,
+			MinValue = HealthBar.MinValue,
+			MaxValue = HealthBar.MaxValue,
+			Value = HealthBar.MaxValue,
+			TextureProgressOffset = new Vector2(BackgroundBar.TextureUnder.GetWidth() * (_shipStats.Health / (float)HealthBar.MaxValue), 0f),
 			ZIndex = 5
 		};
-		healthBar.GetParent().AddChild(lostHealthBar);
-		lostHealthBar.GlobalPosition = healthBar.GlobalPosition;
 
-		Tween tween = GetTree().CreateTween();
-		if (shipStats.Health > 0)
+		HealthBar.GetParent().AddChild(lostHealthBar);
+		lostHealthBar.GlobalPosition = HealthBar.GlobalPosition;
+
+		var tween = GetTree().CreateTween();
+		if (_shipStats.Health > 0)
 		{
 			float startOffsetX = lostHealthBar.TextureProgressOffset.X;
 			float endOffsetX = startOffsetX - lostHealthBar.TextureProgress.GetWidth();
 			tween.TweenProperty(lostHealthBar, "texture_progress_offset:x", endOffsetX, 0.4f)
-						 .SetTrans(Tween.TransitionType.Linear)
-						 .SetEase(Tween.EaseType.Out);
+				 .SetTrans(Tween.TransitionType.Linear)
+				 .SetEase(Tween.EaseType.Out);
 		}
 		else
 		{
@@ -88,6 +93,7 @@ public partial class HUD : Control
 				 .SetDelay(0.3f)
 				 .SetTrans(Tween.TransitionType.Linear);
 		}
+
 		tween.TweenCallback(Callable.From(() =>
 		{
 			if (IsInstanceValid(lostHealthBar)) lostHealthBar.QueueFree();
@@ -110,8 +116,8 @@ public partial class HUD : Control
 		foreach (var item in canvasItems)
 			item.Visible = true;
 
-		var completed = 0;
-		var total = canvasItems.Count;
+		int completed = 0;
+		int total = canvasItems.Count;
 
 		foreach (var item in canvasItems)
 		{
@@ -132,5 +138,4 @@ public partial class HUD : Control
 		foreach (var child in node.GetChildren())
 			CollectCanvasItems(child, list);
 	}
-
 }

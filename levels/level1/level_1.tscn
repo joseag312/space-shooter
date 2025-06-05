@@ -8,9 +8,9 @@
 
 [node name="Level1" instance=ExtResource("1_tj7e4")]
 
-[node name="Level1Script" type="Node" parent="." index="0" node_paths=PackedStringArray("ship", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner")]
+[node name="Level1Script" type="Node" parent="." index="0" node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner")]
 script = ExtResource("2_f645t")
-ship = NodePath("../Ship")
+Ship = NodePath("../Ship")
 Enemy1Spawner = NodePath("../BasicEnemySpawner")
 Enemy2Spawner = NodePath("../BasicEnemySlowSpawner")
 Enemy3Spawner = NodePath("../BasicEnemySpawner")

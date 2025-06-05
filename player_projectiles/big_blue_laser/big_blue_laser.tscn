@@ -12,12 +12,5 @@ texture = ExtResource("3_7bjmj")
 [node name="CollisionShape2D" parent="HitboxComponent" index="0"]
 position = Vector2(0, 0)
 
-[node name="WeaponDataComponent" parent="." index="4"]
-projectilePath = "res://player_projectiles/big_blue_laser/big_blue_laser.tscn"
-projectileName = "BigBlueLaser"
-
 [node name="MoveComponent" parent="." index="6"]
 Velocity = Vector2(0, -1000)
-
-[node name="ScaleComponent" parent="." index="8"]
-scaleAmount = Vector2(1.5, 1.5)

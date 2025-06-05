@@ -4,33 +4,33 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class PersistenceComponent : Node2D
 {
-	[Export] MoveComponent moveComponent;
-	[Export] int PersistenceMiliseconds;
-	private int margin;
-	private int leftBorder;
-	private int rightBorder;
+	[Export] public MoveComponent MoveComponent { get; set; }
+	[Export] public int PersistenceMilliseconds { get; set; }
 
+	private int _margin;
+	private int _leftBorder;
+	private int _rightBorder;
 
 	public override void _Ready()
 	{
-		leftBorder = 0;
-		rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width");
-		persist();
+		_leftBorder = 0;
+		_rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width");
+		Persist();
 	}
 
-	public async void persist()
+	public async void Persist()
 	{
-		float speedY = moveComponent.Velocity.Y;
-		float distanceToLeft = GlobalPosition.X - leftBorder;
-		float distanceToRight = rightBorder - GlobalPosition.X;
+		float speedY = MoveComponent.Velocity.Y;
+		float distanceToLeft = GlobalPosition.X - _leftBorder;
+		float distanceToRight = _rightBorder - GlobalPosition.X;
 		float targetSpeedX = (distanceToLeft < distanceToRight) ? -speedY : speedY;
 
 		await Task.Delay(3000);
 		if (!IsInstanceValid(this)) return;
-		moveComponent.Velocity = new Vector2(0, 0);
+		MoveComponent.Velocity = Vector2.Zero;
 
-		await Task.Delay(PersistenceMiliseconds);
+		await Task.Delay(PersistenceMilliseconds);
 		if (!IsInstanceValid(this)) return;
-		moveComponent.Velocity = new Vector2(targetSpeedX, 0);
+		MoveComponent.Velocity = new Vector2(targetSpeedX, 0);
 	}
 }

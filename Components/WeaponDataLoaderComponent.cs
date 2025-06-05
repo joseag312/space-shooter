@@ -8,12 +8,12 @@ public partial class WeaponDataLoaderComponent : Node
 	[Export] public HitboxComponent hitboxComponent;
 	public override void _Ready()
 	{
-		WeaponDataComponent data = WeaponDatabase.Instance.GetWeaponData(weaponData.projectileName);
-		weaponData.damage = data.damage;
-		weaponData.damagePercentage = data.damagePercentage;
-		weaponData.cooldownTime = data.cooldownTime;
-		weaponData.spawnLocation = data.spawnLocation;
-		hitboxComponent.Damage = data.damage;
-		hitboxComponent.DamagePercentage = data.damagePercentage;
+		WeaponDataComponent data = WeaponDatabase.Instance.GetWeaponData(weaponData.ProjectileName);
+		weaponData.Damage = data.Damage;
+		weaponData.DamagePercentage = data.DamagePercentage;
+		weaponData.CooldownTime = data.CooldownTime;
+		weaponData.SpawnLocation = data.SpawnLocation;
+		hitboxComponent.Damage = data.Damage;
+		hitboxComponent.DamagePercentage = data.DamagePercentage;
 	}
 }

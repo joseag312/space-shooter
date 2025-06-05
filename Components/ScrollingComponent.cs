@@ -1,34 +1,36 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class ScrollingComponent : Node
 {
-	[Export] private ParallaxLayer background;
-	[Export] private ParallaxLayer slowLayer;
-	[Export] private ParallaxLayer fastLayer;
-	[Export] private int spaceSpeed = 1;
-	[Export] private int farStarsSpeed = 5;
-	[Export] private int closeStarsSpeed = 30;
+	[Export] public ParallaxLayer Background { get; set; }
+	[Export] public ParallaxLayer SlowLayer { get; set; }
+	[Export] public ParallaxLayer FastLayer { get; set; }
 
-	private Vector2 spaceOffset;
-	private Vector2 farStarsOffset;
-	private Vector2 closeStarsOffset;
+	[Export] public int SpaceSpeed { get; set; } = 1;
+	[Export] public int FarStarsSpeed { get; set; } = 5;
+	[Export] public int CloseStarsSpeed { get; set; } = 30;
+
+	private Vector2 _spaceOffset;
+	private Vector2 _farStarsOffset;
+	private Vector2 _closeStarsOffset;
 
 	public override void _Ready()
 	{
-		spaceOffset = background.MotionOffset;
-		farStarsOffset = slowLayer.MotionOffset;
-		closeStarsOffset = fastLayer.MotionOffset;
+		_spaceOffset = Background.MotionOffset;
+		_farStarsOffset = SlowLayer.MotionOffset;
+		_closeStarsOffset = FastLayer.MotionOffset;
 	}
 
 	public override void _Process(double delta)
 	{
-		spaceOffset.Y += (float)delta * spaceSpeed;
-		farStarsOffset.Y += (float)delta * farStarsSpeed;
-		closeStarsOffset.Y += (float)delta * closeStarsSpeed;
+		_spaceOffset.Y += (float)delta * SpaceSpeed;
+		_farStarsOffset.Y += (float)delta * FarStarsSpeed;
+		_closeStarsOffset.Y += (float)delta * CloseStarsSpeed;
 
-		background.MotionOffset = spaceOffset;
-		slowLayer.MotionOffset = farStarsOffset;
-		fastLayer.MotionOffset = closeStarsOffset;
+		Background.MotionOffset = _spaceOffset;
+		SlowLayer.MotionOffset = _farStarsOffset;
+		FastLayer.MotionOffset = _closeStarsOffset;
 	}
 }

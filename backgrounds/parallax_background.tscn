@@ -4,11 +4,11 @@
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
-[node name="ScrollingComponent" type="Node2D" parent="." node_paths=PackedStringArray("background", "slowLayer", "fastLayer")]
+[node name="ScrollingComponent" type="Node2D" parent="." node_paths=PackedStringArray("Background", "SlowLayer", "FastLayer")]
 script = ExtResource("1_fg3k3")
-background = NodePath("../Background")
-slowLayer = NodePath("../SlowLayer")
-fastLayer = NodePath("../FastLayer")
+Background = NodePath("../Background")
+SlowLayer = NodePath("../SlowLayer")
+FastLayer = NodePath("../FastLayer")
 
 [node name="Background" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(0, 720)

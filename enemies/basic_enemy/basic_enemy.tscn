@@ -99,9 +99,9 @@ Velocity = Vector2(0, 500)
 script = ExtResource("6_nuddi")
 _sprite = NodePath("../AnimatedSprite2D")
 
-[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("7_cb4c6")
-sprite = NodePath("../AnimatedSprite2D")
+Sprite = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("8_k11qo")
