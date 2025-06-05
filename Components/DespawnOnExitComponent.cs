@@ -3,21 +3,20 @@ using Godot;
 [GlobalClass]
 public partial class DespawnOnExitComponent : Node
 {
-	[Export] VisibleOnScreenNotifier2D visibleNotifier;
+	[Export] private VisibleOnScreenNotifier2D _visibleNotifier;
 
 	public override void _Ready()
 	{
-		if (visibleNotifier == null)
+		if (_visibleNotifier == null)
 		{
 			GD.PrintErr("ERROR: DespawnOnExitComponent - No notifier assigned");
 			return;
 		}
-		visibleNotifier.ScreenExited += Despawn;
+		_visibleNotifier.ScreenExited += Despawn;
 	}
 
 	public override void _Process(double delta)
 	{
-
 	}
 
 	private void Despawn()

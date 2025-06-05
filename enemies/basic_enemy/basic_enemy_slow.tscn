@@ -100,9 +100,9 @@ script = ExtResource("5_3vxeb")
 Actor = NodePath("..")
 Velocity = Vector2(0, 100)
 
-[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("6_jck0d")
-sprite = NodePath("../AnimatedSprite2D")
+_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("7_hx3x4")
@@ -128,18 +128,18 @@ Actor = NodePath("..")
 StatsComponent = NodePath("../StatsComponent")
 DestroyEffectSpawnerComponent = NodePath("../SpawnerComponent")
 
-[node name="HealthBarComponent" type="Node" parent="." node_paths=PackedStringArray("statsComponent", "scaleComponent", "flashComponent", "hurtboxComponent", "healthBar", "animatedSprite")]
+[node name="HealthBarComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "ScaleComponent", "FlashComponent", "HurtboxComponent", "HealthBar", "AnimatedSprite")]
 script = ExtResource("12_5jflx")
-statsComponent = NodePath("../StatsComponent")
-scaleComponent = NodePath("../ScaleComponent")
-flashComponent = NodePath("../FlashComponent")
-hurtboxComponent = NodePath("../HurtboxComponent")
-healthBar = NodePath("../HealthBarProgressBar")
-animatedSprite = NodePath("../AnimatedSprite2D")
+StatsComponent = NodePath("../StatsComponent")
+ScaleComponent = NodePath("../ScaleComponent")
+FlashComponent = NodePath("../FlashComponent")
+HurtboxComponent = NodePath("../HurtboxComponent")
+HealthBar = NodePath("../HealthBarProgressBar")
+AnimatedSprite = NodePath("../AnimatedSprite2D")
 
-[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("visibleNotifier")]
+[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("_visibleNotifier")]
 script = ExtResource("15_7a6an")
-visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
+_visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
 metadata/_custom_type_script = "uid://c0p7rysr544jk"
 
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]

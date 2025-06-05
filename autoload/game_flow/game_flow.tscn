@@ -1,7 +1,7 @@
 [gd_scene load_steps=54 format=3 uid="uid://c1b53yfc4sd67"]
 
 [ext_resource type="PackedScene" uid="uid://uwm62ooy0apb" path="res://backgrounds/parallax_background.tscn" id="1_pimly"]
-[ext_resource type="Script" uid="uid://bfrsoc4p25ii4" path="res://autoload/menu_background/MenuBackground.cs" id="2_y3hf0"]
+[ext_resource type="Script" uid="uid://bfrsoc4p25ii4" path="res://autoload/game_flow/GameFlow.cs" id="2_y3hf0"]
 [ext_resource type="Texture2D" uid="uid://bgmflnq8a5kin" path="res://backgrounds/deep_space_background/deep_space_stars.png" id="3_pcfgn"]
 [ext_resource type="Texture2D" uid="uid://c16eanbx31r6w" path="res://backgrounds/deep_space_background/deep_space_slow.png" id="4_50dad"]
 [ext_resource type="Texture2D" uid="uid://0xpdgnnbfv4f" path="res://backgrounds/deep_space_background/deep_space_fast.png" id="5_28ftm"]
@@ -337,15 +337,16 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="MenuBackground" node_paths=PackedStringArray("starLayer", "slowLayer", "fastLayer", "fadeBlack", "fadeWhite", "inputBlocker") instance=ExtResource("1_pimly")]
+[node name="GameFlow" node_paths=PackedStringArray("_starLayer", "_slowLayer", "_fastLayer", "_fadeBlack", "_fadeWhite", "_loading", "_inputBlocker") instance=ExtResource("1_pimly")]
 layer = -10
 script = ExtResource("2_y3hf0")
-starLayer = NodePath("Background")
-slowLayer = NodePath("SlowLayer")
-fastLayer = NodePath("FastLayer")
-fadeBlack = NodePath("FadeOverlayBlack")
-fadeWhite = NodePath("FadeOverlayWhite")
-inputBlocker = NodePath("InputBlockerWrapper/InputBlocker")
+_starLayer = NodePath("Background")
+_slowLayer = NodePath("SlowLayer")
+_fastLayer = NodePath("FastLayer")
+_fadeBlack = NodePath("FadeOverlayBlack")
+_fadeWhite = NodePath("FadeOverlayWhite")
+_loading = NodePath("LoadingSprite")
+_inputBlocker = NodePath("InputBlockerWrapper/InputBlocker")
 
 [node name="ScrollingComponent" parent="." index="0"]
 spaceSpeed = 10
@@ -360,15 +361,27 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Background" parent="." index="2"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+
 [node name="BackgroundTexture" parent="Background" index="0"]
 z_index = 1
 offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("3_pcfgn")
 
+[node name="SlowLayer" parent="." index="3"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+
 [node name="SlowLayerTexture" parent="SlowLayer" index="0"]
 z_index = 2
 texture = ExtResource("4_50dad")
+
+[node name="FastLayer" parent="." index="4"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 
 [node name="FastLayerTexture" parent="FastLayer" index="0"]
 z_index = 3
@@ -388,6 +401,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FadeOverlayWhite" type="ColorRect" parent="." index="6"]
+visible = false
 z_index = 4
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,6 +421,7 @@ offset = Vector2(300, 365)
 
 [node name="InputBlockerWrapper" type="CanvasLayer" parent="." index="8"]
 layer = 10
+visible = false
 
 [node name="InputBlocker" type="Control" parent="InputBlockerWrapper" index="0"]
 visible = false

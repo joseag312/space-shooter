@@ -5,10 +5,12 @@ using Godot;
 public partial class WeaponDatabase : Node
 {
     public static WeaponDatabase Instance { get; private set; }
+
     public WeaponDataComponent BasicWeapon { get; private set; }
     public WeaponDataComponent LargeWeapon { get; private set; }
     public WeaponDataComponent[] SpecialWeapons { get; private set; }
-    private Dictionary<String, WeaponDataComponent> weaponMapping;
+
+    private Dictionary<String, WeaponDataComponent> _weaponMapping;
 
     public override void _Ready()
     {
@@ -22,19 +24,19 @@ public partial class WeaponDatabase : Node
             QueueFree();
         }
         SpecialWeapons = new WeaponDataComponent[4];
-        weaponMapping = new Dictionary<String, WeaponDataComponent>();
+        _weaponMapping = new Dictionary<string, WeaponDataComponent>();
         LoadWeapons();
     }
 
     private void LoadWeapons()
     {
         LoadWeaponData();
-        BasicWeapon = weaponMapping["BasicBlueLaser"];
-        LargeWeapon = weaponMapping["BigBlueLaser"];
-        SpecialWeapons[0] = weaponMapping["BigBlueLaser"];
-        SpecialWeapons[1] = weaponMapping["BigBlueLaser"];
-        SpecialWeapons[2] = weaponMapping["BigBlueLaser"];
-        SpecialWeapons[3] = weaponMapping["BigBlueLaser"];
+        BasicWeapon = _weaponMapping["BasicBlueLaser"];
+        LargeWeapon = _weaponMapping["BigBlueLaser"];
+        SpecialWeapons[0] = _weaponMapping["BigBlueLaser"];
+        SpecialWeapons[1] = _weaponMapping["BigBlueLaser"];
+        SpecialWeapons[2] = _weaponMapping["BigBlueLaser"];
+        SpecialWeapons[3] = _weaponMapping["BigBlueLaser"];
     }
 
     public void LoadWeaponData()
@@ -53,12 +55,12 @@ public partial class WeaponDatabase : Node
         bigLaser.spawnLocation = 3;
         bigLaser.projectileName = "BigBlueLaser";
         bigLaser.projectilePath = "res://player_projectiles/big_blue_laser/big_blue_laser.tscn";
-        weaponMapping.Add(basicLaser.projectileName, basicLaser);
-        weaponMapping.Add(bigLaser.projectileName, bigLaser);
+        _weaponMapping.Add(basicLaser.projectileName, basicLaser);
+        _weaponMapping.Add(bigLaser.projectileName, bigLaser);
     }
 
-    public WeaponDataComponent GetWeaponData(String id)
+    public WeaponDataComponent GetWeaponData(string id)
     {
-        return weaponMapping[id];
+        return _weaponMapping[id];
     }
 }

@@ -3,37 +3,38 @@ using Godot;
 [GlobalClass]
 public partial class HealthBarComponent : Node
 {
-	[Export] private StatsComponent statsComponent;
-	[Export] private ScaleComponent scaleComponent;
-	[Export] private FlashComponent flashComponent;
-	[Export] private HurtboxComponent hurtboxComponent;
-	[Export] private TextureProgressBar healthBar;
-	[Export] private AnimatedSprite2D animatedSprite;
-	private float healthBarHeightOffset = 10f;
+	[Export] public StatsComponent StatsComponent { get; set; }
+	[Export] public ScaleComponent ScaleComponent { get; set; }
+	[Export] public FlashComponent FlashComponent { get; set; }
+	[Export] public HurtboxComponent HurtboxComponent { get; set; }
+	[Export] public TextureProgressBar HealthBar { get; set; }
+	[Export] public AnimatedSprite2D AnimatedSprite { get; set; }
+
+	private const float HealthBarHeightOffset = 10f;
 
 	public override void _Ready()
 	{
-		healthBar.MaxValue = statsComponent.Health;
-		healthBar.Value = statsComponent.Health;
-		hurtboxComponent.Hurt += OnHurt;
+		HealthBar.MaxValue = StatsComponent.Health;
+		HealthBar.Value = StatsComponent.Health;
+		HurtboxComponent.Hurt += OnHurt;
 
 		AdjustHealthBar();
 	}
 
 	private void AdjustHealthBar()
 	{
-		if (animatedSprite == null || healthBar == null)
+		if (AnimatedSprite == null || HealthBar == null)
 			return;
 
-		SpriteFrames frames = animatedSprite.SpriteFrames;
+		SpriteFrames frames = AnimatedSprite.SpriteFrames;
 		if (!frames.HasAnimation("move"))
 			return;
 
-		Texture2D frameTexture = animatedSprite.SpriteFrames.GetFrameTexture("move", 0);
+		Texture2D frameTexture = frames.GetFrameTexture("move", 0);
 		if (frameTexture == null)
 			return;
 
-		Vector2 spriteSize = frameTexture.GetSize() * animatedSprite.Scale;
+		Vector2 spriteSize = frameTexture.GetSize() * AnimatedSprite.Scale;
 
 		float minWidth = 50f;
 		int newHealthBarWidth = (int)Mathf.Max(spriteSize.X, minWidth);
@@ -58,27 +59,27 @@ public partial class HealthBarComponent : Node
 			Height = 5
 		};
 
-		healthBar.TextureUnder = gradientTextureUnder;
-		healthBar.TextureProgress = gradientTextureProgress;
-		healthBar.Position = new Vector2(-healthBar.TextureUnder.GetSize().X / 2, -spriteSize.Y / 2 - healthBarHeightOffset);
-		healthBar.Visible = false;
+		HealthBar.TextureUnder = gradientTextureUnder;
+		HealthBar.TextureProgress = gradientTextureProgress;
+		HealthBar.Position = new Vector2(-gradientTextureUnder.GetSize().X / 2, -spriteSize.Y / 2 - HealthBarHeightOffset);
+		HealthBar.Visible = false;
 	}
 
 	private void OnHurt(HitboxComponent hitboxComponent)
 	{
-		healthBar.Visible = true;
-		scaleComponent.TweenScale();
-		flashComponent.Flash();
+		HealthBar.Visible = true;
+		ScaleComponent.TweenScale();
+		FlashComponent.Flash();
 		UpdateHealthBar();
 	}
 
 	private void UpdateHealthBar()
 	{
-		healthBar.Value = statsComponent.Health;
+		HealthBar.Value = StatsComponent.Health;
 	}
 
 	public override void _ExitTree()
 	{
-		hurtboxComponent.Hurt -= OnHurt;
+		HurtboxComponent.Hurt -= OnHurt;
 	}
 }

@@ -13,42 +13,39 @@ public partial class MainMenu : Control
 
     public override void _Ready()
     {
-        BlockInput();
         startButton.Pressed += OnStartPressed;
         settingsButton.Pressed += OnSettingsPressed;
         quitButton.Pressed += OnQuitPressed;
-        MainMenuLoad();
+        MenuFadeIn();
     }
 
     // Button functionality
     private void OnStartPressed()
     {
         _nextScenePath = "res://levels/level1/level_1.tscn";
-        ButtonFadeOutAndSwitchScene();
+        MenuFadeOut();
     }
 
     private void OnSettingsPressed()
     {
         _nextScenePath = "res://levels/level1/level_1.tscn";
-        ButtonFadeOutAndSwitchScene();
+        MenuFadeOut();
     }
 
     private void OnQuitPressed()
     {
         _nextScenePath = "";
-        ButtonFadeOutAndSwitchScene();
+        MenuFadeOut();
     }
 
-    // Animations
-    public void MainMenuLoad()
+    public void MenuFadeIn()
     {
-        animationPlayer.Play("MainMenuLoad");
+        animationPlayer.Play("MainMenu/FadeIn");
     }
 
-    public void ButtonFadeOutAndSwitchScene()
+    public void MenuFadeOut()
     {
-        BlockInput();
-        animationPlayer.Play("MenuFadeOut");
+        animationPlayer.Play("MainMenu/FadeOut");
     }
 
     public void ChangeScene()
@@ -58,66 +55,5 @@ public partial class MainMenu : Control
             GetTree().Quit();
         }
         GetTree().ChangeSceneToFile(_nextScenePath);
-    }
-
-    // Hooks for MenuBackground Singleton
-    public void BlockInput()
-    {
-        MenuBackground.Instance.BlockInput();
-    }
-
-    public void UnblockInput()
-    {
-        MenuBackground.Instance.UnblockInput();
-    }
-
-    public void ShowStars()
-    {
-        MenuBackground.Instance.ShowStars();
-    }
-
-    public void HideStars()
-    {
-        MenuBackground.Instance.HideStars();
-    }
-
-    public void FadeInStars()
-    {
-        MenuBackground.Instance.FadeInStars();
-    }
-
-    public void FadeOutStars()
-    {
-        MenuBackground.Instance.FadeOutStars();
-    }
-
-    public void FadeInBlack(float duration = 1f)
-    {
-        MenuBackground.Instance.FadeInBlack(duration);
-    }
-
-    public void FadeOutBlack(float duration = 1f)
-    {
-        MenuBackground.Instance.FadeOutBlack(duration);
-    }
-
-    public void FadeInWhite(float duration = 1f)
-    {
-        MenuBackground.Instance.FadeInWhite(duration);
-    }
-
-    public void FadeOutWhite(float duration = 3f)
-    {
-        MenuBackground.Instance.FadeOutWhite(duration);
-    }
-
-    public void FadeInLoading(float duration = 1f)
-    {
-        MenuBackground.Instance.FadeInLoading(duration);
-    }
-
-    public void FadeOutLoading(float duration = 1f)
-    {
-        MenuBackground.Instance.FadeOutLoading(duration);
     }
 }

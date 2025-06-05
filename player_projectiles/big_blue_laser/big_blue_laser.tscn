@@ -19,8 +19,5 @@ projectileName = "BigBlueLaser"
 [node name="MoveComponent" parent="." index="6"]
 Velocity = Vector2(0, -1000)
 
-[node name="FlashComponent" parent="." index="7"]
-flashDuration = 0.4
-
 [node name="ScaleComponent" parent="." index="8"]
 scaleAmount = Vector2(1.5, 1.5)

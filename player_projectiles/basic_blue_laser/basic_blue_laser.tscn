@@ -56,10 +56,9 @@ script = ExtResource("2_ysowv")
 Actor = NodePath("..")
 Velocity = Vector2(0, -700)
 
-[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("5_dvscm")
-sprite = NodePath("../Sprite2D")
-flashDuration = 0.2
+_sprite = NodePath("../Sprite2D")
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("7_op6p4")
@@ -67,6 +66,6 @@ sprite = NodePath("../Sprite2D")
 scaleAmount = Vector2(1.3, 1.3)
 scaleDuration = 0.2
 
-[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("visibleNotifier")]
+[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("_visibleNotifier")]
 script = ExtResource("7_yds0b")
-visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
+_visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")

@@ -53,9 +53,9 @@ Scene = ExtResource("12_psip7")
 script = ExtResource("1_k0wof")
 Actor = NodePath("..")
 
-[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("2_r1pgw")
-sprite = NodePath("../AnimatedSprite2D")
+_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("3_p88w1")
@@ -80,14 +80,14 @@ Actor = NodePath("..")
 StatsComponent = NodePath("../StatsComponent")
 DestroyEffectSpawnerComponent = NodePath("../SpawnerComponent")
 
-[node name="HealthBarComponent" type="Node" parent="." node_paths=PackedStringArray("statsComponent", "scaleComponent", "flashComponent", "hurtboxComponent", "healthBar", "animatedSprite")]
+[node name="HealthBarComponent" type="Node" parent="." node_paths=PackedStringArray("StatsComponent", "ScaleComponent", "FlashComponent", "HurtboxComponent", "HealthBar", "AnimatedSprite")]
 script = ExtResource("13_d7qd4")
-statsComponent = NodePath("../StatsComponent")
-scaleComponent = NodePath("../ScaleComponent")
-flashComponent = NodePath("../FlashComponent")
-hurtboxComponent = NodePath("../HurtboxComponent")
-healthBar = NodePath("../HealthBarProgressBar")
-animatedSprite = NodePath("../AnimatedSprite2D")
+StatsComponent = NodePath("../StatsComponent")
+ScaleComponent = NodePath("../ScaleComponent")
+FlashComponent = NodePath("../FlashComponent")
+HurtboxComponent = NodePath("../HurtboxComponent")
+HealthBar = NodePath("../HealthBarProgressBar")
+AnimatedSprite = NodePath("../AnimatedSprite2D")
 
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0

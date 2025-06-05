@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="galaxy-navigator-c"
-run/main_scene="uid://c632ptddagx6c"
+run/main_scene="uid://ds4yswdh8nefc"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 
 [autoload]
@@ -19,7 +19,7 @@ config/features=PackedStringArray("4.4", "C#", "Mobile")
 GameStats="*res://autoload/GameStats.cs"
 WeaponDatabase="*res://autoload/WeaponDatabase.cs"
 ShipStats="*res://autoload/ShipStats.cs"
-MenuBackground="*res://autoload/menu_background/menu_background.tscn"
+MenuBackground="*res://autoload/game_flow/game_flow.tscn"
 
 [display]
 

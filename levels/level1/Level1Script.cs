@@ -19,7 +19,7 @@ public partial class Level1Script : Node
 
 	public override void _Ready()
 	{
-		MenuBackground.Instance.UnblockInput();
+		GameFlow.Instance.UnblockInput();
 		margin = 8;
 		leftBorder = margin;
 		rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - margin;
