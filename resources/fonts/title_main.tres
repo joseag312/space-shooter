@@ -1,6 +1,6 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dnwqwoqb7xh0v"]
 
-[ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/Orbitron-VariableFont_wght.ttf" id="1_n0khr"]
+[ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/orbitron_variable.ttf" id="1_n0khr"]
 
 [resource]
 font = ExtResource("1_n0khr")

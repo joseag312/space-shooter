@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4yswdh8nefc"]
+[gd_scene load_steps=7 format=3 uid="uid://ds4yswdh8nefc"]
 
 [ext_resource type="PackedScene" uid="uid://ctiak2j5gpdd" path="res://levels/world.tscn" id="1_tj7e4"]
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
 [ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/basic_enemy/basic_enemy.tscn" id="4_kw6hg"]
 [ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/basic_enemy/basic_enemy_slow.tscn" id="6_1a4kf"]
+[ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/bg_ocean.tscn" id="6_icxts"]
 
 [node name="Level1" instance=ExtResource("1_tj7e4")]
 
@@ -27,9 +28,12 @@ Scene = ExtResource("6_1a4kf")
 position = Vector2(654, 824)
 
 [node name="HUD" parent="HUDCanvasLayer" index="0"]
+visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="BasicEnemyTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="Bg_Ocean" parent="." index="6" instance=ExtResource("6_icxts")]

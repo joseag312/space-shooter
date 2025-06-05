@@ -1,10 +1,10 @@
 [gd_scene load_steps=23 format=3 uid="uid://bcla0tq71aoqp"]
 
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="1_d1b03"]
-[ext_resource type="Texture2D" uid="uid://mabeww6pjhiy" path="res://assets/enemies/basic_enemy.png" id="2_0y7mv"]
+[ext_resource type="Texture2D" uid="uid://mabeww6pjhiy" path="res://assets/enemy/enemy_basic.png" id="2_0y7mv"]
 [ext_resource type="Script" uid="uid://c4o8660pjq6yc" path="res://components/HitboxComponent.cs" id="2_bm8hj"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="3_ha4ms"]
-[ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/red_explosion_effect.tscn" id="4_quubp"]
+[ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/ef_explosion_red.tscn" id="4_quubp"]
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="5_3k327"]
 [ext_resource type="Script" uid="uid://enpb5o35rrvx" path="res://components/FlashComponent.cs" id="6_nuddi"]
 [ext_resource type="Script" uid="uid://bppah0v3qiu6u" path="res://components/ScaleComponent.cs" id="7_cb4c6"]

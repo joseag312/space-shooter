@@ -10,7 +10,7 @@ public partial class HUD : Control
 	[Export] public Label HealthValue { get; set; }
 	[Export] private float _lostHealthDuration = 0.5f;
 
-	private StatsComponent _shipStats;
+	private StatsComponent _AutoShipStats;
 	private Tween _tween;
 
 	public override void _Ready()
@@ -20,15 +20,15 @@ public partial class HUD : Control
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
 		if (ship != null)
 		{
-			_shipStats = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
+			_AutoShipStats = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
 			ship.Connect(nameof(Ship.HealthChanged), new Callable(this, nameof(OnHealthChanged)));
 		}
 
-		if (_shipStats != null)
+		if (_AutoShipStats != null)
 		{
-			HealthBar.MaxValue = _shipStats.MaxHealth;
-			HealthBar.Value = _shipStats.Health;
-			HealthValue.Text = $"{_shipStats.Health}/{_shipStats.MaxHealth}";
+			HealthBar.MaxValue = _AutoShipStats.MaxHealth;
+			HealthBar.Value = _AutoShipStats.Health;
+			HealthValue.Text = $"{_AutoShipStats.Health}/{_AutoShipStats.MaxHealth}";
 		}
 
 		HealthBar.Size = new Vector2(200, 200);
@@ -37,9 +37,9 @@ public partial class HUD : Control
 
 	private void OnHealthChanged(int damage)
 	{
-		if (_shipStats == null) return;
+		if (_AutoShipStats == null) return;
 
-		HealthBar.Value = Mathf.Max(_shipStats.Health, 0);
+		HealthBar.Value = Mathf.Max(_AutoShipStats.Health, 0);
 		HealthValue.Text = $"{HealthBar.Value}/{HealthBar.MaxValue}";
 
 		var gradientUnder = new Gradient();
@@ -60,7 +60,7 @@ public partial class HUD : Control
 			MinValue = HealthBar.MinValue,
 			MaxValue = HealthBar.MaxValue,
 			Value = HealthBar.MaxValue,
-			TextureProgressOffset = new Vector2(BackgroundBar.TextureUnder.GetWidth() * (_shipStats.Health / (float)HealthBar.MaxValue), 0f),
+			TextureProgressOffset = new Vector2(BackgroundBar.TextureUnder.GetWidth() * (_AutoShipStats.Health / (float)HealthBar.MaxValue), 0f),
 			ZIndex = 5
 		};
 
@@ -68,7 +68,7 @@ public partial class HUD : Control
 		lostHealthBar.GlobalPosition = HealthBar.GlobalPosition;
 
 		var tween = GetTree().CreateTween();
-		if (_shipStats.Health > 0)
+		if (_AutoShipStats.Health > 0)
 		{
 			float startOffsetX = lostHealthBar.TextureProgressOffset.X;
 			float endOffsetX = startOffsetX - lostHealthBar.TextureProgress.GetWidth();

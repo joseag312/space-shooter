@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://xemhthflry0"]
+
+[ext_resource type="PackedScene" uid="uid://bj7260qvjfsfu" path="res://player_projectiles/pp_basic_blue/pp_basic_blue.tscn" id="1_a27au"]
+[ext_resource type="Texture2D" uid="uid://drwcveosb0n6c" path="res://assets/player_projectiles/player_projectile_laser_big.png" id="2_2jsrl"]
+
+[node name="PPBigBlue" instance=ExtResource("1_a27au")]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_2jsrl")
+
+[node name="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 0)
+
+[node name="WeaponDataComponent" parent="." index="4"]
+ProjectileName = "PPBigBlue"
+
+[node name="MoveComponent" parent="." index="6"]
+Velocity = Vector2(0, -1000)

@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bbbochxeac80o" path="res://components/HurtComponent.cs" id="9_ges07"]
 [ext_resource type="Script" uid="uid://dq0illjjctl11" path="res://components/DestroyedComponent.cs" id="10_hrmi2"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="11_p2q1j"]
-[ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/red_explosion_effect.tscn" id="12_psip7"]
+[ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/ef_explosion_red.tscn" id="12_psip7"]
 [ext_resource type="Script" uid="uid://cuxaexqd1d274" path="res://components/HealthBarComponent.cs" id="13_d7qd4"]
 
 [sub_resource type="Gradient" id="Gradient_h22py"]

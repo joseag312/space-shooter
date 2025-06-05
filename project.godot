@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="galaxy-navigator-c"
-run/main_scene="uid://ds4yswdh8nefc"
+run/main_scene="uid://805auh5i5nv0"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 
 [autoload]
 
-GameStats="*res://autoload/GameStats.cs"
-WeaponDatabase="*res://autoload/WeaponDatabase.cs"
-ShipStats="*res://autoload/ShipStats.cs"
-MenuBackground="*res://autoload/game_flow/game_flow.tscn"
+GameStats="*res://autoload/AutoGameStats.cs"
+ShipStats="*res://autoload/AutoShipStats.cs"
+AutoWeaponDatabase="*res://autoload/AutoWeaponDatabase.cs"
+AutoBackground="*res://autoload/auto_background/auto_background.tscn"
 
 [display]
 

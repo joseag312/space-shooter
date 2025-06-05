@@ -19,23 +19,23 @@ public partial class Ship : Node2D
 	{
 		AnimateShipEntry(this);
 
-		_statsComponent.MaxHealth = ShipStats.Instance.Health;
-		_statsComponent.Health = ShipStats.Instance.Health;
+		_statsComponent.MaxHealth = AutoShipStats.Instance.Health;
+		_statsComponent.Health = AutoShipStats.Instance.Health;
 
 		if (_weaponManager != null)
 		{
-			if (WeaponDatabase.Instance.BasicWeapon == null)
-				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in WeaponDatabase");
-			if (WeaponDatabase.Instance.LargeWeapon == null)
-				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in WeaponDatabase");
-			if (WeaponDatabase.Instance.SpecialWeapons[0] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in WeaponDatabase");
-			if (WeaponDatabase.Instance.SpecialWeapons[1] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in WeaponDatabase");
-			if (WeaponDatabase.Instance.SpecialWeapons[2] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in WeaponDatabase");
-			if (WeaponDatabase.Instance.SpecialWeapons[3] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in WeaponDatabase");
+			if (AutoWeaponDatabase.Instance.BasicWeapon == null)
+				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in AutoWeaponDatabase");
+			if (AutoWeaponDatabase.Instance.LargeWeapon == null)
+				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in AutoWeaponDatabase");
+			if (AutoWeaponDatabase.Instance.SpecialWeapons[0] == null)
+				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in AutoWeaponDatabase");
+			if (AutoWeaponDatabase.Instance.SpecialWeapons[1] == null)
+				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in AutoWeaponDatabase");
+			if (AutoWeaponDatabase.Instance.SpecialWeapons[2] == null)
+				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in AutoWeaponDatabase");
+			if (AutoWeaponDatabase.Instance.SpecialWeapons[3] == null)
+				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in AutoWeaponDatabase");
 
 			_weaponManager.AssignWeapons();
 		}

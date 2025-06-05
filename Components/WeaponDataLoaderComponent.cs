@@ -8,7 +8,7 @@ public partial class WeaponDataLoaderComponent : Node
 	[Export] public HitboxComponent hitboxComponent;
 	public override void _Ready()
 	{
-		WeaponDataComponent data = WeaponDatabase.Instance.GetWeaponData(weaponData.ProjectileName);
+		WeaponDataComponent data = AutoWeaponDatabase.Instance.GetWeaponData(weaponData.ProjectileName);
 		weaponData.Damage = data.Damage;
 		weaponData.DamagePercentage = data.DamagePercentage;
 		weaponData.CooldownTime = data.CooldownTime;

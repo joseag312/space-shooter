@@ -1,55 +1,54 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Godot;
 
 [GlobalClass]
 public partial class WeaponManagerComponent : Node
 {
-	[Export] private NodePath leftMuzzlePath;
-	[Export] private NodePath rightMuzzlePath;
-	[Export] private NodePath centerCannonPath;
-	[Export] private NodePath centerPath;
+	[Export] private NodePath _leftMuzzlePath;
+	[Export] private NodePath _rightMuzzlePath;
+	[Export] private NodePath _centerCannonPath;
+	[Export] private NodePath _centerPath;
 
-	private Marker2D center;
-	private Marker2D leftMuzzle;
-	private Marker2D rightMuzzle;
-	private Marker2D centerCannon;
+	private Marker2D _center;
+	private Marker2D _leftMuzzle;
+	private Marker2D _rightMuzzle;
+	private Marker2D _centerCannon;
 
-	private WeaponDataComponent basicWeapon;
-	private WeaponDataComponent largeWeapon;
-	private WeaponDataComponent[] specialWeapons;
+	private WeaponDataComponent _basicWeapon;
+	private WeaponDataComponent _largeWeapon;
+	private WeaponDataComponent[] _specialWeapons;
 
-	private Dictionary<int, float> weaponCooldowns = new();
-	private Dictionary<int, float> currentCooldowns = new();
+	private Dictionary<int, float> _weaponCooldowns = new();
+	private Dictionary<int, float> _currentCooldowns = new();
 
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
-		specialWeapons = new WeaponDataComponent[4];
-		center = GetNode<Marker2D>(centerPath);
-		leftMuzzle = GetNode<Marker2D>(leftMuzzlePath);
-		rightMuzzle = GetNode<Marker2D>(rightMuzzlePath);
-		centerCannon = GetNode<Marker2D>(centerCannonPath);
+		_specialWeapons = new WeaponDataComponent[4];
+		_center = GetNode<Marker2D>(_centerPath);
+		_leftMuzzle = GetNode<Marker2D>(_leftMuzzlePath);
+		_rightMuzzle = GetNode<Marker2D>(_rightMuzzlePath);
+		_centerCannon = GetNode<Marker2D>(_centerCannonPath);
 		AssignWeapons();
 	}
 
 	public override void _Process(double delta)
 	{
-		if (currentCooldowns.Count == 0)
+		if (_currentCooldowns.Count == 0)
 		{
 			GD.PrintErr("ERROR: WeaponManagerComponent - currentCooldowns is empty, cooldowns aren't being tracked");
 			return;
 		}
 
-		foreach (var key in currentCooldowns.Keys)
+		foreach (var key in _currentCooldowns.Keys)
 		{
-			if (currentCooldowns[key] > 0f)
+			if (_currentCooldowns[key] > 0f)
 			{
-				currentCooldowns[key] -= (float)delta;
-				if (currentCooldowns[key] < 0f)
+				_currentCooldowns[key] -= (float)delta;
+				if (_currentCooldowns[key] < 0f)
 				{
-					currentCooldowns[key] = 0f;
+					_currentCooldowns[key] = 0f;
 				}
 			}
 		}
@@ -57,37 +56,37 @@ public partial class WeaponManagerComponent : Node
 
 	public void AssignWeapons()
 	{
-		basicWeapon = WeaponDatabase.Instance.BasicWeapon;
-		largeWeapon = WeaponDatabase.Instance.LargeWeapon;
-		specialWeapons = WeaponDatabase.Instance.SpecialWeapons;
+		_basicWeapon = AutoWeaponDatabase.Instance.BasicWeapon;
+		_largeWeapon = AutoWeaponDatabase.Instance.LargeWeapon;
+		_specialWeapons = AutoWeaponDatabase.Instance.SpecialWeapons;
 
-		weaponCooldowns[0] = basicWeapon.CooldownTime;
-		weaponCooldowns[1] = largeWeapon.CooldownTime;
-		for (int i = 0; i < specialWeapons.Length; i++)
+		_weaponCooldowns[0] = _basicWeapon.CooldownTime;
+		_weaponCooldowns[1] = _largeWeapon.CooldownTime;
+		for (int i = 0; i < _specialWeapons.Length; i++)
 		{
-			weaponCooldowns[i + 2] = specialWeapons[i].CooldownTime;
+			_weaponCooldowns[i + 2] = _specialWeapons[i].CooldownTime;
 		}
-		foreach (var key in weaponCooldowns.Keys)
+		foreach (var key in _weaponCooldowns.Keys)
 		{
-			currentCooldowns[key] = 0f;
+			_currentCooldowns[key] = 0f;
 		}
 	}
 
 	public void SpawnWeapon(int weaponSlot)
 	{
-		if (currentCooldowns.ContainsKey(weaponSlot) && currentCooldowns[weaponSlot] > 0)
+		if (_currentCooldowns.ContainsKey(weaponSlot) && _currentCooldowns[weaponSlot] > 0)
 		{
 			return;
 		}
 
-		if (leftMuzzle == null || rightMuzzle == null || centerCannon == null)
+		if (_leftMuzzle == null || _rightMuzzle == null || _centerCannon == null)
 		{
 			GD.PrintErr("ERROR: WeaponManagerComponent - Muzzle points are not assigned");
 		}
 
-		WeaponDataComponent weaponData = weaponSlot == 0 ? basicWeapon :
-								weaponSlot == 1 ? largeWeapon :
-								specialWeapons[weaponSlot - 2];
+		WeaponDataComponent weaponData = weaponSlot == 0 ? _basicWeapon :
+								weaponSlot == 1 ? _largeWeapon :
+								_specialWeapons[weaponSlot - 2];
 
 		if (weaponData == null)
 		{
@@ -99,24 +98,24 @@ public partial class WeaponManagerComponent : Node
 		switch (weaponData.SpawnLocation)
 		{
 			case WeaponDataComponent.LeftMuzzle:
-				SpawnAtPosition(weaponScene, leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle);
+				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle);
 				break;
 
 			case WeaponDataComponent.RightMuzzle:
-				SpawnAtPosition(weaponScene, rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle);
+				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle);
 				break;
 
 			case WeaponDataComponent.BothMuzzles:
-				SpawnAtPosition(weaponScene, leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle);
-				SpawnAtPosition(weaponScene, rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle);
+				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle);
+				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle);
 				break;
 
 			case WeaponDataComponent.CenterCannon:
-				SpawnAtPosition(weaponScene, centerCannon.GlobalPosition, WeaponDataComponent.CenterCannon);
+				SpawnAtPosition(weaponScene, _centerCannon.GlobalPosition, WeaponDataComponent.CenterCannon);
 				break;
 
 			case WeaponDataComponent.Center:
-				SpawnAtPosition(weaponScene, center.GlobalPosition, WeaponDataComponent.Center);
+				SpawnAtPosition(weaponScene, _center.GlobalPosition, WeaponDataComponent.Center);
 				break;
 
 			default:
@@ -124,7 +123,7 @@ public partial class WeaponManagerComponent : Node
 				return;
 		}
 
-		currentCooldowns[weaponSlot] = weaponCooldowns[weaponSlot];
+		_currentCooldowns[weaponSlot] = _weaponCooldowns[weaponSlot];
 	}
 
 	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType)
@@ -144,5 +143,4 @@ public partial class WeaponManagerComponent : Node
 
 		weaponInstance.AddToGroup("despawnable");
 	}
-
 }

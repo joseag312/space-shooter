@@ -1,6 +1,6 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://kva5es6didog"]
 
-[ext_resource type="FontFile" uid="uid://yhgqknt8i0fl" path="res://assets/fonts/SyneMono-Regular.ttf" id="1_cnlsi"]
+[ext_resource type="FontFile" uid="uid://yhgqknt8i0fl" path="res://assets/fonts/syne_mono_regular.ttf" id="1_cnlsi"]
 
 [resource]
 font = ExtResource("1_cnlsi")
