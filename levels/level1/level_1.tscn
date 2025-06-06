@@ -10,6 +10,9 @@
 
 [node name="Level1" type="Node2D"]
 
+[node name="Ship" parent="." instance=ExtResource("5_iqhro")]
+position = Vector2(654, 824)
+
 [node name="Bg_Ocean" parent="." instance=ExtResource("6_icxts")]
 
 [node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner")]
@@ -26,9 +29,6 @@ offset_top = 36.0
 offset_right = 80.0
 offset_bottom = 76.0
 metadata/_edit_use_anchors_ = true
-
-[node name="Ship" parent="." instance=ExtResource("5_iqhro")]
-position = Vector2(654, 824)
 
 [node name="BasicEnemySpawner" type="Node2D" parent="."]
 script = ExtResource("2_loufh")

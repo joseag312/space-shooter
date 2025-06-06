@@ -48,6 +48,8 @@ public partial class AutoShipStats : Node
 
 	public void Load()
 	{
+		GD.Print(ProjectSettings.GlobalizePath(SavePath));
+
 		if (!FileAccess.FileExists(SavePath))
 		{
 			Save();

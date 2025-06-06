@@ -16,10 +16,10 @@ config/features=PackedStringArray("4.4", "C#", "Mobile")
 
 [autoload]
 
+AutoBackground="*res://autoload/auto_background/auto_background.tscn"
 AutoGameStats="*res://autoload/auto_game_stats/AutoGameStats.cs"
 AutoShipStats="*res://autoload/auto_ship_stats/AutoShipStats.cs"
 AutoWeaponDatabase="*res://autoload/auto_weapon_database/AutoWeaponDatabase.cs"
-AutoBackground="*res://autoload/auto_background/auto_background.tscn"
 
 [display]
 
