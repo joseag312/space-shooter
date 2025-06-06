@@ -1,39 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds4yswdh8nefc"]
+[gd_scene load_steps=8 format=3 uid="uid://din7e88hu2cps"]
 
-[ext_resource type="PackedScene" uid="uid://ctiak2j5gpdd" path="res://levels/world.tscn" id="1_tj7e4"]
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
-[ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/basic_enemy/basic_enemy.tscn" id="4_kw6hg"]
-[ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/basic_enemy/basic_enemy_slow.tscn" id="6_1a4kf"]
+[ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/enemy_basic/enemy_basic.tscn" id="4_kw6hg"]
+[ext_resource type="PackedScene" uid="uid://cm2ehypi27656" path="res://player_ship/ship.tscn" id="5_iqhro"]
+[ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/enemy_basic_slow/enemy_basic_slow.tscn" id="6_1a4kf"]
 [ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/bg_ocean.tscn" id="6_icxts"]
+[ext_resource type="PackedScene" uid="uid://djan3duhgdlxt" path="res://hud/hud_health_bar/hud_health_bar.tscn" id="8_2lrd6"]
 
-[node name="Level1" instance=ExtResource("1_tj7e4")]
+[node name="Level1" type="Node2D"]
 
-[node name="Level1Script" type="Node" parent="." index="0" node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner")]
+[node name="Bg_Ocean" parent="." instance=ExtResource("6_icxts")]
+
+[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner")]
 script = ExtResource("2_f645t")
 Ship = NodePath("../Ship")
 Enemy1Spawner = NodePath("../BasicEnemySpawner")
 Enemy2Spawner = NodePath("../BasicEnemySlowSpawner")
-Enemy3Spawner = NodePath("../BasicEnemySpawner")
 
-[node name="BasicEnemySpawner" type="Node2D" parent="." index="1"]
+[node name="HUDCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUDHealthBar" parent="HUDCanvasLayer" instance=ExtResource("8_2lrd6")]
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 80.0
+offset_bottom = 76.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Ship" parent="." instance=ExtResource("5_iqhro")]
+position = Vector2(654, 824)
+
+[node name="BasicEnemySpawner" type="Node2D" parent="."]
 script = ExtResource("2_loufh")
 Scene = ExtResource("4_kw6hg")
 
-[node name="BasicEnemySlowSpawner" type="Node2D" parent="." index="2"]
+[node name="BasicEnemySlowSpawner" type="Node2D" parent="."]
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
-
-[node name="Ship" parent="." index="3"]
-position = Vector2(654, 824)
-
-[node name="HUD" parent="HUDCanvasLayer" index="0"]
-visible = false
-metadata/_edit_use_anchors_ = true
-
-[node name="BasicEnemyTimer" type="Timer" parent="." index="5"]
-wait_time = 3.0
-one_shot = true
-autostart = true
-
-[node name="Bg_Ocean" parent="." index="6" instance=ExtResource("6_icxts")]

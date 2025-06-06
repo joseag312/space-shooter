@@ -13,7 +13,6 @@ public partial class BackgroundLoadingComponent : Node
 
     public override void _Ready()
     {
-        GD.Print("Called");
         ResetLayer(BackgroundLayer);
         ResetLayer(SlowLayer);
         ResetLayer(FastLayer);

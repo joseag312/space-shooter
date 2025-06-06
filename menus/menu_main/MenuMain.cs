@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public partial class MainMenu : Control
+public partial class MenuMain : Control
 {
     [Export] public Button StartButton { get; set; }
     [Export] public Button SettingsButton { get; set; }

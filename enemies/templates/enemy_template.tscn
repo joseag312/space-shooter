@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://yoifmlf4jcbl"]
+[gd_scene load_steps=18 format=3 uid="uid://yoifmlf4jcbl"]
 
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="1_k0wof"]
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="2_1unro"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dq0illjjctl11" path="res://components/DestroyedComponent.cs" id="10_hrmi2"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="11_p2q1j"]
 [ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/ef_explosion_red.tscn" id="12_psip7"]
+[ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="13_4v6fi"]
 [ext_resource type="Script" uid="uid://cuxaexqd1d274" path="res://components/HealthBarComponent.cs" id="13_d7qd4"]
 
 [sub_resource type="Gradient" id="Gradient_h22py"]
@@ -27,7 +28,7 @@ colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
 gradient = SubResource("Gradient_tvucr")
 width = 16
 
-[node name="Enemy" type="Node2D"]
+[node name="EnemyTemplate" type="Node2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
@@ -88,6 +89,11 @@ FlashComponent = NodePath("../FlashComponent")
 HurtboxComponent = NodePath("../HurtboxComponent")
 HealthBar = NodePath("../HealthBarProgressBar")
 AnimatedSprite = NodePath("../AnimatedSprite2D")
+
+[node name="DespawnOnExitComponent" type="Node" parent="." node_paths=PackedStringArray("_visibleNotifier")]
+script = ExtResource("13_4v6fi")
+_visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
+metadata/_custom_type_script = "uid://c0p7rysr544jk"
 
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0

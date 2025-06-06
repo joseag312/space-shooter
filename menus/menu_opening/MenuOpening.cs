@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class OpeningMenu : Control
+public partial class MenuOpening : Control
 {
     [Export] public AnimationPlayer AnimationPlayer { get; set; }
 
@@ -17,6 +17,6 @@ public partial class OpeningMenu : Control
 
     public void MainMenuLoad()
     {
-        GetTree().ChangeSceneToFile("res://menus/main_menu.tscn");
+        GetTree().ChangeSceneToFile("res://menus/menu_main/menu_main.tscn");
     }
 }

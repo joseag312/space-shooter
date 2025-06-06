@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
-public partial class HUD : Control
+public partial class HUDHealthBar : Control
 {
 	[Export] public TextureProgressBar HealthBar { get; set; }
 	[Export] public TextureProgressBar BackgroundBar { get; set; }

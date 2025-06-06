@@ -1,9 +1,9 @@
 [gd_scene load_steps=114 format=3 uid="uid://805auh5i5nv0"]
 
-[ext_resource type="Script" uid="uid://c4dauuixombjf" path="res://menus/OpeningMenu.cs" id="1_tsucw"]
+[ext_resource type="Script" uid="uid://c4dauuixombjf" path="res://menus/menu_opening/MenuOpening.cs" id="1_tsucw"]
 [ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="2_8ww4x"]
 [ext_resource type="Texture2D" uid="uid://c163cpn2ftkt" path="res://assets/gui/gui_logo.png" id="2_v65eu"]
-[ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/title_black.tres" id="3_8dcjw"]
+[ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/font_title_black.tres" id="3_8dcjw"]
 [ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="4_8ww4x"]
 
 [sub_resource type="Animation" id="Animation_a63lr"]
@@ -850,7 +850,7 @@ animations = [{
 "speed": 28.0
 }]
 
-[node name="OpeningMenu" type="Control" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="MenuOpening" type="Control" node_paths=PackedStringArray("AnimationPlayer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_tsucw")

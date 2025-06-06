@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://djan3duhgdlxt"]
 
-[ext_resource type="Script" uid="uid://ox51nxkamgxx" path="res://hud/HUD.cs" id="1_oqp1a"]
-[ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://resources/fonts/ship_hud.tres" id="2_htj6a"]
-[ext_resource type="Texture2D" uid="uid://idjvml13crkq" path="res://assets/gui/gui_health_container.png" id="3_skbei"]
-[ext_resource type="Texture2D" uid="uid://daymh8p1tltwj" path="res://assets/gui/gui_top_frame_edge.png" id="5_8s6b2"]
+[ext_resource type="Script" uid="uid://ox51nxkamgxx" path="res://hud/hud_health_bar/HUDHealthBar.cs" id="1_bmw7h"]
+[ext_resource type="Texture2D" uid="uid://daymh8p1tltwj" path="res://assets/gui/gui_top_frame_edge.png" id="2_4tcdh"]
+[ext_resource type="Texture2D" uid="uid://idjvml13crkq" path="res://assets/gui/gui_health_container.png" id="3_ghsh6"]
+[ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://resources/fonts/font_ship_health_bar.tres" id="4_1owqb"]
 
 [sub_resource type="Gradient" id="Gradient_csota"]
 colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 1)
@@ -23,31 +23,28 @@ gradient = SubResource("Gradient_7dbq8")
 width = 256
 height = 20
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("HealthBar", "BackgroundBar", "HealthValue")]
+[node name="HUDHealthBar" type="Control" node_paths=PackedStringArray("HealthBar", "BackgroundBar", "HealthValue")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_oqp1a")
+script = ExtResource("1_bmw7h")
 HealthBar = NodePath("VBoxContainer/HealthBarControl/HealthBar")
 BackgroundBar = NodePath("VBoxContainer/HealthBarControl/BackgroundBar")
 HealthValue = NodePath("VBoxContainer/HealthBarControl/HealthValueLabel")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -1.90735e-06)
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="HealthBarContainerTopSprite2D" type="Sprite2D" parent="."]
 z_index = 9
 position = Vector2(99, -19)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("5_8s6b2")
+texture = ExtResource("2_4tcdh")
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
+[node name="HealthBarContainerLeftSprite2D" type="Sprite2D" parent="."]
 z_index = 9
 position = Vector2(-22, 34.4435)
 rotation = -1.5708
 scale = Vector2(1.02148, 2.5)
-texture = ExtResource("5_8s6b2")
+texture = ExtResource("2_4tcdh")
 flip_h = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -60,7 +57,7 @@ scale = Vector2(1.5, 1.5)
 z_index = 12
 position = Vector2(128.667, 9.75)
 scale = Vector2(0.823045, 1.28947)
-texture = ExtResource("3_skbei")
+texture = ExtResource("3_ghsh6")
 
 [node name="HealthBarControl" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(260, 24)
@@ -73,7 +70,7 @@ offset_left = 9.33333
 offset_top = 2.0
 offset_right = 10.3333
 offset_bottom = 32.0
-label_settings = ExtResource("2_htj6a")
+label_settings = ExtResource("4_1owqb")
 
 [node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/HealthBarControl"]
 z_index = 10

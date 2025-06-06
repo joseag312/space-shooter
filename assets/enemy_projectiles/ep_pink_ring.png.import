@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfya6iw21qap2"
-path="res://.godot/imported/enemy_basic_projectile.png-48ad403193ba3ec2c6e204b367429071.ctex"
+path="res://.godot/imported/ep_pink_ring.png-20901bcb25a42c03b0f55251df2df4d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy_projectiles/enemy_basic_projectile.png"
-dest_files=["res://.godot/imported/enemy_basic_projectile.png-48ad403193ba3ec2c6e204b367429071.ctex"]
+source_file="res://assets/enemy_projectiles/ep_pink_ring.png"
+dest_files=["res://.godot/imported/ep_pink_ring.png-20901bcb25a42c03b0f55251df2df4d5.ctex"]
 
 [params]
 

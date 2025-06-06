@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bj7260qvjfsfu"]
 
-[ext_resource type="Texture2D" uid="uid://kqgvvgc52iof" path="res://assets/player_projectiles/player_projectile_laser_small.png" id="1_34jry"]
+[ext_resource type="Texture2D" uid="uid://kqgvvgc52iof" path="res://assets/player_projectiles/pp_laser_small.png" id="1_34jry"]
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="2_ysowv"]
 [ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="3_6ajjx"]
 [ext_resource type="Script" uid="uid://c64tqnyvh68h6" path="res://components/WeaponSpawnComponent.cs" id="3_koscm"]
