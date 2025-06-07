@@ -8,8 +8,8 @@ public partial class MenuOpening : Control
 
     public override void _Ready()
     {
-        AutoShipStats.Instance.Load();
-        AutoGameStats.Instance.Load();
+        G.SS.Load();
+        G.GS.Load();
         PlayOpening();
     }
 
@@ -20,7 +20,7 @@ public partial class MenuOpening : Control
 
     public async Task MainMenuLoad()
     {
-        await AutoGameFlow.Instance.FadeToSceneBasic(AutoGameFlow.Instance.MenuMainScene);
+        await G.GF.FadeToSceneBasic(G.GF.MenuMainScene);
     }
 
     public void MainMenuLoadWrapper()

@@ -26,8 +26,8 @@ public partial class MenuFadeComponent : Node
 
         await ToSignal(tween, "finished");
 
-        AutoBackground.Instance.UnblockInput();
-        AutoGameFlow.Instance.ResetTransition();
+        G.BG.UnblockInput();
+        G.GF.ResetTransition();
     }
 }
 

@@ -19,22 +19,22 @@ public partial class Ship : Node2D
 	{
 		AnimateShipEntry(this);
 
-		_statsComponent.MaxHealth = AutoShipStats.Instance.Health;
-		_statsComponent.Health = AutoShipStats.Instance.Health;
+		_statsComponent.MaxHealth = G.SS.Health;
+		_statsComponent.Health = G.SS.Health;
 
 		if (_weaponManager != null)
 		{
-			if (AutoWeaponDatabase.Instance.BasicWeapon == null)
+			if (G.WD.BasicWeapon == null)
 				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in AutoWeaponDatabase");
-			if (AutoWeaponDatabase.Instance.LargeWeapon == null)
+			if (G.WD.LargeWeapon == null)
 				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in AutoWeaponDatabase");
-			if (AutoWeaponDatabase.Instance.SpecialWeapons[0] == null)
+			if (G.WD.SpecialWeapons[0] == null)
 				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in AutoWeaponDatabase");
-			if (AutoWeaponDatabase.Instance.SpecialWeapons[1] == null)
+			if (G.WD.SpecialWeapons[1] == null)
 				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in AutoWeaponDatabase");
-			if (AutoWeaponDatabase.Instance.SpecialWeapons[2] == null)
+			if (G.WD.SpecialWeapons[2] == null)
 				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in AutoWeaponDatabase");
-			if (AutoWeaponDatabase.Instance.SpecialWeapons[3] == null)
+			if (G.WD.SpecialWeapons[3] == null)
 				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in AutoWeaponDatabase");
 
 			_weaponManager.AssignWeapons();

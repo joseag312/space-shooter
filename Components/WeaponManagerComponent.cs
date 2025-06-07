@@ -56,9 +56,9 @@ public partial class WeaponManagerComponent : Node
 
 	public void AssignWeapons()
 	{
-		_basicWeapon = AutoWeaponDatabase.Instance.BasicWeapon;
-		_largeWeapon = AutoWeaponDatabase.Instance.LargeWeapon;
-		_specialWeapons = AutoWeaponDatabase.Instance.SpecialWeapons;
+		_basicWeapon = G.WD.BasicWeapon;
+		_largeWeapon = G.WD.LargeWeapon;
+		_specialWeapons = G.WD.SpecialWeapons;
 
 		_weaponCooldowns[0] = _basicWeapon.CooldownTime;
 		_weaponCooldowns[1] = _largeWeapon.CooldownTime;

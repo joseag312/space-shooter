@@ -6,61 +6,61 @@ public partial class AutoBackgroundTriggerComponent : Node
 {
     public void BlockInput()
     {
-        AutoBackground.Instance.BlockInput();
+        G.BG.BlockInput();
     }
 
     public void UnblockInput()
     {
-        AutoBackground.Instance.UnblockInput();
+        G.BG.UnblockInput();
     }
 
     public void ShowStars()
     {
-        AutoBackground.Instance.ShowStars();
+        G.BG.ShowStars();
     }
 
     public void HideStars()
     {
-        AutoBackground.Instance.HideStars();
+        G.BG.HideStars();
     }
 
     public void FadeInStars()
     {
-        AutoBackground.Instance.FadeInStars();
+        G.BG.FadeInStars();
     }
 
     public void FadeOutStars()
     {
-        AutoBackground.Instance.FadeOutStars();
+        G.BG.FadeOutStars();
     }
 
     public void FadeInBlack(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeInBlack(duration);
+        G.BG.FadeInBlack(duration);
     }
 
     public void FadeOutBlack(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeOutBlack(duration);
+        G.BG.FadeOutBlack(duration);
     }
 
     public void FadeInWhite(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeInWhite(duration);
+        G.BG.FadeInWhite(duration);
     }
 
     public void FadeOutWhite(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeOutWhite(duration);
+        G.BG.FadeOutWhite(duration);
     }
 
     public void FadeInLoading(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeInLoading(duration);
+        G.BG.FadeInLoading(duration);
     }
 
     public void FadeOutLoading(float duration = 0.5f)
     {
-        AutoBackground.Instance.FadeOutLoading(duration);
+        G.BG.FadeOutLoading(duration);
     }
 }

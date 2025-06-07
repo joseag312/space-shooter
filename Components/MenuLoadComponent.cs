@@ -23,8 +23,8 @@ public partial class MenuLoadComponent : Node
 
         tween.Finished += () =>
         {
-            AutoBackground.Instance.UnblockInput();
-            AutoGameFlow.Instance.ResetTransition();
+            G.BG.UnblockInput();
+            G.GF.ResetTransition();
         };
     }
 }

@@ -9,6 +9,6 @@ public partial class MoveInputComponent : Node
     {
         float inputAxisX = Input.GetAxis("ui_left", "ui_right");
         float inputAxisY = Input.GetAxis("ui_up", "ui_down");
-        MoveComponent.Velocity = new Vector2(inputAxisX * AutoShipStats.Instance.Speed, inputAxisY * AutoShipStats.Instance.Speed);
+        MoveComponent.Velocity = new Vector2(inputAxisX * G.SS.Speed, inputAxisY * G.SS.Speed);
     }
 }
