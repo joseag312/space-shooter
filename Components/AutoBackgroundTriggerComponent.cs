@@ -26,41 +26,41 @@ public partial class AutoBackgroundTriggerComponent : Node
 
     public void FadeInStars()
     {
-        G.BG.FadeInStars();
+        _ = G.BG.FadeInStars();
     }
 
     public void FadeOutStars()
     {
-        G.BG.FadeOutStars();
+        _ = G.BG.FadeOutStars();
     }
 
     public void FadeInBlack(float duration = 0.5f)
     {
-        G.BG.FadeInBlack(duration);
+        _ = G.BG.FadeInBlack(duration);
     }
 
     public void FadeOutBlack(float duration = 0.5f)
     {
-        G.BG.FadeOutBlack(duration);
+        _ = G.BG.FadeOutBlack(duration);
     }
 
     public void FadeInWhite(float duration = 0.5f)
     {
-        G.BG.FadeInWhite(duration);
+        _ = G.BG.FadeInWhite(duration);
     }
 
     public void FadeOutWhite(float duration = 0.5f)
     {
-        G.BG.FadeOutWhite(duration);
+        _ = G.BG.FadeOutWhite(duration);
     }
 
     public void FadeInLoading(float duration = 0.5f)
     {
-        G.BG.FadeInLoading(duration);
+        _ = G.BG.FadeInLoading(duration);
     }
 
     public void FadeOutLoading(float duration = 0.5f)
     {
-        G.BG.FadeOutLoading(duration);
+        _ = G.BG.FadeOutLoading(duration);
     }
 }

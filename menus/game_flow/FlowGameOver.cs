@@ -30,7 +30,7 @@ public partial class FlowGameOver : CanvasLayer
     private async void OnRetryPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
-        await G.GF.FadeToSceneBasic(G.GF.LastPlayedScene);
+        await G.GF.FadeToSceneWithLoading(G.GF.LastPlayedScene);
     }
 
     private async void OnExitPressed()

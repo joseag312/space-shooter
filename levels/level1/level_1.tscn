@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://din7e88hu2cps"]
+[gd_scene load_steps=9 format=3 uid="uid://din7e88hu2cps"]
 
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
+[ext_resource type="Script" uid="uid://b7kt20j1tgm7k" path="res://components/LevelFlowComponent.cs" id="4_ebna0"]
 [ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/enemy_basic/enemy_basic.tscn" id="4_kw6hg"]
 [ext_resource type="PackedScene" uid="uid://cm2ehypi27656" path="res://player_ship/ship.tscn" id="5_iqhro"]
 [ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/enemy_basic_slow/enemy_basic_slow.tscn" id="6_1a4kf"]
@@ -15,11 +16,21 @@ position = Vector2(654, 824)
 
 [node name="Bg_Ocean" parent="." instance=ExtResource("6_icxts")]
 
-[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner")]
+[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner")]
 script = ExtResource("2_f645t")
+Ship = NodePath("../Ship")
+LevelFlowComponent = NodePath("../LevelFlowComponent")
+Enemy1Spawner = NodePath("../BasicEnemySpawner")
+Enemy2Spawner = NodePath("../BasicEnemySlowSpawner")
+
+[node name="LevelFlowComponent" type="Node" parent="." node_paths=PackedStringArray("Ship", "Enemy1Spawner", "Enemy2Spawner", "HUDCanvasLayer", "ParallaxBackground")]
+script = ExtResource("4_ebna0")
 Ship = NodePath("../Ship")
 Enemy1Spawner = NodePath("../BasicEnemySpawner")
 Enemy2Spawner = NodePath("../BasicEnemySlowSpawner")
+HUDCanvasLayer = NodePath("../HUDCanvasLayer")
+ParallaxBackground = NodePath("../Bg_Ocean")
+metadata/_custom_type_script = "uid://b7kt20j1tgm7k"
 
 [node name="HUDCanvasLayer" type="CanvasLayer" parent="."]
 

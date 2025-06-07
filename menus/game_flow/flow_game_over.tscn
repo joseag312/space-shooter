@@ -6,11 +6,12 @@
 [ext_resource type="LabelSettings" uid="uid://dd7yqo32nsva0" path="res://resources/fonts/font_orbitron_white_24_outline.tres" id="3_5hgec"]
 [ext_resource type="Script" uid="uid://bbg1n3i80miej" path="res://components/MenuFadeComponent.cs" id="3_74y6c"]
 
-[node name="FlowGameOver" type="CanvasLayer" node_paths=PackedStringArray("MessageLabel", "RetryButton", "ExitButton")]
+[node name="FlowGameOver" type="CanvasLayer" node_paths=PackedStringArray("MessageLabel", "RetryButton", "ExitButton", "MenuFadeComponent")]
 script = ExtResource("1_tnwgc")
 MessageLabel = NodePath("MainContainer/MainVBox/MessageLabel")
 RetryButton = NodePath("MainContainer/MainVBox/ButtonHBox/RetryButton")
 ExitButton = NodePath("MainContainer/MainVBox/ButtonHBox/ExitButton")
+MenuFadeComponent = NodePath("MenuFadeComponent")
 
 [node name="MenuLoadComponent" type="Node" parent="." node_paths=PackedStringArray("CanvasContainer")]
 script = ExtResource("2_1sgg1")

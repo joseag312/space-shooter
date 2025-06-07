@@ -64,6 +64,11 @@ public partial class AutoBackground : ParallaxBackground
         await ToSignal(tween, "finished");
     }
 
+    public async Task FadeInStarsFast()
+    {
+        await FadeInStars(0.4f, 0.3f, 0.2f);
+    }
+
     public async Task FadeOutStars(float backgroundDuration = 1.2f, float slowDuration = 0.8f, float fastDuration = 0.3f)
     {
         var tween = GetTree().CreateTween();

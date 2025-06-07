@@ -3,13 +3,13 @@ using Godot;
 [GlobalClass]
 public partial class Ship : Node2D
 {
-	[Export] private WeaponManagerComponent _weaponManager;
-	[Export] private MoveComponent _moveComponent;
-	[Export] private ScaleComponent _scaleComponent;
-	[Export] private HurtboxComponent _hurtboxComponent;
-	[Export] private StatsComponent _statsComponent;
-	[Export] private PositionClampComponent _positionClampComponent;
-	[Export] private Node2D _anchor;
+	[Export] public WeaponManagerComponent WeaponManager;
+	[Export] public MoveComponent MoveComponent;
+	[Export] public ScaleComponent ScaleComponent;
+	[Export] public HurtboxComponent HurtboxComponent;
+	[Export] public StatsComponent StatsComponent;
+	[Export] public PositionClampComponent PositionClampComponent;
+	[Export] public Node2D Anchor;
 
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
 
@@ -19,10 +19,10 @@ public partial class Ship : Node2D
 	{
 		AnimateShipEntry(this);
 
-		_statsComponent.MaxHealth = G.SS.Health;
-		_statsComponent.Health = G.SS.Health;
+		StatsComponent.MaxHealth = G.SS.Health;
+		StatsComponent.Health = G.SS.Health;
 
-		if (_weaponManager != null)
+		if (WeaponManager != null)
 		{
 			if (G.WD.BasicWeapon == null)
 				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in AutoWeaponDatabase");
@@ -37,48 +37,64 @@ public partial class Ship : Node2D
 			if (G.WD.SpecialWeapons[3] == null)
 				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in AutoWeaponDatabase");
 
-			_weaponManager.AssignWeapons();
+			WeaponManager.AssignWeapons();
 		}
 		else
 		{
 			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
 
-		_hurtboxComponent.Hurt += UpdateHealth;
+		HurtboxComponent.Hurt += UpdateHealth;
 	}
 
 	public override void _Process(double delta)
 	{
 		if (_readyToFire)
 		{
-			_weaponManager?.SpawnWeapon(0);
+			WeaponManager?.SpawnWeapon(0);
 
 			if (Input.IsActionJustPressed("fire_large"))
-				_weaponManager?.SpawnWeapon(1);
+				WeaponManager?.SpawnWeapon(1);
 			if (Input.IsActionJustPressed("fire_special_1"))
-				_weaponManager?.SpawnWeapon(2);
+				WeaponManager?.SpawnWeapon(2);
 			if (Input.IsActionJustPressed("fire_special_2"))
-				_weaponManager?.SpawnWeapon(3);
+				WeaponManager?.SpawnWeapon(3);
 			if (Input.IsActionJustPressed("fire_special_3"))
-				_weaponManager?.SpawnWeapon(4);
+				WeaponManager?.SpawnWeapon(4);
 			if (Input.IsActionJustPressed("fire_special_4"))
-				_weaponManager?.SpawnWeapon(5);
+				WeaponManager?.SpawnWeapon(5);
 		}
 
 		AnimateShip();
 	}
 
+	public async void AnimateShipEntry(Node2D ship)
+	{
+		PositionClampComponent.Enabled = false;
+		ship.Position = new Vector2(640, 1080);
+
+		var tween = GetTree().CreateTween();
+		tween.TweenProperty(ship, "position", new Vector2(640, 600), 1.0f)
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+
+		await ToSignal(tween, "finished");
+
+		PositionClampComponent.Enabled = true;
+		StartFiring();
+	}
+
 	public void AnimateShip()
 	{
-		foreach (AnimatedSprite2D sprite in _anchor.GetChildren())
+		foreach (AnimatedSprite2D sprite in Anchor.GetChildren())
 		{
-			if (_moveComponent.Velocity.X < 0)
+			if (MoveComponent.Velocity.X < 0)
 			{
 				RotationDegrees = -5;
 				Skew = Mathf.DegToRad(5);
 				sprite.Play("BankLeft");
 			}
-			else if (_moveComponent.Velocity.X > 0)
+			else if (MoveComponent.Velocity.X > 0)
 			{
 				RotationDegrees = 5;
 				Skew = Mathf.DegToRad(-5);
@@ -99,27 +115,11 @@ public partial class Ship : Node2D
 
 		if (hitboxComponent.DamagePercentage > 0)
 		{
-			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * _statsComponent.MaxHealth);
+			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * StatsComponent.MaxHealth);
 			damage = Mathf.Max(damage, 1);
 		}
 
 		EmitSignal(nameof(HealthChanged), damage);
-	}
-
-	public async void AnimateShipEntry(Node2D ship)
-	{
-		_positionClampComponent.Enabled = false;
-		ship.Position = new Vector2(640, 1080);
-
-		var tween = GetTree().CreateTween();
-		tween.TweenProperty(ship, "position", new Vector2(640, 600), 1.0f)
-			.SetTrans(Tween.TransitionType.Sine)
-			.SetEase(Tween.EaseType.Out);
-
-		await ToSignal(tween, "finished");
-
-		_positionClampComponent.Enabled = true;
-		StartFiring();
 	}
 
 	public void StartFiring() => _readyToFire = true;

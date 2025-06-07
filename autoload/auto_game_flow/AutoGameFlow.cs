@@ -7,6 +7,8 @@ public partial class AutoGameFlow : Node
 
     public string LastPlayedScene { get; set; } = "";
     public string MenuMainScene = "res://menus/menu_main/menu_main.tscn";
+    public string GameOverScene = "res://menus/game_flow/flow_game_over.tscn";
+    public string LevelClearScene = "res://menus/game_flow/flow_level_clear.tscn";
 
     private bool _isTransitioning = false;
 
@@ -49,10 +51,22 @@ public partial class AutoGameFlow : Node
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
-        AutoBackground.Instance.ShowStars();
+        await AutoBackground.Instance.FadeInStars();
         await AutoBackground.Instance.FadeInBlack(0.5f);
         ChangeSceneSafely(path);
     }
+
+    public async Task FadeToSceneWithBGFast(string path)
+    {
+        if (_isTransitioning) return;
+        _isTransitioning = true;
+
+        AutoBackground.Instance.BlockInput();
+        await AutoBackground.Instance.FadeInStarsFast();
+        await AutoBackground.Instance.FadeInBlack(0.2f);
+        ChangeSceneSafely(path);
+    }
+
 
     public async Task FadeToSceneFadeBG(string path)
     {
