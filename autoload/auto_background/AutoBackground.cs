@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using System.Threading.Tasks;
 
 public partial class AutoBackground : ParallaxBackground
 {
@@ -26,6 +26,7 @@ public partial class AutoBackground : ParallaxBackground
         {
             QueueFree();
         }
+        _inputBlocker.GuiInput += OnInputBlockerGuiInput;
     }
 
     public void ShowStars()
@@ -50,25 +51,25 @@ public partial class AutoBackground : ParallaxBackground
         _fastLayer.Modulate = new Color(1, 1, 1, 0);
     }
 
-    public async void FadeInStars()
+    public async Task FadeInStars(float backgroundDuration = 1.2f, float slowDuration = 0.8f, float fastDuration = 0.5f)
     {
         _background.Visible = true;
         _slowLayer.Visible = true;
         _fastLayer.Visible = true;
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_background, "modulate:a", 1f, 1.2f);
-        tween.TweenProperty(_slowLayer, "modulate:a", 1f, 0.8f);
-        tween.TweenProperty(_fastLayer, "modulate:a", 1f, 0.5f);
+        tween.TweenProperty(_background, "modulate:a", 1f, backgroundDuration);
+        tween.TweenProperty(_slowLayer, "modulate:a", 1f, slowDuration);
+        tween.TweenProperty(_fastLayer, "modulate:a", 1f, fastDuration);
         await ToSignal(tween, "finished");
     }
 
-    public async void FadeOutStars()
+    public async Task FadeOutStars(float backgroundDuration = 1.2f, float slowDuration = 0.8f, float fastDuration = 0.3f)
     {
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_fastLayer, "modulate:a", 0f, 0.3f);
-        tween.TweenProperty(_slowLayer, "modulate:a", 0f, 0.8f);
-        tween.TweenProperty(_background, "modulate:a", 0f, 1.2f);
+        tween.TweenProperty(_fastLayer, "modulate:a", 0f, fastDuration);
+        tween.TweenProperty(_slowLayer, "modulate:a", 0f, slowDuration);
+        tween.TweenProperty(_background, "modulate:a", 0f, backgroundDuration);
         await ToSignal(tween, "finished");
 
         _background.Visible = false;
@@ -76,7 +77,7 @@ public partial class AutoBackground : ParallaxBackground
         _fastLayer.Visible = false;
     }
 
-    public async void FadeInBlack(float duration = 0.5f)
+    public async Task FadeInBlack(float duration = 0.5f)
     {
         _fadeBlack.Visible = true;
 
@@ -85,7 +86,7 @@ public partial class AutoBackground : ParallaxBackground
         await ToSignal(tween, "finished");
     }
 
-    public async void FadeOutBlack(float duration = 0.5f)
+    public async Task FadeOutBlack(float duration = 0.5f)
     {
         var tween = GetTree().CreateTween();
         tween.TweenProperty(_fadeBlack, "modulate:a", 0f, duration);
@@ -94,7 +95,7 @@ public partial class AutoBackground : ParallaxBackground
         _fadeBlack.Visible = false;
     }
 
-    public async void FadeInWhite(float duration = 0.5f)
+    public async Task FadeInWhite(float duration = 0.5f)
     {
         _fadeWhite.Visible = true;
 
@@ -103,7 +104,7 @@ public partial class AutoBackground : ParallaxBackground
         await ToSignal(tween, "finished");
     }
 
-    public async void FadeOutWhite(float duration = 0.5f)
+    public async Task FadeOutWhite(float duration = 0.5f)
     {
         var tween = GetTree().CreateTween();
         tween.TweenProperty(_fadeWhite, "modulate:a", 0f, duration);
@@ -112,7 +113,7 @@ public partial class AutoBackground : ParallaxBackground
         _fadeWhite.Visible = false;
     }
 
-    public async void FadeInLoading(float duration = 0.5f)
+    public async Task FadeInLoading(float duration = 0.5f)
     {
         _loading.Visible = true;
 
@@ -121,7 +122,7 @@ public partial class AutoBackground : ParallaxBackground
         await ToSignal(tween, "finished");
     }
 
-    public async void FadeOutLoading(float duration = 0.5f)
+    public async Task FadeOutLoading(float duration = 0.5f)
     {
         var tween = GetTree().CreateTween();
         tween.TweenProperty(_loading, "modulate:a", 0f, duration);
@@ -138,5 +139,13 @@ public partial class AutoBackground : ParallaxBackground
     public void UnblockInput()
     {
         _inputBlocker.Visible = false;
+    }
+
+    private void OnInputBlockerGuiInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+        {
+            GD.Print("DEBUG: AutoBackground - Input blocker clicked");
+        }
     }
 }

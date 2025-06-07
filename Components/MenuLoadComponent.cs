@@ -1,0 +1,30 @@
+using Godot;
+using System;
+
+[GlobalClass]
+public partial class MenuLoadComponent : Node
+{
+    [Export] public CenterContainer CanvasContainer;
+    [Export] public float FadeDuration = 0.5f;
+
+    public override void _Ready()
+    {
+        if (CanvasContainer == null)
+        {
+            GD.PrintErr("ERROR: MenuLoadComponent - CanvasRoot is not set");
+            return;
+        }
+
+        CanvasContainer.Visible = true;
+        CanvasContainer.Modulate = new Color(1, 1, 1, 0);
+
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(CanvasContainer, "modulate:a", 1f, FadeDuration);
+
+        tween.Finished += () =>
+        {
+            AutoBackground.Instance.UnblockInput();
+            AutoGameFlow.Instance.ResetTransition();
+        };
+    }
+}

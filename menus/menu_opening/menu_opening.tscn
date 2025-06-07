@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c4dauuixombjf" path="res://menus/menu_opening/MenuOpening.cs" id="1_tsucw"]
 [ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="2_8ww4x"]
 [ext_resource type="Texture2D" uid="uid://c163cpn2ftkt" path="res://assets/gui/gui_logo.png" id="2_v65eu"]
-[ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/font_title_black.tres" id="3_8dcjw"]
+[ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/font_syne_black_128.tres" id="3_8dcjw"]
 [ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="4_8ww4x"]
 
 [sub_resource type="Animation" id="Animation_a63lr"]
@@ -67,24 +67,10 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("AutoBackgroundTriggerComponent")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(10),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"MainMenuLoad"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AutoBackgroundTriggerComponent")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 3.5, 7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
@@ -98,13 +84,13 @@ tracks/3/keys = {
 "method": &"FadeInStars"
 }]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AutoBackgroundTriggerComponent")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AutoBackgroundTriggerComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 3.5),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -113,6 +99,20 @@ tracks/4/keys = {
 }, {
 "args": [1.0],
 "method": &"FadeInBlack"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(9.13333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"MainMenuLoadWrapper"
 }]
 }
 
@@ -864,7 +864,7 @@ metadata/_custom_type_script = "uid://du6dihgjlhy2v"
 [node name="UIAnimator" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_lb38e"),
-&"OpeningMenu": SubResource("AnimationLibrary_033vh")
+&"MenuOpening": SubResource("AnimationLibrary_033vh")
 }
 
 [node name="OpeningLayer1" type="CanvasLayer" parent="."]

@@ -345,7 +345,7 @@ _slowLayer = NodePath("SlowLayer")
 _fastLayer = NodePath("FastLayer")
 _fadeBlack = NodePath("FadeOverlayBlack")
 _fadeWhite = NodePath("FadeOverlayWhite")
-_loading = NodePath("LoadingSprite")
+_loading = NodePath("LoadingAnimatedSprite2D")
 _inputBlocker = NodePath("InputBlockerWrapper/InputBlocker")
 
 [node name="FadeOverlayBlack" type="ColorRect" parent="."]
@@ -397,32 +397,6 @@ offset_bottom = 240.0
 texture = ExtResource("4_7rdfe")
 stretch_mode = 1
 
-[node name="LoadingSprite" type="AnimatedSprite2D" parent="."]
-visible = false
-z_index = 4096
-position = Vector2(44, 530)
-scale = Vector2(0.266615, 0.285511)
-sprite_frames = SubResource("SpriteFrames_pcfgn")
-autoplay = "default"
-frame_progress = 0.776051
-offset = Vector2(300, 365)
-
-[node name="InputBlockerWrapper" type="CanvasLayer" parent="."]
-layer = 10
-visible = false
-
-[node name="InputBlocker" type="Control" parent="InputBlockerWrapper"]
-visible = false
-z_index = 4096
-z_as_relative = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_force_pass_scroll_events = false
-
 [node name="FastLayer" type="ParallaxLayer" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -436,3 +410,28 @@ offset_bottom = 720.0
 texture = ExtResource("5_cdgox")
 expand_mode = 2
 stretch_mode = 1
+
+[node name="LoadingAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 4096
+position = Vector2(44, 530)
+scale = Vector2(0.266615, 0.285511)
+sprite_frames = SubResource("SpriteFrames_pcfgn")
+autoplay = "default"
+frame_progress = 0.776051
+offset = Vector2(300, 365)
+
+[node name="InputBlockerWrapper" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="InputBlocker" type="Control" parent="InputBlockerWrapper"]
+visible = false
+z_index = 4096
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false

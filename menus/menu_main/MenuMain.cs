@@ -8,7 +8,7 @@ public partial class MenuMain : Control
     [Export] public Button StartButton { get; set; }
     [Export] public Button SettingsButton { get; set; }
     [Export] public Button QuitButton { get; set; }
-    [Export] public AnimationPlayer AnimationPlayer { get; set; }
+    [Export] public MenuFadeComponent MenuFadeComponent { get; set; }
 
     private string _nextScenePath;
 
@@ -17,46 +17,23 @@ public partial class MenuMain : Control
         StartButton.Pressed += OnStartPressed;
         SettingsButton.Pressed += OnSettingsPressed;
         QuitButton.Pressed += OnQuitPressed;
-
-        MenuFadeIn();
     }
 
-    private void OnStartPressed()
+    private async void OnStartPressed()
     {
-        _nextScenePath = "res://levels/level1/level_1.tscn";
-        MenuFadeOut();
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneWithLoading("res://levels/level1/level_1.tscn");
     }
 
-    private void OnSettingsPressed()
+    private async void OnSettingsPressed()
     {
-        _nextScenePath = "res://levels/level1/level_1.tscn"; // Consider updating this path later
-        MenuFadeOut();
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneKeepBG("res://levels/level1/level_1.tscn");
     }
 
-    private void OnQuitPressed()
+    private async void OnQuitPressed()
     {
-        _nextScenePath = "";
-        MenuFadeOut();
-    }
-
-    public void MenuFadeIn()
-    {
-        AnimationPlayer.Play("MainMenu/FadeIn");
-    }
-
-    public void MenuFadeOut()
-    {
-        AnimationPlayer.Play("MainMenu/FadeOut");
-    }
-
-    public void ChangeScene()
-    {
-        if (_nextScenePath == "")
-        {
-            GetTree().Quit();
-            return;
-        }
-
-        GetTree().ChangeSceneToFile(_nextScenePath);
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneFadeBG("");
     }
 }

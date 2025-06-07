@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ox51nxkamgxx" path="res://hud/hud_health_bar/HUDHealthBar.cs" id="1_bmw7h"]
 [ext_resource type="Texture2D" uid="uid://daymh8p1tltwj" path="res://assets/gui/gui_top_frame_edge.png" id="2_4tcdh"]
 [ext_resource type="Texture2D" uid="uid://idjvml13crkq" path="res://assets/gui/gui_health_container.png" id="3_ghsh6"]
-[ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://resources/fonts/font_ship_health_bar.tres" id="4_1owqb"]
+[ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://resources/fonts/font_kenney_gray_12.tres" id="4_1owqb"]
 
 [sub_resource type="Gradient" id="Gradient_csota"]
 colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 1)

@@ -7,6 +7,8 @@ public partial class AutoShipStats : Node
 	[Export] private int _health = 25;
 	[Export] private int _speed = 250;
 
+	private const string SavePath = "user://savegame_ship.dat";
+
 	public int Health
 	{
 		get => _health;
@@ -19,7 +21,7 @@ public partial class AutoShipStats : Node
 		set => _speed = value;
 	}
 
-	private const string SavePath = "user://savegame_ship.dat";
+
 
 	public override void _Ready()
 	{
@@ -48,8 +50,6 @@ public partial class AutoShipStats : Node
 
 	public void Load()
 	{
-		GD.Print(ProjectSettings.GlobalizePath(SavePath));
-
 		if (!FileAccess.FileExists(SavePath))
 		{
 			Save();

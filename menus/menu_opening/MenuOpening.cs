@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class MenuOpening : Control
 {
@@ -7,16 +8,23 @@ public partial class MenuOpening : Control
 
     public override void _Ready()
     {
+        AutoShipStats.Instance.Load();
+        AutoGameStats.Instance.Load();
         PlayOpening();
     }
 
     public void PlayOpening()
     {
-        AnimationPlayer.Play("OpeningMenu/Opening");
+        AnimationPlayer.Play("MenuOpening/Opening");
     }
 
-    public void MainMenuLoad()
+    public async Task MainMenuLoad()
     {
-        GetTree().ChangeSceneToFile("res://menus/menu_main/menu_main.tscn");
+        await AutoGameFlow.Instance.FadeToSceneBasic(AutoGameFlow.Instance.MenuMainScene);
+    }
+
+    public void MainMenuLoadWrapper()
+    {
+        _ = MainMenuLoad();
     }
 }

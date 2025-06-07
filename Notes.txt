@@ -1,8 +1,7 @@
-I want to check on the casing of my classes
-I want to ensure loading menu's are self contained the stars part can me a problem
-I want to make a loading scene before loading the level
-I want to create the drops system, upon an enemy being destroyed by a weapon
+I want to do the clear and game over screens
 I want to do the cash system
+I want to create the drops system, upon an enemy being destroyed by a weapon
+
 I want to create 4 different weapons
 	Teleport
 	Missile for AOE

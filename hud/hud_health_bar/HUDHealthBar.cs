@@ -15,7 +15,7 @@ public partial class HUDHealthBar : Control
 
 	public override void _Ready()
 	{
-		FadeIn(this);
+		_ = FadeIn(this);
 
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
 		if (ship != null)

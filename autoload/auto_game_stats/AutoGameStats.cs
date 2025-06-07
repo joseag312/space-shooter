@@ -4,20 +4,8 @@ public partial class AutoGameStats : Node
 {
 	public static AutoGameStats Instance { get; private set; }
 
-	[Export] private int _pawllars = 0;
-	[Export] private int _mewnits = 0;
-
-	public int Pawllars
-	{
-		get => _pawllars;
-		set => _pawllars = value;
-	}
-
-	public int Mewnits
-	{
-		get => _mewnits;
-		set => _mewnits = value;
-	}
+	public int Pawllars = 0;
+	public int Mewnits = 0;
 
 	private const string SavePath = "user://savegame_game.dat";
 
@@ -38,8 +26,8 @@ public partial class AutoGameStats : Node
 	{
 		var data = new Godot.Collections.Dictionary<string, Variant>
 		{
-			{ "pawllars", _pawllars },
-			{ "mewnits", _mewnits }
+			{ "pawllars", Pawllars },
+			{ "mewnits", Mewnits }
 		};
 
 		using var file = FileAccess.Open(SavePath, FileAccess.ModeFlags.Write);
@@ -57,7 +45,7 @@ public partial class AutoGameStats : Node
 		using var file = FileAccess.Open(SavePath, FileAccess.ModeFlags.Read);
 		var data = (Godot.Collections.Dictionary)file.GetVar();
 
-		_pawllars = (int)data["pawllars"];
-		_mewnits = (int)data["mewnits"];
+		Pawllars = (int)data["pawllars"];
+		Mewnits = (int)data["mewnits"];
 	}
 }
