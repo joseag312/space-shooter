@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://6kgkoc3btpsh"]
+
+[ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/orbitron_variable.ttf" id="1_i4ejt"]
+[ext_resource type="Texture2D" uid="uid://dl054xtgwjpj0" path="res://assets/gui/gui_container _basic_transparent.png" id="2_yjg5f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtbu8"]
+texture = ExtResource("2_yjg5f")
+texture_margin_left = 19.0
+texture_margin_top = 19.0
+texture_margin_right = 19.0
+texture_margin_bottom = 19.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0wthw"]
+texture = ExtResource("2_yjg5f")
+texture_margin_left = 19.0
+texture_margin_top = 19.0
+texture_margin_right = 19.0
+texture_margin_bottom = 19.0
+modulate_color = Color(0.901961, 0.901961, 0.901961, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dagba"]
+texture = ExtResource("2_yjg5f")
+texture_margin_left = 19.0
+texture_margin_top = 19.0
+texture_margin_right = 19.0
+texture_margin_bottom = 19.0
+modulate_color = Color(0.823529, 0.823529, 0.823529, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4ejt"]
+texture = ExtResource("2_yjg5f")
+texture_margin_left = 19.0
+texture_margin_top = 19.0
+texture_margin_right = 19.0
+texture_margin_bottom = 19.0
+
+[resource]
+Button/colors/font_hover_color = Color(0.568627, 0.490196, 0.901961, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 1, 1, 1)
+Button/colors/icon_hover_color = Color(0.568627, 0.490196, 0.901961, 1)
+Button/colors/icon_pressed_color = Color(0, 1, 1, 1)
+Button/constants/icon_max_width = 50
+Button/constants/outline_size = 20
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_i4ejt")
+Button/styles/focus = SubResource("StyleBoxTexture_xtbu8")
+Button/styles/hover = SubResource("StyleBoxTexture_0wthw")
+Button/styles/normal = SubResource("StyleBoxTexture_dagba")
+Button/styles/pressed = SubResource("StyleBoxTexture_i4ejt")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 5
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_i4ejt")

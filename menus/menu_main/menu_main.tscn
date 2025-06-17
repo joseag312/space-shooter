@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="3_nn2r4"]
 [ext_resource type="Script" uid="uid://bbg1n3i80miej" path="res://components/MenuFadeComponent.cs" id="4_nn2r4"]
 [ext_resource type="LabelSettings" uid="uid://dsic76ebx4uvq" path="res://resources/fonts/font_syne_white_128_outline.tres" id="4_yxyca"]
-[ext_resource type="LabelSettings" uid="uid://4x047p8dhtyw" path="res://resources/fonts/font_orbitron_white_48_outline.tres" id="5_cpxbq"]
+[ext_resource type="Theme" uid="uid://6kgkoc3btpsh" path="res://resources/themes/main_theme.tres" id="7_yxyca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vp83o"]
 atlas = ExtResource("3_nn2r4")
@@ -768,7 +768,6 @@ metadata/_custom_type_script = "uid://bbg1n3i80miej"
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="MainContainer" type="CenterContainer" parent="UILayer"]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -800,14 +799,14 @@ layout_mode = 2
 text = "OIIA,Sure.."
 label_settings = ExtResource("4_yxyca")
 
-[node name="m50begin" type="Control" parent="UILayer/MainContainer/MainVBox"]
+[node name="spacer" type="Control" parent="UILayer/MainContainer/MainVBox"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="ButtonHBox" type="HBoxContainer" parent="UILayer/MainContainer/MainVBox"]
 layout_mode = 2
 
-[node name="m150begin" type="Control" parent="UILayer/MainContainer/MainVBox/ButtonHBox"]
+[node name="spacer" type="Control" parent="UILayer/MainContainer/MainVBox/ButtonHBox"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -818,64 +817,23 @@ size_flags_horizontal = 3
 [node name="StartButton" type="Button" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/StartButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/StartButton/CenterContainer"]
-layout_mode = 2
+theme = ExtResource("7_yxyca")
 text = "Start"
-label_settings = ExtResource("5_cpxbq")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/SettingsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/SettingsButton/CenterContainer"]
-layout_mode = 2
 text = "Settings"
-label_settings = ExtResource("5_cpxbq")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="QuitButton" type="Button" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/QuitButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox/QuitButton/CenterContainer"]
-layout_mode = 2
 text = "Quit"
-label_settings = ExtResource("5_cpxbq")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="m150end" type="Control" parent="UILayer/MainContainer/MainVBox/ButtonHBox"]
+[node name="spacer2" type="Control" parent="UILayer/MainContainer/MainVBox/ButtonHBox"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="m100end" type="Control" parent="UILayer/MainContainer/MainVBox"]
+[node name="spacer2" type="Control" parent="UILayer/MainContainer/MainVBox"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PortraitLibrary" load_steps=9 format=3 uid="uid://btyll18mv1tyi"]
+
+[ext_resource type="Script" uid="uid://c46qo2t8illk3" path="res://components/PortraitEntry.cs" id="1_yv1wf"]
+[ext_resource type="Texture2D" uid="uid://cwwuqcvjfroqq" path="res://assets/cats/cat_rookie.png" id="2_o2j7y"]
+[ext_resource type="Script" uid="uid://dsha2k8vnl0x7" path="res://components/PortraitLibrary.cs" id="2_ub60t"]
+[ext_resource type="Texture2D" uid="uid://bges8yhiset4l" path="res://assets/cats/cat_oiia/tile002.png" id="3_o2j7y"]
+[ext_resource type="Texture2D" uid="uid://dmg5smsr8n7f8" path="res://assets/cats/brisket.png" id="4_c8v5e"]
+
+[sub_resource type="Resource" id="Resource_waejq"]
+script = ExtResource("1_yv1wf")
+Name = "SpinGod"
+Portrait = ExtResource("3_o2j7y")
+metadata/_custom_type_script = "uid://c46qo2t8illk3"
+
+[sub_resource type="Resource" id="Resource_c8v5e"]
+script = ExtResource("1_yv1wf")
+Name = "BossMan"
+Portrait = ExtResource("2_o2j7y")
+metadata/_custom_type_script = "uid://c46qo2t8illk3"
+
+[sub_resource type="Resource" id="Resource_o2j7y"]
+script = ExtResource("1_yv1wf")
+Name = "SadMan"
+Portrait = ExtResource("4_c8v5e")
+metadata/_custom_type_script = "uid://c46qo2t8illk3"
+
+[resource]
+script = ExtResource("2_ub60t")
+Entries = Array[ExtResource("1_yv1wf")]([SubResource("Resource_waejq"), SubResource("Resource_c8v5e"), SubResource("Resource_o2j7y")])
+metadata/_custom_type_script = "uid://dsha2k8vnl0x7"

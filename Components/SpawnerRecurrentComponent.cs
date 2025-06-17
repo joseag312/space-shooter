@@ -15,10 +15,6 @@ public partial class SpawnerRecurrentComponent : Node
     private int _leftBorder;
     private int _rightBorder;
 
-    private CancellationTokenSource _spawn1Cts;
-    private CancellationTokenSource _spawn2Cts;
-    private CancellationTokenSource _spawn3Cts;
-
     private bool _shouldSpawn1;
     private bool _shouldSpawn2;
     private bool _shouldSpawn3;
@@ -29,36 +25,47 @@ public partial class SpawnerRecurrentComponent : Node
         _rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - Margin;
     }
 
-    public void StartSpawner1(int delay) => StartRecurrentSpawn(ref _shouldSpawn1, ref _spawn1Cts, delay, RecurrentSpawn1);
-    public void StartSpawner2(int delay) => StartRecurrentSpawn(ref _shouldSpawn2, ref _spawn2Cts, delay, RecurrentSpawn2);
-    public void StartSpawner3(int delay) => StartRecurrentSpawn(ref _shouldSpawn3, ref _spawn3Cts, delay, RecurrentSpawn3);
+    public void StartSpawner1(int delay)
+    {
+        _shouldSpawn1 = true;
+        G.CR.Run($"{GetInstanceId()}_Spawner1", token => RecurrentSpawn1(delay, token));
+    }
 
-    public void StopSpawner1() => StopSpawner(ref _shouldSpawn1, ref _spawn1Cts);
-    public void StopSpawner2() => StopSpawner(ref _shouldSpawn2, ref _spawn2Cts);
-    public void StopSpawner3() => StopSpawner(ref _shouldSpawn3, ref _spawn3Cts);
+    public void StartSpawner2(int delay)
+    {
+        _shouldSpawn2 = true;
+        G.CR.Run($"{GetInstanceId()}_Spawner2", token => RecurrentSpawn2(delay, token));
+    }
+
+    public void StartSpawner3(int delay)
+    {
+        _shouldSpawn3 = true;
+        G.CR.Run($"{GetInstanceId()}_Spawner3", token => RecurrentSpawn3(delay, token));
+    }
+
+    public void StopSpawner1()
+    {
+        _shouldSpawn1 = false;
+        G.CR.Stop($"{GetInstanceId()}_Spawner1");
+    }
+
+    public void StopSpawner2()
+    {
+        _shouldSpawn2 = false;
+        G.CR.Stop($"{GetInstanceId()}_Spawner2");
+    }
+
+    public void StopSpawner3()
+    {
+        _shouldSpawn3 = false;
+        G.CR.Stop($"{GetInstanceId()}_Spawner3");
+    }
 
     public void StopAllSpawning()
     {
         StopSpawner1();
         StopSpawner2();
         StopSpawner3();
-    }
-
-    private void StopSpawner(ref bool flag, ref CancellationTokenSource cts)
-    {
-        flag = false;
-        cts?.Cancel();
-        cts?.Dispose();
-        cts = null;
-    }
-
-    private void StartRecurrentSpawn(ref bool flag, ref CancellationTokenSource cts, int delay, Func<int, CancellationToken, Task> method)
-    {
-        flag = true;
-        cts?.Cancel();
-        cts?.Dispose();
-        cts = new CancellationTokenSource();
-        _ = method.Invoke(delay, cts.Token);
     }
 
     private async Task RecurrentSpawn1(int time, CancellationToken token)

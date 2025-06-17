@@ -11,6 +11,8 @@ public partial class AutoGameFlow : Node
     public string LevelClearScene = "res://menus/game_flow/flow_level_clear.tscn";
 
     private bool _isTransitioning = false;
+    private bool _isInputBlocked = false;
+    public bool IsInputBlocked => _isInputBlocked;
 
     public override void _Ready()
     {
@@ -25,34 +27,46 @@ public partial class AutoGameFlow : Node
         }
     }
 
-    public async Task FadeToSceneBasic(string path)
+    public void BlockInput()
+    {
+        AutoBackground.Instance.BlockInput();
+        _isInputBlocked = true;
+    }
+
+    public void UnblockInput()
+    {
+        AutoBackground.Instance.UnblockInput();
+        _isInputBlocked = false;
+    }
+
+    public async Task FadeToSceneBasic(string path, float fadeDuration = 0.3f)
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
-        await AutoBackground.Instance.FadeInBlack(0.5f);
+        await AutoBackground.Instance.FadeInBlack(fadeDuration);
         ChangeSceneSafely(path);
     }
 
-    public async Task FadeToSceneKeepBG(string path)
+    public async Task FadeToSceneKeepBG(string path, float fadeDuration = 0.3f)
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
-        await AutoBackground.Instance.FadeInBlack(0.5f);
+        await AutoBackground.Instance.FadeInBlack(fadeDuration);
         ChangeSceneSafely(path);
     }
 
-    public async Task FadeToSceneWithBG(string path)
+    public async Task FadeToSceneWithBG(string path, float fadeDuration = 0.3f)
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
         await AutoBackground.Instance.FadeInStars();
-        await AutoBackground.Instance.FadeInBlack(0.5f);
+        await AutoBackground.Instance.FadeInBlack(fadeDuration);
         ChangeSceneSafely(path);
     }
 
@@ -62,34 +76,34 @@ public partial class AutoGameFlow : Node
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
-        await AutoBackground.Instance.FadeInStarsFast();
+        await AutoBackground.Instance.FadeInStars(0.4f, 0.3f, 0.2f);
         await AutoBackground.Instance.FadeInBlack(0.2f);
         ChangeSceneSafely(path);
     }
 
-
-    public async Task FadeToSceneFadeBG(string path)
+    public async Task FadeToSceneFadeBG(string path, float fadeDuration = 0.3f)
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
         await AutoBackground.Instance.FadeOutStars();
-        await AutoBackground.Instance.FadeInBlack(0.5f);
+        await AutoBackground.Instance.FadeInBlack(fadeDuration);
         ChangeSceneSafely(path);
     }
 
-    public async Task FadeToSceneWithLoading(string path)
+    public async Task FadeToSceneWithLoading(string path, float fadeDuration = 0.1f, float loadingFade = 0.3f, float holdDelay = 0.3f
+    )
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
 
         AutoBackground.Instance.BlockInput();
-        await AutoBackground.Instance.FadeOutStars();
-        await AutoBackground.Instance.FadeInBlack(0.5f);
-        await AutoBackground.Instance.FadeInLoading(0.3f);
-        await ToSignal(GetTree().CreateTimer(0.6f), "timeout");
-        await AutoBackground.Instance.FadeOutLoading(0.3f);
+        await AutoBackground.Instance.FadeOutStars(0.4f, 0.3f, 0.2f);
+        await AutoBackground.Instance.FadeInBlack(fadeDuration);
+        await AutoBackground.Instance.FadeInLoading(loadingFade);
+        await ToSignal(GetTree().CreateTimer(holdDelay), "timeout");
+        await AutoBackground.Instance.FadeOutLoading(loadingFade);
         ChangeSceneSafely(path);
     }
 

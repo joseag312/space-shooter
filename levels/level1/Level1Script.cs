@@ -1,58 +1,72 @@
+using Godot;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Godot;
 
 public partial class Level1Script : Node
 {
 	[Export] public Ship Ship { get; set; }
-	[Export] public LevelFlowComponent LevelFlowComponent;
-	[Export] public SpawnerComponent Enemy1Spawner;
-	[Export] public SpawnerComponent Enemy2Spawner;
-	[Export] public SpawnerComponent Enemy3Spawner;
-
-	private CancellationTokenSource _levelScriptCts;
+	[Export] public LevelFlowComponent LevelFlowComponent { get; set; }
+	[Export] public SpawnerComponent Enemy1Spawner { get; set; }
+	[Export] public SpawnerComponent Enemy2Spawner { get; set; }
+	[Export] public SpawnerComponent Enemy3Spawner { get; set; }
 
 	public override void _Ready()
 	{
+		G.CR.Run("LevelScript", RunLevelScript);
 		Ship.StatsComponent.Connect("NoHealth", new Callable(this, nameof(OnShipDeath)));
-
-		_levelScriptCts = new CancellationTokenSource();
-		_ = LevelScript(_levelScriptCts.Token);
 	}
 
-	private async Task LevelScript(CancellationToken token)
+	private async Task RunLevelScript(CancellationToken token)
 	{
 		try
 		{
 			await Task.Delay(3000, token);
-			LevelFlowComponent.SpawnWave(Enemy2Spawner, 10, 15);
+			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy2Spawner, 10, 15);
 			await Task.Delay(3000, token);
 
-			await Task.Delay(3000, token);
-			LevelFlowComponent.StartSpawner1(300);
-			await Task.Delay(20000, token);
-			LevelFlowComponent.StopSpawner1();
 
-			await Task.Delay(3000, token);
-			LevelFlowComponent.SpawnWave(Enemy2Spawner, 10, 30);
-			await Task.Delay(3000, token);
+			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			// await Task.Delay(20000, token);
+			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
 
-			await Task.Delay(500, token);
-			LevelFlowComponent.StartSpawner1(300);
-			await Task.Delay(20000, token);
-			LevelFlowComponent.StopSpawner1();
-			await Task.Delay(500, token);
+			// await Task.Delay(3000, token);
+			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
+			// await Task.Delay(3000, token);
+
+			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			// await Task.Delay(20000, token);
+			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			// await Task.Delay(500, token);
+
+			await HandleLevelClear();
 		}
 		catch (TaskCanceledException)
 		{
-			GD.Print("DEBUG: LevelScript - Canceled");
+			GD.Print("DEBUG: Level1Script - Script canceled");
 		}
+	}
+
+	private async Task HandleLevelClear()
+	{
+		G.BG.BlockInput();
+		G.GF.BlockInput();
+
+		await LevelFlowComponent.LevelCleanup.FadeOutAll();
+
+		Ship.StopFiring();
+		Ship.PositionClampComponent.Enabled = false;
+		Ship.MoveComponent.Velocity = new Vector2(0, -250);
+		await Task.Delay(2000);
+
+		await G.BG.FadeInBlack(0.3f);
+
+		G.GF.UnblockInput();
+		await G.GF.FadeToSceneWithBG(G.GF.LevelClearScene);
 	}
 
 	private void OnShipDeath()
 	{
-		_levelScriptCts?.Cancel();
-		_levelScriptCts?.Dispose();
-		_levelScriptCts = null;
+		G.CR.Stop("LevelScript");
 	}
 }

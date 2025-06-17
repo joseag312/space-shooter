@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="galaxy-navigator-c"
-run/main_scene="uid://805auh5i5nv0"
+run/main_scene="uid://d1qwtox2syayg"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 
 [autoload]
@@ -21,6 +21,7 @@ AutoGameStats="*res://autoload/auto_game_stats/AutoGameStats.cs"
 AutoShipStats="*res://autoload/auto_ship_stats/AutoShipStats.cs"
 AutoWeaponDatabase="*res://autoload/auto_weapon_database/AutoWeaponDatabase.cs"
 AutoGameFlow="*res://autoload/auto_game_flow/AutoGameFlow.cs"
+AutoCoroutineManager="*res://autoload/auto_coroutine/AutoCoroutineManager.cs"
 
 [display]
 
@@ -31,6 +32,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="galaxy-navigator-c"
+
+[gui]
+
+theme/custom="uid://6kgkoc3btpsh"
 
 [input]
 

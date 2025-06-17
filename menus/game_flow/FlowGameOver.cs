@@ -36,6 +36,6 @@ public partial class FlowGameOver : CanvasLayer
     private async void OnExitPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
-        await G.GF.FadeToSceneWithBG(G.GF.MenuMainScene);
+        await G.GF.FadeToSceneBasic(G.GF.MenuMainScene, 0.1f);
     }
 }
