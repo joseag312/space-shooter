@@ -6,28 +6,28 @@ public partial class PortraitLibrary : Resource
 {
     [Export] public Godot.Collections.Array<PortraitEntry> Entries { get; set; } = new();
 
-    private Dictionary<string, Texture2D> _portraitMap;
+    private Dictionary<string, PortraitEntry> _portraitMap;
 
     private void BuildPortraitMap()
     {
-        _portraitMap = new Dictionary<string, Texture2D>();
+        _portraitMap = new Dictionary<string, PortraitEntry>();
 
         foreach (var entry in Entries)
         {
-            if (entry != null && !string.IsNullOrEmpty(entry.Name) && entry.Portrait != null)
-                _portraitMap[entry.Name] = entry.Portrait;
+            if (entry != null && !string.IsNullOrEmpty(entry.Key))
+                _portraitMap[entry.Key] = entry;
         }
     }
 
-    public Texture2D GetPortrait(string name)
+    public PortraitEntry GetPortrait(string key)
     {
         if (_portraitMap == null)
             BuildPortraitMap();
 
-        if (_portraitMap.TryGetValue(name, out var tex))
-            return tex;
+        if (_portraitMap.TryGetValue(key, out var entry))
+            return entry;
 
-        GD.PrintErr($"ERROR: PortraitLibrary - No portrait found for '{name}'");
+        GD.PrintErr($"ERROR: PortraitLibrary - No portrait found for '{key}'");
         return null;
     }
 }

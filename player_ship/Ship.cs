@@ -12,6 +12,7 @@ public partial class Ship : Node2D
 	[Export] public Node2D Anchor;
 
 	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
+	[Signal] public delegate void ShipReadyEventHandler();
 
 	private bool _readyToFire = false;
 
@@ -21,6 +22,7 @@ public partial class Ship : Node2D
 
 		StatsComponent.MaxHealth = G.SS.Health;
 		StatsComponent.Health = G.SS.Health;
+		EmitSignal(nameof(ShipReady));
 
 		if (WeaponManager != null)
 		{
@@ -49,7 +51,7 @@ public partial class Ship : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (_readyToFire)
+		if (_readyToFire && !G.GF.IsInputBlocked)
 		{
 			WeaponManager?.SpawnWeapon(0);
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://t3gj82llt5tu"]
+
+[ext_resource type="PackedScene" uid="uid://d1qwtox2syayg" path="res://hud/hud_dialog_system/hud_dialog_system.tscn" id="1_elt30"]
+[ext_resource type="PackedScene" uid="uid://djan3duhgdlxt" path="res://hud/hud_health_bar/hud_health_bar.tscn" id="2_ltk68"]
+[ext_resource type="PackedScene" uid="uid://cjuilh3ky2tbn" path="res://hud/hud_currency/hud_currency.tscn" id="3_ltk68"]
+
+[node name="HUDMain" type="CanvasLayer"]
+
+[node name="HUDDialogSystem" parent="." instance=ExtResource("1_elt30")]
+
+[node name="HUDHealthBar" parent="." instance=ExtResource("2_ltk68")]
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 80.0
+offset_bottom = 76.0
+
+[node name="HudCurrency" parent="." instance=ExtResource("3_ltk68")]

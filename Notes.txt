@@ -1,20 +1,55 @@
+****************************************************************************************************************
 
+✅ What You Did Today
+
+🎵 Music Production & Integration
+🎧 Extracted audio from Instagram reel
+🧰 Converted MP3 into seamless game-ready .ogg via Logic Pro
+✂️ Trimmed and tested 11¼ bar segment for potential looping use
+🎛️ Pitched down and added reverb for ship-death SFX
+🔁 Discovered limitations in C# Godot regarding Loop on AudioStream
+✅ Converted all audio files to .ogg for proper looping and Godot support
+
+🧩 Godot Integration
+🛠️ Created AutoMusic.cs autoload singleton
+🔌 Connected _musicPlayer and loaded .ogg stream
+🧪 Discovered correct way to enable looping: via Inspector, not in C#
+🧼 Clean, modular structure following your existing pattern (AutoBackground, etc.)
+
+****************************************************************************************************************
+
+🧭 Tomorrow’s Jump Point
+
+🔧 Implement Karma System
+Add a Karma integer field (probably to a GameState singleton or a component)
+Create a HandleChoice(string choice) method:
+private void HandleChoice(string choice)
+{
+	if (choice == "Optimist") G.SS.Karma++;
+	else if (choice == "Pessimist") G.SS.Karma--;
+}
+Call it after each prompt response
+
+🎯 Finish Soundtrack Looping + Control
+Enable loop on the .ogg stream via Inspector (if not done yet)
+Test fade-in/out transitions via AutoMusic.FadeIn() and FadeOut()
+(Optional) Save looped track as .tres for reuse in other levels
+Create scene trigger points (e.g., main menu = fade in music, game over = fade out)
+
+****************************************************************************************************************
 
 RoadMap:
-I want to create a fast transition from GameOver.Exit > MainMenu
-I want to break down the levelFlowComponent beast
-I want to do the clear and game over screens
+I want to add a soundtrack
 I want to do the cash system
 I want to create the drops system, upon an enemy being destroyed by a weapon
-
-I want to create 4 different weapons
+I want to add a couple powers
 	Teleport
 	Missile for AOE
 	Death Ray
 	Shield
-I want to adapt the touch GUI
-I want to build 10 levels
-I want to make the game run on my phone
+I want to add a couple enemies
+I want to add a couple levels
 
-Color Palette:
-Font: r0 g255 b255
+Down the line (After Interviews)
+Finish game (enemies, powerups, story)
+I want to adapt the touch GUI

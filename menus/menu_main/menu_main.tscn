@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://sopuvbwbgiek" path="res://menus/menu_main/MenuMain.cs" id="1_esvi0"]
 [ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="2_diehv"]
 [ext_resource type="Script" uid="uid://c4iesx17v7vif" path="res://components/MenuLoadComponent.cs" id="3_diehv"]
-[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="3_nn2r4"]
+[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia_spin/cat_oiia.png" id="3_nn2r4"]
 [ext_resource type="Script" uid="uid://bbg1n3i80miej" path="res://components/MenuFadeComponent.cs" id="4_nn2r4"]
 [ext_resource type="LabelSettings" uid="uid://dsic76ebx4uvq" path="res://resources/fonts/font_syne_white_128_outline.tres" id="4_yxyca"]
 [ext_resource type="Theme" uid="uid://6kgkoc3btpsh" path="res://resources/themes/main_theme.tres" id="7_yxyca"]

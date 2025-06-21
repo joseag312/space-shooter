@@ -17,11 +17,13 @@ public partial class MenuMain : Control
         StartButton.Pressed += OnStartPressed;
         SettingsButton.Pressed += OnSettingsPressed;
         QuitButton.Pressed += OnQuitPressed;
+        G.MS.PlayTrack("res://assets/music/soundtrack.ogg", 19.0f, 0.75f, -6);
     }
 
     private async void OnStartPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
+        G.MS.Stop();
         await G.GF.FadeToSceneWithLoading("res://levels/level1/level_1.tscn");
     }
 

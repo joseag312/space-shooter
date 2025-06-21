@@ -1,4 +1,6 @@
 using Godot;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -8,7 +10,7 @@ public partial class HUDDialogSystem : CanvasLayer
 
     // Dialog Setup
     [Export] public Control DialogBox { get; set; }
-    [Export] public TextureRect DialogPortrait { get; set; }
+    [Export] public AnimatedSprite2D DialogPortrait { get; set; }
     [Export] public Label DialogName { get; set; }
     [Export] public Label DialogText { get; set; }
     [Export] public Button NextButton { get; set; }
@@ -16,7 +18,7 @@ public partial class HUDDialogSystem : CanvasLayer
 
     // PopUp Setup
     [Export] public Control PopUpBox { get; set; }
-    [Export] public TextureRect PopUpPortrait { get; set; }
+    [Export] public AnimatedSprite2D PopUpPortrait { get; set; }
     [Export] public Label PopUpText { get; set; }
 
     // Button Setup
@@ -32,44 +34,85 @@ public partial class HUDDialogSystem : CanvasLayer
     public override void _Ready()
     {
         NextButton.Pressed += OnNextPressed;
-        DialogBox.Visible = false;
+        // _ = TestSequence();
     }
 
-    public async Task MessageSequence()
+    public async Task TestSequence()
     {
-
-        await FirstMessage("SpinGod", "Wussup");
-        await Message("SpinGod", "I spin, what do you do brah?");
+        await FirstMessage(Char.OIIA, Mood.OIIA.SpinSlow, "I spin, and spin good.. What do you do?");
         await HandleChoice(
-            await MessageWithPrompt("SadMan", "BRISSKEEET", "Good job!", "Dumb Fuck"),
-            "SpinGod",
-            "Classic!",
+            await MessageWithPrompt(Char.BRISKET, Mood.DEFAULT, "BRISSKEEET", "Good job!", "Dumb Fuck"),
+            Char.OIIA,
+            "Clasic!",
+            Mood.OIIA.Default,
             "Don't lie to him",
-            "Woah settle down sailor"
+            Mood.OIIA.Inverse,
+            "Woah there, slow down!",
+            Mood.OIIA.SpinSlow
         );
-        await Message("SadMan", "BRISKET BRISKET");
-        await MessageWithPrompt("BossMan", "Is he okay?", "He's great!", "Idk man");
-        await LastMessage("SpinGod", "K moving on");
+        await Message(Char.BRISKET, Mood.BRISKET.Default, "BRISKET BRISKET");
+        await HandleChoice(
+            await MessageWithPrompt(Char.ROOKIE, Mood.ROOKIE.Default, "Is he okay?", "He's great!", "Idk man"),
+            Char.ROOKIE,
+            "Phew, thanks!",
+            Mood.ROOKIE.Default,
+            "Top humanity huh",
+            Mood.ROOKIE.Default,
+            "Humans are weird...",
+            Mood.ROOKIE.Default
+        );
+        await LastMessage(Char.OIIA, Mood.OIIA.SpinSlow, "K moving on");
+        _ = PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Remember space is dangerous!");
     }
 
-    public async Task PopUpMessage(string speakerKey, string message, float duration = 3f)
+    public async Task PopUpMessage(string speakerKey, string mood = Mood.DEFAULT, string message = "", float duration = 1.5f)
     {
         PopUpText.Text = message;
 
-        // Set the portrait
-        if (PortraitLibrary != null)
-        {
-            var portrait = PortraitLibrary.GetPortrait(speakerKey);
-            PopUpPortrait.Texture = portrait;
-            PopUpPortrait.Visible = portrait != null;
-        }
-        else
+        if (PortraitLibrary == null)
         {
             GD.PrintErr("ERROR: HUDDialogSystem - PortraitLibrary is null");
             PopUpPortrait.Visible = false;
+            return;
         }
 
-        // Start fade-in
+        var portrait = PortraitLibrary.GetPortrait(speakerKey);
+
+        if (portrait == null)
+        {
+            GD.PrintErr($"ERROR: HUDDialogSystem - No portrait found for '{speakerKey}'");
+            PopUpPortrait.Visible = false;
+            return;
+        }
+
+        PopUpPortrait.SpriteFrames = portrait.Frames;
+
+        var resolvedMood = string.IsNullOrWhiteSpace(mood) ? portrait.AnimationKey : mood;
+
+        if (!portrait.Frames.HasAnimation(resolvedMood))
+        {
+            GD.PrintErr($"ERROR: Portrait '{speakerKey}' has no animation named '{resolvedMood}'");
+            PopUpPortrait.Visible = false;
+            return;
+        }
+
+        try
+        {
+            PopUpPortrait.Play(resolvedMood);
+            var frameTexture = portrait.Frames.GetFrameTexture(resolvedMood, 0);
+            var frameSize = frameTexture.GetSize();
+            PopUpPortrait.Scale = new Vector2(48f, 48f) / frameSize;
+
+            PopUpPortrait.Visible = true;
+        }
+        catch (System.Exception ex)
+        {
+            GD.PrintErr($"ERROR: Exception during PopUpPortrait setup: {ex.Message}");
+            PopUpPortrait.Visible = false;
+            return;
+        }
+
+        // Fade in
         PopUpBox.Modulate = new Color(1, 1, 1, 0);
         PopUpBox.Visible = true;
 
@@ -80,7 +123,7 @@ public partial class HUDDialogSystem : CanvasLayer
 
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
 
-        // Fade-out
+        // Fade out
         var fadeOutTween = GetTree().CreateTween();
         fadeOutTween.TweenProperty(PopUpBox, "modulate:a", 0.0f, 0.5f)
                     .SetTrans(Tween.TransitionType.Sine);
@@ -89,29 +132,63 @@ public partial class HUDDialogSystem : CanvasLayer
         PopUpBox.Visible = false;
     }
 
-    public async Task FirstMessage(string speakerKey, string message)
+    public async Task FirstMessage(string speakerKey, string mood = Mood.DEFAULT, string message = "")
     {
-        await ShowMessage(speakerKey, message, fadeIn: true, fadeOut: false);
+        await ShowMessage(speakerKey, message, fadeIn: true, fadeOut: false, mood);
     }
 
-    public async Task Message(string speakerKey, string message)
+    public async Task Message(string speakerKey, string mood = Mood.DEFAULT, string message = "")
     {
-        await ShowMessage(speakerKey, message, fadeIn: false, fadeOut: false);
+        await ShowMessage(speakerKey, message, fadeIn: false, fadeOut: false, mood);
     }
 
-    public async Task LastMessage(string speakerKey, string message)
+    public async Task LastMessage(string speakerKey, string mood = Mood.DEFAULT, string message = "")
     {
-        await ShowMessage(speakerKey, message, fadeIn: false, fadeOut: true);
+        await ShowMessage(speakerKey, message, fadeIn: false, fadeOut: true, mood);
     }
 
-    private async Task ShowMessage(string speakerKey, string message, bool fadeIn, bool fadeOut)
+    private async Task ShowMessage(string speakerKey, string message, bool fadeIn, bool fadeOut, string mood = Mood.DEFAULT)
     {
-        DialogName.Text = speakerKey;
         DialogText.Text = "";
 
         var portrait = PortraitLibrary?.GetPortrait(speakerKey);
-        DialogPortrait.Texture = portrait;
-        DialogPortrait.Visible = portrait != null;
+
+        if (portrait == null)
+        {
+            GD.PrintErr($"ERROR: HUDDialogSystem - No portrait found for '{speakerKey}'");
+            DialogPortrait.Visible = false;
+            DialogName.Text = speakerKey; // fallback
+        }
+        else
+        {
+            DialogName.Text = portrait.DisplayName;
+            DialogPortrait.SpriteFrames = portrait.Frames;
+
+            var resolvedMood = string.IsNullOrWhiteSpace(mood) ? portrait.AnimationKey : mood;
+
+            if (!portrait.Frames.HasAnimation(resolvedMood))
+            {
+                GD.PrintErr($"ERROR: Portrait '{speakerKey}' has no animation named '{resolvedMood}'");
+                DialogPortrait.Visible = false;
+            }
+            else
+            {
+                try
+                {
+                    DialogPortrait.Play(resolvedMood);
+                    var frameTexture = portrait.Frames.GetFrameTexture(resolvedMood, 0);
+                    var frameSize = frameTexture.GetSize();
+                    DialogPortrait.Scale = new Vector2(96f, 96f) / frameSize;
+                    DialogPortrait.Visible = true;
+                }
+                catch (System.Exception ex)
+                {
+                    GD.PrintErr($"ERROR: Exception during DialogPortrait setup: {ex.Message}");
+                    DialogPortrait.Visible = false;
+                }
+            }
+        }
+
         NextButtonContainer.Visible = true;
 
         if (fadeIn)
@@ -127,8 +204,11 @@ public partial class HUDDialogSystem : CanvasLayer
         else
         {
             DialogBox.Visible = true;
+            DialogBox.Modulate = new Color(1, 1, 1, 1);
         }
+
         await TypeText(message);
+
         _nextPressedTcs = new TaskCompletionSource();
         await _nextPressedTcs.Task;
 
@@ -148,37 +228,73 @@ public partial class HUDDialogSystem : CanvasLayer
         _nextPressedTcs?.TrySetResult();
     }
 
-    public async Task<string> MessageWithPrompt(string speakerKey, string message, string optimistic = "", string pessimistic = "")
+    public async Task<string> MessageWithPrompt(string speakerKey, string mood = Mood.DEFAULT, string message = "", string optimistic = "", string pessimistic = "")
     {
-        DialogName.Text = speakerKey;
-
         var portrait = PortraitLibrary?.GetPortrait(speakerKey);
-        DialogPortrait.Texture = portrait;
-        DialogPortrait.Visible = portrait != null;
+
+        if (portrait == null)
+        {
+            GD.PrintErr($"ERROR: HUDDialogSystem - No portrait found for '{speakerKey}'");
+            DialogPortrait.Visible = false;
+            DialogName.Text = speakerKey; // fallback
+        }
+        else
+        {
+            DialogName.Text = portrait.DisplayName;
+            DialogPortrait.SpriteFrames = portrait.Frames;
+
+            var resolvedMood = string.IsNullOrWhiteSpace(mood) ? portrait.AnimationKey : mood;
+
+            if (!portrait.Frames.HasAnimation(resolvedMood))
+            {
+                GD.PrintErr($"ERROR: Portrait '{speakerKey}' has no animation named '{resolvedMood}'");
+                DialogPortrait.Visible = false;
+            }
+            else
+            {
+                try
+                {
+                    DialogPortrait.Play(resolvedMood);
+                    var frameTexture = portrait.Frames.GetFrameTexture(resolvedMood, 0);
+                    var frameSize = frameTexture.GetSize();
+                    DialogPortrait.Scale = new Vector2(96f, 96f) / frameSize;
+
+                    DialogPortrait.Visible = true;
+                }
+                catch (System.Exception ex)
+                {
+                    GD.PrintErr($"ERROR: Exception during DialogPortrait setup: {ex.Message}");
+                    DialogPortrait.Visible = false;
+                }
+            }
+        }
 
         // Hide next button, show prompt buttons
         NextButtonContainer.Visible = false;
         PromptButtonBox.Visible = true;
 
-        // Set up buttons
         SureButton.Text = "Sure";
         Option1Button.Text = optimistic;
         Option2Button.Text = pessimistic;
 
-        // Dynamic visibility
         Option1Button.Visible = !string.IsNullOrWhiteSpace(optimistic);
         Option2Button.Visible = !string.IsNullOrWhiteSpace(pessimistic);
 
-        // Style the Sure button (e.g., bold color)
-        SureButton.AddThemeColorOverride("font_color", new Color(0f / 255f, 105f / 255f, 92f / 255f));
+        SureButton.AddThemeColorOverride("font_color", new Color(0f / 255f, 200 / 255f, 200 / 255f));
 
-        // Show dialog box
         DialogBox.Visible = true;
 
-        // Typing effect
+        void OnSkipPressed() => _skipTyping = true;
+        SureButton.Pressed += OnSkipPressed;
+        Option1Button.Pressed += OnSkipPressed;
+        Option2Button.Pressed += OnSkipPressed;
+
         await TypeText(message);
 
-        // Wait for user input
+        SureButton.Pressed -= OnSkipPressed;
+        Option1Button.Pressed -= OnSkipPressed;
+        Option2Button.Pressed -= OnSkipPressed;
+
         _promptPressedTcs = new TaskCompletionSource<string>();
 
         SureButton.Pressed += OnPrompt0Pressed;
@@ -187,7 +303,6 @@ public partial class HUDDialogSystem : CanvasLayer
 
         var result = await _promptPressedTcs.Task;
 
-        // Cleanup
         SureButton.Pressed -= OnPrompt0Pressed;
         Option1Button.Pressed -= OnPrompt1Pressed;
         Option2Button.Pressed -= OnPrompt2Pressed;
@@ -198,22 +313,24 @@ public partial class HUDDialogSystem : CanvasLayer
         return result;
     }
 
-    private void OnPrompt0Pressed() => _promptPressedTcs?.TrySetResult(D.Sure);
-    private void OnPrompt1Pressed() => _promptPressedTcs?.TrySetResult(D.Optimist);
-    private void OnPrompt2Pressed() => _promptPressedTcs?.TrySetResult(D.Pessimist);
+    private void OnPrompt0Pressed() => _promptPressedTcs?.TrySetResult("Sure");
+    private void OnPrompt1Pressed() => _promptPressedTcs?.TrySetResult("Optimist");
+    private void OnPrompt2Pressed() => _promptPressedTcs?.TrySetResult("Pessimist");
 
-    public async Task HandleChoice(string choice, string speakerKey, string sureLine, string optimistLine, string pessimistLine)
+    public async Task HandleChoice(string choice, string reactionSpeakerKey, string sureLine, string sureReaction, string optimistLine, string optimistReaction, string pessimistLine, string pessimistReaction)
     {
         switch (choice)
         {
-            case D.Sure:
-                await Message(speakerKey, sureLine);
+            case "Sure":
+                await Message(reactionSpeakerKey, sureReaction, sureLine);
                 break;
-            case D.Optimist:
-                await Message(speakerKey, optimistLine);
+            case "Optimist":
+                G.GS.Karma++;
+                await Message(reactionSpeakerKey, optimistReaction, optimistLine);
                 break;
-            case D.Pessimist:
-                await Message(speakerKey, pessimistLine);
+            case "Pessimist":
+                G.GS.Karma--;
+                await Message(reactionSpeakerKey, pessimistReaction, pessimistLine);
                 break;
             default:
                 GD.PrintErr($"ERROR: Unexpected choice '{choice}' in HandleChoice");
@@ -226,19 +343,15 @@ public partial class HUDDialogSystem : CanvasLayer
         DialogText.Text = "";
         _skipTyping = false;
 
-        void OnSkipPressed()
-        {
-            _skipTyping = true;
-        }
-
-        // Connect the signal temporarily
+        void OnSkipPressed() => _skipTyping = true;
         NextButton.Pressed += OnSkipPressed;
+        string wrappedText = WrapTextToWidth(fullText);
 
-        foreach (char c in fullText)
+        foreach (char c in wrappedText)
         {
             if (_skipTyping)
             {
-                DialogText.Text = fullText;
+                DialogText.Text = wrappedText;
                 break;
             }
 
@@ -246,7 +359,53 @@ public partial class HUDDialogSystem : CanvasLayer
             await ToSignal(GetTree().CreateTimer(delay), "timeout");
         }
 
-        // Cleanup
         NextButton.Pressed -= OnSkipPressed;
+    }
+
+    private string WrapTextToWidth(string text, float maxWidth = 500f, int fontSize = 24)
+    {
+        var font = DialogText.GetThemeDefaultFont();
+        if (font == null)
+        {
+            GD.PrintErr("ERROR: No font found for DialogText.");
+            return text;
+        }
+
+        var words = text.Split(' ');
+        List<string> lines = new();
+        string currentLine = "";
+        string testLine = "";
+        int lastPreferredBreak = -1;
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            string word = words[i];
+            testLine = currentLine.Length == 0 ? word : $"{currentLine} {word}";
+            float width = font.GetStringSize(testLine, HorizontalAlignment.Left, -1, fontSize).X;
+
+            if (width <= maxWidth)
+            {
+                currentLine = testLine;
+
+                if (word.EndsWith(".") || word.EndsWith("!") || word.EndsWith("?") || word.EndsWith(","))
+                    lastPreferredBreak = i;
+            }
+            else
+            {
+                if (currentLine.Length == 0)
+                {
+                    lines.Add(word);
+                    continue;
+                }
+
+                lines.Add(currentLine);
+                currentLine = word;
+            }
+        }
+
+        if (!string.IsNullOrEmpty(currentLine))
+            lines.Add(currentLine);
+
+        return string.Join("\n", lines);
     }
 }

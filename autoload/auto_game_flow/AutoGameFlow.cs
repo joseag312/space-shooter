@@ -39,6 +39,16 @@ public partial class AutoGameFlow : Node
         _isInputBlocked = false;
     }
 
+    public void StartDialog()
+    {
+        _isInputBlocked = true;
+    }
+
+    public void StopDialog()
+    {
+        _isInputBlocked = false;
+    }
+
     public async Task FadeToSceneBasic(string path, float fadeDuration = 0.3f)
     {
         if (_isTransitioning) return;
@@ -101,6 +111,7 @@ public partial class AutoGameFlow : Node
         AutoBackground.Instance.BlockInput();
         await AutoBackground.Instance.FadeOutStars(0.4f, 0.3f, 0.2f);
         await AutoBackground.Instance.FadeInBlack(fadeDuration);
+        G.SFX.Play("meow");
         await AutoBackground.Instance.FadeInLoading(loadingFade);
         await ToSignal(GetTree().CreateTimer(holdDelay), "timeout");
         await AutoBackground.Instance.FadeOutLoading(loadingFade);

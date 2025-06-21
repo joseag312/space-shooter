@@ -6,4 +6,6 @@ public static class G
     public static AutoWeaponDatabase WD => AutoWeaponDatabase.Instance;
     public static AutoBackground BG => AutoBackground.Instance;
     public static AutoCoroutineManager CR => AutoCoroutineManager.Instance;
+    public static AutoMusic MS => AutoMusic.Instance;
+    public static AutoSFX SFX => AutoSFX.Instance;
 }

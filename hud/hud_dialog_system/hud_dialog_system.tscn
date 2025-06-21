@@ -1,22 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1qwtox2syayg"]
+[gd_scene load_steps=5 format=3 uid="uid://d1qwtox2syayg"]
 
 [ext_resource type="Script" uid="uid://c02e8tavf6au2" path="res://hud/hud_dialog_system/HUDDialogSystem.cs" id="1_pnina"]
 [ext_resource type="Resource" uid="uid://btyll18mv1tyi" path="res://resources/images/portrait_library.tres" id="2_01eb2"]
 [ext_resource type="Texture2D" uid="uid://lf5b4qs4rinl" path="res://assets/gui/gui_container_basic_square.png" id="2_hb8th"]
 [ext_resource type="Texture2D" uid="uid://dgn6bedgr7arl" path="res://assets/gui/gui_cat_paw_white.png" id="2_sqtwe"]
-[ext_resource type="Texture2D" uid="uid://cwwuqcvjfroqq" path="res://assets/cats/cat_rookie.png" id="3_01eb2"]
 
 [node name="HUDDialogSystem" type="CanvasLayer" node_paths=PackedStringArray("DialogBox", "DialogPortrait", "DialogName", "DialogText", "NextButton", "NextButtonContainer", "PopUpBox", "PopUpPortrait", "PopUpText", "PromptButtonBox", "SureButton", "Option1Button", "Option2Button")]
 script = ExtResource("1_pnina")
 PortraitLibrary = ExtResource("2_01eb2")
 DialogBox = NodePath("DialogBox")
-DialogPortrait = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/PortraitContainer/PortraitFrameContainer/PotraitMargin/DialogPotraitImage")
+DialogPortrait = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/PortraitContainer/PortraitFrameContainer/PotraitMargin/DialogPortraitImage")
 DialogName = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/TextContainer/DialogName")
 DialogText = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/TextContainer/DialogMessage")
 NextButton = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/ButtonContainer/DialogNextButton")
 NextButtonContainer = NodePath("DialogBox/DialogPanel/DialogMargin/DialogHBox/ButtonContainer")
 PopUpBox = NodePath("PopUpBox")
-PopUpPortrait = NodePath("PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox/PortraitContainer/PortraitImage")
+PopUpPortrait = NodePath("PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox/PortraitContainer/PopUpPortraitImage")
 PopUpText = NodePath("PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox/PopUpMessage")
 PromptButtonBox = NodePath("ButtonBox")
 SureButton = NodePath("ButtonBox/PromptButtonContainer/SureButton")
@@ -71,12 +70,8 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="DialogPotraitImage" type="TextureRect" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox/PortraitContainer/PortraitFrameContainer/PotraitMargin"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("3_01eb2")
-expand_mode = 2
-stretch_mode = 5
+[node name="DialogPortraitImage" type="AnimatedSprite2D" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox/PortraitContainer/PortraitFrameContainer/PotraitMargin"]
+position = Vector2(64, 64)
 
 [node name="spacer" type="Control" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox"]
 custom_minimum_size = Vector2(32, 0)
@@ -90,12 +85,12 @@ size_flags_horizontal = 3
 [node name="DialogName" type="Label" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox/TextContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
-text = "El Papa que no tuviste"
+text = "Name"
 
 [node name="DialogMessage" type="Label" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox/TextContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
-text = "Ke tranza carnal como andamos si si miau miau. Vamos a que hagas pew pew asi bien chingon?"
+text = "Message really long and descriptive message spanning across multiple lines here."
 autowrap_mode = 2
 
 [node name="ButtonContainer" type="CenterContainer" parent="DialogBox/DialogPanel/DialogMargin/DialogHBox"]
@@ -179,15 +174,12 @@ custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 
 [node name="PortraitContainer" type="CenterContainer" parent="PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="PortraitImage" type="TextureRect" parent="PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox/PortraitContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("3_01eb2")
-expand_mode = 2
-stretch_mode = 5
+[node name="PopUpPortraitImage" type="AnimatedSprite2D" parent="PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox/PortraitContainer"]
+position = Vector2(24, 24)
 
 [node name="spacer2" type="Control" parent="PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox"]
 custom_minimum_size = Vector2(16, 0)
@@ -197,4 +189,4 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Something"
+text = "PopUpText"

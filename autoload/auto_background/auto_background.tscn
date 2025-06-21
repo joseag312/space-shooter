@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bmuag8qtox1y7" path="res://assets/backgrounds/bg_deep_space/bg_deep_space_slow.png" id="4_7rdfe"]
 [ext_resource type="Script" uid="uid://cl63fdr5i2w3j" path="res://components/ScrollingComponent.cs" id="4_cg8hu"]
 [ext_resource type="Texture2D" uid="uid://dlpbfh3mhk7oa" path="res://assets/backgrounds/bg_deep_space/bg_deep_space_fast.png" id="5_cdgox"]
-[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="6_i2xw5"]
+[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia_spin/cat_oiia.png" id="6_i2xw5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_41ibw"]
 atlas = ExtResource("6_i2xw5")

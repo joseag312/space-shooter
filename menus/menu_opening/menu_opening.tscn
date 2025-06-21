@@ -1,37 +1,15 @@
-[gd_scene load_steps=114 format=3 uid="uid://805auh5i5nv0"]
+[gd_scene load_steps=116 format=3 uid="uid://805auh5i5nv0"]
 
 [ext_resource type="Script" uid="uid://c4dauuixombjf" path="res://menus/menu_opening/MenuOpening.cs" id="1_tsucw"]
 [ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="2_8ww4x"]
 [ext_resource type="Texture2D" uid="uid://c163cpn2ftkt" path="res://assets/gui/gui_logo.png" id="2_v65eu"]
 [ext_resource type="LabelSettings" uid="uid://kva5es6didog" path="res://resources/fonts/font_syne_black_128.tres" id="3_8dcjw"]
-[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia.png" id="4_8ww4x"]
+[ext_resource type="Script" uid="uid://dpagori4j0i1v" path="res://components/AutoMusicTriggerComponent.cs" id="3_cdnn0"]
+[ext_resource type="Texture2D" uid="uid://byv33bbp3hfo2" path="res://assets/cats/cat_oiia_spin/cat_oiia.png" id="4_8ww4x"]
+[ext_resource type="Script" uid="uid://c01ow4jpvb3kg" path="res://components/AutoSFXTriggerComponent.cs" id="4_61i5k"]
 
 [sub_resource type="Animation" id="Animation_a63lr"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainContainer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainContainer:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lb38e"]
 _data = {
@@ -113,6 +91,34 @@ tracks/4/keys = {
 "values": [{
 "args": [],
 "method": &"MainMenuLoadWrapper"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AutoMusicTriggerComponent")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(6.56667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayMusic"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AutoSFXTriggerComponent")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OIIAFast"
 }]
 }
 
@@ -860,6 +866,14 @@ metadata/_edit_use_anchors_ = true
 [node name="AutoBackgroundTriggerComponent" type="Node" parent="."]
 script = ExtResource("2_8ww4x")
 metadata/_custom_type_script = "uid://du6dihgjlhy2v"
+
+[node name="AutoMusicTriggerComponent" type="Node" parent="."]
+script = ExtResource("3_cdnn0")
+metadata/_custom_type_script = "uid://dpagori4j0i1v"
+
+[node name="AutoSFXTriggerComponent" type="Node" parent="."]
+script = ExtResource("4_61i5k")
+metadata/_custom_type_script = "uid://c01ow4jpvb3kg"
 
 [node name="UIAnimator" type="AnimationPlayer" parent="."]
 libraries = {

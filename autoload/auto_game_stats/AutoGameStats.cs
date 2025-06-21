@@ -1,11 +1,42 @@
 using Godot;
+using System;
 
 public partial class AutoGameStats : Node
 {
 	public static AutoGameStats Instance { get; private set; }
 
-	public int Pawllars = 0;
-	public int Mewnits = 0;
+	[Signal] public delegate void CurrencyChangedEventHandler();
+
+	private int _pawllars = 0;
+	private int _mewnits = 0;
+
+	public int Pawllars
+	{
+		get => _pawllars;
+		set
+		{
+			if (_pawllars != value)
+			{
+				_pawllars = value;
+				EmitSignal(SignalName.CurrencyChanged);
+			}
+		}
+	}
+
+	public int Mewnits
+	{
+		get => _mewnits;
+		set
+		{
+			if (_mewnits != value)
+			{
+				_mewnits = value;
+				EmitSignal(SignalName.CurrencyChanged);
+			}
+		}
+	}
+
+	public int Karma = 0;
 
 	private const string SavePath = "user://savegame_game.dat";
 
@@ -27,7 +58,8 @@ public partial class AutoGameStats : Node
 		var data = new Godot.Collections.Dictionary<string, Variant>
 		{
 			{ "pawllars", Pawllars },
-			{ "mewnits", Mewnits }
+			{ "mewnits", Mewnits },
+			{ "karma", Karma }
 		};
 
 		using var file = FileAccess.Open(SavePath, FileAccess.ModeFlags.Write);
@@ -45,7 +77,8 @@ public partial class AutoGameStats : Node
 		using var file = FileAccess.Open(SavePath, FileAccess.ModeFlags.Read);
 		var data = (Godot.Collections.Dictionary)file.GetVar();
 
-		Pawllars = (int)data["pawllars"];
-		Mewnits = (int)data["mewnits"];
+		Pawllars = data.ContainsKey("pawllars") ? (int)data["pawllars"] : 0;
+		Mewnits = data.ContainsKey("mewnits") ? (int)data["mewnits"] : 0;
+		Karma = data.ContainsKey("karma") ? (int)data["karma"] : 0;
 	}
 }

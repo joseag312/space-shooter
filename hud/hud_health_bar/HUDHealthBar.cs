@@ -20,9 +20,17 @@ public partial class HUDHealthBar : Control
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
 		if (ship != null)
 		{
-			_statsComponent = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
-			ship.Connect(nameof(Ship.HealthChanged), new Callable(this, nameof(OnHealthChanged)));
+			ship.Connect("ShipReady", new Callable(this, nameof(InitFromShip)));
 		}
+	}
+
+	private void InitFromShip()
+	{
+		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
+		if (ship == null) return;
+
+		_statsComponent = ship.GetNodeOrNull<StatsComponent>("StatsComponent");
+		ship.Connect(nameof(Ship.HealthChanged), new Callable(this, nameof(OnHealthChanged)));
 
 		if (_statsComponent != null)
 		{
