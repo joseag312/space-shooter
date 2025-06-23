@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://djgvlo7l4rj4u"]
+
+[ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="1_t3n2a"]
+[ext_resource type="Script" uid="uid://dh3cqlqju3jml" path="res://drops/drop_base/DropBase.cs" id="1_wjdvq"]
+[ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="2_wjdvq"]
+
+[node name="DropBase" type="Area2D"]
+script = ExtResource("1_wjdvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DespawnOnExitComponent" type="Node" parent="."]
+script = ExtResource("1_t3n2a")
+metadata/_custom_type_script = "uid://c0p7rysr544jk"
+
+[node name="MoveComponent" type="Node" parent="."]
+script = ExtResource("2_wjdvq")
+metadata/_custom_type_script = "uid://bngbbdfy7uu7s"

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://t3gj82llt5tu"]
+[gd_scene load_steps=5 format=3 uid="uid://t3gj82llt5tu"]
 
 [ext_resource type="PackedScene" uid="uid://d1qwtox2syayg" path="res://hud/hud_dialog_system/hud_dialog_system.tscn" id="1_elt30"]
+[ext_resource type="Script" uid="uid://caa6y6axkb7k0" path="res://hud/hud_main/HUDMain.cs" id="1_qycpi"]
 [ext_resource type="PackedScene" uid="uid://djan3duhgdlxt" path="res://hud/hud_health_bar/hud_health_bar.tscn" id="2_ltk68"]
 [ext_resource type="PackedScene" uid="uid://cjuilh3ky2tbn" path="res://hud/hud_currency/hud_currency.tscn" id="3_ltk68"]
 
 [node name="HUDMain" type="CanvasLayer"]
+script = ExtResource("1_qycpi")
 
 [node name="HUDDialogSystem" parent="." instance=ExtResource("1_elt30")]
 

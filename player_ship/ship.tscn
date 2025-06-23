@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://cm2ehypi27656"]
+[gd_scene load_steps=25 format=3 uid="uid://cm2ehypi27656"]
 
 [ext_resource type="Script" uid="uid://dgddoo6aqpkj5" path="res://player_ship/Ship.cs" id="1_pfwoo"]
 [ext_resource type="Texture2D" uid="uid://bnfyvtjx4mo0u" path="res://assets/player_ship/player_ship_basic.png" id="3_kg2yf"]
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="4_8f8v2"]
 [ext_resource type="Script" uid="uid://clm5txmjw45sc" path="res://components/MoveInputComponent.cs" id="5_3qev6"]
+[ext_resource type="Script" uid="uid://c4o8660pjq6yc" path="res://components/HitboxComponent.cs" id="5_h7cto"]
 [ext_resource type="Script" uid="uid://bat1418ud5utq" path="res://components/PositionClampComponent.cs" id="6_rwyts"]
 [ext_resource type="Script" uid="uid://b3j46krb03igp" path="res://components/WeaponManagerComponent.cs" id="7_axu33"]
 [ext_resource type="Script" uid="uid://pfknuewrewab" path="res://components/StatsComponent.cs" id="7_d46d2"]
@@ -135,6 +136,15 @@ script = ExtResource("10_s0udg")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent"]
 polygon = PackedVector2Array(-35, 20, -35, 9, -20, -12, -8, -14, -3, -42, 2, -42, 10, -14, 19, -12, 35, 8, 35, 20, 16, 20, 16, 37, -16, 37, -16, 19)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_h7cto")
+metadata/_custom_type_script = "uid://c4o8660pjq6yc"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-23.3333, 13.3333, -23.3333, 5.33333, -13.3333, -7.33333, -5.33333, -9.33333, -2.66667, -26, 2, -26.6667, 5.33333, -9.33333, 13.3333, -7.33333, 22.6667, 6, 23.3333, 12, 12, 12, 10.6667, 25.3333, -10, 24.6667, -10.6667, 13.3333)
 
 [node name="LeftMuzzle" type="Marker2D" parent="."]
 position = Vector2(-13, -8)

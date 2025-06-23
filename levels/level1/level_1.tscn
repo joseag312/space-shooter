@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://din7e88hu2cps"]
+[gd_scene load_steps=15 format=3 uid="uid://din7e88hu2cps"]
 
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dodau5xi40hmx" path="res://components/ShipDeathHandlerComponent.cs" id="7_o80m7"]
 [ext_resource type="Script" uid="uid://cx7err3tijmky" path="res://components/LevelMusicTriggerComponent.cs" id="8_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="13_u3t6j"]
+[ext_resource type="PackedScene" uid="uid://bu1o1hg81uu88" path="res://drops/drop_mewnits/drop_mewnits.tscn" id="14_tl3cw"]
 
 [node name="Level1" type="Node2D"]
 
@@ -46,8 +47,9 @@ metadata/_custom_type_script = "uid://dsrlc8h0hnlgp"
 script = ExtResource("5_u3t6j")
 metadata/_custom_type_script = "uid://7bpd0oehmqnw"
 
-[node name="LevelCleanupComponent" type="Node" parent="LevelFlowComponent"]
+[node name="LevelCleanupComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("HUDCanvasLayer")]
 script = ExtResource("6_tl3cw")
+HUDCanvasLayer = NodePath("../../HUDMain")
 metadata/_custom_type_script = "uid://bhwduhk2gwo8t"
 
 [node name="ShipDeathHandlerComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Ship", "SpawnerRecurrent", "LevelCleanup", "ParallaxBackground")]
@@ -74,3 +76,6 @@ Scene = ExtResource("4_kw6hg")
 [node name="BasicEnemySlowSpawner" type="Node2D" parent="."]
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
+
+[node name="DropMewnits" parent="." instance=ExtResource("14_tl3cw")]
+position = Vector2(523, 139)

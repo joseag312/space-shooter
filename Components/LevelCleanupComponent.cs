@@ -57,20 +57,35 @@ public partial class LevelCleanupComponent : Node
 
     public async Task FadeOutHUD()
     {
+        if (HUDCanvasLayer == null)
+            return;
+
+        var toFade = new List<CanvasItem>();
+        CollectVisibleCanvasItems(HUDCanvasLayer, toFade);
+
         var awaiters = new List<SignalAwaiter>();
 
-        foreach (var child in HUDCanvasLayer.GetChildren())
+        foreach (var item in toFade)
         {
-            if (child is Control control && control.Visible)
-            {
-                var tween = CreateTween();
-                tween.TweenProperty(control, "modulate:a", 0.0f, 0.4f);
-                awaiters.Add(ToSignal(tween, "finished"));
-            }
+            var tween = CreateTween();
+            tween.TweenProperty(item, "modulate:a", 0.0f, 0.4f);
+            awaiters.Add(ToSignal(tween, "finished"));
         }
 
         foreach (var awaiter in awaiters)
             await awaiter;
+    }
+
+    private void CollectVisibleCanvasItems(Node node, List<CanvasItem> list)
+    {
+        if (node is CanvasItem item && item.Visible)
+            list.Add(item);
+
+        foreach (var child in node.GetChildren())
+        {
+            if (child is Node childNode)
+                CollectVisibleCanvasItems(childNode, list);
+        }
     }
 
     private void CleanupOffscreenEnemies()
