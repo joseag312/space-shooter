@@ -11,7 +11,8 @@ public partial class Ship : Node2D
 	[Export] public PositionClampComponent PositionClampComponent;
 	[Export] public Node2D Anchor;
 
-	[Signal] public delegate void HealthChangedEventHandler(int newHealth);
+	[Signal]
+	public delegate void HealthChangedEventHandler(int oldHealth, int newHealth);
 	[Signal] public delegate void ShipReadyEventHandler();
 
 	private bool _readyToFire = false;
@@ -23,6 +24,7 @@ public partial class Ship : Node2D
 		StatsComponent.MaxHealth = G.SS.Health;
 		StatsComponent.Health = G.SS.Health;
 		EmitSignal(nameof(ShipReady));
+		EmitSignal(nameof(HealthChanged), StatsComponent.Health, StatsComponent.Health);
 
 		if (WeaponManager != null)
 		{
@@ -45,8 +47,6 @@ public partial class Ship : Node2D
 		{
 			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
 		}
-
-		HurtboxComponent.Hurt += UpdateHealth;
 	}
 
 	public override void _Process(double delta)
@@ -111,20 +111,40 @@ public partial class Ship : Node2D
 		}
 	}
 
-	private void UpdateHealth(HitboxComponent hitboxComponent)
-	{
-		int damage = hitboxComponent.Damage;
-
-		if (hitboxComponent.DamagePercentage > 0)
-		{
-			damage = (int)((hitboxComponent.DamagePercentage / 100.0f) * StatsComponent.MaxHealth);
-			damage = Mathf.Max(damage, 1);
-		}
-
-		EmitSignal(nameof(HealthChanged), damage);
-	}
-
 	public void StartFiring() => _readyToFire = true;
 
 	public void StopFiring() => _readyToFire = false;
+
+	public void Heal(int healPercent)
+	{
+		int oldHealth = StatsComponent.Health;
+		int healAmount = Mathf.Max((int)((healPercent / 100.0f) * StatsComponent.MaxHealth), 1);
+		int newHealth = Mathf.Min(oldHealth + healAmount, StatsComponent.MaxHealth);
+
+		if (newHealth != oldHealth)
+		{
+			StatsComponent.Health = newHealth;
+			EmitSignal(nameof(HealthChanged), oldHealth, newHealth);
+			SpawnHealText(newHealth - oldHealth);
+		}
+		else
+		{
+			GD.Print("DEBUG: Ship - Heal skipped: Already at max health");
+		}
+	}
+
+	private void SpawnHealText(int healAmount)
+	{
+		PackedScene healTextScene = ResourceLoader.Load<PackedScene>("res://player_ship/ship_heal_text.tscn");
+
+		if (healTextScene == null)
+		{
+			GD.PrintErr("ERROR: Ship - ship_heal_text.tscn could not be loaded!");
+			return;
+		}
+
+		var healText = healTextScene.Instantiate<ShipHealText>();
+		healText.Initialize(healAmount);
+		AddChild(healText);
+	}
 }

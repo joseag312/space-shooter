@@ -28,8 +28,8 @@ public partial class ShipDamageText : Node2D
 		_label.Text = _damageValue.ToString();
 
 		Tween tween = CreateTween();
-		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 10f;
-		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 15f;
+		float randomXOffset = (float)GD.RandRange(-1d, 1d) * 50f;
+		float randomYOffset = (float)GD.RandRange(0.5d, 1d) * 35f;
 
 		int direction = GD.RandRange(0, 1) == 0 ? -1 : 1;
 		float damageOffset = 24 * ((_damageValue / 10) + 1) * direction;

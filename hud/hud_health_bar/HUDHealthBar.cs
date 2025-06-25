@@ -43,70 +43,32 @@ public partial class HUDHealthBar : Control
 		Position = new Vector2(20, 40);
 	}
 
-	private void OnHealthChanged(int damage)
+	private void OnHealthChanged(int oldHealth, int newHealth)
 	{
-		if (_statsComponent == null) return;
-
-		HealthBar.Value = Mathf.Max(_statsComponent.Health, 0);
-		HealthValue.Text = $"{HealthBar.Value}/{HealthBar.MaxValue}";
-
-		var gradientUnder = new Gradient();
-		var hurtColor = new Color(145f / 200f, 125f / 255f, 230f / 255f, 1f);
-		gradientUnder.SetColor(0, hurtColor);
-		gradientUnder.SetColor(1, hurtColor);
-
-		var gradientTexture = new GradientTexture2D
+		int delta = newHealth - oldHealth;
+		if (delta == 0)
 		{
-			Gradient = gradientUnder,
-			Width = (int)(BackgroundBar.TextureUnder.GetWidth() * ((float)damage / HealthBar.MaxValue)),
-			Height = BackgroundBar.TextureUnder.GetHeight()
-		};
+			return;
+		}
 
-		var lostHealthBar = new TextureProgressBar
-		{
-			TextureProgress = gradientTexture,
-			MinValue = HealthBar.MinValue,
-			MaxValue = HealthBar.MaxValue,
-			Value = HealthBar.MaxValue,
-			TextureProgressOffset = new Vector2(BackgroundBar.TextureUnder.GetWidth() * (_statsComponent.Health / (float)HealthBar.MaxValue), 0f),
-			ZIndex = 5
-		};
-
-		HealthBar.GetParent().AddChild(lostHealthBar);
-		lostHealthBar.GlobalPosition = HealthBar.GlobalPosition;
+		HealthBar.Value = newHealth;
+		HealthValue.Text = $"{newHealth}/{_statsComponent.MaxHealth}";
+		Color originalColor = new Color(97f / 255f, 1f, 1f, 1f);
+		Color flashColor = delta < 0
+			? new Color(1f, 0.6f, 0.6f, 1f)
+			: new Color(0.8f, 0.90f, 0.4f, 1f);
 
 		var tween = GetTree().CreateTween();
-		if (_statsComponent.Health > 0)
-		{
-			float startOffsetX = lostHealthBar.TextureProgressOffset.X;
-			float endOffsetX = startOffsetX - lostHealthBar.TextureProgress.GetWidth();
-			tween.TweenProperty(lostHealthBar, "texture_progress_offset:x", endOffsetX, 0.4f)
-				 .SetTrans(Tween.TransitionType.Linear)
-				 .SetEase(Tween.EaseType.Out);
-		}
-		else
-		{
-			tween.TweenProperty(lostHealthBar, "modulate", new Color(1f, 1f, 2f, 1f), 0.1f)
-				 .SetTrans(Tween.TransitionType.Cubic)
-				 .SetEase(Tween.EaseType.Out);
-			tween.TweenProperty(lostHealthBar, "modulate", new Color(2f, 2f, 2f, 1f), 0.1f)
-				 .SetDelay(0.1f)
-				 .SetTrans(Tween.TransitionType.Bounce)
-				 .SetEase(Tween.EaseType.Out);
-			tween.TweenProperty(lostHealthBar, "modulate", new Color(0.5f, 0.5f, 0.5f, 1f), 0.1f)
-				 .SetDelay(0.2f)
-				 .SetTrans(Tween.TransitionType.Cubic)
-				 .SetEase(Tween.EaseType.Out);
-			tween.TweenProperty(lostHealthBar, "modulate:a", 0f, 0.4f)
-				 .SetDelay(0.3f)
-				 .SetTrans(Tween.TransitionType.Linear);
-		}
 
-		tween.TweenCallback(Callable.From(() =>
-		{
-			if (IsInstanceValid(lostHealthBar)) lostHealthBar.QueueFree();
-		})).SetDelay(0.6f);
+		tween.TweenProperty(HealthBar, "modulate", flashColor, 0.1f)
+			 .SetTrans(Tween.TransitionType.Linear);
+
+		tween.TweenInterval(0.1f);
+
+		tween.TweenProperty(HealthBar, "modulate", originalColor, 0.2f)
+			 .SetTrans(Tween.TransitionType.Linear);
 	}
+
 
 	public async Task FadeIn(CanvasItem root, float duration = 0.5f)
 	{

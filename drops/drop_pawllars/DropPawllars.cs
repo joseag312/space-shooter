@@ -2,13 +2,13 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class DropMewnits : DropBase
+public partial class DropPawllars : DropBase
 {
     [Export] public int Amount = 10;
 
     public override void HandlePickup(HitboxComponent hitboxComponent)
     {
-        G.GS.Mewnits += Amount;
+        G.GS.Pawllars += Amount;
 
         if (DropTextScene != null)
         {

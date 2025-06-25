@@ -26,6 +26,8 @@ Ship has a HitboxComponent, and the system is wired
 
 🧭 Tomorrow’s Jump Point – Drop System Expansion
 
+LEFTOFF: Health Drop
+
 We'll wire drops into enemy death logic.
 
 🎯 Main Goal

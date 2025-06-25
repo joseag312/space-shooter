@@ -6,7 +6,7 @@
 [ext_resource type="LabelSettings" uid="uid://dpmqtau6jga7k" path="res://resources/fonts/font_kenney_gray_12.tres" id="4_1owqb"]
 
 [sub_resource type="Gradient" id="Gradient_csota"]
-colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 1)
+colors = PackedColorArray(0.380392, 1, 1, 1, 0.380392, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mitiv"]
 gradient = SubResource("Gradient_csota")
@@ -79,7 +79,7 @@ offset_right = 256.0
 offset_bottom = 20.0
 texture_progress = SubResource("GradientTexture2D_mitiv")
 texture_progress_offset = Vector2(1, 0)
-tint_under = Color(0.380392, 1, 1, 1)
+tint_under = Color(0.196078, 0.827451, 0.827451, 1)
 
 [node name="BackgroundBar" type="TextureProgressBar" parent="VBoxContainer/HealthBarControl"]
 layout_mode = 2

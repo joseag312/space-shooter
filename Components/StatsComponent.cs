@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 [GlobalClass]
@@ -15,7 +16,7 @@ public partial class StatsComponent : Node
         set
         {
             _health = value;
-            EmitSignal(SignalName.HealthChanged);
+            //EmitSignal(SignalName.HealthChanged);
             if (_health <= 0)
                 EmitSignal(SignalName.NoHealth);
         }

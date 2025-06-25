@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://dodau5xi40hmx" path="res://components/ShipDeathHandlerComponent.cs" id="7_o80m7"]
 [ext_resource type="Script" uid="uid://cx7err3tijmky" path="res://components/LevelMusicTriggerComponent.cs" id="8_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="13_u3t6j"]
-[ext_resource type="PackedScene" uid="uid://bu1o1hg81uu88" path="res://drops/drop_mewnits/drop_mewnits.tscn" id="14_tl3cw"]
+[ext_resource type="PackedScene" uid="uid://3yth2qjjn5v8" path="res://drops/drop_health/drop_health.tscn" id="16_3eaul"]
 
 [node name="Level1" type="Node2D"]
 
@@ -77,5 +77,11 @@ Scene = ExtResource("4_kw6hg")
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
 
-[node name="DropMewnits" parent="." instance=ExtResource("14_tl3cw")]
-position = Vector2(523, 139)
+[node name="EnemyBasicSlow" parent="." instance=ExtResource("6_1a4kf")]
+position = Vector2(580, 179)
+
+[node name="DropHealth" parent="." instance=ExtResource("16_3eaul")]
+position = Vector2(799, 65)
+
+[node name="DropHealth2" parent="." instance=ExtResource("16_3eaul")]
+position = Vector2(676, 61)

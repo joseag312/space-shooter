@@ -17,6 +17,7 @@ public partial class HurtComponent : Node
 
     private void OnHurt(HitboxComponent hitboxComponent)
     {
+        int oldHealth = StatsComponent.Health;
         int damageAmount = hitboxComponent.Damage;
         if (hitboxComponent.DamagePercentage > 0)
         {
@@ -27,6 +28,11 @@ public partial class HurtComponent : Node
         SpawnDamageText(damageAmount);
         StatsComponent.Health -= damageAmount;
         InvincibilityComponent?.StartInvincibility();
+
+        if (Owner is Ship ship)
+        {
+            ship.EmitSignal("HealthChanged", oldHealth, StatsComponent.Health);
+        }
     }
 
     private void SpawnDamageText(int damage)
@@ -54,5 +60,4 @@ public partial class HurtComponent : Node
             damageText.GlobalPosition = parent.GlobalPosition + new Vector2(0, -10);
         }
     }
-
 }
