@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bcla0tq71aoqp"]
+[gd_scene load_steps=25 format=3 uid="uid://bcla0tq71aoqp"]
 
 [ext_resource type="Texture2D" uid="uid://mabeww6pjhiy" path="res://assets/enemy/enemy_basic.png" id="1_3f31t"]
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="2_l14ke"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://dq0illjjctl11" path="res://components/DestroyedComponent.cs" id="12_8dcjx"]
 [ext_resource type="Script" uid="uid://cuxaexqd1d274" path="res://components/HealthBarComponent.cs" id="13_1rfim"]
 [ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="14_euvkk"]
+[ext_resource type="Script" uid="uid://bsn1hx6fcpuet" path="res://components/DropComponent.cs" id="15_tunn2"]
+[ext_resource type="Resource" uid="uid://ciln8ccdoq0hc" path="res://resources/data/table_drop_common.tres" id="16_tmtwk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55rnp"]
 atlas = ExtResource("1_3f31t")
@@ -145,3 +147,9 @@ offset_bottom = -29.0
 value = 100.0
 texture_under = SubResource("GradientTexture1D_q0xs6")
 texture_progress = SubResource("GradientTexture1D_27onc")
+
+[node name="DropComponent" type="Node" parent="." node_paths=PackedStringArray("DestroyedComponent")]
+script = ExtResource("15_tunn2")
+DestroyedComponent = NodePath("../DestroyedComponent")
+DropTable = ExtResource("16_tmtwk")
+metadata/_custom_type_script = "uid://bsn1hx6fcpuet"

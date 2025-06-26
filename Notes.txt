@@ -1,58 +1,51 @@
 ****************************************************************************************************************
 
-✅ Today’s Progress – Drop System Core Success
+✅ What You Did Today
 
-We accomplished the foundation of your drop system with clean, extensible architecture:
+💰 Drop System Core:
 
-🧱 Systems Implemented
-Base Drop Scene (DropBase)
-Handles pickup logic
-Auto-despawn with animated exit (scale + fade)
-Calls HandlePickup() for custom behavior
-Currency Drop (DropMewnits)
-Adds to G.GS.Mewnits when picked up
-Uses hitbox/hurtbox system to detect player pickup
-PulseComponent
-Animates a pulsing + flashing effect while idle
-Can be cleanly disabled before pickup animation
-Visual polish
-Drop scales up and fades out smoothly when collected
-Debug tools added to confirm layers, signals, and hits
-Collision setup
-Drop has a HurtboxComponent on a specific layer
-Ship has a HitboxComponent, and the system is wired
+Finalized DropComponent with weighted roll logic
+Built DropContext with level, karma, source type, and event multiplier
+Implemented IDropAmount interface to dynamically set amounts
+Guaranteed at least 1 drop if any is awarded
+Hooked drop spawning to DestroyedComponent using signals and CallDeferred
+Added clean debug logging, then stripped it for production
+🧠 Auto-Drop Parenting:
+
+Walked up the node tree to auto-assign a DropLayer at runtime
+Fallback to GetTree().CurrentScene if no DropLayer found
+Identified that without proper DropLayer, drops get added to short-lived parents
+🐛 Critical Debugging:
+
+Spotted invalid parenting via @Node2D@XYZ logs
+Resolved a Label ObjectDisposedException likely due to old HUD references
+Health updates working, but currency HUD fails after second death
 
 ****************************************************************************************************************
 
-🧭 Tomorrow’s Jump Point – Drop System Expansion
+🧭 Tomorrow’s Jump Point – Drop Persistence & HUD Sync
 
-LEFTOFF: Health Drop
+🔥 Main Goal
+Fix currency HUD sync on level retry and ensure drops persist only if level is completed.
 
-We'll wire drops into enemy death logic.
+🔧 Tasks
+Fix HUDCurrency not updating on second life:
+Investigate stale references or missing signal reconnects
+Ensure HUDCurrency rebinds on level reload
+Add defensive checks to avoid accessing freed UI nodes
+Make Drops Non-Persistent Unless Level Cleared:
+Track dropped currency this run (e.g., in LevelFlowComponent)
+Only add it to AutoGameStats if the level is cleared
+On failure, discard drops (but show them in real-time during play)
 
-🎯 Main Goal
-When an enemy dies, it evaluates a weighted drop table and spawns a drop (or not) based on a random roll.
-
-🧱 Key Pieces to Build
-DropTableComponent (per enemy)
-Holds a list of drop entries: each with a chance and a scene
-Can be reused for currency, health, or future types
-On death, enemy asks its DropTableComponent:
-SpawnDropIfAny(Vector2 position)
-Picks one based on weighted chance
-Reuses your existing SpawnerComponent or a similar instantiation method
-💡 Long-Term Goals (Saved)
-
-Base PickupBase interface or class for ammo/boosts/money/etc.
-Global DropDatabase autoload (like WeaponDatabase)
-Magnet system to pull pickups toward the player
-Sound and VFX polish
-.tres reusable audio tracks (for looping music, menu tracks, etc.)
+🧪 Bonus Ideas
+Add a floating text for currency/health pickup
+Play sound when a drop is picked up
+Magnet pull mechanic for uncollected drops
 
 ****************************************************************************************************************
 
 RoadMap:
-I want to do the cash system
 I want to create the drops system, upon an enemy being destroyed by a weapon
 I want to add a couple powers
 	Teleport

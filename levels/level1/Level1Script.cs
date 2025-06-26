@@ -26,6 +26,7 @@ public partial class Level1Script : Node
 
 		try
 		{
+			G.GS.CurrentLevel = 1;
 			// StartDialog();
 			// await Task.Delay(300, token);
 			// await Dialog.FirstMessage(Char.OIIA, Mood.OIIA.Default, "Ah there he is! The cat I've been hearing so much about!");
@@ -66,29 +67,29 @@ public partial class Level1Script : Node
 			// await Dialog.LastMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Good luck out there!");
 			// StopDialog();
 
-			await Task.Delay(30000, token);
-			// _ = Dialog.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
+			await Task.Delay(1000, token);
+			_ = Dialog.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
 
-			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
-			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
-			// await Task.Delay(20000, token);
-			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
+			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			await Task.Delay(20000, token);
+			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
 
-			// await Task.Delay(3000, token);
-			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
-			// _ = Dialog.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
-			// await Task.Delay(3000, token);
+			await Task.Delay(3000, token);
+			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
+			_ = Dialog.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
+			await Task.Delay(3000, token);
 
-			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
-			// _ = Dialog.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
-			// await Task.Delay(20000, token);
-			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
-			// await Task.Delay(500, token);
+			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			_ = Dialog.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
+			await Task.Delay(20000, token);
+			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			await Task.Delay(500, token);
 
-			// await Task.Delay(1500, token);
-			// _ = Dialog.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
-			// await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy2Spawner, 10, 15);
-			// await Task.Delay(1500, token);
+			await Task.Delay(1500, token);
+			_ = Dialog.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
+			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy2Spawner, 10, 15);
+			await Task.Delay(1500, token);
 			await HandleLevelClear();
 		}
 		catch (TaskCanceledException)

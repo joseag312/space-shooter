@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeightedDropTable" load_steps=5 format=3 uid="uid://dvid4yjb07hiu"]
+
+[ext_resource type="Resource" uid="uid://bli0lsftns25s" path="res://resources/data/drop_health.tres" id="2_ng1nq"]
+[ext_resource type="Resource" uid="uid://cn6kuwmwaq68t" path="res://resources/data/drop_mewnits.tres" id="3_e8vsf"]
+[ext_resource type="Resource" uid="uid://0fr2ocn4hidq" path="res://resources/data/drop_pawllars.tres" id="4_nnecf"]
+[ext_resource type="Script" uid="uid://dnlb2cp2dw8ku" path="res://drops/drop_base/WeightedDropTable.cs" id="5_1vstb"]
+
+[resource]
+script = ExtResource("5_1vstb")
+Entries = [ExtResource("2_ng1nq"), ExtResource("3_e8vsf"), ExtResource("4_nnecf")]
+metadata/_custom_type_script = "uid://dnlb2cp2dw8ku"

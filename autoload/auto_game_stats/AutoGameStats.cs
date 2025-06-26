@@ -9,6 +9,9 @@ public partial class AutoGameStats : Node
 
 	private int _pawllars = 0;
 	private int _mewnits = 0;
+	public int Karma = 0;
+	public int CurrentLevel;
+	public float CurrencyMultiplier = 1f;
 
 	public int Pawllars
 	{
@@ -35,8 +38,6 @@ public partial class AutoGameStats : Node
 			}
 		}
 	}
-
-	public int Karma = 0;
 
 	private const string SavePath = "user://savegame_game.dat";
 
