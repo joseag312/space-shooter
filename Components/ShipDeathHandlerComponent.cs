@@ -8,6 +8,7 @@ public partial class ShipDeathHandlerComponent : Node
     [Export] public SpawnerRecurrentComponent SpawnerRecurrent { get; set; }
     [Export] public LevelCleanupComponent LevelCleanup { get; set; }
     [Export] public ParallaxBackground ParallaxBackground { get; set; }
+    [Export] public Node2D EffectContainer;
 
     private BackgroundFadeComponent _backgroundFade;
 
@@ -22,6 +23,11 @@ public partial class ShipDeathHandlerComponent : Node
         var callable = new Callable(this, nameof(OnShipDeath));
         if (!Ship.StatsComponent.IsConnected("NoHealth", callable))
             Ship.StatsComponent.Connect("NoHealth", callable);
+        if (Ship.HasNode("DestroyedComponent"))
+        {
+            var destroy = Ship.GetNode<DestroyedComponent>("DestroyedComponent");
+            destroy.EffectTarget = EffectContainer;
+        }
     }
 
     private async void OnShipDeath()

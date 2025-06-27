@@ -7,6 +7,7 @@ public partial class DropComponent : Node
     [Export] public DestroyedComponent DestroyedComponent;
     [Export] public WeightedDropTable DropTable;
     [Export] public DropSourceType Type = DropSourceType.Common;
+    [Export] public Node2D DropTarget;
 
     public override void _Ready()
     {
@@ -69,11 +70,9 @@ public partial class DropComponent : Node
 
     private void AddDropDeferred(Node drop)
     {
-        var root = GetParent().GetParent().GetParent();
-
-        if (root == null)
+        if (DropTarget == null)
         {
-            GD.PrintErr("ERROR: DropComponent - GetParent() returned null. Drop will not be added.");
+            GD.PrintErr("ERROR: DropComponent - DropTarget is null. Cannot add drop.");
             return;
         }
 
@@ -83,8 +82,7 @@ public partial class DropComponent : Node
             return;
         }
 
-        GD.Print($"DEBUG: DropComponent - Deferring drop '{drop.Name}' into '{root.Name}'");
-        root.CallDeferred("add_child", drop);
+        GD.Print($"DEBUG: DropComponent - Deferring drop '{drop.Name}' into '{DropTarget.Name}'");
+        DropTarget.CallDeferred("add_child", drop);
     }
-
 }

@@ -3,6 +3,7 @@ using Godot;
 [GlobalClass]
 public partial class Ship : Node2D
 {
+	[Export] public Node2D ProjectileContainer;
 	[Export] public WeaponManagerComponent WeaponManager;
 	[Export] public MoveComponent MoveComponent;
 	[Export] public ScaleComponent ScaleComponent;
@@ -53,18 +54,18 @@ public partial class Ship : Node2D
 	{
 		if (_readyToFire && !G.GF.IsInputBlocked)
 		{
-			WeaponManager?.SpawnWeapon(0);
+			WeaponManager?.SpawnWeapon(0, ProjectileContainer);
 
 			if (Input.IsActionJustPressed("fire_large"))
-				WeaponManager?.SpawnWeapon(1);
+				WeaponManager?.SpawnWeapon(1, ProjectileContainer);
 			if (Input.IsActionJustPressed("fire_special_1"))
-				WeaponManager?.SpawnWeapon(2);
+				WeaponManager?.SpawnWeapon(2, ProjectileContainer);
 			if (Input.IsActionJustPressed("fire_special_2"))
-				WeaponManager?.SpawnWeapon(3);
+				WeaponManager?.SpawnWeapon(3, ProjectileContainer);
 			if (Input.IsActionJustPressed("fire_special_3"))
-				WeaponManager?.SpawnWeapon(4);
+				WeaponManager?.SpawnWeapon(4, ProjectileContainer);
 			if (Input.IsActionJustPressed("fire_special_4"))
-				WeaponManager?.SpawnWeapon(5);
+				WeaponManager?.SpawnWeapon(5, ProjectileContainer);
 		}
 
 		AnimateShip();

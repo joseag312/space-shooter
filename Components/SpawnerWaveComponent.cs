@@ -7,6 +7,9 @@ using Godot;
 public partial class SpawnerWaveComponent : Node
 {
     [Export] public int Margin = 8;
+    [Export] public Node2D EnemyContainer;
+    [Export] public Node2D DropContainer;
+    [Export] public Node2D EffectContainer;
 
     private int _leftBorder;
     private int _rightBorder;
@@ -31,7 +34,17 @@ public partial class SpawnerWaveComponent : Node
             Node2D enemy = enemyScene.Instantiate<Node2D>();
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
-            AddChild(enemy);
+            if (enemy.HasNode("DropComponent"))
+            {
+                var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.DropTarget = DropContainer;
+            }
+            if (enemy.HasNode("DestroyedComponent"))
+            {
+                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
+                effect.EffectTarget = EffectContainer;
+            }
+            EnemyContainer.AddChild(enemy);
         }
     }
 
@@ -52,7 +65,17 @@ public partial class SpawnerWaveComponent : Node
             Node2D enemy = enemyScene.Instantiate<Node2D>();
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
-            AddChild(enemy);
+            if (enemy.HasNode("DropComponent"))
+            {
+                var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.DropTarget = DropContainer;
+            }
+            if (enemy.HasNode("DestroyedComponent"))
+            {
+                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
+                effect.EffectTarget = EffectContainer;
+            }
+            EnemyContainer.AddChild(enemy);
 
             if (enemy.HasNode("PersistenceComponent"))
             {

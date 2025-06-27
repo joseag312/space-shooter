@@ -2,46 +2,54 @@
 
 ✅ What You Did Today
 
-💰 Drop System Core:
+✅ What You Did Today
 
-Finalized DropComponent with weighted roll logic
-Built DropContext with level, karma, source type, and event multiplier
-Implemented IDropAmount interface to dynamically set amounts
-Guaranteed at least 1 drop if any is awarded
-Hooked drop spawning to DestroyedComponent using signals and CallDeferred
-Added clean debug logging, then stripped it for production
-🧠 Auto-Drop Parenting:
-
-Walked up the node tree to auto-assign a DropLayer at runtime
-Fallback to GetTree().CurrentScene if no DropLayer found
-Identified that without proper DropLayer, drops get added to short-lived parents
-🐛 Critical Debugging:
-
-Spotted invalid parenting via @Node2D@XYZ logs
-Resolved a Label ObjectDisposedException likely due to old HUD references
-Health updates working, but currency HUD fails after second death
+🔧 Fixed & Refactored
+✅ Refactored enemy spawning to parent into EnemyContainer
+✅ Rewired DropComponent to use DropTarget, avoiding fragile GetParent() chains
+✅ Passed DropContainer to enemies at spawn time (Recurrent + Wave spawners)
+✅ Rewired WeaponManagerComponent to accept ProjectileContainer as a spawn target
+✅ Handled shield vs. projectile parenting using locationType == ShipAttached
+✅ Centralized explosions into EffectContainer via DestroyedComponent
+✅ Assigned TargetContainer to DestroyedComponent on both Ship and Enemies at runtime
+✅ Flipped your level logic structure so Level1Script owns LevelFlowComponent (clean dependency direction)
+✅ Restructured your level scene into a clean, scalable hierarchy
 
 ****************************************************************************************************************
 
 🧭 Tomorrow’s Jump Point – Drop Persistence & HUD Sync
 
-🔥 Main Goal
-Fix currency HUD sync on level retry and ensure drops persist only if level is completed.
+🐛 Unresolved Bug
+HUDCurrency crash after second death
 
-🔧 Tasks
-Fix HUDCurrency not updating on second life:
-Investigate stale references or missing signal reconnects
-Ensure HUDCurrency rebinds on level reload
-Add defensive checks to avoid accessing freed UI nodes
-Make Drops Non-Persistent Unless Level Cleared:
-Track dropped currency this run (e.g., in LevelFlowComponent)
-Only add it to AutoGameStats if the level is cleared
-On failure, discard drops (but show them in real-time during play)
+❌ ObjectDisposedException: likely caused by holding a stale reference to the money label
+💡 Root cause: HUD scene may not be properly re-instantiated or signals not reconnected after respawn
+✅ Your new modular scene structure makes this easier to fix now
+🎯 Immediate Goals
+🔧 1. Rewire Floating Text Spawns
 
-🧪 Bonus Ideas
-Add a floating text for currency/health pickup
-Play sound when a drop is picked up
-Magnet pull mechanic for uncollected drops
+➕ Pickup text (e.g., +20) → spawn in EffectContainer
+❤️ Ship damage/heal text → spawn as child of Ship (so it follows movement)
+✅ Update spawn methods to accept correct target parent
+🧪 2. Test Full Level Flow
+
+Die → Respawn → Die again
+Verify:
+HUD elements are correctly reset
+Explosions and drops go to the right containers
+No crashes or null references
+🛠️ Fix HUDCurrency Bug
+🔍 Investigate stale reference or missing signal connections
+🧼 Ensure HUDCurrency rebinds cleanly on level reload
+🛡 Add defensive checks before updating freed nodes
+💰 Make Drops Non-Persistent Until Level Is Cleared
+📦 Track dropped currency this run (e.g., in LevelFlowComponent)
+✅ Only add to AutoGameStats.Currency if level is completed
+❌ On death/failure, discard drop value — but still show them visually in real-time
+✨ Bonus Ideas
+💬 Add floating text when pickups are collected
+🔊 Play sound on drop pickup
+🧲 Add magnet pull mechanic for drops near the player
 
 ****************************************************************************************************************
 

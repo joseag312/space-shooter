@@ -17,7 +17,7 @@ public partial class HUDHealthBar : Control
 	{
 		_ = FadeIn(this);
 
-		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
+		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("ShipContainer/Ship");
 		if (ship != null)
 		{
 			ship.Connect("ShipReady", new Callable(this, nameof(InitFromShip)));
@@ -26,7 +26,7 @@ public partial class HUDHealthBar : Control
 
 	private void InitFromShip()
 	{
-		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("Ship");
+		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("ShipContainer/Ship");
 		if (ship == null) return;
 
 		_statsComponent = ship.GetNodeOrNull<StatsComponent>("StatsComponent");

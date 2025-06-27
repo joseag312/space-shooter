@@ -5,8 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://djan3duhgdlxt" path="res://hud/hud_health_bar/hud_health_bar.tscn" id="2_ltk68"]
 [ext_resource type="PackedScene" uid="uid://cjuilh3ky2tbn" path="res://hud/hud_currency/hud_currency.tscn" id="3_ltk68"]
 
-[node name="HUDMain" type="CanvasLayer"]
+[node name="HUDMain" type="CanvasLayer" node_paths=PackedStringArray("HealthBar", "Dialog", "Currency")]
 script = ExtResource("1_qycpi")
+HealthBar = NodePath("HUDHealthBar")
+Dialog = NodePath("HUDDialogSystem")
+Currency = NodePath("HudCurrency")
 
 [node name="HUDDialogSystem" parent="." instance=ExtResource("1_elt30")]
 

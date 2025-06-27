@@ -9,7 +9,9 @@ public partial class SpawnerRecurrentComponent : Node
     [Export] public SpawnerComponent Enemy1Spawner { get; set; }
     [Export] public SpawnerComponent Enemy2Spawner { get; set; }
     [Export] public SpawnerComponent Enemy3Spawner { get; set; }
-
+    [Export] public Node2D EnemyContainer;
+    [Export] public Node2D DropContainer;
+    [Export] public Node2D EffectContainer;
     [Export] public int Margin = 8;
 
     private int _leftBorder;
@@ -86,7 +88,19 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            GetParent()?.AddChild(enemy);
+            if (enemy.HasNode("DropComponent"))
+            {
+                var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.DropTarget = DropContainer;
+            }
+
+            if (enemy.HasNode("DestroyedComponent"))
+            {
+                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
+                effect.EffectTarget = EffectContainer;
+            }
+
+            EnemyContainer.AddChild(enemy);
         }
     }
 
@@ -108,7 +122,19 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            GetParent()?.AddChild(enemy);
+            if (enemy.HasNode("DropComponent"))
+            {
+                var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.DropTarget = DropContainer;
+            }
+
+            if (enemy.HasNode("DestroyedComponent"))
+            {
+                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
+                effect.EffectTarget = EffectContainer;
+            }
+
+            EnemyContainer.AddChild(enemy);
         }
     }
 
@@ -130,7 +156,13 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            GetParent()?.AddChild(enemy);
+            if (enemy.HasNode("DropComponent"))
+            {
+                var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.DropTarget = DropContainer;
+            }
+
+            EnemyContainer.AddChild(enemy);
         }
     }
 }
