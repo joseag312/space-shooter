@@ -1,55 +1,46 @@
 ****************************************************************************************************************
 
-✅ What You Did Today
+✅ Saturday Summary – Drop System Deep Dive
 
-✅ What You Did Today
-
-🔧 Fixed & Refactored
-✅ Refactored enemy spawning to parent into EnemyContainer
-✅ Rewired DropComponent to use DropTarget, avoiding fragile GetParent() chains
-✅ Passed DropContainer to enemies at spawn time (Recurrent + Wave spawners)
-✅ Rewired WeaponManagerComponent to accept ProjectileContainer as a spawn target
-✅ Handled shield vs. projectile parenting using locationType == ShipAttached
-✅ Centralized explosions into EffectContainer via DestroyedComponent
-✅ Assigned TargetContainer to DestroyedComponent on both Ship and Enemies at runtime
-✅ Flipped your level logic structure so Level1Script owns LevelFlowComponent (clean dependency direction)
-✅ Restructured your level scene into a clean, scalable hierarchy
+🛠️ Major Fixes
+HUDCurrency Crash Solved
+➤ Disconnected signals on _ExitTree, added safety guards
+EffectContainer Setup Finalized
+➤ Floating text, explosions, and drop FX now spawn in correct containers
+Drop System Fully Modularized
+Weighted drop table debugged and visualized
+Now supports “no drop” rolls ✅
+Hooked into enemy death pipeline
+🎯 Gameplay Layer Improvements
+Currency Save Logic Refined
+➤ Now only saves on level clear
+➤ Restores on death or game over
+➤ Uses AutoGameStats.Save()/.Load() deliberately
+Pickup Text Fade + HUD Fade-In
+➤ Currency HUD now fades in with polish
+➤ Pickup text spawns in-place and looks clean
+Pickup Sound Effect Added
+➤ Subtle and non-invasive SFX plays on pickup (configurable)
 
 ****************************************************************************************************************
 
-🧭 Tomorrow’s Jump Point – Drop Persistence & HUD Sync
+🧭 Tomorrow’s Jump Point – Powers Begin!
 
-🐛 Unresolved Bug
-HUDCurrency crash after second death
+🎯 Main Goal
+Start implementing the player power system:
 
-❌ ObjectDisposedException: likely caused by holding a stale reference to the money label
-💡 Root cause: HUD scene may not be properly re-instantiated or signals not reconnected after respawn
-✅ Your new modular scene structure makes this easier to fix now
-🎯 Immediate Goals
-🔧 1. Rewire Floating Text Spawns
-
-➕ Pickup text (e.g., +20) → spawn in EffectContainer
-❤️ Ship damage/heal text → spawn as child of Ship (so it follows movement)
-✅ Update spawn methods to accept correct target parent
-🧪 2. Test Full Level Flow
-
-Die → Respawn → Die again
-Verify:
-HUD elements are correctly reset
-Explosions and drops go to the right containers
-No crashes or null references
-🛠️ Fix HUDCurrency Bug
-🔍 Investigate stale reference or missing signal connections
-🧼 Ensure HUDCurrency rebinds cleanly on level reload
-🛡 Add defensive checks before updating freed nodes
-💰 Make Drops Non-Persistent Until Level Is Cleared
-📦 Track dropped currency this run (e.g., in LevelFlowComponent)
-✅ Only add to AutoGameStats.Currency if level is completed
-❌ On death/failure, discard drop value — but still show them visually in real-time
-✨ Bonus Ideas
-💬 Add floating text when pickups are collected
-🔊 Play sound on drop pickup
-🧲 Add magnet pull mechanic for drops near the player
+Powers are triggered by the player and have unique effects
+May be unlocked via drop, level, or menu
+⚡ First Powers to Prototype
+🌀 Teleport – instantly move forward or dodge
+💥 Missile (AOE) – fires a big area-damage shot
+🔥 Death Ray – sustained beam in one direction
+🛡 Shield – temporary invincibility or hit buffer
+🧱 Recommended First Steps
+Build a PowerManagerComponent on the Ship
+Add basic activation/input slots (Power1, Power2)
+Add a simple interface IPowerBehavior
+Start with Missile as it’s the easiest to prototype visually
 
 ****************************************************************************************************************
 
