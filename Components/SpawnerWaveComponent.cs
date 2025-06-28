@@ -34,16 +34,20 @@ public partial class SpawnerWaveComponent : Node
             Node2D enemy = enemyScene.Instantiate<Node2D>();
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
+
             if (enemy.HasNode("DropComponent"))
             {
                 var drop = enemy.GetNode<DropComponent>("DropComponent");
                 drop.DropTarget = DropContainer;
+                drop.EffectTarget = EffectContainer;
             }
+
             if (enemy.HasNode("DestroyedComponent"))
             {
                 var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
                 effect.EffectTarget = EffectContainer;
             }
+
             EnemyContainer.AddChild(enemy);
         }
     }
@@ -65,16 +69,20 @@ public partial class SpawnerWaveComponent : Node
             Node2D enemy = enemyScene.Instantiate<Node2D>();
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
+
             if (enemy.HasNode("DropComponent"))
             {
                 var drop = enemy.GetNode<DropComponent>("DropComponent");
                 drop.DropTarget = DropContainer;
+                drop.EffectTarget = EffectContainer;
             }
+
             if (enemy.HasNode("DestroyedComponent"))
             {
                 var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
                 effect.EffectTarget = EffectContainer;
             }
+
             EnemyContainer.AddChild(enemy);
 
             if (enemy.HasNode("PersistenceComponent"))

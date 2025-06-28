@@ -49,9 +49,17 @@ public partial class DropPawllars : DropBase, IDropAmount
         {
             var dropTextInstance = DropTextScene.Instantiate<DropTextWhite>();
             dropTextInstance.Initialize(Amount);
-            dropTextInstance.Position = GlobalPosition;
+            dropTextInstance.GlobalPosition = GlobalPosition;
 
-            GetTree().CurrentScene.AddChild(dropTextInstance);
+            if (EffectContainer != null)
+            {
+                EffectContainer.AddChild(dropTextInstance);
+            }
+            else
+            {
+                GD.PrintErr("ERROR: DropMewnits - EffectContainer not assigned, using CurrentScene");
+                GetTree().CurrentScene.AddChild(dropTextInstance);
+            }
         }
         else
         {

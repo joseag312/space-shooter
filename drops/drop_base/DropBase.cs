@@ -8,6 +8,7 @@ public abstract partial class DropBase : Area2D
     [Export] public PulseComponent PulseComponent;
     [Export] public HurtboxComponent HurtboxComponent;
     [Export] public PackedScene DropTextScene;
+    [Export] public Node2D EffectContainer;
 
     public override void _Ready()
     {

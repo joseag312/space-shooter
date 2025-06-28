@@ -139,6 +139,12 @@ script = ExtResource("14_euvkk")
 _visibleNotifier = NodePath("../VisibleOnScreenNotifier2D")
 metadata/_custom_type_script = "uid://c0p7rysr544jk"
 
+[node name="DropComponent" type="Node" parent="." node_paths=PackedStringArray("DestroyedComponent")]
+script = ExtResource("15_tunn2")
+DestroyedComponent = NodePath("../DestroyedComponent")
+DropTable = ExtResource("16_tmtwk")
+metadata/_custom_type_script = "uid://bsn1hx6fcpuet"
+
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0
 offset_top = -31.0
@@ -147,9 +153,3 @@ offset_bottom = -29.0
 value = 100.0
 texture_under = SubResource("GradientTexture1D_q0xs6")
 texture_progress = SubResource("GradientTexture1D_27onc")
-
-[node name="DropComponent" type="Node" parent="." node_paths=PackedStringArray("DestroyedComponent")]
-script = ExtResource("15_tunn2")
-DestroyedComponent = NodePath("../DestroyedComponent")
-DropTable = ExtResource("16_tmtwk")
-metadata/_custom_type_script = "uid://bsn1hx6fcpuet"

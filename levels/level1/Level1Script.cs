@@ -102,7 +102,7 @@ public partial class Level1Script : Node
 	{
 		G.BG.BlockInput();
 		G.GF.BlockInput();
-
+		G.GS.Save();
 		await LevelFlowComponent.LevelCleanup.FadeOutAll();
 
 		Ship.StopFiring();

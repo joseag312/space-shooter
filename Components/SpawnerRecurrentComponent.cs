@@ -91,6 +91,7 @@ public partial class SpawnerRecurrentComponent : Node
             if (enemy.HasNode("DropComponent"))
             {
                 var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.EffectTarget = EffectContainer;
                 drop.DropTarget = DropContainer;
             }
 
@@ -125,6 +126,7 @@ public partial class SpawnerRecurrentComponent : Node
             if (enemy.HasNode("DropComponent"))
             {
                 var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.EffectTarget = EffectContainer;
                 drop.DropTarget = DropContainer;
             }
 

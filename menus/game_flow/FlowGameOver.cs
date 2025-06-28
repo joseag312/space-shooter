@@ -20,6 +20,8 @@ public partial class FlowGameOver : CanvasLayer
 
     public override void _Ready()
     {
+        G.GS.Load();
+
         RetryButton.Pressed += OnRetryPressed;
         ExitButton.Pressed += OnExitPressed;
 

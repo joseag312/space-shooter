@@ -128,10 +128,6 @@ public partial class Ship : Node2D
 			EmitSignal(nameof(HealthChanged), oldHealth, newHealth);
 			SpawnHealText(newHealth - oldHealth);
 		}
-		else
-		{
-			GD.Print("DEBUG: Ship - Heal skipped: Already at max health");
-		}
 	}
 
 	private void SpawnHealText(int healAmount)

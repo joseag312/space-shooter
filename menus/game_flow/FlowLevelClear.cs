@@ -19,6 +19,8 @@ public partial class FlowLevelClear : CanvasLayer
 
     public override void _Ready()
     {
+        G.GS.Load();
+
         string randomMessage = _sassyMessages[GD.Randi() % _sassyMessages.Length];
         MessageLabel.Text = randomMessage;
         _ = RunFlowAsync();

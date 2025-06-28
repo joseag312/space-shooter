@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 [GlobalClass]
 public partial class DropComponent : Node
@@ -8,6 +9,7 @@ public partial class DropComponent : Node
     [Export] public WeightedDropTable DropTable;
     [Export] public DropSourceType Type = DropSourceType.Common;
     [Export] public Node2D DropTarget;
+    [Export] public Node2D EffectTarget;
 
     public override void _Ready()
     {
@@ -16,24 +18,24 @@ public partial class DropComponent : Node
 
     public void TrySpawnDrop(Vector2 position)
     {
-        if (DropTable == null || DropTable.Entries.Count == 0)
-            return;
-
         float totalChance = 0f;
+        var validEntries = new List<WeightedDropEntry>();
+
         foreach (var entryObj in DropTable.Entries)
         {
             if (entryObj is WeightedDropEntry entry && entry.DropScene != null)
+            {
                 totalChance += entry.DropChance;
+                validEntries.Add(entry);
+            }
         }
 
-        float roll = GD.Randf() * totalChance;
+        float roll = GD.Randf();
+
         float cumulative = 0f;
 
-        foreach (var entryObj in DropTable.Entries)
+        foreach (var entry in validEntries)
         {
-            if (entryObj is not WeightedDropEntry entry || entry.DropScene == null)
-                continue;
-
             cumulative += entry.DropChance;
 
             if (roll <= cumulative)
@@ -43,6 +45,11 @@ public partial class DropComponent : Node
                 {
                     GD.PrintErr($"ERROR: DropComponent - Failed to instantiate drop from {entry.DropScene.ResourcePath}");
                     break;
+                }
+
+                if (drop is DropBase dropBase)
+                {
+                    dropBase.EffectContainer = EffectTarget;
                 }
 
                 drop.GlobalPosition = position;
@@ -63,10 +70,11 @@ public partial class DropComponent : Node
                 }
 
                 AddDropDeferred(drop);
-                break;
+                return;
             }
         }
     }
+
 
     private void AddDropDeferred(Node drop)
     {
@@ -82,7 +90,6 @@ public partial class DropComponent : Node
             return;
         }
 
-        GD.Print($"DEBUG: DropComponent - Deferring drop '{drop.Name}' into '{DropTarget.Name}'");
         DropTarget.CallDeferred("add_child", drop);
     }
 }

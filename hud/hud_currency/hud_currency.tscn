@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bpb7amvnhilvr" path="res://assets/gui/a_icon.png" id="3_ahq7o"]
 
 [node name="HUDCurrency" type="Control" node_paths=PackedStringArray("MewnitsLabel", "PawllarsLabel")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
