@@ -21,8 +21,6 @@ public partial class AutoShipStats : Node
 		set => _speed = value;
 	}
 
-
-
 	public override void _Ready()
 	{
 		if (Instance == null)
@@ -61,5 +59,12 @@ public partial class AutoShipStats : Node
 
 		_health = (int)data["health"];
 		_speed = (int)data["speed"];
+	}
+
+	public void Reset()
+	{
+		_health = 25;
+		_speed = 250;
+		Save();
 	}
 }

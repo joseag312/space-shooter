@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://he47lwnok5ey"]
+
+[ext_resource type="Script" uid="uid://b6cg1xtykahs5" path="res://player_projectiles/templates/WeaponDataComponent.cs" id="1_2xxi0"]
+
+[resource]
+script = ExtResource("1_2xxi0")
+Key = "PPBasicBlue"
+DisplayName = "Basic Laser"
+IconPath = ""
+ProjectilePath = "res://player_projectiles/pp_basic_blue/pp_basic_blue.tscn"
+Damage = 1
+DamagePercentage = 0
+CooldownTime = 0.3
+Infinite = true
+MaxAmount = 0
+Assignable = false
+Unlocked = true
+SpawnLocation = 2
+metadata/_custom_type_script = "uid://b6cg1xtykahs5"

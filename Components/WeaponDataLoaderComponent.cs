@@ -4,16 +4,31 @@ using System;
 [GlobalClass]
 public partial class WeaponDataLoaderComponent : Node
 {
-	[Export] public WeaponDataComponent weaponData;
+	[Export] public string WeaponKey = "basic_blaster";
 	[Export] public HitboxComponent hitboxComponent;
+
 	public override void _Ready()
 	{
-		WeaponDataComponent data = G.WD.GetWeaponData(weaponData.ProjectileName);
-		weaponData.Damage = data.Damage;
-		weaponData.DamagePercentage = data.DamagePercentage;
-		weaponData.CooldownTime = data.CooldownTime;
-		weaponData.SpawnLocation = data.SpawnLocation;
-		hitboxComponent.Damage = data.Damage;
-		hitboxComponent.DamagePercentage = data.DamagePercentage;
+		var baseData = G.WD.GetWeaponData(WeaponKey);
+		var instance = G.WI.GetInstanceData(WeaponKey);
+
+		if (baseData == null)
+		{
+			GD.PrintErr($"ERROR: No base weapon data found for '{WeaponKey}'");
+			return;
+		}
+		if (instance == null)
+		{
+			GD.PrintErr($"ERROR: No weapon instance data found for '{WeaponKey}'");
+			return;
+		}
+
+		int finalDamage = instance.GetEffectiveDamage(baseData);
+		int finalPct = instance.GetEffectiveDamagePercentage(baseData);
+
+		hitboxComponent.Damage = finalDamage;
+		hitboxComponent.DamagePercentage = finalPct;
+
 	}
 }
+

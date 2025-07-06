@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj7260qvjfsfu"]
+[gd_scene load_steps=10 format=3 uid="uid://bj7260qvjfsfu"]
 
 [ext_resource type="Texture2D" uid="uid://kqgvvgc52iof" path="res://assets/player_projectiles/pp_laser_small.png" id="1_34jry"]
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="2_ysowv"]
-[ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="3_6ajjx"]
 [ext_resource type="Script" uid="uid://c64tqnyvh68h6" path="res://components/WeaponSpawnComponent.cs" id="3_koscm"]
 [ext_resource type="Script" uid="uid://dnq7vpxprxfd4" path="res://components/WeaponDataLoaderComponent.cs" id="4_wmx2p"]
 [ext_resource type="Script" uid="uid://enpb5o35rrvx" path="res://components/FlashComponent.cs" id="5_dvscm"]
@@ -39,14 +38,9 @@ _scaleComponent = NodePath("../ScaleComponent")
 _flashComponent = NodePath("../FlashComponent")
 _hitboxComponent = NodePath("../HitboxComponent")
 
-[node name="WeaponDataComponent" type="Node" parent="."]
-script = ExtResource("3_6ajjx")
-ProjectilePath = "res://player_projectiles/basic_blue_laser/basic_blue_laser.tscn"
-ProjectileName = "PPBasicBlue"
-
-[node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("weaponData", "hitboxComponent")]
+[node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("hitboxComponent")]
 script = ExtResource("4_wmx2p")
-weaponData = NodePath("../WeaponDataComponent")
+WeaponKey = "PPBasicBlue"
 hitboxComponent = NodePath("../HitboxComponent")
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]

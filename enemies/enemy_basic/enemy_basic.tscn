@@ -107,6 +107,7 @@ Sprite = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("9_vce05")
+MaxHealth = 4
 Health = 4
 
 [node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("TargetNode")]

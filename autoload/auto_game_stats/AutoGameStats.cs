@@ -82,4 +82,14 @@ public partial class AutoGameStats : Node
 		Mewnits = data.ContainsKey("mewnits") ? (int)data["mewnits"] : 0;
 		Karma = data.ContainsKey("karma") ? (int)data["karma"] : 0;
 	}
+
+	public void Reset()
+	{
+		Pawllars = 0;
+		Mewnits = 0;
+		Karma = 0;
+		CurrentLevel = 0;
+		CurrencyMultiplier = 1f;
+		Save();
+	}
 }

@@ -30,37 +30,80 @@ public partial class AutoWeaponDatabase : Node
 
     private void LoadWeapons()
     {
-        LoadWeaponData();
-        BasicWeapon = _weaponMapping["PPBasicBlue"];
-        LargeWeapon = _weaponMapping["PPBigBlue"];
-        SpecialWeapons[0] = _weaponMapping["PPBigBlue"];
-        SpecialWeapons[1] = _weaponMapping["PPBigBlue"];
-        SpecialWeapons[2] = _weaponMapping["PPBigBlue"];
-        SpecialWeapons[3] = _weaponMapping["PPBigBlue"];
+        LoadWeaponResourcesFromFolder("res://resources/weapons/");
+
+        BasicWeapon = GetWeaponData("PPBasicBlue");
+        LargeWeapon = GetWeaponData("PPBigBlue");
+
+        for (int i = 0; i < SpecialWeapons.Length; i++)
+        {
+            SpecialWeapons[i] = GetWeaponData("PPBigBlue");
+        }
     }
 
-    public void LoadWeaponData()
+    private void LoadWeaponResourcesFromFolder(string folderPath)
     {
-        WeaponDataComponent basicLaser = new WeaponDataComponent();
-        basicLaser.Damage = 1;
-        basicLaser.DamagePercentage = 0;
-        basicLaser.CooldownTime = 0.3f;
-        basicLaser.SpawnLocation = 2;
-        basicLaser.ProjectileName = "PPBasicBlue";
-        basicLaser.ProjectilePath = "res://player_projectiles/pp_basic_blue/pp_basic_blue.tscn";
-        WeaponDataComponent bigLaser = new WeaponDataComponent();
-        bigLaser.Damage = 5;
-        bigLaser.DamagePercentage = 0;
-        bigLaser.CooldownTime = 0.5f;
-        bigLaser.SpawnLocation = 3;
-        bigLaser.ProjectileName = "PPBigBlue";
-        bigLaser.ProjectilePath = "res://player_projectiles/pp_big_blue/pp_big_blue.tscn";
-        _weaponMapping.Add(basicLaser.ProjectileName, basicLaser);
-        _weaponMapping.Add(bigLaser.ProjectileName, bigLaser);
+        var dir = DirAccess.Open(folderPath);
+
+        foreach (string file in dir.GetFiles())
+        {
+            if (!file.EndsWith(".tres") && !file.EndsWith(".res"))
+                continue;
+
+            string fullPath = folderPath + file;
+            var weapon = GD.Load<WeaponDataComponent>(fullPath);
+            if (weapon == null)
+            {
+                GD.PrintErr($"ERROR: AutoWeaponDatabase - Failed to load weapon resource: {fullPath}");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(weapon.Key))
+            {
+                GD.PrintErr($"ERROR: AutoWeaponDatabase - Weapon resource missing Key: {fullPath}");
+                continue;
+            }
+
+            if (_weaponMapping.ContainsKey(weapon.Key))
+            {
+                GD.PrintErr($"ERROR: AutoWeaponDatabase - Duplicate weapon key: {weapon.Key}");
+                continue;
+            }
+
+            _weaponMapping[weapon.Key] = weapon;
+        }
     }
 
     public WeaponDataComponent GetWeaponData(string id)
     {
-        return _weaponMapping[id];
+        if (!_weaponMapping.TryGetValue(id, out var data))
+        {
+            GD.PrintErr($"ERROR: AutoWeaponDatabase - Weapon ID '{id}' not found");
+            return null;
+        }
+
+        return data;
     }
+
+    public EffectiveWeaponData GetEffectiveWeaponData(string key)
+    {
+        var baseData = GetWeaponData(key);
+        var instance = G.WI.GetWeaponState(key);
+
+        if (baseData == null || instance == null)
+            return null;
+
+        return new EffectiveWeaponData
+        {
+            Key = key,
+            Damage = instance.HasOverrideDamage ? instance.OverrideDamage : baseData.Damage,
+            DamagePercentage = instance.HasOverrideDamagePercentage ? instance.OverrideDamagePercentage : baseData.DamagePercentage,
+            CooldownTime = instance.HasOverrideCooldown ? instance.OverrideCooldownTime : baseData.CooldownTime,
+            ProjectilePath = baseData.ProjectilePath,
+            SpawnLocation = baseData.SpawnLocation,
+            BaseData = baseData,
+            InstanceData = instance
+        };
+    }
+
 }

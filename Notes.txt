@@ -1,33 +1,45 @@
 ****************************************************************************************************************
 
-✅ Saturday Summary – Drop System Deep Dive
+✅ What We Did Today
 
-🛠️ Major Fixes
-HUDCurrency Crash Solved
-➤ Disconnected signals on _ExitTree, added safety guards
-EffectContainer Setup Finalized
-➤ Floating text, explosions, and drop FX now spawn in correct containers
-Drop System Fully Modularized
-Weighted drop table debugged and visualized
-Now supports “no drop” rolls ✅
-Hooked into enemy death pipeline
-🎯 Gameplay Layer Improvements
-Currency Save Logic Refined
-➤ Now only saves on level clear
-➤ Restores on death or game over
-➤ Uses AutoGameStats.Save()/.Load() deliberately
-Pickup Text Fade + HUD Fade-In
-➤ Currency HUD now fades in with polish
-➤ Pickup text spawns in-place and looks clean
-Pickup Sound Effect Added
-➤ Subtle and non-invasive SFX plays on pickup (configurable)
+🔫 Weapon Runtime Architecture Finalized
+Fully transitioned from using [Export] WeaponDataComponent to a clean runtime system:
+WeaponCatalog (G.WD) for static base data
+WeaponInventoryManager (G.WIM) using WeaponInstanceData for per-run state
+🔄 WeaponDataLoaderComponent Refactor
+No longer exports a .tres file
+Uses a WeaponKey string to query runtime weapon data
+Applies effective damage and % damage from runtime+catalog
+💥 Damage System Bug Fixed
+Identified cause of incorrect damage (% overriding base value incorrectly)
+Refactored HurtComponent to apply whichever value is greater (flat vs. % damage)
+💾 Save System Debugging
+Verified AutoWeaponInventory.Save() and Load() using live console data
+Confirmed save file contents and runtime state persistence
+Added runtime keybinding to manually trigger save/load/print state
+🧹 Reset Support Added
+Implemented ResetAllWeapons() for AutoWeaponInventory
+Added matching Reset() methods for AutoGameStats and AutoShipStats
+Set up debug printing and state clearing for all three autoloads
 
 ****************************************************************************************************************
 
 🧭 Tomorrow’s Jump Point – Powers Begin!
 
-🎯 Main Goal
-Start implementing the player power system:
+🚀 Tomorrow’s Starting Point
+
+UNDERSTAND HOW IT'S ALL PLUGGED PLEASE
+
+🧭 Continue From:
+You now have runtime state, persistence, and damage all working together
+Save/load/debug/reset foundations are in place for all major autoloads
+🔧 Suggested Next Steps:
+Task	Priority	Notes
+✅ Add Reset buttons to the upcoming Settings screen	🔜 High	Hook into the reset methods already created
+🛠 Add runtime weapon upgrades / effects (e.g. increase damage temporarily)	Mid	Use OverrideDamage and call Save()
+🎨 Show equipped weapon in HUD or allow switching	Mid	Visual feedback for current weapon state
+💾 Save/load ship equipped weapons or levels reached	Low	Expand persistence logic as needed
+🧪 Add debug panel with live weapon state display	Optional	Great for tuning during testing
 
 Powers are triggered by the player and have unique effects
 May be unlocked via drop, level, or menu

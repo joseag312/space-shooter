@@ -37,6 +37,7 @@ offset_right = -212.0
 offset_bottom = -17.0
 
 [node name="PowerUpContainer1" type="CenterContainer" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0.705882)
 layout_mode = 2
 
 [node name="BoxTexture1" type="TextureRect" parent="HBoxContainer/PowerUpContainer1"]
@@ -50,11 +51,18 @@ layout_mode = 2
 texture = ExtResource("4_yspwg")
 expand_mode = 1
 
+[node name="Label" type="Label" parent="HBoxContainer/PowerUpContainer1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "999"
+vertical_alignment = 2
+
 [node name="m101" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PowerUpContainer2" type="CenterContainer" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0.705882)
 layout_mode = 2
 
 [node name="BoxTexture2" type="TextureRect" parent="HBoxContainer/PowerUpContainer2"]
@@ -68,11 +76,18 @@ layout_mode = 2
 texture = ExtResource("5_3oksk")
 expand_mode = 1
 
+[node name="Label" type="Label" parent="HBoxContainer/PowerUpContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "50"
+vertical_alignment = 2
+
 [node name="m102" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PowerUpContainer3" type="CenterContainer" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0.705882)
 layout_mode = 2
 
 [node name="BoxTexture3" type="TextureRect" parent="HBoxContainer/PowerUpContainer3"]
@@ -86,11 +101,18 @@ layout_mode = 2
 texture = ExtResource("6_ogxf4")
 expand_mode = 1
 
+[node name="Label" type="Label" parent="HBoxContainer/PowerUpContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "7"
+vertical_alignment = 2
+
 [node name="m103" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PowerUpContainer4" type="CenterContainer" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0.705882)
 layout_mode = 2
 
 [node name="BoxTexture4" type="TextureRect" parent="HBoxContainer/PowerUpContainer4"]
@@ -103,6 +125,12 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("7_v3s55")
 expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/PowerUpContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "3"
+vertical_alignment = 2
 
 [node name="m104" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)

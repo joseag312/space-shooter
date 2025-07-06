@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://dbbl1g6i0yg4w"]
+
+[ext_resource type="Script" uid="uid://b6cg1xtykahs5" path="res://player_projectiles/templates/WeaponDataComponent.cs" id="1_4uokn"]
+
+[resource]
+script = ExtResource("1_4uokn")
+Key = "PPBigBlue"
+DisplayName = "Big Laser"
+IconPath = ""
+ProjectilePath = "res://player_projectiles/pp_big_blue/pp_big_blue.tscn"
+Damage = 5
+DamagePercentage = 0
+CooldownTime = 1.5
+Infinite = true
+MaxAmount = 0
+Unlocked = true
+SpawnLocation = 3
+metadata/_custom_type_script = "uid://b6cg1xtykahs5"

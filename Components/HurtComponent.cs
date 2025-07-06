@@ -18,12 +18,17 @@ public partial class HurtComponent : Node
     private void OnHurt(HitboxComponent hitboxComponent)
     {
         int oldHealth = StatsComponent.Health;
-        int damageAmount = hitboxComponent.Damage;
+
+        int baseDamage = hitboxComponent.Damage;
+        int percentDamage = 0;
+
         if (hitboxComponent.DamagePercentage > 0)
         {
-            damageAmount = (int)((hitboxComponent.DamagePercentage / 100.0f) * StatsComponent.MaxHealth);
-            damageAmount = Math.Max(damageAmount, 1);
+            percentDamage = (int)((hitboxComponent.DamagePercentage / 100.0f) * StatsComponent.MaxHealth);
+            percentDamage = Math.Max(percentDamage, 1);
         }
+
+        int damageAmount = Math.Max(baseDamage, percentDamage);
 
         SpawnDamageText(damageAmount);
         StatsComponent.Health -= damageAmount;
