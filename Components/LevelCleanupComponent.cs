@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class LevelCleanupComponent : Node
 {
-    [Export] public CanvasLayer HUDCanvasLayer { get; set; }
+    [Export] public HUDMain HUD { get; set; }
 
     private double _cleanupTimer = 0.0;
 
@@ -57,35 +57,10 @@ public partial class LevelCleanupComponent : Node
 
     public async Task FadeOutHUD()
     {
-        if (HUDCanvasLayer == null)
+        if (HUD == null)
             return;
 
-        var toFade = new List<CanvasItem>();
-        CollectVisibleCanvasItems(HUDCanvasLayer, toFade);
-
-        var awaiters = new List<SignalAwaiter>();
-
-        foreach (var item in toFade)
-        {
-            var tween = CreateTween();
-            tween.TweenProperty(item, "modulate:a", 0.0f, 0.4f);
-            awaiters.Add(ToSignal(tween, "finished"));
-        }
-
-        foreach (var awaiter in awaiters)
-            await awaiter;
-    }
-
-    private void CollectVisibleCanvasItems(Node node, List<CanvasItem> list)
-    {
-        if (node is CanvasItem item && item.Visible)
-            list.Add(item);
-
-        foreach (var child in node.GetChildren())
-        {
-            if (child is Node childNode)
-                CollectVisibleCanvasItems(childNode, list);
-        }
+        await HUD.FadeOutHUD();
     }
 
     private void CleanupOffscreenEnemies()

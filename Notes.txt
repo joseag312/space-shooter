@@ -45,7 +45,6 @@ Start with Missile as it’s the easiest to prototype visually
 ****************************************************************************************************************
 
 RoadMap:
-I want to create the drops system, upon an enemy being destroyed by a weapon
 I want to add a couple powers
 	Teleport
 	Missile for AOE
@@ -53,6 +52,8 @@ I want to add a couple powers
 	Shield
 I want to add a couple enemies
 I want to add a couple levels
+I want to add a level selection screen
+I want to add the setting screen
 
 Down the line (After Interviews)
 Finish game (enemies, powerups, story)

@@ -15,8 +15,6 @@ public partial class HUDHealthBar : Control
 
 	public override void _Ready()
 	{
-		_ = FadeIn(this);
-
 		Node2D ship = GetTree().CurrentScene.GetNodeOrNull<Node2D>("ShipContainer/Ship");
 		if (ship != null)
 		{
@@ -67,45 +65,5 @@ public partial class HUDHealthBar : Control
 
 		tween.TweenProperty(HealthBar, "modulate", originalColor, 0.2f)
 			 .SetTrans(Tween.TransitionType.Linear);
-	}
-
-
-	public async Task FadeIn(CanvasItem root, float duration = 0.5f)
-	{
-		var canvasItems = new List<CanvasItem>();
-		CollectCanvasItems(root, canvasItems);
-
-		foreach (var item in canvasItems)
-		{
-			item.Visible = false;
-			item.Modulate = new Color(item.Modulate.R, item.Modulate.G, item.Modulate.B, 0f);
-		}
-
-		await ToSignal(GetTree(), "process_frame");
-
-		foreach (var item in canvasItems)
-			item.Visible = true;
-
-		int completed = 0;
-		int total = canvasItems.Count;
-
-		foreach (var item in canvasItems)
-		{
-			var tween = GetTree().CreateTween();
-			tween.TweenProperty(item, "modulate:a", 1f, duration);
-			tween.Finished += () => completed++;
-		}
-
-		while (completed < total)
-			await ToSignal(GetTree(), "process_frame");
-	}
-
-	private void CollectCanvasItems(Node node, List<CanvasItem> list)
-	{
-		if (node is CanvasItem item)
-			list.Add(item);
-
-		foreach (var child in node.GetChildren())
-			CollectCanvasItems(child, list);
 	}
 }

@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=3 uid="uid://cicnkg1vggwe7"]
+
+[ext_resource type="Script" uid="uid://ddh7ywkh7xu70" path="res://hud/hud_powers/HUDPowers.cs" id="1_0euhm"]
+[ext_resource type="Texture2D" uid="uid://bdtatqquc5pi0" path="res://assets/gui/gui_button_large.png" id="1_ti362"]
+[ext_resource type="Texture2D" uid="uid://c7bm3th4b5u0b" path="res://assets/gui/gui_button_small.png" id="2_0euhm"]
+[ext_resource type="Texture2D" uid="uid://gmvy5goxi764" path="res://assets/powerups/missile.png" id="4_yspwg"]
+[ext_resource type="Texture2D" uid="uid://byqai6oacjsj3" path="res://assets/powerups/shield.png" id="5_3oksk"]
+[ext_resource type="Texture2D" uid="uid://bcrx42ft4uiq5" path="res://assets/powerups/teleport.png" id="6_ogxf4"]
+[ext_resource type="Texture2D" uid="uid://xvdw801q1dsc" path="res://assets/powerups/death_ray.png" id="7_v3s55"]
+
+[node name="HUDPowers" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_0euhm")
+
+[node name="BigLaserTexture" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.533333)
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+offset_left = -204.0
+offset_top = -207.0
+offset_right = -24.0
+offset_bottom = -27.0
+texture = ExtResource("1_ti362")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -600.0
+offset_top = -97.0
+offset_right = -212.0
+offset_bottom = -17.0
+
+[node name="PowerUpContainer1" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="BoxTexture1" type="TextureRect" parent="HBoxContainer/PowerUpContainer1"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("2_0euhm")
+
+[node name="PowerUp1" type="TextureRect" parent="HBoxContainer/PowerUpContainer1"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("4_yspwg")
+expand_mode = 1
+
+[node name="m101" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="PowerUpContainer2" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="BoxTexture2" type="TextureRect" parent="HBoxContainer/PowerUpContainer2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("2_0euhm")
+
+[node name="PowerUp2" type="TextureRect" parent="HBoxContainer/PowerUpContainer2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_3oksk")
+expand_mode = 1
+
+[node name="m102" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="PowerUpContainer3" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="BoxTexture3" type="TextureRect" parent="HBoxContainer/PowerUpContainer3"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("2_0euhm")
+
+[node name="PowerUp3" type="TextureRect" parent="HBoxContainer/PowerUpContainer3"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("6_ogxf4")
+expand_mode = 1
+
+[node name="m103" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="PowerUpContainer4" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="BoxTexture4" type="TextureRect" parent="HBoxContainer/PowerUpContainer4"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("2_0euhm")
+
+[node name="PowerUp4" type="TextureRect" parent="HBoxContainer/PowerUpContainer4"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("7_v3s55")
+expand_mode = 1
+
+[node name="m104" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -155.0
+offset_top = -569.0
+offset_right = -75.0
+offset_bottom = -237.0

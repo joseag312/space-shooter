@@ -20,13 +20,13 @@
 
 [node name="HUDMain" parent="." instance=ExtResource("13_u3t6j")]
 
-[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "HUDMain")]
+[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "HUD")]
 script = ExtResource("2_f645t")
 Ship = NodePath("../ShipContainer/Ship")
 LevelFlowComponent = NodePath("../LevelFlowComponent")
 Enemy1Spawner = NodePath("../LevelFlowComponent/Spawners/BasicEnemySpawner")
 Enemy2Spawner = NodePath("../LevelFlowComponent/Spawners/BasicEnemySlowSpawner")
-HUDMain = NodePath("../HUDMain")
+HUD = NodePath("../HUDMain")
 
 [node name="LevelFlowComponent" type="Node" parent="." node_paths=PackedStringArray("ShipDeathHandler", "SpawnerRecurrent", "SpawnerWave", "LevelCleanup")]
 script = ExtResource("4_ebna0")
@@ -68,9 +68,9 @@ DropContainer = NodePath("../../DropContainer")
 EffectContainer = NodePath("../../EffectContainer")
 metadata/_custom_type_script = "uid://7bpd0oehmqnw"
 
-[node name="LevelCleanupComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("HUDCanvasLayer")]
+[node name="LevelCleanupComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("HUD")]
 script = ExtResource("6_tl3cw")
-HUDCanvasLayer = NodePath("../../HUDMain")
+HUD = NodePath("../../HUDMain")
 metadata/_custom_type_script = "uid://bhwduhk2gwo8t"
 
 [node name="ShipDeathHandlerComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Ship", "SpawnerRecurrent", "LevelCleanup", "ParallaxBackground", "EffectContainer")]

@@ -25,6 +25,7 @@ offset_bottom = 720.0
 texture = ExtResource("2_n72r0")
 
 [node name="SlowLayer" parent="." index="5"]
+visible = false
 z_index = 2
 z_as_relative = false
 

@@ -11,7 +11,6 @@ public partial class HUDCurrency : Control
     public override void _Ready()
     {
         UpdateValues();
-        FadeIn();
 
         if (!_isConnected)
         {
@@ -24,12 +23,6 @@ public partial class HUDCurrency : Control
     {
         MewnitsLabel.Text = $"{G.GS.Mewnits}";
         PawllarsLabel.Text = $"{G.GS.Pawllars}";
-    }
-
-    private void FadeIn()
-    {
-        var tween = CreateTween();
-        tween.TweenProperty(this, "modulate:a", 1.0f, 1f);
     }
 
     public override void _ExitTree()
