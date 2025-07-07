@@ -20,7 +20,6 @@ public partial class Level1Script : Node
 
 	private async Task RunLevelScript(CancellationToken token)
 	{
-
 		try
 		{
 			G.GS.CurrentLevel = 1;

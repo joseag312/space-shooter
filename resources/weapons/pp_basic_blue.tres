@@ -16,4 +16,5 @@ MaxAmount = 0
 Assignable = false
 Unlocked = true
 SpawnLocation = 2
+SlotType = 0
 metadata/_custom_type_script = "uid://b6cg1xtykahs5"

@@ -10,7 +10,7 @@ public partial class WeaponDataLoaderComponent : Node
 	public override void _Ready()
 	{
 		var baseData = G.WD.GetWeaponData(WeaponKey);
-		var instance = G.WI.GetInstanceData(WeaponKey);
+		var instance = G.WI.GetWeaponState(WeaponKey);
 
 		if (baseData == null)
 		{

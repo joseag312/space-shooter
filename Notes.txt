@@ -1,34 +1,28 @@
 ****************************************************************************************************************
 
-✅ What We Did Today
+✅ Today's Accomplishments
 
-🔫 Weapon Runtime Architecture Finalized
-Fully transitioned from using [Export] WeaponDataComponent to a clean runtime system:
-WeaponCatalog (G.WD) for static base data
-WeaponInventoryManager (G.WIM) using WeaponInstanceData for per-run state
-🔄 WeaponDataLoaderComponent Refactor
-No longer exports a .tres file
-Uses a WeaponKey string to query runtime weapon data
-Applies effective damage and % damage from runtime+catalog
-💥 Damage System Bug Fixed
-Identified cause of incorrect damage (% overriding base value incorrectly)
-Refactored HurtComponent to apply whichever value is greater (flat vs. % damage)
-💾 Save System Debugging
-Verified AutoWeaponInventory.Save() and Load() using live console data
-Confirmed save file contents and runtime state persistence
-Added runtime keybinding to manually trigger save/load/print state
-🧹 Reset Support Added
-Implemented ResetAllWeapons() for AutoWeaponInventory
-Added matching Reset() methods for AutoGameStats and AutoShipStats
-Set up debug printing and state clearing for all three autoloads
+🔧 Fixed currentCooldowns Not Tracking
+Identified that _currentCooldowns was empty because _weaponCooldowns was partially using numeric keys (i + 2) instead of weapon string keys.
+Realigned key usage across _weaponCooldowns and _currentCooldowns to consistently use weapon IDs (e.g. "PPBasicBlue").
+🔍 Debugged GetEffectiveWeaponData("")
+Traced an empty string key call to GetEffectiveWeaponData — caused by uninitialized weapon slots during new game starts.
+Added proper null and string.IsNullOrEmpty() guards to prevent logic from running on unequipped weapons.
+Improved debug output to clearly show when invalid or empty keys are passed.
+🧠 Identified Future Fix
+Realized that slotKeys[i] may contain empty or missing weapon keys at game start (first playthrough), so:
+_specialWeapons[i] = inventory.GetEffectiveWeaponData(slotKeys[i]);
+will set them to null, which is okay — just needs to be handled gracefully in cooldown registration and firing logic.
 
 ****************************************************************************************************************
 
-🧭 Tomorrow’s Jump Point – Powers Begin!
+🟨 Starting Point for Tomorrow
 
-🚀 Tomorrow’s Starting Point
+✅ basicWeapon and bigWeapon load correctly.
+⛔ specialWeapons will likely be null due to no equipped data during new game.
+🔁 Ensure you only add cooldown entries if weapon != null && weapon.Key != "".
 
-UNDERSTAND HOW IT'S ALL PLUGGED PLEASE
+MUSIC should repeat itself?
 
 🧭 Continue From:
 You now have runtime state, persistence, and damage all working together
@@ -62,10 +56,11 @@ I want to add a couple powers
 	Missile for AOE
 	Death Ray
 	Shield
+I want to add the armory
 I want to add a couple enemies
 I want to add a couple levels
-I want to add a level selection screen
 I want to add the setting screen
+I want to add a level selection screen
 
 Down the line (After Interviews)
 Finish game (enemies, powerups, story)

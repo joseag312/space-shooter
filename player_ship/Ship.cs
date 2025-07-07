@@ -26,28 +26,6 @@ public partial class Ship : Node2D
 		StatsComponent.Health = G.SS.Health;
 		EmitSignal(nameof(ShipReady));
 		EmitSignal(nameof(HealthChanged), StatsComponent.Health, StatsComponent.Health);
-
-		if (WeaponManager != null)
-		{
-			if (G.WD.BasicWeapon == null)
-				GD.PrintErr("ERROR: Ship - Basic Weapon is NULL in AutoWeaponDatabase");
-			if (G.WD.LargeWeapon == null)
-				GD.PrintErr("ERROR: Ship - Large Weapon is NULL in AutoWeaponDatabase");
-			if (G.WD.SpecialWeapons[0] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 1 is NULL in AutoWeaponDatabase");
-			if (G.WD.SpecialWeapons[1] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 2 is NULL in AutoWeaponDatabase");
-			if (G.WD.SpecialWeapons[2] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 3 is NULL in AutoWeaponDatabase");
-			if (G.WD.SpecialWeapons[3] == null)
-				GD.PrintErr("ERROR: Ship - Special Weapon 4 is NULL in AutoWeaponDatabase");
-
-			WeaponManager.AssignWeapons();
-		}
-		else
-		{
-			GD.PrintErr("ERROR: Ship - WeaponManager is NOT assigned to Ship");
-		}
 	}
 
 	public override void _Process(double delta)

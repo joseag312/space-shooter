@@ -15,17 +15,16 @@ public partial class WeaponManagerComponent : Node
 	private Marker2D _rightMuzzle;
 	private Marker2D _centerCannon;
 
-	private WeaponDataComponent _basicWeapon;
-	private WeaponDataComponent _largeWeapon;
-	private WeaponDataComponent[] _specialWeapons;
+	private EffectiveWeaponData _basicWeapon;
+	private EffectiveWeaponData _bigWeapon;
+	private EffectiveWeaponData[] _specialWeapons = new EffectiveWeaponData[4];
 
-	private Dictionary<int, float> _weaponCooldowns = new();
-	private Dictionary<int, float> _currentCooldowns = new();
+	private Dictionary<string, float> _weaponCooldowns = new();
+	private Dictionary<string, float> _currentCooldowns = new();
 
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
-		_specialWeapons = new WeaponDataComponent[4];
 		_center = GetNode<Marker2D>(_centerPath);
 		_leftMuzzle = GetNode<Marker2D>(_leftMuzzlePath);
 		_rightMuzzle = GetNode<Marker2D>(_rightMuzzlePath);
@@ -56,16 +55,45 @@ public partial class WeaponManagerComponent : Node
 
 	public void AssignWeapons()
 	{
-		_basicWeapon = G.WD.BasicWeapon;
-		_largeWeapon = G.WD.LargeWeapon;
-		_specialWeapons = G.WD.SpecialWeapons;
-
-		_weaponCooldowns[0] = _basicWeapon.CooldownTime;
-		_weaponCooldowns[1] = _largeWeapon.CooldownTime;
-		for (int i = 0; i < _specialWeapons.Length; i++)
+		var inventory = G.WI;
+		string basicKey = inventory.GetEquippedWeaponKey(WeaponSlotNames.Basic);
+		string bigKey = inventory.GetEquippedWeaponKey(WeaponSlotNames.Big);
+		string[] slotKeys =
 		{
-			_weaponCooldowns[i + 2] = _specialWeapons[i].CooldownTime;
+			inventory.GetEquippedWeaponKey(WeaponSlotNames.Special1),
+			inventory.GetEquippedWeaponKey(WeaponSlotNames.Special2),
+			inventory.GetEquippedWeaponKey(WeaponSlotNames.Special3),
+			inventory.GetEquippedWeaponKey(WeaponSlotNames.Special4)
+		};
+
+		_basicWeapon = inventory.GetEffectiveWeaponData(basicKey);
+		_bigWeapon = inventory.GetEffectiveWeaponData(bigKey);
+		for (int i = 0; i < 4; i++)
+		{
+			_specialWeapons[i] = inventory.GetEffectiveWeaponData(slotKeys[i]);
 		}
+
+		_weaponCooldowns.Clear();
+		_currentCooldowns.Clear();
+
+		if (_basicWeapon != null)
+			_weaponCooldowns[basicKey] = _basicWeapon.CooldownTime;
+
+		if (_bigWeapon != null)
+			_weaponCooldowns[bigKey] = _bigWeapon.CooldownTime;
+
+		if (_specialWeapons[0] != null)
+			_weaponCooldowns[slotKeys[0]] = _specialWeapons[0].CooldownTime;
+
+		if (_specialWeapons[1] != null)
+			_weaponCooldowns[slotKeys[1]] = _specialWeapons[1].CooldownTime;
+
+		if (_specialWeapons[2] != null)
+			_weaponCooldowns[slotKeys[2]] = _specialWeapons[2].CooldownTime;
+
+		if (_specialWeapons[3] != null)
+			_weaponCooldowns[slotKeys[3]] = _specialWeapons[3].CooldownTime;
+
 		foreach (var key in _weaponCooldowns.Keys)
 		{
 			_currentCooldowns[key] = 0f;
@@ -74,6 +102,9 @@ public partial class WeaponManagerComponent : Node
 
 	public void SpawnWeapon(int weaponSlot, Node2D targetContainer)
 	{
+
+		G.WI.GetEquippedWeaponKey();
+
 		if (_currentCooldowns.ContainsKey(weaponSlot) && _currentCooldowns[weaponSlot] > 0)
 		{
 			return;
@@ -84,8 +115,8 @@ public partial class WeaponManagerComponent : Node
 			GD.PrintErr("ERROR: WeaponManagerComponent - Muzzle points are not assigned");
 		}
 
-		WeaponDataComponent weaponData = weaponSlot == 0 ? _basicWeapon :
-								weaponSlot == 1 ? _largeWeapon :
+		EffectiveWeaponData weaponData = weaponSlot == 0 ? _basicWeapon :
+								weaponSlot == 1 ? _bigWeapon :
 								_specialWeapons[weaponSlot - 2];
 
 		if (weaponData == null)

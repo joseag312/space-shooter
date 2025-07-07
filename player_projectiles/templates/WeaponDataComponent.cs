@@ -9,6 +9,13 @@ public partial class WeaponDataComponent : Resource
     public const int CenterCannon = 3;
     public const int Center = 4;
 
+    public enum WeaponSlotType
+    {
+        Basic,
+        Big,
+        Slot
+    }
+
     [Export] public string Key { get; set; } = "";
     [Export] public string DisplayName { get; set; } = "";
     [Export] public string IconPath { get; set; } = "";
@@ -24,4 +31,7 @@ public partial class WeaponDataComponent : Resource
 
     [Export(PropertyHint.Enum, "Left Muzzle,Right Muzzle,Both Muzzles,Center Cannon,Center")]
     public int SpawnLocation { get; set; } = LeftMuzzle;
+
+    [Export(PropertyHint.Enum, "Basic,Big,Slot")]
+    public WeaponSlotType SlotType { get; set; } = WeaponSlotType.Slot;
 }

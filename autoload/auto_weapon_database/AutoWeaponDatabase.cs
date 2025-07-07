@@ -6,11 +6,7 @@ public partial class AutoWeaponDatabase : Node
 {
     public static AutoWeaponDatabase Instance { get; private set; }
 
-    public WeaponDataComponent BasicWeapon { get; private set; }
-    public WeaponDataComponent LargeWeapon { get; private set; }
-    public WeaponDataComponent[] SpecialWeapons { get; private set; }
-
-    private Dictionary<String, WeaponDataComponent> _weaponMapping;
+    private Dictionary<string, WeaponDataComponent> _weaponMapping;
 
     public override void _Ready()
     {
@@ -22,8 +18,9 @@ public partial class AutoWeaponDatabase : Node
         else
         {
             QueueFree();
+            return;
         }
-        SpecialWeapons = new WeaponDataComponent[4];
+
         _weaponMapping = new Dictionary<string, WeaponDataComponent>();
         LoadWeapons();
     }
@@ -31,14 +28,6 @@ public partial class AutoWeaponDatabase : Node
     private void LoadWeapons()
     {
         LoadWeaponResourcesFromFolder("res://resources/weapons/");
-
-        BasicWeapon = GetWeaponData("PPBasicBlue");
-        LargeWeapon = GetWeaponData("PPBigBlue");
-
-        for (int i = 0; i < SpecialWeapons.Length; i++)
-        {
-            SpecialWeapons[i] = GetWeaponData("PPBigBlue");
-        }
     }
 
     private void LoadWeaponResourcesFromFolder(string folderPath)
@@ -72,38 +61,37 @@ public partial class AutoWeaponDatabase : Node
 
             _weaponMapping[weapon.Key] = weapon;
         }
+
+        GD.Print($"DEBUG: AutoWeaponDatabase - Loaded {_weaponMapping.Count} weapons.");
     }
 
-    public WeaponDataComponent GetWeaponData(string id)
+    public WeaponDataComponent GetWeaponData(string key)
     {
-        if (!_weaponMapping.TryGetValue(id, out var data))
+        if (!_weaponMapping.TryGetValue(key, out var data))
         {
-            GD.PrintErr($"ERROR: AutoWeaponDatabase - Weapon ID '{id}' not found");
+            GD.PrintErr($"ERROR: AutoWeaponDatabase - Weapon ID '{key}' not found");
             return null;
         }
 
         return data;
     }
 
-    public EffectiveWeaponData GetEffectiveWeaponData(string key)
+    public List<string> GetAllWeaponKeys()
     {
-        var baseData = GetWeaponData(key);
-        var instance = G.WI.GetWeaponState(key);
-
-        if (baseData == null || instance == null)
-            return null;
-
-        return new EffectiveWeaponData
-        {
-            Key = key,
-            Damage = instance.HasOverrideDamage ? instance.OverrideDamage : baseData.Damage,
-            DamagePercentage = instance.HasOverrideDamagePercentage ? instance.OverrideDamagePercentage : baseData.DamagePercentage,
-            CooldownTime = instance.HasOverrideCooldown ? instance.OverrideCooldownTime : baseData.CooldownTime,
-            ProjectilePath = baseData.ProjectilePath,
-            SpawnLocation = baseData.SpawnLocation,
-            BaseData = baseData,
-            InstanceData = instance
-        };
+        return new List<string>(_weaponMapping.Keys);
     }
 
+    public IEnumerable<WeaponDataComponent> GetAllWeapons()
+    {
+        return _weaponMapping.Values;
+    }
+
+    public IEnumerable<WeaponDataComponent> GetWeaponsBySlotType(WeaponDataComponent.WeaponSlotType slotType)
+    {
+        foreach (var weapon in _weaponMapping.Values)
+        {
+            if (weapon.SlotType == slotType)
+                yield return weapon;
+        }
+    }
 }
