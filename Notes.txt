@@ -2,30 +2,79 @@
 
 ✅ Today's Accomplishments
 
-🔧 Fixed currentCooldowns Not Tracking
-Identified that _currentCooldowns was empty because _weaponCooldowns was partially using numeric keys (i + 2) instead of weapon string keys.
-Realigned key usage across _weaponCooldowns and _currentCooldowns to consistently use weapon IDs (e.g. "PPBasicBlue").
-🔍 Debugged GetEffectiveWeaponData("")
-Traced an empty string key call to GetEffectiveWeaponData — caused by uninitialized weapon slots during new game starts.
-Added proper null and string.IsNullOrEmpty() guards to prevent logic from running on unequipped weapons.
-Improved debug output to clearly show when invalid or empty keys are passed.
-🧠 Identified Future Fix
-Realized that slotKeys[i] may contain empty or missing weapon keys at game start (first playthrough), so:
-_specialWeapons[i] = inventory.GetEffectiveWeaponData(slotKeys[i]);
-will set them to null, which is okay — just needs to be handled gracefully in cooldown registration and firing logic.
+1. Promoted Weapon Type System to Portfolio
+Moved 🧬 Weapon Type System (elemental/tech RPS behavior) from the showcase backlog into your portfolio roadmap because it’s easy to implement but adds clarity and tactical flavor.
+
+2. Weapon System Refactor Milestone
+Renamed WeaponInstanceData ➜ ✅ WeaponStateComponent
+Removed EffectiveWeaponData
+You now use WeaponStateComponent as the unified runtime model, with BaseData inside it.
+ → This simplifies data access, improves clarity, and keeps the runtime metadata lightweight and powerful.
+
+✅ 3. Roadmap Audit & Realignment
+Reviewed portfolio roadmap, showcase backlog, and feature priority.
+Cleanly separated must-haves vs. stretch goals, focusing your dev energy.
+
+EXTRA:
+
+✅ Weapon System Overhaul
+Refined WeaponStateComponent:
+Clarified how overrides work (-1 = "no override").
+Confirmed which properties use BaseData vs. override values.
+Finalized these flags:
+public bool HasOverrideDamage => OverrideDamage >= 0;
+public bool HasOverrideDamagePercentage => OverrideDamagePercentage >= 0;
+public bool HasOverrideCooldown => OverrideCooldownTime >= 0f;
+public bool HasOverrideMaxAmount => OverrideMaxAmount >= 0;
+public bool HasOverrideUnlocked => UseOverrideUnlocked;
+Confirmed how DefaultWeaponState() works:
+Now properly pulls from WeaponDataComponent base values, only setting overrides to -1 or false.
+Verified that the autoload Save() reflects changes to the state (e.g., cooldowns or amount changes).
+✅ HUD Integration
+Defined structure for HUDPowers, which includes:
+BigLaserTexture
+4 PowerUpContainers (with Icon + AmountLabel)
+New: CooldownOverlay nodes now added!
+Created UpdateWeaponsDisplay():
+Pulls from AutoWeaponInventory
+Shows textures and updates UI labels
+Confirmed that invisible/missing power-ups will just not have an icon set (no toggling container visibility).
+Hooked up debug-friendly logs to verify that states match what’s expected:
+Effective values
+CooldownRemaining
+CurrentAmount
+BaseData values (e.g., MaxAmount, DisplayName, Cooldown)
+✅ Bug Tracking & Resolution
+Investigated save/load issues:
+Confirmed all weapon states do pull from database.
+Fixed earlier confusion about why override values were showing -1.
+Added rich debug lines across:
+_Ready, Load, Save, Reset, AssignWeapons, and UpdateWeaponsDisplay
+Helps visualize exact flow and contents of inventory state
 
 ****************************************************************************************************************
 
 🟨 Starting Point for Tomorrow
 
-✅ basicWeapon and bigWeapon load correctly.
-⛔ specialWeapons will likely be null due to no equipped data during new game.
-🔁 Ensure you only add cooldown entries if weapon != null && weapon.Key != "".
+⚡ Tomorrow's Jump Point
+You're now ready to plug the cooldown system into the HUD overlays:
+
+🔜 Next Steps:
+
+Create a per-frame update method that:
+Tracks cooldown time per equipped weapon
+Adjusts CooldownOverlay opacity or fill amount accordingly
+Hides the overlay when cooldown is 0
+Extend PowerSlotUI and HUDPowers to:
+Cache WeaponStateComponent
+Update overlay every _Process() or using a signal/timer system
+Eventually:
+Animate the cooldown fade or radial bar
+Add sound/feedback when a power becomes ready again
 
 MUSIC should repeat itself?
 
 🧭 Continue From:
-You now have runtime state, persistence, and damage all working together
 Save/load/debug/reset foundations are in place for all major autoloads
 🔧 Suggested Next Steps:
 Task	Priority	Notes
@@ -50,18 +99,28 @@ Start with Missile as it’s the easiest to prototype visually
 
 ****************************************************************************************************************
 
-RoadMap:
-I want to add a couple powers
-	Teleport
-	Missile for AOE
-	Death Ray
-	Shield
-I want to add the armory
-I want to add a couple enemies
-I want to add a couple levels
-I want to add the setting screen
-I want to add a level selection screen
+✅ Portfolio Version Backlog
 
-Down the line (After Interviews)
-Finish game (enemies, powerups, story)
-I want to adapt the touch GUI
+🎵 SFX – Sound implementation with enums via AutoSFX (planned).
+🧹 Refactor – Code cleanup (esp. weapon system, components).
+🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
+🌌 3 Levels – Final content amount for portfolio cut.
+👾 More Enemies – A couple new ones for variety.
+⚙️ Settings Screen – Audio, controls, maybe visuals.
+🗺️ Level Selection Screen – World map or clean selection interface.
+🧬 Weapon Type System – Elemental/tech types, rock-paper-scissors-style behavior.
+
+****************************************************************************************************************
+
+🌀 Showcase Backlog
+
+🏆 Full Progression System – Unlocks, upgrades, meta-level persistence.
+🐾 Full Oiia Narrative & Final Battle – Thematic arc and resolution.
+🧠 Advanced AI Patterns – Smarter enemies with behaviors.
+🎨 Skin System – Cosmetic unlocks from IAPs or progress.
+🔮 Karma & Narrative Impact – Use of AutoGameStats to change story/dialog.
+📖 Lore System – Optional story content, maybe codex-style.
+🕹️ Touch GUI Finalization – Post-keyboard support polish.
+📦 Import/Export Save System – For continuity/testing.
+
+****************************************************************************************************************

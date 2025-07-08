@@ -131,15 +131,22 @@ public partial class AutoWeaponInventory : Node
             return new WeaponStateComponent(key);
         }
 
-        return new WeaponStateComponent(key)
+        bool isSlotWeapon = baseData.SlotType == WeaponDataComponent.WeaponSlotType.Slot;
+
+        var state = new WeaponStateComponent(key)
         {
             BaseData = baseData,
-            CurrentAmount = baseData.Infinite ? int.MaxValue : baseData.MaxAmount,
+            CurrentAmount = isSlotWeapon ? baseData.MaxAmount : 0,
             CooldownRemaining = 0f,
             OverrideDamage = -1,
             OverrideDamagePercentage = -1,
-            OverrideCooldownTime = -1f
+            OverrideCooldownTime = -1f,
+            OverrideMaxAmount = isSlotWeapon ? -1 : 0,
+            OverrideUnlocked = false,
+            UseOverrideUnlocked = false
         };
+
+        return state;
     }
 
     public void Save()
@@ -154,7 +161,10 @@ public partial class AutoWeaponInventory : Node
                 { "cooldown", pair.Value.CooldownRemaining },
                 { "override_dmg", pair.Value.OverrideDamage },
                 { "override_dmg_pct", pair.Value.OverrideDamagePercentage },
-                { "override_cd", pair.Value.OverrideCooldownTime }
+                { "override_cd", pair.Value.OverrideCooldownTime },
+                { "override_max", pair.Value.OverrideMaxAmount },
+                { "override_unlocked", pair.Value.OverrideUnlocked },
+                { "use_override_unlocked", pair.Value.UseOverrideUnlocked }
             };
             weaponArray.Add(dict);
         }
@@ -182,7 +192,7 @@ public partial class AutoWeaponInventory : Node
 
         if (!FileAccess.FileExists(SavePath))
         {
-            GD.Print("DEBUG: AutoWeaponInventory - No save found. Starting fresh.");
+            GD.Print("DEBUG: No save found. Calling DefaultWeaponEquip() and Save()");
             DefaultWeaponEquip();
             Save();
             return;
@@ -196,6 +206,7 @@ public partial class AutoWeaponInventory : Node
             foreach (Godot.Collections.Dictionary entry in (Godot.Collections.Array)weaponsRaw)
             {
                 var key = (string)entry["key"];
+
                 var baseData = AutoWeaponDatabase.Instance.GetWeaponData(key);
                 if (baseData == null)
                 {
@@ -210,7 +221,10 @@ public partial class AutoWeaponInventory : Node
                     CooldownRemaining = (float)entry["cooldown"],
                     OverrideDamage = (int)entry["override_dmg"],
                     OverrideDamagePercentage = (int)entry["override_dmg_pct"],
-                    OverrideCooldownTime = (float)entry["override_cd"]
+                    OverrideCooldownTime = (float)entry["override_cd"],
+                    OverrideMaxAmount = (int)entry.GetValueOrDefault("override_max", -1),
+                    OverrideUnlocked = (bool)entry.GetValueOrDefault("override_unlocked", false),
+                    UseOverrideUnlocked = (bool)entry.GetValueOrDefault("use_override_unlocked", false)
                 };
 
                 _weaponStates[key] = data;
@@ -227,7 +241,7 @@ public partial class AutoWeaponInventory : Node
         }
         else
         {
-            GD.Print("DEBUG: AutoWeaponInventory - Seeding default weapon assignment");
+            GD.Print("DEBUG: No equipped section in save. Calling DefaultWeaponEquip().");
             DefaultWeaponEquip();
         }
     }
@@ -238,5 +252,54 @@ public partial class AutoWeaponInventory : Node
         _equippedWeapons.Clear();
         DefaultWeaponEquip();
         Save();
+    }
+
+    public void DebugPrintSaveContents()
+    {
+        if (!FileAccess.FileExists(SavePath))
+        {
+            GD.Print("DEBUG: AutoWeaponInventory - No save file found.");
+            return;
+        }
+
+        using var file = FileAccess.Open(SavePath, FileAccess.ModeFlags.Read);
+        var root = (Godot.Collections.Dictionary)file.GetVar();
+
+        GD.Print("DEBUG: AutoWeaponInventory - Save File Contents:");
+
+        if (root.TryGetValue("weapons", out var weaponsRaw))
+        {
+            GD.Print("  Weapons:");
+            foreach (Godot.Collections.Dictionary weapon in (Godot.Collections.Array)weaponsRaw)
+            {
+                GD.Print($"    Key: {weapon.GetValueOrDefault("key", "UNKNOWN")}");
+                GD.Print($"      Amount: {weapon.GetValueOrDefault("amount", -1)}");
+                GD.Print($"      Cooldown: {weapon.GetValueOrDefault("cooldown", -1f)}");
+                GD.Print($"      Override Damage: {weapon.GetValueOrDefault("override_dmg", -1)}");
+                GD.Print($"      Override %: {weapon.GetValueOrDefault("override_dmg_pct", -1)}");
+                GD.Print($"      Override CD: {weapon.GetValueOrDefault("override_cd", -1f)}");
+                GD.Print($"      Override Max: {weapon.GetValueOrDefault("override_max", -1)}");
+                GD.Print($"      Override Unlocked: {weapon.GetValueOrDefault("override_unlocked", false)}");
+                GD.Print($"      Use Override Unlocked: {weapon.GetValueOrDefault("use_override_unlocked", false)}");
+            }
+        }
+        else
+        {
+            GD.Print("  Weapons: NONE");
+        }
+
+        if (root.TryGetValue("equipped", out var equippedRaw))
+        {
+            GD.Print("  Equipped:");
+            foreach (string slot in ((Godot.Collections.Dictionary)equippedRaw).Keys)
+            {
+                string value = (string)((Godot.Collections.Dictionary)equippedRaw)[slot];
+                GD.Print($"    {slot}: {(string.IsNullOrEmpty(value) ? "EMPTY" : value)}");
+            }
+        }
+        else
+        {
+            GD.Print("  Equipped: NONE");
+        }
     }
 }
