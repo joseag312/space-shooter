@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://he47lwnok5ey"]
 
-[ext_resource type="Script" uid="uid://b6cg1xtykahs5" path="res://player_projectiles/templates/WeaponDataComponent.cs" id="1_2xxi0"]
+[ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="1_2xxi0"]
 
 [resource]
 script = ExtResource("1_2xxi0")

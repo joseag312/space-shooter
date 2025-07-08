@@ -9,26 +9,24 @@ public partial class WeaponDataLoaderComponent : Node
 
 	public override void _Ready()
 	{
-		var baseData = G.WD.GetWeaponData(WeaponKey);
-		var instance = G.WI.GetWeaponState(WeaponKey);
-
-		if (baseData == null)
+		var state = G.WI.GetWeaponState(WeaponKey);
+		if (state == null)
 		{
-			GD.PrintErr($"ERROR: No base weapon data found for '{WeaponKey}'");
-			return;
-		}
-		if (instance == null)
-		{
-			GD.PrintErr($"ERROR: No weapon instance data found for '{WeaponKey}'");
+			GD.PrintErr($"ERROR: WeaponDataLoaderComponent - No state found for '{WeaponKey}'");
 			return;
 		}
 
-		int finalDamage = instance.GetEffectiveDamage(baseData);
-		int finalPct = instance.GetEffectiveDamagePercentage(baseData);
+		if (state.BaseData == null)
+		{
+			state.BaseData = G.WD.GetWeaponData(WeaponKey);
+			if (state.BaseData == null)
+			{
+				GD.PrintErr($"ERROR: WeaponDataLoaderComponent - No base data found for '{WeaponKey}'");
+				return;
+			}
+		}
 
-		hitboxComponent.Damage = finalDamage;
-		hitboxComponent.DamagePercentage = finalPct;
-
+		hitboxComponent.Damage = state.EffectiveDamage;
+		hitboxComponent.DamagePercentage = state.EffectiveDamagePercentage;
 	}
 }
-

@@ -15,9 +15,9 @@ public partial class WeaponManagerComponent : Node
 	private Marker2D _rightMuzzle;
 	private Marker2D _centerCannon;
 
-	private EffectiveWeaponData _basicWeapon;
-	private EffectiveWeaponData _bigWeapon;
-	private EffectiveWeaponData[] _specialWeapons = new EffectiveWeaponData[4];
+	private WeaponStateComponent _basicWeapon;
+	private WeaponStateComponent _bigWeapon;
+	private WeaponStateComponent[] _specialWeapons = new WeaponStateComponent[4];
 
 	private Dictionary<string, float> _weaponCooldowns = new();
 	private Dictionary<string, float> _currentCooldowns = new();
@@ -35,10 +35,7 @@ public partial class WeaponManagerComponent : Node
 	public override void _Process(double delta)
 	{
 		if (_currentCooldowns.Count == 0)
-		{
-			GD.PrintErr("ERROR: WeaponManagerComponent - currentCooldowns is empty, cooldowns aren't being tracked");
 			return;
-		}
 
 		foreach (var key in _currentCooldowns.Keys)
 		{
@@ -46,9 +43,7 @@ public partial class WeaponManagerComponent : Node
 			{
 				_currentCooldowns[key] -= (float)delta;
 				if (_currentCooldowns[key] < 0f)
-				{
 					_currentCooldowns[key] = 0f;
-				}
 			}
 		}
 	}
@@ -56,6 +51,7 @@ public partial class WeaponManagerComponent : Node
 	public void AssignWeapons()
 	{
 		var inventory = G.WI;
+
 		string basicKey = inventory.GetEquippedWeaponKey(WeaponSlotNames.Basic);
 		string bigKey = inventory.GetEquippedWeaponKey(WeaponSlotNames.Big);
 		string[] slotKeys =
@@ -66,67 +62,61 @@ public partial class WeaponManagerComponent : Node
 			inventory.GetEquippedWeaponKey(WeaponSlotNames.Special4)
 		};
 
-		_basicWeapon = inventory.GetEffectiveWeaponData(basicKey);
-		_bigWeapon = inventory.GetEffectiveWeaponData(bigKey);
+		_basicWeapon = null;
+		_bigWeapon = null;
+		for (int i = 0; i < 4; i++)
+			_specialWeapons[i] = null;
+
+		if (!string.IsNullOrEmpty(basicKey))
+			_basicWeapon = inventory.GetWeaponState(basicKey);
+
+		if (!string.IsNullOrEmpty(bigKey))
+			_bigWeapon = inventory.GetWeaponState(bigKey);
+
 		for (int i = 0; i < 4; i++)
 		{
-			_specialWeapons[i] = inventory.GetEffectiveWeaponData(slotKeys[i]);
+			if (!string.IsNullOrEmpty(slotKeys[i]))
+				_specialWeapons[i] = inventory.GetWeaponState(slotKeys[i]);
 		}
 
 		_weaponCooldowns.Clear();
 		_currentCooldowns.Clear();
 
-		if (_basicWeapon != null)
-			_weaponCooldowns[basicKey] = _basicWeapon.CooldownTime;
+		if (_basicWeapon?.BaseData != null)
+			_weaponCooldowns[basicKey] = _basicWeapon.EffectiveCooldown;
 
-		if (_bigWeapon != null)
-			_weaponCooldowns[bigKey] = _bigWeapon.CooldownTime;
+		if (_bigWeapon?.BaseData != null)
+			_weaponCooldowns[bigKey] = _bigWeapon.EffectiveCooldown;
 
-		if (_specialWeapons[0] != null)
-			_weaponCooldowns[slotKeys[0]] = _specialWeapons[0].CooldownTime;
-
-		if (_specialWeapons[1] != null)
-			_weaponCooldowns[slotKeys[1]] = _specialWeapons[1].CooldownTime;
-
-		if (_specialWeapons[2] != null)
-			_weaponCooldowns[slotKeys[2]] = _specialWeapons[2].CooldownTime;
-
-		if (_specialWeapons[3] != null)
-			_weaponCooldowns[slotKeys[3]] = _specialWeapons[3].CooldownTime;
+		for (int i = 0; i < 4; i++)
+		{
+			var state = _specialWeapons[i];
+			if (state?.BaseData != null)
+				_weaponCooldowns[slotKeys[i]] = state.EffectiveCooldown;
+		}
 
 		foreach (var key in _weaponCooldowns.Keys)
-		{
 			_currentCooldowns[key] = 0f;
-		}
 	}
 
 	public void SpawnWeapon(int weaponSlot, Node2D targetContainer)
 	{
+		WeaponStateComponent weapon = weaponSlot == 0 ? _basicWeapon :
+									  weaponSlot == 1 ? _bigWeapon :
+									  _specialWeapons[weaponSlot - 2];
 
-		G.WI.GetEquippedWeaponKey();
-
-		if (_currentCooldowns.ContainsKey(weaponSlot) && _currentCooldowns[weaponSlot] > 0)
-		{
+		if (weapon == null || weapon.BaseData == null)
 			return;
-		}
 
-		if (_leftMuzzle == null || _rightMuzzle == null || _centerCannon == null)
-		{
-			GD.PrintErr("ERROR: WeaponManagerComponent - Muzzle points are not assigned");
-		}
+		if (_currentCooldowns.TryGetValue(weapon.Key, out float value) && value > 0)
+			return;
 
-		EffectiveWeaponData weaponData = weaponSlot == 0 ? _basicWeapon :
-								weaponSlot == 1 ? _bigWeapon :
-								_specialWeapons[weaponSlot - 2];
+		var scenePath = weapon.BaseData.ProjectilePath;
+		PackedScene weaponScene = ResourceLoader.Load<PackedScene>(scenePath);
+		if (weaponScene == null)
+			return;
 
-		if (weaponData == null)
-		{
-			GD.PrintErr("ERROR: WeaponManagerComponent - Weapon slot " + weaponSlot + " is not assigned");
-		}
-
-		PackedScene weaponScene = ResourceLoader.Load<PackedScene>(weaponData.ProjectilePath);
-
-		switch (weaponData.SpawnLocation)
+		switch (weapon.BaseData.SpawnLocation)
 		{
 			case WeaponDataComponent.LeftMuzzle:
 				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle, targetContainer);
@@ -150,11 +140,10 @@ public partial class WeaponManagerComponent : Node
 				break;
 
 			default:
-				GD.PrintErr("ERROR: WeaponManagerComponent - Unknown weapon spawn location in " + weaponData.SpawnLocation);
 				return;
 		}
 
-		_currentCooldowns[weaponSlot] = _weaponCooldowns[weaponSlot];
+		_currentCooldowns[weapon.Key] = _weaponCooldowns[weapon.Key];
 	}
 
 	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType, Node2D targetContainer)
@@ -162,7 +151,7 @@ public partial class WeaponManagerComponent : Node
 		Node2D weaponInstance = (Node2D)weaponScene.Instantiate();
 		weaponInstance.AddToGroup("despawnable");
 
-		if (locationType == 4)
+		if (locationType == WeaponDataComponent.Center)
 		{
 			Node2D ship = GetParent<Node2D>();
 			ship.AddChild(weaponInstance);

@@ -1,13 +1,13 @@
 using Godot;
 
 [GlobalClass]
-public partial class WeaponInstanceData : Resource
+public partial class WeaponStateComponent : Resource
 {
-    [Export] public string Key { get; set; } = "";
+    public WeaponDataComponent BaseData { get; set; }
 
+    [Export] public string Key { get; set; } = "";
     [Export] public int CurrentAmount { get; set; } = 0;
     [Export] public float CooldownRemaining { get; set; } = 0f;
-
     [Export] public int OverrideDamage { get; set; } = -1;
     [Export] public int OverrideDamagePercentage { get; set; } = -1;
     [Export] public float OverrideCooldownTime { get; set; } = -1f;
@@ -16,20 +16,15 @@ public partial class WeaponInstanceData : Resource
     public bool HasOverrideDamagePercentage => OverrideDamagePercentage >= 0;
     public bool HasOverrideCooldown => OverrideCooldownTime >= 0f;
 
-    public WeaponInstanceData() { }
+    public WeaponStateComponent() { }
 
-    public WeaponInstanceData(string key)
+    public WeaponStateComponent(string key)
     {
         Key = key;
     }
 
     // Optional: helpers to resolve values with base data
-    public int GetEffectiveDamage(WeaponDataComponent baseData)
-        => HasOverrideDamage ? OverrideDamage : baseData.Damage;
-
-    public int GetEffectiveDamagePercentage(WeaponDataComponent baseData)
-        => HasOverrideDamagePercentage ? OverrideDamagePercentage : baseData.DamagePercentage;
-
-    public float GetEffectiveCooldown(WeaponDataComponent baseData)
-        => HasOverrideCooldown ? OverrideCooldownTime : baseData.CooldownTime;
+    public int EffectiveDamage => HasOverrideDamage ? OverrideDamage : BaseData?.Damage ?? 0;
+    public int EffectiveDamagePercentage => HasOverrideDamagePercentage ? OverrideDamagePercentage : BaseData?.DamagePercentage ?? 0;
+    public float EffectiveCooldown => HasOverrideCooldown ? OverrideCooldownTime : BaseData?.CooldownTime ?? 0f;
 }

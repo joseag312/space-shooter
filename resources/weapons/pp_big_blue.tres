@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://dbbl1g6i0yg4w"]
 
-[ext_resource type="Script" uid="uid://b6cg1xtykahs5" path="res://player_projectiles/templates/WeaponDataComponent.cs" id="1_gs7p5"]
+[ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="1_gs7p5"]
 
 [resource]
 script = ExtResource("1_gs7p5")
@@ -17,4 +17,3 @@ Assignable = false
 Unlocked = true
 SpawnLocation = 3
 SlotType = 1
-metadata/_custom_type_script = "uid://b6cg1xtykahs5"

@@ -61,8 +61,6 @@ public partial class AutoWeaponDatabase : Node
 
             _weaponMapping[weapon.Key] = weapon;
         }
-
-        GD.Print($"DEBUG: AutoWeaponDatabase - Loaded {_weaponMapping.Count} weapons.");
     }
 
     public WeaponDataComponent GetWeaponData(string key)
