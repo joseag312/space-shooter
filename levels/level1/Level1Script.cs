@@ -16,6 +16,7 @@ public partial class Level1Script : Node
 	{
 		G.CR.Run("LevelScript", RunLevelScript);
 		Ship.StatsComponent.Connect("NoHealth", new Callable(this, nameof(OnShipDeath)));
+		HUD.Powers.SetWeaponManager(Ship.WeaponManager);
 	}
 
 	private async Task RunLevelScript(CancellationToken token)

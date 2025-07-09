@@ -37,5 +37,10 @@ public partial class WeaponStateComponent : Resource
     {
         Key = key;
     }
+
+    public override string ToString()
+    {
+        return $"WeaponStateComponent {{ ID = {BaseData?.Key}, SlotType = {BaseData?.SlotType}, Cooldown = {EffectiveCooldown}, Remaining = {CooldownRemaining}, Amount = {CurrentAmount} }}";
+    }
 }
 

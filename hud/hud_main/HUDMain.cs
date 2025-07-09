@@ -74,11 +74,11 @@ public partial class HUDMain : CanvasLayer
         var tasks = new List<Task>();
 
         if (IsInstanceValid(HealthBar))
-            tasks.Add(FadeNode(HealthBar, false));
+            tasks.Add(FadeNode(HealthBar, false, 0f));
         if (IsInstanceValid(Powers))
-            tasks.Add(FadeNode(Powers, false));
+            tasks.Add(FadeNode(Powers, false, 0f));
         if (IsInstanceValid(Currency))
-            tasks.Add(FadeNode(Currency, false));
+            tasks.Add(FadeNode(Currency, false, 0f));
 
         await Task.WhenAll(tasks);
     }
@@ -88,21 +88,21 @@ public partial class HUDMain : CanvasLayer
         var tasks = new List<Task>();
 
         if (IsInstanceValid(HealthBar))
-            tasks.Add(FadeNode(HealthBar, true));
+            tasks.Add(FadeNode(HealthBar, true, 150f / 255f));
         if (IsInstanceValid(Powers))
-            tasks.Add(FadeNode(Powers, true));
+            tasks.Add(FadeNode(Powers, true, 1f));
         if (IsInstanceValid(Currency))
-            tasks.Add(FadeNode(Currency, true));
+            tasks.Add(FadeNode(Currency, true, 150f / 255f));
 
         await Task.WhenAll(tasks);
     }
 
-    private async Task FadeNode(CanvasItem node, bool fadeIn)
+    private async Task FadeNode(CanvasItem node, bool fadeIn, float opacity)
     {
         if (!IsInstanceValid(node)) return;
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(node, "modulate:a", fadeIn ? 1.0f : 0.0f, 0.8f)
+        tween.TweenProperty(node, "modulate:a", fadeIn ? opacity : 0.0f, 0.8f)
              .SetTrans(Tween.TransitionType.Sine);
 
         await ToSignal(tween, "finished");

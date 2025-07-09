@@ -22,6 +22,9 @@ public partial class WeaponManagerComponent : Node
 	private Dictionary<string, float> _weaponCooldowns = new();
 	private Dictionary<string, float> _currentCooldowns = new();
 
+	[Signal]
+	public delegate void WeaponFiredEventHandler(int slot, WeaponStateComponent weapon);
+
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
@@ -111,6 +114,9 @@ public partial class WeaponManagerComponent : Node
 		if (_currentCooldowns.TryGetValue(weapon.Key, out float value) && value > 0)
 			return;
 
+		if (weapon.BaseData.SlotType == WeaponDataComponent.WeaponSlotType.Slot && weapon.CurrentAmount == 0)
+			return;
+
 		var scenePath = weapon.BaseData.ProjectilePath;
 		PackedScene weaponScene = ResourceLoader.Load<PackedScene>(scenePath);
 		if (weaponScene == null)
@@ -144,6 +150,11 @@ public partial class WeaponManagerComponent : Node
 		}
 
 		_currentCooldowns[weapon.Key] = _weaponCooldowns[weapon.Key];
+
+		if (weaponSlot > 0)
+		{
+			EmitSignal(SignalName.WeaponFired, weaponSlot, weapon);
+		}
 	}
 
 	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType, Node2D targetContainer)
