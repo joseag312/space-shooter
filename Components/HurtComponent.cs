@@ -30,6 +30,11 @@ public partial class HurtComponent : Node
 
         int damageAmount = Math.Max(baseDamage, percentDamage);
 
+        if (damageAmount == 0)
+        {
+            return;
+        }
+
         SpawnDamageText(damageAmount);
         StatsComponent.Health -= damageAmount;
         InvincibilityComponent?.StartInvincibility();

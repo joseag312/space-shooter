@@ -9,8 +9,8 @@ public partial class WeaponSpawnComponent : Node
 
 	public override void _Ready()
 	{
-		_flashComponent.Flash();
-		_scaleComponent.TweenScale();
+		_flashComponent?.Flash();
+		_scaleComponent?.TweenScale();
 		_hitboxComponent.HitHurtbox += OnWeaponHit;
 	}
 

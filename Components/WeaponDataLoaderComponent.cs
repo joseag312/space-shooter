@@ -5,7 +5,8 @@ using System;
 public partial class WeaponDataLoaderComponent : Node
 {
 	[Export] public string WeaponKey = "basic_blaster";
-	[Export] public HitboxComponent hitboxComponent;
+	[Export] public HitboxComponent HitboxComponent;
+	[Export] public MoveComponent MoveComponent;
 
 	public override void _Ready()
 	{
@@ -26,7 +27,11 @@ public partial class WeaponDataLoaderComponent : Node
 			}
 		}
 
-		hitboxComponent.Damage = state.EffectiveDamage;
-		hitboxComponent.DamagePercentage = state.EffectiveDamagePercentage;
+		if (MoveComponent != null)
+		{
+			MoveComponent.Velocity = new Vector2(0, -state.EffectiveSpeed);
+		}
+		HitboxComponent.Damage = state.EffectiveDamage;
+		HitboxComponent.DamagePercentage = state.EffectiveDamagePercentage;
 	}
 }

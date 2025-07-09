@@ -25,6 +25,7 @@ public partial class HUDPowers : Control
     [Export] public Label PowerUp4Amount;
     [Export] public float opacity = 150;
 
+    private Color _textColor;
     private Color _baseColor;
     private Color _bigOverlayColor;
     private Color _overlayColor;
@@ -32,6 +33,7 @@ public partial class HUDPowers : Control
 
     public override void _Ready()
     {
+        _textColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
         _baseColor = new Color(220f / 255f, 220f / 255f, 220f / 255f, opacity / 255f);
         _flashColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, opacity / 255f);
         _overlayColor = new Color(150f / 255f, 0f / 255f, 155f / 255f, opacity / 255f);
@@ -42,28 +44,28 @@ public partial class HUDPowers : Control
         PowerUp1Container.Modulate = _baseColor;
         PowerUp1Icon.Modulate = _baseColor;
         PowerUp1Overlay.Modulate = _overlayColor;
-        PowerUp1Amount.Modulate = _baseColor;
+        PowerUp1Amount.Modulate = _textColor;
 
         PowerUp2Container.Modulate = _baseColor;
         PowerUp2Icon.Modulate = _baseColor;
         PowerUp2Overlay.Modulate = _overlayColor;
-        PowerUp2Amount.Modulate = _baseColor;
+        PowerUp2Amount.Modulate = _textColor;
 
         PowerUp3Container.Modulate = _baseColor;
         PowerUp3Icon.Modulate = _baseColor;
         PowerUp3Overlay.Modulate = _overlayColor;
-        PowerUp3Amount.Modulate = _baseColor;
+        PowerUp3Amount.Modulate = _textColor;
 
         PowerUp4Container.Modulate = _baseColor;
         PowerUp4Icon.Modulate = _baseColor;
         PowerUp4Overlay.Modulate = _overlayColor;
-        PowerUp4Amount.Modulate = _baseColor;
+        PowerUp4Amount.Modulate = _textColor;
 
         BigLaserOverlay.Visible = false;
-        PowerUp1Overlay.Visible = false;
-        PowerUp2Overlay.Visible = false;
-        PowerUp3Overlay.Visible = false;
-        PowerUp4Overlay.Visible = false;
+        PowerUp1Overlay.Visible = true;
+        PowerUp2Overlay.Visible = true;
+        PowerUp3Overlay.Visible = true;
+        PowerUp4Overlay.Visible = true;
 
         SetWeaponsDisplay();
     }
@@ -85,24 +87,56 @@ public partial class HUDPowers : Control
 
             case 2:
                 weapon.CurrentAmount -= 1;
-                _ = StartCooldown(weapon.EffectiveCooldown, PowerUp1Icon, PowerUp1Overlay);
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = StartCooldown(weapon.EffectiveCooldown, PowerUp1Icon, PowerUp1Overlay);
+                }
+                else
+                {
+                    _ = DisableWeapon(0.2f, PowerUp1Icon, PowerUp1Overlay);
+                }
                 UpdateAmount(weapon, PowerUp1Amount);
                 break;
+
             case 3:
                 weapon.CurrentAmount -= 1;
-                _ = StartCooldown(weapon.EffectiveCooldown, PowerUp2Icon, PowerUp2Overlay);
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = StartCooldown(weapon.EffectiveCooldown, PowerUp2Icon, PowerUp2Overlay);
+                }
+                else
+                {
+                    _ = DisableWeapon(0.2f, PowerUp2Icon, PowerUp2Overlay);
+                }
                 UpdateAmount(weapon, PowerUp2Amount);
                 break;
+
             case 4:
                 weapon.CurrentAmount -= 1;
-                _ = StartCooldown(weapon.EffectiveCooldown, PowerUp3Icon, PowerUp3Overlay);
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = StartCooldown(weapon.EffectiveCooldown, PowerUp3Icon, PowerUp3Overlay);
+                }
+                else
+                {
+                    _ = DisableWeapon(0.2f, PowerUp3Icon, PowerUp3Overlay);
+                }
                 UpdateAmount(weapon, PowerUp3Amount);
                 break;
+
             case 5:
                 weapon.CurrentAmount -= 1;
-                _ = StartCooldown(weapon.EffectiveCooldown, PowerUp4Icon, PowerUp4Overlay);
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = StartCooldown(weapon.EffectiveCooldown, PowerUp4Icon, PowerUp4Overlay);
+                }
+                else
+                {
+                    _ = DisableWeapon(0.2f, PowerUp4Icon, PowerUp4Overlay);
+                }
                 UpdateAmount(weapon, PowerUp4Amount);
                 break;
+
             default:
                 GD.PrintErr($"ERROR: HUDPowers - Unknown slot type {slotType} for weapon {weapon.BaseData.Key}");
                 break;
@@ -125,8 +159,6 @@ public partial class HUDPowers : Control
         {
             icon.Texture = null;
             amountLabel.Text = "";
-            overlay.Modulate = new Color(1, 1, 1, 0);
-            overlay.Visible = false;
             return;
         }
 
@@ -140,8 +172,11 @@ public partial class HUDPowers : Control
         else
             amountLabel.Text = "";
 
-        overlay.Modulate = new Color(1, 1, 1, 0);
-        overlay.Visible = false;
+        if (state.CurrentAmount > 0)
+        {
+            overlay.Visible = false;
+            overlay.Modulate = new Color(1, 1, 1, 0);
+        }
     }
 
     public void SetWeaponManager(WeaponManagerComponent weaponManager)
@@ -181,13 +216,25 @@ public partial class HUDPowers : Control
         tween2.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
         overlay.Visible = true;
         overlay.Modulate = _overlayColor;
-        tween2.Chain().TweenProperty(overlay, "modulate:a", 0.1, duration - 0.4);
-        tween2.Chain().TweenProperty(icon, "modulate", _flashColor, 0.1);
-        tween2.Chain().TweenProperty(icon, "modulate", _baseColor, 0.1);
+        tween2.Chain().TweenProperty(overlay, "modulate:a", 0.35, duration - 0.3);
+        tween2.Chain().TweenProperty(overlay, "modulate:a", 0.0, 0.1);
+
         tween2.Chain().TweenCallback(Callable.From(() =>
         {
             overlay.Visible = false;
             overlay.Modulate = _baseColor;
         }));
+    }
+
+    private async Task DisableWeapon(float duration, TextureRect icon, TextureRect overlay)
+    {
+        icon.Modulate = _baseColor;
+
+        Tween tween1 = GetTree().CreateTween();
+        tween1.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+        tween1.Chain().TweenProperty(icon, "modulate", _flashColor, 0.1);
+        tween1.Chain().TweenProperty(icon, "modulate", _baseColor, 0.1);
+        await Task.Delay(200);
+        overlay.Visible = true;
     }
 }

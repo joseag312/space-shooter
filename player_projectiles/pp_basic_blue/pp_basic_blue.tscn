@@ -38,10 +38,11 @@ _scaleComponent = NodePath("../ScaleComponent")
 _flashComponent = NodePath("../FlashComponent")
 _hitboxComponent = NodePath("../HitboxComponent")
 
-[node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("hitboxComponent")]
+[node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("HitboxComponent", "MoveComponent")]
 script = ExtResource("4_wmx2p")
 WeaponKey = "PPBasicBlue"
-hitboxComponent = NodePath("../HitboxComponent")
+HitboxComponent = NodePath("../HitboxComponent")
+MoveComponent = NodePath("../MoveComponent")
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("2_ysowv")

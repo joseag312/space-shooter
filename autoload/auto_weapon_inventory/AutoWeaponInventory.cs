@@ -116,7 +116,7 @@ public partial class AutoWeaponInventory : Node
     {
         EquipBasicWeapon("PPBasicBlue");
         EquipBigWeapon("PPBigBlue");
-        EquipSlotWeapon(1, null);
+        EquipSlotWeapon(1, "PPMissileMach");
         EquipSlotWeapon(2, null);
         EquipSlotWeapon(3, null);
         EquipSlotWeapon(4, null);
@@ -136,8 +136,9 @@ public partial class AutoWeaponInventory : Node
         var state = new WeaponStateComponent(key)
         {
             BaseData = baseData,
-            CurrentAmount = isSlotWeapon ? baseData.MaxAmount : 0,
+            CurrentAmount = isSlotWeapon ? 5 : 0,
             CooldownRemaining = 0f,
+            OverrideSpeed = -1,
             OverrideDamage = -1,
             OverrideDamagePercentage = -1,
             OverrideCooldownTime = -1f,
@@ -159,6 +160,7 @@ public partial class AutoWeaponInventory : Node
                 { "key", pair.Value.Key },
                 { "amount", pair.Value.CurrentAmount },
                 { "cooldown", pair.Value.CooldownRemaining },
+                { "override_speed", pair.Value.OverrideSpeed},
                 { "override_dmg", pair.Value.OverrideDamage },
                 { "override_dmg_pct", pair.Value.OverrideDamagePercentage },
                 { "override_cd", pair.Value.OverrideCooldownTime },
@@ -219,6 +221,7 @@ public partial class AutoWeaponInventory : Node
                     BaseData = baseData,
                     CurrentAmount = (int)entry["amount"],
                     CooldownRemaining = (float)entry["cooldown"],
+                    OverrideSpeed = (int)entry["override_speed"],
                     OverrideDamage = (int)entry["override_dmg"],
                     OverrideDamagePercentage = (int)entry["override_dmg_pct"],
                     OverrideCooldownTime = (float)entry["override_cd"],
@@ -275,6 +278,7 @@ public partial class AutoWeaponInventory : Node
                 GD.Print($"    Key: {weapon.GetValueOrDefault("key", "UNKNOWN")}");
                 GD.Print($"      Amount: {weapon.GetValueOrDefault("amount", -1)}");
                 GD.Print($"      Cooldown: {weapon.GetValueOrDefault("cooldown", -1f)}");
+                GD.Print($"      Override Speed: {weapon.GetValueOrDefault("override_speed", -1)}");
                 GD.Print($"      Override Damage: {weapon.GetValueOrDefault("override_dmg", -1)}");
                 GD.Print($"      Override %: {weapon.GetValueOrDefault("override_dmg_pct", -1)}");
                 GD.Print($"      Override CD: {weapon.GetValueOrDefault("override_cd", -1f)}");

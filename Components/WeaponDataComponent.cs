@@ -39,9 +39,10 @@ public partial class WeaponDataComponent : Resource
     public WeaponType Type { get; set; } = WeaponType.Machine;
 
     // Overwriteable
+    [Export] public int Speed { get; set; }
     [Export] public int Damage { get; set; }
     [Export] public int DamagePercentage { get; set; }
-    [Export] public float CooldownTime { get; set; } = 3.0f;
+    [Export] public float CooldownTime { get; set; } = 0.4f;
     [Export] public int MaxAmount { get; set; } = 10;
     [Export] public bool Unlocked { get; set; } = false;
 }
