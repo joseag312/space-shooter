@@ -82,7 +82,7 @@ shape = SubResource("RectangleShape2D_nmknm")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(2.86102e-07, 1)
-scale = Vector2(0.2, 0.4)
+scale = Vector2(-0.283738, 1.44618)
 
 [node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
 script = ExtResource("5_jtppx")

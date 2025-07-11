@@ -1,10 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://bpq5xvm10rpv7"]
+[gd_scene load_steps=20 format=3 uid="uid://bpq5xvm10rpv7"]
 
 [ext_resource type="Texture2D" uid="uid://bhv12kx6kavy3" path="res://assets/effects/explosions_3.png" id="1_0wdyj"]
 [ext_resource type="Script" uid="uid://c4o8660pjq6yc" path="res://components/HitboxComponent.cs" id="2_xskao"]
-[ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="3_oqhyr"]
 [ext_resource type="Script" uid="uid://dnq7vpxprxfd4" path="res://components/WeaponDataLoaderComponent.cs" id="5_2pu8b"]
-[ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="6_2s6pc"]
 [ext_resource type="Script" uid="uid://cpr6s8ivysmf2" path="res://components/EffectSpawnComponent.cs" id="6_xskao"]
 [ext_resource type="Script" uid="uid://bppah0v3qiu6u" path="res://components/ScaleComponent.cs" id="7_w844y"]
 [ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="8_1nkvp"]
@@ -124,11 +122,6 @@ polygon = PackedVector2Array(2.5, -44.5, 2, -45, -11, -42.5, -35.5, -34, -46.5, 
 position = Vector2(2.86102e-07, 1)
 scale = Vector2(0.2, 0.4)
 
-[node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
-script = ExtResource("3_oqhyr")
-Location = NodePath("../Marker2D")
-metadata/_custom_type_script = "uid://15c5bbm4dl76"
-
 [node name="WeaponDataLoaderComponent" type="Node" parent="." node_paths=PackedStringArray("HitboxComponent")]
 script = ExtResource("5_2pu8b")
 WeaponKey = "PPMissileMach"
@@ -139,10 +132,6 @@ script = ExtResource("6_xskao")
 _animatedSprite = NodePath("../AnimatedSprite2D")
 _hitboxComponent = NodePath("../HitboxComponent")
 metadata/_custom_type_script = "uid://cpr6s8ivysmf2"
-
-[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
-script = ExtResource("6_2s6pc")
-Actor = NodePath("..")
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
 script = ExtResource("7_w844y")

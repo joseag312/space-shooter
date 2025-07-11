@@ -25,6 +25,9 @@ public partial class WeaponManagerComponent : Node
 	[Signal]
 	public delegate void WeaponFiredEventHandler(int slot, WeaponStateComponent weapon);
 
+	[Signal]
+	public delegate void PowerUsedEventHandler(int slot, WeaponStateComponent weapon);
+
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
@@ -122,34 +125,34 @@ public partial class WeaponManagerComponent : Node
 		if (weaponScene == null)
 			return;
 
+		bool isConditional = weapon.BaseData.ConditionalSuccess;
+
 		switch (weapon.BaseData.SpawnLocation)
 		{
 			case WeaponDataComponent.LeftMuzzle:
-				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle, targetContainer);
+				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle, targetContainer, isConditional, weaponSlot, weapon);
 				break;
 
 			case WeaponDataComponent.RightMuzzle:
-				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle, targetContainer);
+				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle, targetContainer, isConditional, weaponSlot, weapon);
 				break;
 
 			case WeaponDataComponent.BothMuzzles:
-				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle, targetContainer);
-				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle, targetContainer);
+				SpawnAtPosition(weaponScene, _leftMuzzle.GlobalPosition, WeaponDataComponent.LeftMuzzle, targetContainer, isConditional, weaponSlot, weapon);
+				SpawnAtPosition(weaponScene, _rightMuzzle.GlobalPosition, WeaponDataComponent.RightMuzzle, targetContainer, isConditional, weaponSlot, weapon);
 				break;
 
 			case WeaponDataComponent.CenterCannon:
-				SpawnAtPosition(weaponScene, _centerCannon.GlobalPosition, WeaponDataComponent.CenterCannon, targetContainer);
+				SpawnAtPosition(weaponScene, _centerCannon.GlobalPosition, WeaponDataComponent.CenterCannon, targetContainer, isConditional, weaponSlot, weapon);
 				break;
 
 			case WeaponDataComponent.Center:
-				SpawnAtPosition(weaponScene, _center.GlobalPosition, WeaponDataComponent.Center, targetContainer);
+				SpawnAtPosition(weaponScene, _center.GlobalPosition, WeaponDataComponent.Center, targetContainer, isConditional, weaponSlot, weapon);
 				break;
 
 			default:
 				return;
 		}
-
-		_currentCooldowns[weapon.Key] = _weaponCooldowns[weapon.Key];
 
 		if (weaponSlot > 0)
 		{
@@ -157,7 +160,8 @@ public partial class WeaponManagerComponent : Node
 		}
 	}
 
-	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType, Node2D targetContainer)
+	private void SpawnAtPosition(PackedScene weaponScene, Vector2 position, int locationType, Node2D targetContainer,
+							 bool isConditional, int weaponSlot, WeaponStateComponent weapon)
 	{
 		Node2D weaponInstance = (Node2D)weaponScene.Instantiate();
 		weaponInstance.AddToGroup("despawnable");
@@ -167,6 +171,11 @@ public partial class WeaponManagerComponent : Node
 			Node2D ship = GetParent<Node2D>();
 			ship.AddChild(weaponInstance);
 			weaponInstance.Position = ship.ToLocal(position);
+
+			if (weaponInstance is IEffectSpawningWeapon effectSpawner)
+			{
+				effectSpawner.EffectContainer = targetContainer;
+			}
 		}
 		else
 		{
@@ -179,5 +188,43 @@ public partial class WeaponManagerComponent : Node
 			weaponInstance.GlobalPosition = position;
 			targetContainer.AddChild(weaponInstance);
 		}
+
+		string successSignal = weapon.BaseData.EmitSuccessSignalName;
+		if (isConditional && !string.IsNullOrEmpty(successSignal) && weaponInstance.HasSignal(successSignal))
+		{
+			try
+			{
+				weaponInstance.Connect(successSignal, Callable.From(() => OnPowerSucceeded(weaponSlot, weapon)));
+			}
+			catch (Exception e)
+			{
+				GD.PrintErr($"ERROR: WeaponManagerComponent - Failed to connect signal '{successSignal}': {e.Message}");
+			}
+		}
+		else if (!isConditional)
+		{
+			OnPowerSucceeded(weaponSlot, weapon);
+		}
 	}
+
+	private void OnPowerSucceeded(int weaponSlot, WeaponStateComponent weapon)
+	{
+		_currentCooldowns[weapon.Key] = _weaponCooldowns[weapon.Key];
+
+		if (weapon.BaseData.SlotType == WeaponDataComponent.WeaponSlotType.Slot)
+		{
+			if (weapon.CurrentAmount <= 0)
+			{
+				GD.PrintErr($"ERROR: WeaponManagerComponent - Tried to use weapon '{weapon.Key}' but amount is already 0.");
+			}
+			else
+			{
+				weapon.CurrentAmount -= 1;
+			}
+		}
+
+		if (weaponSlot > 0)
+			EmitSignal(SignalName.PowerUsed, weaponSlot, weapon);
+	}
+
 }

@@ -30,6 +30,7 @@ public partial class HUDPowers : Control
     private Color _bigOverlayColor;
     private Color _overlayColor;
     private Color _flashColor;
+    private float _flashDuration = 0.2f;
 
     public override void _Ready()
     {
@@ -82,63 +83,103 @@ public partial class HUDPowers : Control
         switch (weaponSlot)
         {
             case 1:
+                _ = FlashIcon(_flashDuration, BigLaserButton);
+                break;
+
+            case 2:
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = FlashIcon(_flashDuration, PowerUp1Icon);
+                }
+                break;
+
+            case 3:
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = FlashIcon(_flashDuration, PowerUp2Icon);
+                }
+                break;
+
+            case 4:
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = FlashIcon(_flashDuration, PowerUp3Icon);
+                }
+                break;
+
+            case 5:
+                if (weapon.CurrentAmount > 0)
+                {
+                    _ = FlashIcon(_flashDuration, PowerUp4Icon);
+                }
+                break;
+
+            default:
+                GD.PrintErr($"ERROR: HUDPowers - OnWeaponFired Unknown slot type {slotType} for weapon {weapon.BaseData.Key}");
+                break;
+        }
+    }
+
+    private void OnPowerUsed(int weaponSlot, WeaponStateComponent weapon)
+    {
+        var slotType = weapon.BaseData.SlotType;
+
+        switch (weaponSlot)
+        {
+            case 1:
                 _ = StartCooldown(weapon.EffectiveCooldown, BigLaserButton, BigLaserOverlay);
                 break;
 
             case 2:
-                weapon.CurrentAmount -= 1;
                 if (weapon.CurrentAmount > 0)
                 {
                     _ = StartCooldown(weapon.EffectiveCooldown, PowerUp1Icon, PowerUp1Overlay);
                 }
                 else
                 {
-                    _ = DisableWeapon(0.2f, PowerUp1Icon, PowerUp1Overlay);
+                    _ = DisableWeapon(_flashDuration, PowerUp1Icon, PowerUp1Overlay);
                 }
                 UpdateAmount(weapon, PowerUp1Amount);
                 break;
 
             case 3:
-                weapon.CurrentAmount -= 1;
                 if (weapon.CurrentAmount > 0)
                 {
                     _ = StartCooldown(weapon.EffectiveCooldown, PowerUp2Icon, PowerUp2Overlay);
                 }
                 else
                 {
-                    _ = DisableWeapon(0.2f, PowerUp2Icon, PowerUp2Overlay);
+                    _ = DisableWeapon(_flashDuration, PowerUp2Icon, PowerUp2Overlay);
                 }
                 UpdateAmount(weapon, PowerUp2Amount);
                 break;
 
             case 4:
-                weapon.CurrentAmount -= 1;
                 if (weapon.CurrentAmount > 0)
                 {
                     _ = StartCooldown(weapon.EffectiveCooldown, PowerUp3Icon, PowerUp3Overlay);
                 }
                 else
                 {
-                    _ = DisableWeapon(0.2f, PowerUp3Icon, PowerUp3Overlay);
+                    _ = DisableWeapon(_flashDuration, PowerUp3Icon, PowerUp3Overlay);
                 }
                 UpdateAmount(weapon, PowerUp3Amount);
                 break;
 
             case 5:
-                weapon.CurrentAmount -= 1;
                 if (weapon.CurrentAmount > 0)
                 {
                     _ = StartCooldown(weapon.EffectiveCooldown, PowerUp4Icon, PowerUp4Overlay);
                 }
                 else
                 {
-                    _ = DisableWeapon(0.2f, PowerUp4Icon, PowerUp4Overlay);
+                    _ = DisableWeapon(_flashDuration, PowerUp4Icon, PowerUp4Overlay);
                 }
                 UpdateAmount(weapon, PowerUp4Amount);
                 break;
 
             default:
-                GD.PrintErr($"ERROR: HUDPowers - Unknown slot type {slotType} for weapon {weapon.BaseData.Key}");
+                GD.PrintErr($"ERROR: HUDPowers - OnPowerUsed Unknown slot type {slotType} for weapon {weapon.BaseData.Key}");
                 break;
         }
     }
@@ -182,6 +223,7 @@ public partial class HUDPowers : Control
     public void SetWeaponManager(WeaponManagerComponent weaponManager)
     {
         weaponManager.Connect(WeaponManagerComponent.SignalName.WeaponFired, new Callable(this, nameof(OnWeaponFired)));
+        weaponManager.Connect(WeaponManagerComponent.SignalName.PowerUsed, new Callable(this, nameof(OnPowerUsed)));
     }
 
     private void UpdateAmount(WeaponStateComponent state, Label amountLabel)
@@ -202,28 +244,36 @@ public partial class HUDPowers : Control
         UpdateAmount(inv.GetEquippedWeaponState(WeaponSlotNames.Special4), PowerUp4Amount);
     }
 
-    private async Task StartCooldown(float duration, TextureRect icon, TextureRect overlay)
+    private async Task FlashIcon(float duration, TextureRect icon)
     {
         icon.Modulate = _baseColor;
 
-        Tween tween1 = GetTree().CreateTween();
-        tween1.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        tween1.Chain().TweenProperty(icon, "modulate", _flashColor, 0.1);
-        tween1.Chain().TweenProperty(icon, "modulate", _baseColor, 0.1);
-        await Task.Delay(200);
+        Tween tween = GetTree().CreateTween();
+        tween.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+        tween.Chain().TweenProperty(icon, "modulate", _flashColor, duration / 2);
+        tween.Chain().TweenProperty(icon, "modulate", _baseColor, duration / 2);
+        await Task.Delay(50);
+    }
 
-        Tween tween2 = GetTree().CreateTween();
-        tween2.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+    private async Task StartCooldown(float duration, TextureRect icon, TextureRect overlay)
+    {
+        await Task.Delay((int)(_flashDuration * 1000f));
+
+        Tween tween = GetTree().CreateTween();
+        tween.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+
         overlay.Visible = true;
         overlay.Modulate = _overlayColor;
-        tween2.Chain().TweenProperty(overlay, "modulate:a", 0.35, duration - 0.3);
-        tween2.Chain().TweenProperty(overlay, "modulate:a", 0.0, 0.1);
 
-        tween2.Chain().TweenCallback(Callable.From(() =>
+        tween.Chain().TweenProperty(overlay, "modulate:a", 0.35, duration);
+        tween.Chain().TweenProperty(overlay, "modulate:a", 0.0, 0.1);
+
+        tween.Chain().TweenCallback(Callable.From(() =>
         {
             overlay.Visible = false;
             overlay.Modulate = _baseColor;
         }));
+
     }
 
     private async Task DisableWeapon(float duration, TextureRect icon, TextureRect overlay)
@@ -232,8 +282,8 @@ public partial class HUDPowers : Control
 
         Tween tween1 = GetTree().CreateTween();
         tween1.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        tween1.Chain().TweenProperty(icon, "modulate", _flashColor, 0.1);
-        tween1.Chain().TweenProperty(icon, "modulate", _baseColor, 0.1);
+        tween1.Chain().TweenProperty(icon, "modulate", _flashColor, duration / 2);
+        tween1.Chain().TweenProperty(icon, "modulate", _baseColor, duration / 2);
         await Task.Delay(200);
         overlay.Visible = true;
     }

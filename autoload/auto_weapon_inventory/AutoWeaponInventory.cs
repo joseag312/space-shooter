@@ -14,7 +14,7 @@ public partial class AutoWeaponInventory : Node
         if (Instance == null)
         {
             Instance = this;
-            Load();
+            Reset();
         }
         else
         {
@@ -117,7 +117,7 @@ public partial class AutoWeaponInventory : Node
         EquipBasicWeapon("PPBasicBlue");
         EquipBigWeapon("PPBigBlue");
         EquipSlotWeapon(1, "PPMissileMach");
-        EquipSlotWeapon(2, null);
+        EquipSlotWeapon(2, "PPTeleport");
         EquipSlotWeapon(3, null);
         EquipSlotWeapon(4, null);
     }

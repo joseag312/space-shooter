@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cm2ehypi27656"]
+[gd_scene load_steps=26 format=3 uid="uid://cm2ehypi27656"]
 
 [ext_resource type="Script" uid="uid://dgddoo6aqpkj5" path="res://player_ship/Ship.cs" id="1_pfwoo"]
 [ext_resource type="Texture2D" uid="uid://bnfyvtjx4mo0u" path="res://assets/player_ship/player_ship_basic.png" id="3_kg2yf"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bppah0v3qiu6u" path="res://components/ScaleComponent.cs" id="13_vtaof"]
 [ext_resource type="PackedScene" uid="uid://b5qycb66duqqg" path="res://effects/ef_explosion_teal.tscn" id="13_wigaw"]
 [ext_resource type="Script" uid="uid://dq0illjjctl11" path="res://components/DestroyedComponent.cs" id="14_gmoq6"]
+[ext_resource type="Script" uid="uid://enpb5o35rrvx" path="res://components/FlashComponent.cs" id="17_1soxd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r3vrl"]
 animations = [{
@@ -210,3 +211,9 @@ script = ExtResource("14_gmoq6")
 Actor = NodePath("..")
 StatsComponent = NodePath("../StatsComponent")
 DestroyEffectSpawnerComponent = NodePath("../DestroyedSpawnerComponent")
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
+script = ExtResource("17_1soxd")
+_sprite = NodePath("../Anchor")
+_flashDuration = 0.5
+metadata/_custom_type_script = "uid://enpb5o35rrvx"

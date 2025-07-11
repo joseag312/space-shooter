@@ -2,98 +2,39 @@
 
 ✅ Summary of Today – Cooldown HUD & Overlay Visuals
 
-Today, you:
 
-🎯 Rebuilt the HUDPowers system for weapons and power-ups:
-
-Plugged in all TextureRect and Label nodes using [Export] for clarity and control.
-Initialized consistent color states across buttons, overlays, and icons.
-Implemented a modular cooldown effect with:
-Flashing icons at the start and end
-Overlay fades for visual feedback
-Async/tween-based sequencing using StartCooldown()
-🔁 Replaced PowerSlotUI class:
-
-Simplified by directly referencing Label and TextureRects.
-Switched to clear utility functions:
-SetSlotDisplay() for initial setup
-UpdateAmount() for per-use updates
-UpdateAllAmounts() to sync all values
-🧩 Connected everything with:
-
-SetWeaponManager() to hook into WeaponFired signal
-Cooldown visuals that respond in real time
-Fallback visuals and visibility control to prevent ghosting
-💎 Bonus polish:
-
-🚀 Missile Weapon Firing
-
-Implemented the missile weapon slot and connected it to the full cooldown and ammo system.
-Used EffectiveSpeed correctly for missile movement.
-Ensured ammo decrement and cooldown/disable visuals work depending on remaining charges.
-💥 Visual Effects on Impact
-
-Created a reusable EffectOnImpactComponent that listens to hitbox collisions.
-Spawned a configured scene (pp_missile_explosion.tscn) at the appropriate parent level.
-Solved parenting issues and flush-time physics issues by using CallDeferred().
-🧨 Explosion Behavior
-
-Hooked up a dedicated PpMissileMachExplosion scene.
-Printed and confirmed parent types for correct hierarchy positioning.
-Optionally linked destruction to the end of AnimatedSprite2D animation using a new EffectSpawnComponent.
-🧊 HUD Polish & Cooldown Logic
-
-Fully wired up the HUDPowers system.
-Built a fallback animation (DisableWeapon) when a power runs out of charges.
-Implemented shared color states for cooldowns, flashes, overlays.
-Cleaned up and clarified WeaponStateComponent, adding MinimumCooldownTime = 0.1f.
-🧹 Data Cleanup & Debugging
-
-Resolved broken saves by clearing .godot user save files.
-Restored broken references and missing keys in AutoWeaponInventory.
 
 ****************************************************************************************************************
 
 ⏱️ Starting Point for Tomorrow
 
-🧠 Core Focus: Enemies Fire Back
+⚡️ Core Focus: Enemies Fire Back
+Begin implementing enemies that fire projectiles.
+Track enemy-fired projectiles using tags or layers.
+Add a WeaponFirerComponent to enemies.
 
-Begin implementing enemy weapons that fire projectiles.
-Hook up AI logic to control when and how enemies fire.
-💡 Weapon System Reuse
-
-Use the existing weapon firing system for enemies:
+🧨 Create the rest of the Powers
+    🌀 Teleport – instantly move forward or dodge
+    💥 Missile (AOE) – fires a big area-damage shot
+    🔥 Death Ray – sustained beam in one direction
+    🛡 Shield – temporary invincibility or hit buffer
+Use the existing weapon firing system for enemies
 Spawn from defined points (e.g. Center, LeftMuzzle)
 Set different ProjectilePath, Speed, and Damage in WeaponDataComponent
-Use AutoWeaponFirer or a new firing component on enemies
-🔜 Next Steps
 
-Add a WeaponFirerComponent to enemies.
-Make a basic enemy shoot missiles or bullets downward at intervals.
-Track enemy-fired projectiles using tags or layers.
-Integrate damage and effect visuals when enemy weapons hit the player.
-Play any HUD/SFX feedback
 🧠 Possibly start planning enemy AI: basic shooters, aiming, intervals
 
-MUSIC should repeat itself?
-
-🧭 Continue From:
 Save/load/debug/reset foundations are in place for all major autoloads
-🔧 Suggested Next Steps:
-Task	Priority	Notes
-✅ Add Reset buttons to the upcoming Settings screen	🔜 High	Hook into the reset methods already created
-🛠 Add runtime weapon upgrades / effects (e.g. increase damage temporarily)	Mid	Use OverrideDamage and call Save()
-🎨 Show equipped weapon in HUD or allow switching	Mid	Visual feedback for current weapon state
-💾 Save/load ship equipped weapons or levels reached	Low	Expand persistence logic as needed
-🧪 Add debug panel with live weapon state display	Optional	Great for tuning during testing
+
+✅ Add Reset buttons to the upcoming Settings screen
+🛠 Add runtime weapon upgrades / effects
+🎨 Allow switching
+💾 Save/load ship equipped weapons or levels reached
 
 Powers are triggered by the player and have unique effects
 May be unlocked via drop, level, or menu
 ⚡ First Powers to Prototype
-🌀 Teleport – instantly move forward or dodge
-💥 Missile (AOE) – fires a big area-damage shot
-🔥 Death Ray – sustained beam in one direction
-🛡 Shield – temporary invincibility or hit buffer
+
 🧱 Recommended First Steps
 Build a PowerManagerComponent on the Ship
 Add basic activation/input slots (Power1, Power2)

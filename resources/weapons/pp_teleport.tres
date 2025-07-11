@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://dgaahv5kjqucq"]
+
+[ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="1_u72f6"]
+
+[resource]
+script = ExtResource("1_u72f6")
+Key = "PPTeleport"
+DisplayName = "Blink"
+IconPath = "res://assets/powerups/teleport.png"
+ProjectilePath = "res://player_projectiles/pp_teleport/pp_teleport.tscn"
+SpawnLocation = 4
+SlotType = 2
+Type = 2
+ConditionalSuccess = true
+EmitSuccessSignalName = "PPTeleportSuccess"
+Speed = 0
+Damage = 0
+DamagePercentage = 0
+CooldownTime = 1.5
+MaxAmount = 10
+Unlocked = true

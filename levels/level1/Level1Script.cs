@@ -27,40 +27,40 @@ public partial class Level1Script : Node
 			StartDialog();
 			await Task.Delay(300, token);
 			await HUD.FirstMessage(Char.OIIA, Mood.OIIA.Default, "Ah there he is! The cat I've been hearing so much about!");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "Now... what was that word....");
-			await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.Default, "Your favorite word in the whole galaxy?");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Default, "I knew it. Glad to have you on board rookie! Now listen up");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "This whole galaxy isn't like others...   Our main goal is to survive");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Glasses, "Your ship isn't almighty, only I am..");
-			await HUD.Message(Char.OIIA, Mood.OIIA.GlassesZoom, "Now check this out");
-			G.SFX.Play("oiia_fast");
-			await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.SpinNormal, "See how beautiful this spin is?");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "I knew you were a cat with taste! Now.. Commander, show this new fur around!");
-			await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Yes sir, your spinness!");
-			string instructions = "";
-			do
-			{
-				await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Listen up rookie! Very simple:");
-				await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You move with: ↑ ↓ ← →");
-				await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You use cannon with: space");
-				await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You use powers with: ① ② ③ ④");
-				instructions = await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.Default, "You get all that?", "Yes sir!", "Huh?");
-				if (instructions.Equals("Pessimist"))
-				{
-					await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "You were busy watching this spinning greatness huh!");
-				}
-			}
-			while (!(instructions.Equals("Sure") || instructions.Equals("Optimist")));
-			await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Smart cat!");
-			if (instructions.Equals("Sure"))
-			{
-				await HUD.Message(Char.OIIA, Mood.OIIA.Default, "s u r ely ha!");
-				await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Annoyed, "Funny as always, sir");
-			}
-			await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "We're closing in, rookie heads up!");
-			await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Today we're scouting earth's defenses");
-			await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "These humans think they're the absolute best... Only I am.");
-			await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Gather some intel on what their defenses look like, then head back immediately.");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "Now... what was that word....");
+			// await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.Default, "Your favorite word in the whole galaxy?");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Default, "I knew it. Glad to have you on board rookie! Now listen up");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "This whole galaxy isn't like others...   Our main goal is to survive");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Glasses, "Your ship isn't almighty, only I am..");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.GlassesZoom, "Now check this out");
+			// G.SFX.Play("oiia_fast");
+			// await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.SpinNormal, "See how beautiful this spin is?");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "I knew you were a cat with taste! Now.. Commander, show this new fur around!");
+			// await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Yes sir, your spinness!");
+			// string instructions = "";
+			// do
+			// {
+			// 	await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Listen up rookie! Very simple:");
+			// 	await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You move with: ↑ ↓ ← →");
+			// 	await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You use cannon with: space");
+			// 	await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "You use powers with: ① ② ③ ④");
+			// 	instructions = await HUD.MessageWithPrompt(Char.OIIA, Mood.OIIA.Default, "You get all that?", "Yes sir!", "Huh?");
+			// 	if (instructions.Equals("Pessimist"))
+			// 	{
+			// 		await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "You were busy watching this spinning greatness huh!");
+			// 	}
+			// }
+			// while (!(instructions.Equals("Sure") || instructions.Equals("Optimist")));
+			// await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Smart cat!");
+			// if (instructions.Equals("Sure"))
+			// {
+			// 	await HUD.Message(Char.OIIA, Mood.OIIA.Default, "s u r ely ha!");
+			// 	await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Annoyed, "Funny as always, sir");
+			// }
+			// await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "We're closing in, rookie heads up!");
+			// await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Today we're scouting earth's defenses");
+			// await HUD.Message(Char.OIIA, Mood.OIIA.Inverse, "These humans think they're the absolute best... Only I am.");
+			// await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Default, "Gather some intel on what their defenses look like, then head back immediately.");
 			await HUD.LastMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Good luck out there!");
 			StopDialog();
 

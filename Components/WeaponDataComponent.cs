@@ -38,6 +38,9 @@ public partial class WeaponDataComponent : Resource
     [Export(PropertyHint.Enum, "Machine,Plasma,Ethereal,Chaos")]
     public WeaponType Type { get; set; } = WeaponType.Machine;
 
+    [Export] public bool ConditionalSuccess { get; set; } = false;
+    [Export] public string EmitSuccessSignalName { get; set; } = "";
+
     // Overwriteable
     [Export] public int Speed { get; set; }
     [Export] public int Damage { get; set; }

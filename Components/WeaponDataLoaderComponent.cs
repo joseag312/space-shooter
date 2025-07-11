@@ -31,7 +31,10 @@ public partial class WeaponDataLoaderComponent : Node
 		{
 			MoveComponent.Velocity = new Vector2(0, -state.EffectiveSpeed);
 		}
-		HitboxComponent.Damage = state.EffectiveDamage;
-		HitboxComponent.DamagePercentage = state.EffectiveDamagePercentage;
+		if (HitboxComponent != null)
+		{
+			HitboxComponent.Damage = state.EffectiveDamage;
+			HitboxComponent.DamagePercentage = state.EffectiveDamagePercentage;
+		}
 	}
 }
