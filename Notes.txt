@@ -1,8 +1,30 @@
 ****************************************************************************************************************
 
-✅ Summary of Today – Cooldown HUD & Overlay Visuals
+✅ Summary of Today
 
+🚀 Weapon System Logic Upgrade
 
+Refactored conditional powers to emit a unique success signal (EmitSuccessSignalName) per weapon.
+The Teleport power now emits PPTeleportSuccess, and the system detects it dynamically via:
+string successSignal = weapon.BaseData.EmitSuccessSignalName;
+Used this to trigger OnPowerUsed only when successful, avoiding double CurrentAmount deductions for conditional weapons like missiles and teleport.
+🧠 Signal Debugging
+
+Verified TeleportWeaponComponent emits the right signal and no longer gets stuck by being a child of the ship.
+Cleaned up signal connection logic using:
+weaponInstance.Connect(successSignal, Callable.From(() => OnPowerSucceeded(weaponSlot, weapon)));
+✨ Visual Effects
+
+Designed the visual logic to spawn a one-time effect (e.g., teleport flash) in a proper container instead of being a child of the ship.
+Added IEffectSpawningWeapon interface:
+public interface IEffectSpawningWeapon
+{
+    Node2D EffectContainer { get; set; }
+}
+The WeaponManagerComponent now checks for this interface and injects the appropriate container (like G.EffectContainer) upon instantiation.
+🐛 Fixed:
+
+A bug where teleport effect failed to load due to typo in path (proyectiles → projectiles).
 
 ****************************************************************************************************************
 
@@ -14,8 +36,6 @@ Track enemy-fired projectiles using tags or layers.
 Add a WeaponFirerComponent to enemies.
 
 🧨 Create the rest of the Powers
-    🌀 Teleport – instantly move forward or dodge
-    💥 Missile (AOE) – fires a big area-damage shot
     🔥 Death Ray – sustained beam in one direction
     🛡 Shield – temporary invincibility or hit buffer
 Use the existing weapon firing system for enemies
