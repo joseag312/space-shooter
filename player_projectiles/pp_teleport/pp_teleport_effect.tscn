@@ -95,7 +95,7 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="PpTeleportEffect" type="AnimatedSprite2D"]
+[node name="PPTeleportEffect" type="AnimatedSprite2D"]
 scale = Vector2(1.35, 1.35)
 sprite_frames = SubResource("SpriteFrames_4gxjr")
 autoplay = "default"

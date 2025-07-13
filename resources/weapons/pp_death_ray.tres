@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponDataComponent" load_steps=2 format=3 uid="uid://c1gqssdm30yxs"]
+
+[ext_resource type="Script" uid="uid://b6hy4sdhcue5q" path="res://components/WeaponDataComponent.cs" id="1_lvqor"]
+
+[resource]
+script = ExtResource("1_lvqor")
+Key = "PPDeathRay"
+DisplayName = "Plasma Death Ray"
+IconPath = "res://assets/powerups/death_ray.png"
+ProjectilePath = "res://player_projectiles/pp_death_ray/pp_death_ray.tscn"
+SpawnLocation = 4
+SlotType = 2
+Type = 1
+ConditionalSuccess = false
+EmitSuccessSignalName = ""
+Speed = 0
+Damage = 10
+DamagePercentage = 0
+CooldownTime = 3.0
+MaxAmount = 10
+Unlocked = true

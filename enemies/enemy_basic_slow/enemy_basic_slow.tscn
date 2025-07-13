@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bosg8wcpy205u"]
+[gd_scene load_steps=26 format=3 uid="uid://bosg8wcpy205u"]
 
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="1_s71b3"]
 [ext_resource type="Texture2D" uid="uid://cm3sx2vtm67v4" path="res://assets/enemy/enemy_basic_slow.png" id="2_ud4ay"]
@@ -17,6 +17,22 @@
 [ext_resource type="Script" uid="uid://c0p7rysr544jk" path="res://components/DespawnOnExitComponent.cs" id="15_7a6an"]
 [ext_resource type="Script" uid="uid://bsn1hx6fcpuet" path="res://components/DropComponent.cs" id="16_ibd1c"]
 [ext_resource type="Resource" uid="uid://dvid4yjb07hiu" path="res://resources/data/table_drop_rare.tres" id="17_v37ik"]
+[ext_resource type="Script" uid="uid://birtkwumpwfoo" path="res://components/EnemyWeaponComponent.cs" id="18_1rxmf"]
+[ext_resource type="PackedScene" uid="uid://b8kjheqlrm40x" path="res://enemy_projectiles/ep_basic/ep_basic.tscn" id="19_bxwcf"]
+
+[sub_resource type="Gradient" id="Gradient_h22py"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q0xs6"]
+gradient = SubResource("Gradient_h22py")
+width = 16
+
+[sub_resource type="Gradient" id="Gradient_tvucr"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_27onc"]
+gradient = SubResource("Gradient_tvucr")
+width = 16
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i1mwl"]
 atlas = ExtResource("2_ud4ay")
@@ -33,21 +49,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_h22py"]
-colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_q0xs6"]
-gradient = SubResource("Gradient_h22py")
-width = 16
-
-[sub_resource type="Gradient" id="Gradient_tvucr"]
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_27onc"]
-gradient = SubResource("Gradient_tvucr")
-width = 16
-
 [node name="EnemyBasicSlow" type="Node2D"]
+
+[node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -31.0
+offset_right = 8.0
+offset_bottom = -29.0
+value = 100.0
+texture_under = SubResource("GradientTexture1D_q0xs6")
+texture_progress = SubResource("GradientTexture1D_27onc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 3.14159
@@ -70,7 +81,7 @@ Damage = 5
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
 polygon = PackedVector2Array(-23, 1, -26, -9, -26, -16, -12, -20, -1, -26, 10, -22, 26, -17, 25, -2, 11, 5, 12, 20, 0, 26, -12, 17, -11, 4)
 
-[node name="SpawnerMarker" type="Marker2D" parent="."]
+[node name="DestroyedMarker" type="Marker2D" parent="."]
 
 [node name="PersistenceComponent" type="Node2D" parent="." node_paths=PackedStringArray("MoveComponent")]
 script = ExtResource("13_4bnn2")
@@ -79,7 +90,7 @@ PersistenceMilliseconds = 4000
 
 [node name="SpawnerComponent" type="Node2D" parent="." node_paths=PackedStringArray("Location")]
 script = ExtResource("3_x0hgl")
-Location = NodePath("../SpawnerMarker")
+Location = NodePath("../DestroyedMarker")
 Scene = ExtResource("4_xd012")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -139,11 +150,19 @@ DropTable = ExtResource("17_v37ik")
 Type = 1
 metadata/_custom_type_script = "uid://bsn1hx6fcpuet"
 
-[node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
-offset_left = -8.0
-offset_top = -31.0
-offset_right = 8.0
-offset_bottom = -29.0
-value = 100.0
-texture_under = SubResource("GradientTexture1D_q0xs6")
-texture_progress = SubResource("GradientTexture1D_27onc")
+[node name="EnemyWeaponComponent" type="Node" parent="." node_paths=PackedStringArray("Muzzle1", "Timer1")]
+script = ExtResource("18_1rxmf")
+Muzzle1 = NodePath("../MuzzleMarker")
+ProjectileScene1 = ExtResource("19_bxwcf")
+AimAtPlayer1 = false
+Velocity1 = 300.0
+Timer1 = NodePath("../Timer")
+Cooldown1Min = 3.0
+Cooldown1Max = 10.0
+metadata/_custom_type_script = "uid://birtkwumpwfoo"
+
+[node name="MuzzleMarker" type="Marker2D" parent="."]
+position = Vector2(0, 25)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0

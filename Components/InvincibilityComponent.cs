@@ -72,4 +72,24 @@ public partial class InvincibilityComponent : Node
 			OwnerNode.Modulate = new Color(1, 1, 1, 1);
 		}
 	}
+
+	public void ForceStartInvincibility()
+	{
+		if (!_isInvincible)
+		{
+			IsInvincible = true;
+		}
+
+		if (_invincibilityTimer != null && _invincibilityTimer.TimeLeft > 0)
+			_invincibilityTimer.Stop();
+	}
+
+	public void ForceEndInvincibility()
+	{
+		IsInvincible = false;
+
+		if (_invincibilityTimer != null && _invincibilityTimer.TimeLeft > 0)
+			_invincibilityTimer.Stop();
+	}
+
 }

@@ -118,8 +118,8 @@ public partial class AutoWeaponInventory : Node
         EquipBigWeapon("PPBigBlue");
         EquipSlotWeapon(1, "PPMissileMach");
         EquipSlotWeapon(2, "PPTeleport");
-        EquipSlotWeapon(3, null);
-        EquipSlotWeapon(4, null);
+        EquipSlotWeapon(3, "PPShield");
+        EquipSlotWeapon(4, "PPDeathRay");
     }
 
     private WeaponStateComponent DefaultWeaponState(string key)

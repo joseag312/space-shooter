@@ -12,6 +12,8 @@ public partial class SpawnerRecurrentComponent : Node
     [Export] public Node2D EnemyContainer;
     [Export] public Node2D DropContainer;
     [Export] public Node2D EffectContainer;
+    [Export] public Node2D ProjectileContainer;
+    [Export] public Node2D Ship;
     [Export] public int Margin = 8;
 
     private int _leftBorder;
@@ -101,6 +103,13 @@ public partial class SpawnerRecurrentComponent : Node
                 effect.EffectTarget = EffectContainer;
             }
 
+            if (enemy.HasNode("EnemyWeaponComponent"))
+            {
+                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
+                weapons.ProjectileContainer = ProjectileContainer;
+                weapons.TargetShip = Ship;
+            }
+
             EnemyContainer.AddChild(enemy);
         }
     }
@@ -136,6 +145,13 @@ public partial class SpawnerRecurrentComponent : Node
                 effect.EffectTarget = EffectContainer;
             }
 
+            if (enemy.HasNode("EnemyWeaponComponent"))
+            {
+                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
+                weapons.ProjectileContainer = ProjectileContainer;
+                weapons.TargetShip = Ship;
+            }
+
             EnemyContainer.AddChild(enemy);
         }
     }
@@ -161,7 +177,21 @@ public partial class SpawnerRecurrentComponent : Node
             if (enemy.HasNode("DropComponent"))
             {
                 var drop = enemy.GetNode<DropComponent>("DropComponent");
+                drop.EffectTarget = EffectContainer;
                 drop.DropTarget = DropContainer;
+            }
+
+            if (enemy.HasNode("DestroyedComponent"))
+            {
+                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
+                effect.EffectTarget = EffectContainer;
+            }
+
+            if (enemy.HasNode("EnemyWeaponComponent"))
+            {
+                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
+                weapons.ProjectileContainer = ProjectileContainer;
+                weapons.TargetShip = Ship;
             }
 
             EnemyContainer.AddChild(enemy);

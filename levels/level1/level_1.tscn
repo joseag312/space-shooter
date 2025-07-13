@@ -52,20 +52,24 @@ Scene = ExtResource("4_kw6hg")
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
 
-[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "EnemyContainer", "DropContainer", "EffectContainer")]
+[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
 script = ExtResource("4_54k3g")
 Enemy1Spawner = NodePath("../Spawners/BasicEnemySpawner")
 Enemy2Spawner = NodePath("../Spawners/BasicEnemySlowSpawner")
 EnemyContainer = NodePath("../../EnemyContainer")
 DropContainer = NodePath("../../DropContainer")
 EffectContainer = NodePath("../../EffectContainer")
+ProjectileContainer = NodePath("../../ProjectileContainer")
+Ship = NodePath("../../ShipContainer/Ship")
 metadata/_custom_type_script = "uid://dsrlc8h0hnlgp"
 
-[node name="SpawnerWaveComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("EnemyContainer", "DropContainer", "EffectContainer")]
+[node name="SpawnerWaveComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
 script = ExtResource("5_u3t6j")
 EnemyContainer = NodePath("../../EnemyContainer")
 DropContainer = NodePath("../../DropContainer")
 EffectContainer = NodePath("../../EffectContainer")
+ProjectileContainer = NodePath("../../ProjectileContainer")
+Ship = NodePath("../../ShipContainer/Ship")
 metadata/_custom_type_script = "uid://7bpd0oehmqnw"
 
 [node name="LevelCleanupComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("HUD")]

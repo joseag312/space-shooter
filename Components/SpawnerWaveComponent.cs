@@ -10,6 +10,8 @@ public partial class SpawnerWaveComponent : Node
     [Export] public Node2D EnemyContainer;
     [Export] public Node2D DropContainer;
     [Export] public Node2D EffectContainer;
+    [Export] public Node2D ProjectileContainer;
+    [Export] public Node2D Ship;
 
     private int _leftBorder;
     private int _rightBorder;
@@ -48,6 +50,13 @@ public partial class SpawnerWaveComponent : Node
                 effect.EffectTarget = EffectContainer;
             }
 
+            if (enemy.HasNode("EnemyWeaponComponent"))
+            {
+                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
+                weapons.ProjectileContainer = ProjectileContainer;
+                weapons.TargetShip = Ship;
+            }
+
             EnemyContainer.AddChild(enemy);
         }
     }
@@ -83,7 +92,12 @@ public partial class SpawnerWaveComponent : Node
                 effect.EffectTarget = EffectContainer;
             }
 
-            EnemyContainer.AddChild(enemy);
+            if (enemy.HasNode("EnemyWeaponComponent"))
+            {
+                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
+                weapons.ProjectileContainer = ProjectileContainer;
+                weapons.TargetShip = Ship;
+            }
 
             if (enemy.HasNode("PersistenceComponent"))
             {
@@ -91,6 +105,7 @@ public partial class SpawnerWaveComponent : Node
                 persistence.ShouldStay = true;
             }
 
+            EnemyContainer.AddChild(enemy);
             spawnedEnemies.Add(enemy);
         }
 
