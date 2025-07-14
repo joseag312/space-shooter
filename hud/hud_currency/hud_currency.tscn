@@ -23,6 +23,7 @@ offset_left = -362.0
 offset_top = 15.0
 offset_bottom = 95.0
 grow_horizontal = 0
+alignment = 2
 
 [node name="MewnitsContainer" type="CenterContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -35,7 +36,7 @@ expand_mode = 1
 
 [node name="MewnitsValue" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "300"
+text = "10321654"
 
 [node name="m20" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -52,7 +53,7 @@ expand_mode = 1
 
 [node name="PawllarsValue" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "5041"
+text = "65132012"
 
 [node name="m35" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(35, 0)

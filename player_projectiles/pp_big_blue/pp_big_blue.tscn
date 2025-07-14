@@ -7,13 +7,17 @@
 scale = Vector2(3, 3)
 
 [node name="Sprite2D" parent="." index="0"]
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_2jsrl")
 
 [node name="CollisionShape2D" parent="HitboxComponent" index="0"]
-position = Vector2(0, 0)
+position = Vector2(0.166667, -1.5)
 
 [node name="WeaponDataLoaderComponent" parent="." index="4"]
 WeaponKey = "PPBigBlue"
 
 [node name="MoveComponent" parent="." index="5"]
 Velocity = Vector2(0, -1000)
+
+[node name="ScaleComponent" parent="." index="7"]
+ScaleAmount = Vector2(1.5, 1.5)

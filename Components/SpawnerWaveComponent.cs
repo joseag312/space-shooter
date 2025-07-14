@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 
@@ -57,6 +58,13 @@ public partial class SpawnerWaveComponent : Node
                 weapons.TargetShip = Ship;
             }
 
+            if (enemy.HasNode("PersistenceComponent"))
+            {
+                var persistence = enemy.GetNode<PersistenceComponent>("PersistenceComponent");
+                persistence.ShouldPersist = true;
+                persistence.ShouldStay = false;
+            }
+
             EnemyContainer.AddChild(enemy);
         }
     }
@@ -102,6 +110,7 @@ public partial class SpawnerWaveComponent : Node
             if (enemy.HasNode("PersistenceComponent"))
             {
                 var persistence = enemy.GetNode<PersistenceComponent>("PersistenceComponent");
+                persistence.ShouldPersist = true;
                 persistence.ShouldStay = true;
             }
 

@@ -5,18 +5,18 @@ using System;
 [GlobalClass]
 public partial class DropHealth : DropBase, IDropAmount
 {
-    [Export] public int HealAmount = 10;
+    [Export] public int HealPercent = 10;
 
     public void SetAmount(int amount, DropContext? context = null)
     {
-        HealAmount = amount;
+        HealPercent = amount;
     }
 
     public override void HandlePickup(HitboxComponent hitboxComponent)
     {
         if (hitboxComponent.Owner is Ship ship)
         {
-            ship.Heal(HealAmount);
+            ship.Heal(HealPercent);
         }
     }
 }

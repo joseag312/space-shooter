@@ -7,6 +7,7 @@ public partial class PersistenceComponent : Node2D
 	[Export] public MoveComponent MoveComponent { get; set; }
 	[Export] public int PersistenceMilliseconds { get; set; }
 	[Export] public bool ShouldStay { get; set; } = false;
+	[Export] public bool ShouldPersist { get; set; } = false;
 
 	private int _margin;
 	private int _leftBorder;
@@ -25,6 +26,9 @@ public partial class PersistenceComponent : Node2D
 
 		await Task.Delay(3000);
 		if (!IsInstanceValid(this))
+			return;
+
+		if (!ShouldPersist)
 			return;
 
 		MoveComponent.Velocity = Vector2.Zero;

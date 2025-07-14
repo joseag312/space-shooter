@@ -2,54 +2,34 @@
 
 ✅ Summary of Today
 
-🔫 Enemy Weapon System (Complete!)
-Created EnemyWeaponComponent:
-Supports 3 independent weapon slots
-Each with:
-Its own Muzzle (Marker2D)
-Projectile Scene
-Velocity
-AimAtPlayer toggle
-Min/Max Cooldowns
-Dedicated Timer
-Uses MoveComponent for clean projectile motion
-Fully debugged with detailed logging
-Modular and editor-friendly (plug-and-play enemies)
-    ✅ Architecture Wins
-    Reusable for all enemy types, including bosses
-    Handles firing logic autonomously via timers
-    Cleaned and refactored into maintainable helper methods
-    Snap-in behavior = full AI via composition
-
-🧪 Power-Up HUD + Firing System (Previous Work, Completed)
-HUDPowers system tracks equipped powers:
-Uses exported references for each power icon, overlay, and label
-Shows cooldown visuals using async flash + overlay fade
-WeaponManagerComponent emits WeaponFired signal per slot
-HUD reacts to this and triggers cooldown feedback
-WeaponStateComponent supports:
-Per-weapon cooldowns, speed, and loadouts
-EffectiveSpeed, EffectiveCooldown, CurrentAmount
-Power-ups integrated into runtime state via WeaponInventoryManager
-Fully compatible with HUD and existing ship weapons
+🎯 Enemies
+🧨 2 New Enemies added — expanding the threat variety!
+👑 Mini-Boss Enemy created using the new modular EnemyWeaponComponent:
+Features multiple muzzles
+Supports multiple attack styles (e.g., aimed + spread)
+Utilizes the existing weapon system, plugged in like LEGO
+💎 Loot Tables
+📦 Fully standardized loot tiers:
+Common, Rare, Epic
+Likely now driving future enemy drops cleanly and flexibly
+🔫 Mini-Boss Weapon
+🔧 Created custom weapon for the mini-boss:
+Fits seamlessly into the new enemy firing framework
+Adds challenge variety and modularity
 
 ****************************************************************************************************************
 
-🚀 Tomorrow’s Jump Point – Begin Boss Enemy #1
+🚀 Tomorrow’s Jump Point – Continue Boss Enemy #1
 
-🏁Goal:
-    👾 Create 2 more enemies
-    👾 Create a more advanced enemy (mini-boss or boss) using:
-        2 or more muzzles
-        Multiple attack styles (e.g. aimed + spread)
-        Movement pattern (e.g. drift → stop → fire)
-        Phase potential (optional, for later)
+🎯 Goal:
+    🔀 Implement a RandomMovementComponent for the mini-boss:
+    Moves in a defined pattern (e.g., float → pause → reposition)
+    Possibly includes drift, burst, or unpredictable dodges
 
-⚡️ Optionals:
-    ✅ Add Reset buttons to the upcoming Settings screen
-    🛠 Add runtime weapon upgrades / effects
-    🎨 Allow switching
-    💾 Save/load/debug/reset foundations are in place for all major autoloads
+🧪 Optionals Being Tackled:
+    ✅ Reset Buttons planned for the Settings screen
+    🛠️ Weapon upgrades/effects are up next (optional category)
+    💾 All major autoloads now support save/load/reset/debug — the system is future-proof!
 
 ****************************************************************************************************************
 

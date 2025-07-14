@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
 [ext_resource type="Script" uid="uid://dsrlc8h0hnlgp" path="res://components/SpawnerRecurrentComponent.cs" id="4_54k3g"]
 [ext_resource type="Script" uid="uid://b7kt20j1tgm7k" path="res://components/LevelFlowComponent.cs" id="4_ebna0"]
-[ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/enemy_basic/enemy_basic.tscn" id="4_kw6hg"]
+[ext_resource type="PackedScene" uid="uid://bcla0tq71aoqp" path="res://enemies/enemy_human_kamikaze/enemy_human_kamikaze.tscn" id="4_kw6hg"]
 [ext_resource type="PackedScene" uid="uid://cm2ehypi27656" path="res://player_ship/ship.tscn" id="5_iqhro"]
 [ext_resource type="Script" uid="uid://7bpd0oehmqnw" path="res://components/SpawnerWaveComponent.cs" id="5_u3t6j"]
-[ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/enemy_basic_slow/enemy_basic_slow.tscn" id="6_1a4kf"]
+[ext_resource type="PackedScene" uid="uid://bosg8wcpy205u" path="res://enemies/enemy_human_basic/enemy_human_basic.tscn" id="6_1a4kf"]
 [ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/bg_ocean.tscn" id="6_icxts"]
 [ext_resource type="Script" uid="uid://bhwduhk2gwo8t" path="res://components/LevelCleanupComponent.cs" id="6_tl3cw"]
 [ext_resource type="Script" uid="uid://dodau5xi40hmx" path="res://components/ShipDeathHandlerComponent.cs" id="7_o80m7"]
@@ -20,12 +20,13 @@
 
 [node name="HUDMain" parent="." instance=ExtResource("13_u3t6j")]
 
-[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "HUD")]
+[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "HUD")]
 script = ExtResource("2_f645t")
 Ship = NodePath("../ShipContainer/Ship")
 LevelFlowComponent = NodePath("../LevelFlowComponent")
-Enemy1Spawner = NodePath("../LevelFlowComponent/Spawners/BasicEnemySpawner")
-Enemy2Spawner = NodePath("../LevelFlowComponent/Spawners/BasicEnemySlowSpawner")
+Enemy1Spawner = NodePath("../LevelFlowComponent/Spawners/EnemyHumanKamikaze")
+Enemy2Spawner = NodePath("../LevelFlowComponent/Spawners/EnemyHumanBasic")
+Enemy3Spawner = NodePath("")
 HUD = NodePath("../HUDMain")
 
 [node name="LevelFlowComponent" type="Node" parent="." node_paths=PackedStringArray("ShipDeathHandler", "SpawnerRecurrent", "SpawnerWave", "LevelCleanup")]
@@ -44,18 +45,19 @@ metadata/_custom_type_script = "uid://cx7err3tijmky"
 
 [node name="Spawners" type="Node" parent="LevelFlowComponent"]
 
-[node name="BasicEnemySpawner" type="Node2D" parent="LevelFlowComponent/Spawners"]
+[node name="EnemyHumanKamikaze" type="Node2D" parent="LevelFlowComponent/Spawners"]
 script = ExtResource("2_loufh")
 Scene = ExtResource("4_kw6hg")
 
-[node name="BasicEnemySlowSpawner" type="Node2D" parent="LevelFlowComponent/Spawners"]
+[node name="EnemyHumanBasic" type="Node2D" parent="LevelFlowComponent/Spawners"]
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
 
-[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
+[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
 script = ExtResource("4_54k3g")
-Enemy1Spawner = NodePath("../Spawners/BasicEnemySpawner")
-Enemy2Spawner = NodePath("../Spawners/BasicEnemySlowSpawner")
+Enemy1Spawner = NodePath("../Spawners/EnemyHumanKamikaze")
+Enemy2Spawner = NodePath("../Spawners/EnemyHumanBasic")
+Enemy3Spawner = NodePath("")
 EnemyContainer = NodePath("../../EnemyContainer")
 DropContainer = NodePath("../../DropContainer")
 EffectContainer = NodePath("../../EffectContainer")
