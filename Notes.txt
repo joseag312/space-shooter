@@ -2,34 +2,42 @@
 
 ✅ Summary of Today
 
-🎯 Enemies
-🧨 2 New Enemies added — expanding the threat variety!
-👑 Mini-Boss Enemy created using the new modular EnemyWeaponComponent:
-Features multiple muzzles
-Supports multiple attack styles (e.g., aimed + spread)
-Utilizes the existing weapon system, plugged in like LEGO
-💎 Loot Tables
-📦 Fully standardized loot tiers:
-Common, Rare, Epic
-Likely now driving future enemy drops cleanly and flexibly
-🔫 Mini-Boss Weapon
-🔧 Created custom weapon for the mini-boss:
-Fits seamlessly into the new enemy firing framework
-Adds challenge variety and modularity
+🧠 Boss Enemy Behavior & Systems
+🎯 RandomMovementComponent completed and polished:
+    Patrols within a defined TopLeft → BottomRight area
+    Uses randomized velocity + manual movement
+    Enforces a MinDistance to avoid micro-jitters
+    Modular and starts after PersistenceComponent signals readiness
+🔄 PersistenceComponent integration:
+    RandomMovementComponent exports a reference to it and auto-connects via signal
+    Movement only begins after boss finishes scripted entrance
+💎 Drop System Enhancements
+🩸 DropOnHitComponent implemented:
+    Tied to HurtboxComponent.Hurt signal
+    Rolls against WeightedDropTable on each hit
+    Supports DropBase, IDropAmount, EffectTarget, and DropTarget
+    Fully debugged with a clean production-ready version now in use
+🕵️ Resolved confusing drop behavior:
+    Traced a duplicated .tres file holding unexpected entries
+    Confirmed .tres reference leak — recreated a clean drop table from scratch
+🔧 Spawner Cleanup
+🛠️ Created SpawnerUtils.SetupEnemy() method:
+    Replaces repeated logic in SpawnerWaveComponent and SpawnerRecurrentComponent
+    Automatically wires drops, projectiles, effects, weapons
+    Future-proofed for modular enemy scenes
 
 ****************************************************************************************************************
 
-🚀 Tomorrow’s Jump Point – Continue Boss Enemy #1
+🚀 Tomorrow’s Jump Point
 
-🎯 Goal:
-    🔀 Implement a RandomMovementComponent for the mini-boss:
-    Moves in a defined pattern (e.g., float → pause → reposition)
-    Possibly includes drift, burst, or unpredictable dodges
-
-🧪 Optionals Being Tackled:
-    ✅ Reset Buttons planned for the Settings screen
-    🛠️ Weapon upgrades/effects are up next (optional category)
-    💾 All major autoloads now support save/load/reset/debug — the system is future-proof!
+🎯 Goals:
+    💢 Implement attack pattern logic (burst waves, reactive firing, or staggered salvos)
+    🛡 Add defensive behavior (shield, evasive phase, or damage reduction)
+    🧠 Tie together multiple AI modes/phases based on health
+    🧪 Optionals in Progress:
+    🎛 Hook DropOnHitComponent into boss-specific loot tiers
+    🔄 Implement cooldowns or max-drop caps per hit
+    🎨 Animate RandomMovementComponent’s movement (sprite tilt or thrust effects)ve/load/reset/debug — the system is future-proof!
 
 ****************************************************************************************************************
 
