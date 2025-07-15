@@ -9,6 +9,9 @@ public partial class PersistenceComponent : Node2D
 	[Export] public bool ShouldStay { get; set; } = false;
 	[Export] public bool ShouldPersist { get; set; } = false;
 
+	[Signal]
+	public delegate void PersistenceCompleteEventHandler();
+
 	private int _margin;
 	private int _leftBorder;
 	private int _rightBorder;
@@ -37,6 +40,9 @@ public partial class PersistenceComponent : Node2D
 
 		if (!IsInstanceValid(this))
 			return;
+
+		EmitSignal(SignalName.PersistenceComplete);
+
 		if (ShouldStay)
 			return;
 

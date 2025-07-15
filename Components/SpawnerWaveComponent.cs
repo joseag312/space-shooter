@@ -38,34 +38,7 @@ public partial class SpawnerWaveComponent : Node
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
 
-            if (enemy.HasNode("DropComponent"))
-            {
-                var drop = enemy.GetNode<DropComponent>("DropComponent");
-                drop.DropTarget = DropContainer;
-                drop.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("DestroyedComponent"))
-            {
-                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
-                effect.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("EnemyWeaponComponent"))
-            {
-                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
-                weapons.ProjectileContainer = ProjectileContainer;
-                weapons.TargetShip = Ship;
-            }
-
-            if (enemy.HasNode("PersistenceComponent"))
-            {
-                var persistence = enemy.GetNode<PersistenceComponent>("PersistenceComponent");
-                persistence.ShouldPersist = true;
-                persistence.ShouldStay = false;
-            }
-
-            EnemyContainer.AddChild(enemy);
+            SpawnSetup.SetupEnemy(enemy, EnemyContainer, DropContainer, EffectContainer, ProjectileContainer, true, false, Ship);
         }
     }
 
@@ -87,34 +60,7 @@ public partial class SpawnerWaveComponent : Node
             enemy.GlobalPosition = spawnPosition;
             enemy.AddToGroup("spawn_wave");
 
-            if (enemy.HasNode("DropComponent"))
-            {
-                var drop = enemy.GetNode<DropComponent>("DropComponent");
-                drop.DropTarget = DropContainer;
-                drop.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("DestroyedComponent"))
-            {
-                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
-                effect.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("EnemyWeaponComponent"))
-            {
-                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
-                weapons.ProjectileContainer = ProjectileContainer;
-                weapons.TargetShip = Ship;
-            }
-
-            if (enemy.HasNode("PersistenceComponent"))
-            {
-                var persistence = enemy.GetNode<PersistenceComponent>("PersistenceComponent");
-                persistence.ShouldPersist = true;
-                persistence.ShouldStay = true;
-            }
-
-            EnemyContainer.AddChild(enemy);
+            SpawnSetup.SetupEnemy(enemy, EnemyContainer, DropContainer, EffectContainer, ProjectileContainer, true, true, Ship);
             spawnedEnemies.Add(enemy);
         }
 

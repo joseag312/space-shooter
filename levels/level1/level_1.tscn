@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://din7e88hu2cps"]
+[gd_scene load_steps=15 format=3 uid="uid://din7e88hu2cps"]
 
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bhwduhk2gwo8t" path="res://components/LevelCleanupComponent.cs" id="6_tl3cw"]
 [ext_resource type="Script" uid="uid://dodau5xi40hmx" path="res://components/ShipDeathHandlerComponent.cs" id="7_o80m7"]
 [ext_resource type="Script" uid="uid://cx7err3tijmky" path="res://components/LevelMusicTriggerComponent.cs" id="8_tl3cw"]
+[ext_resource type="PackedScene" uid="uid://c5xf8n0lytpa3" path="res://enemies/enemy_human_bulldozer/enemy_human_bulldozer.tscn" id="9_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="13_u3t6j"]
 
 [node name="Level1" type="Node2D"]
@@ -26,7 +27,7 @@ Ship = NodePath("../ShipContainer/Ship")
 LevelFlowComponent = NodePath("../LevelFlowComponent")
 Enemy1Spawner = NodePath("../LevelFlowComponent/Spawners/EnemyHumanKamikaze")
 Enemy2Spawner = NodePath("../LevelFlowComponent/Spawners/EnemyHumanBasic")
-Enemy3Spawner = NodePath("")
+Enemy3Spawner = NodePath("../LevelFlowComponent/Spawners/SpawnerComponent")
 HUD = NodePath("../HUDMain")
 
 [node name="LevelFlowComponent" type="Node" parent="." node_paths=PackedStringArray("ShipDeathHandler", "SpawnerRecurrent", "SpawnerWave", "LevelCleanup")]
@@ -53,11 +54,15 @@ Scene = ExtResource("4_kw6hg")
 script = ExtResource("2_loufh")
 Scene = ExtResource("6_1a4kf")
 
-[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
+[node name="SpawnerComponent" type="Node2D" parent="LevelFlowComponent/Spawners"]
+script = ExtResource("2_loufh")
+Scene = ExtResource("9_tl3cw")
+metadata/_custom_type_script = "uid://15c5bbm4dl76"
+
+[node name="SpawnerRecurrentComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Enemy1Spawner", "Enemy2Spawner", "EnemyContainer", "DropContainer", "EffectContainer", "ProjectileContainer", "Ship")]
 script = ExtResource("4_54k3g")
 Enemy1Spawner = NodePath("../Spawners/EnemyHumanKamikaze")
 Enemy2Spawner = NodePath("../Spawners/EnemyHumanBasic")
-Enemy3Spawner = NodePath("")
 EnemyContainer = NodePath("../../EnemyContainer")
 DropContainer = NodePath("../../DropContainer")
 EffectContainer = NodePath("../../EffectContainer")

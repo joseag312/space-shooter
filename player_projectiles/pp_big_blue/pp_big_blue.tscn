@@ -11,7 +11,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_2jsrl")
 
 [node name="CollisionShape2D" parent="HitboxComponent" index="0"]
-position = Vector2(0.166667, -1.5)
+position = Vector2(0, -2.5)
 
 [node name="WeaponDataLoaderComponent" parent="." index="4"]
 WeaponKey = "PPBigBlue"

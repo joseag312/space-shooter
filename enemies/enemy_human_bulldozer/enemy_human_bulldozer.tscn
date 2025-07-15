@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c5xf8n0lytpa3"]
+[gd_scene load_steps=29 format=3 uid="uid://c5xf8n0lytpa3"]
 
 [ext_resource type="Texture2D" uid="uid://baaje4crapiwc" path="res://assets/enemy/enemy_human_bulldozer.png" id="1_8d6a6"]
 [ext_resource type="Script" uid="uid://5c13s4gkqo4w" path="res://components/HurtboxComponent.cs" id="2_cc6cv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="5_ixwpb"]
 [ext_resource type="PackedScene" uid="uid://b3w8nydcibgec" path="res://effects/ef_explosion_red.tscn" id="6_70ymy"]
 [ext_resource type="Script" uid="uid://bngbbdfy7uu7s" path="res://components/MoveComponent.cs" id="7_e1dmu"]
+[ext_resource type="Script" uid="uid://d2bgm6d7vt2ps" path="res://components/RandomMovementComponent.cs" id="8_hmcre"]
 [ext_resource type="Script" uid="uid://enpb5o35rrvx" path="res://components/FlashComponent.cs" id="8_jdcii"]
 [ext_resource type="Script" uid="uid://bppah0v3qiu6u" path="res://components/ScaleComponent.cs" id="9_4ogkm"]
 [ext_resource type="Script" uid="uid://pfknuewrewab" path="res://components/StatsComponent.cs" id="10_7l8xe"]
@@ -19,7 +20,9 @@
 [ext_resource type="Resource" uid="uid://bpgwuionr3ilg" path="res://resources/data/table_drop_epic.tres" id="17_8d6a6"]
 [ext_resource type="Script" uid="uid://birtkwumpwfoo" path="res://components/EnemyWeaponComponent.cs" id="18_cew2j"]
 [ext_resource type="PackedScene" uid="uid://dqw2ymg3bv0wx" path="res://enemy_projectiles/ep_plasma_web/ep_plasma_web.tscn" id="19_8d6a6"]
+[ext_resource type="Script" uid="uid://cocvh8r44cmn4" path="res://components/DropOnHitComponent.cs" id="19_44ycn"]
 [ext_resource type="PackedScene" uid="uid://b8kjheqlrm40x" path="res://enemy_projectiles/ep_plasma_basic/ep_plasma_basic.tscn" id="19_jatfw"]
+[ext_resource type="Resource" uid="uid://ckn5sbmt6hfxm" path="res://resources/data/table_drop_restore.tres" id="20_44ycn"]
 
 [sub_resource type="Gradient" id="Gradient_h22py"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
@@ -46,7 +49,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemyBasicAimer" type="Node2D"]
+[node name="EnemyBasicBulldozer" type="Node2D"]
 
 [node name="HealthBarProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0
@@ -99,6 +102,16 @@ script = ExtResource("7_e1dmu")
 Actor = NodePath("..")
 Velocity = Vector2(0, 100)
 
+[node name="RandomMovementComponent" type="Node" parent="." node_paths=PackedStringArray("OwnerNode", "PersistenceComponent", "FlashComponent")]
+script = ExtResource("8_hmcre")
+OwnerNode = NodePath("..")
+PersistenceComponent = NodePath("../PersistenceComponent")
+FlashComponent = NodePath("../FlashComponent")
+TopLeft = Vector2(280, 150)
+BottomRight = Vector2(1000, 250)
+MinSpeed = 200.0
+metadata/_custom_type_script = "uid://d2bgm6d7vt2ps"
+
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("8_jdcii")
 _sprite = NodePath("../AnimatedSprite2D")
@@ -146,8 +159,15 @@ metadata/_custom_type_script = "uid://c0p7rysr544jk"
 script = ExtResource("16_8rgix")
 DestroyedComponent = NodePath("../DestroyedComponent")
 DropTable = ExtResource("17_8d6a6")
-Type = 1
+Type = 2
 metadata/_custom_type_script = "uid://bsn1hx6fcpuet"
+
+[node name="DropOnHitComponent" type="Node" parent="." node_paths=PackedStringArray("HurtboxComponent")]
+script = ExtResource("19_44ycn")
+HurtboxComponent = NodePath("../HurtboxComponent")
+DropTable = ExtResource("20_44ycn")
+Type = 4
+metadata/_custom_type_script = "uid://cocvh8r44cmn4"
 
 [node name="EnemyWeaponComponent" type="Node" parent="." node_paths=PackedStringArray("Muzzle1", "Timer1", "Muzzle2", "Timer2", "Muzzle3", "Timer3")]
 script = ExtResource("18_cew2j")

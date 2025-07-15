@@ -65,27 +65,27 @@ public partial class Level1Script : Node
 			StopDialog();
 
 			await Task.Delay(1000, token);
-			_ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
+			// _ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
 
-			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
-			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
+			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
 
-			await Task.Delay(20000, token);
-			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			// await Task.Delay(20000, token);
+			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
 
-			await Task.Delay(3000, token);
-			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
-			_ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
-			await Task.Delay(3000, token);
+			// await Task.Delay(3000, token);
+			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
+			// _ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
+			// await Task.Delay(3000, token);
 
-			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
-			_ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
-			await Task.Delay(20000, token);
-			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
-			await Task.Delay(500, token);
+			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			// _ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
+			// await Task.Delay(20000, token);
+			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			// await Task.Delay(500, token);
 
-			await Task.Delay(1500, token);
-			_ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
+			// await Task.Delay(1500, token);
+			// _ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
 			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy3Spawner, 1, 200);
 			await Task.Delay(3000, token);
 			await HandleLevelClear();

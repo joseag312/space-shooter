@@ -90,27 +90,7 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            if (enemy.HasNode("DropComponent"))
-            {
-                var drop = enemy.GetNode<DropComponent>("DropComponent");
-                drop.EffectTarget = EffectContainer;
-                drop.DropTarget = DropContainer;
-            }
-
-            if (enemy.HasNode("DestroyedComponent"))
-            {
-                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
-                effect.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("EnemyWeaponComponent"))
-            {
-                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
-                weapons.ProjectileContainer = ProjectileContainer;
-                weapons.TargetShip = Ship;
-            }
-
-            EnemyContainer.AddChild(enemy);
+            SpawnSetup.SetupEnemy(enemy, EnemyContainer, DropContainer, EffectContainer, ProjectileContainer, false, false, Ship);
         }
     }
 
@@ -132,27 +112,7 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            if (enemy.HasNode("DropComponent"))
-            {
-                var drop = enemy.GetNode<DropComponent>("DropComponent");
-                drop.EffectTarget = EffectContainer;
-                drop.DropTarget = DropContainer;
-            }
-
-            if (enemy.HasNode("DestroyedComponent"))
-            {
-                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
-                effect.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("EnemyWeaponComponent"))
-            {
-                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
-                weapons.ProjectileContainer = ProjectileContainer;
-                weapons.TargetShip = Ship;
-            }
-
-            EnemyContainer.AddChild(enemy);
+            SpawnSetup.SetupEnemy(enemy, EnemyContainer, DropContainer, EffectContainer, ProjectileContainer, false, false, Ship);
         }
     }
 
@@ -174,27 +134,7 @@ public partial class SpawnerRecurrentComponent : Node
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
 
-            if (enemy.HasNode("DropComponent"))
-            {
-                var drop = enemy.GetNode<DropComponent>("DropComponent");
-                drop.EffectTarget = EffectContainer;
-                drop.DropTarget = DropContainer;
-            }
-
-            if (enemy.HasNode("DestroyedComponent"))
-            {
-                var effect = enemy.GetNode<DestroyedComponent>("DestroyedComponent");
-                effect.EffectTarget = EffectContainer;
-            }
-
-            if (enemy.HasNode("EnemyWeaponComponent"))
-            {
-                var weapons = enemy.GetNode<EnemyWeaponComponent>("EnemyWeaponComponent");
-                weapons.ProjectileContainer = ProjectileContainer;
-                weapons.TargetShip = Ship;
-            }
-
-            EnemyContainer.AddChild(enemy);
+            SpawnSetup.SetupEnemy(enemy, EnemyContainer, DropContainer, EffectContainer, ProjectileContainer, false, false, Ship);
         }
     }
 }
