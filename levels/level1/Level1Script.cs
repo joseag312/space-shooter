@@ -86,7 +86,7 @@ public partial class Level1Script : Node
 
 			// await Task.Delay(1500, token);
 			// _ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
-			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy3Spawner, 1, 200);
+			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy3Spawner, 3, 200);
 			await Task.Delay(3000, token);
 			await HandleLevelClear();
 		}

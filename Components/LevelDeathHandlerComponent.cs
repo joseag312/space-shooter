@@ -2,7 +2,7 @@ using Godot;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public partial class ShipDeathHandlerComponent : Node
+public partial class LevelDeathHandlerComponent : Node
 {
     [Export] public Ship Ship { get; set; }
     [Export] public SpawnerRecurrentComponent SpawnerRecurrent { get; set; }

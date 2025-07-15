@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_h5k3h")
 DropScene = ExtResource("1_0as6r")
-DropChance = 0.08
+DropChance = 0.03
 MinAmount = 15
 MaxAmount = 25
 metadata/_custom_type_script = "uid://bqt7kbq1y8wlm"
