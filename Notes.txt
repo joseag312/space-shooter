@@ -2,42 +2,40 @@
 
 ✅ Summary of Today
 
-🧠 Boss Enemy Behavior & Systems
-🎯 RandomMovementComponent completed and polished:
-    Patrols within a defined TopLeft → BottomRight area
-    Uses randomized velocity + manual movement
-    Enforces a MinDistance to avoid micro-jitters
-    Modular and starts after PersistenceComponent signals readiness
-🔄 PersistenceComponent integration:
-    RandomMovementComponent exports a reference to it and auto-connects via signal
-    Movement only begins after boss finishes scripted entrance
-💎 Drop System Enhancements
-🩸 DropOnHitComponent implemented:
-    Tied to HurtboxComponent.Hurt signal
-    Rolls against WeightedDropTable on each hit
-    Supports DropBase, IDropAmount, EffectTarget, and DropTarget
-    Fully debugged with a clean production-ready version now in use
-🕵️ Resolved confusing drop behavior:
-    Traced a duplicated .tres file holding unexpected entries
-    Confirmed .tres reference leak — recreated a clean drop table from scratch
-🔧 Spawner Cleanup
-🛠️ Created SpawnerUtils.SetupEnemy() method:
-    Replaces repeated logic in SpawnerWaveComponent and SpawnerRecurrentComponent
-    Automatically wires drops, projectiles, effects, weapons
-    Future-proofed for modular enemy scenes
+🧩 Settings UI Structure
+You finalized the structure:
+PreferencesContainerVBox (for sliders + mute)
+StartOverContainerVBox (for confirm/cancel reset)
+We exported and wired all nodes in MenuSettings.cs, with public [Export] fields.
+
+🎛 Component Integration
+You provided two reusable components:
+MenuLoadComponent → handles fade-in
+MenuFadeComponent → handles fade-out
+Both are wired to a shared CanvasContainer.
+
+🔁 Transition Logic in MenuSettings
+We created OnStartOverPressed() and OnCancelStartOverPressed() to:
+Fade out the current container
+Swap visibility
+Fade in the next screen
+ConfirmStartOverPressed() is stubbed for tomorrow.
 
 ****************************************************************************************************************
 
-🚀 Tomorrow’s Jump Point
+🚀 Tomorrow’s Jump Point – Wire Settings
 
-🎯 Goals:
-    💢 Implement attack pattern logic (burst waves, reactive firing, or staggered salvos)
-    🛡 Add defensive behavior (shield, evasive phase, or damage reduction)
-    🧠 Tie together multiple AI modes/phases based on health
-    🧪 Optionals in Progress:
-    🎛 Hook DropOnHitComponent into boss-specific loot tiers
-    🔄 Implement cooldowns or max-drop caps per hit
-    🎨 Animate RandomMovementComponent’s movement (sprite tilt or thrust effects)ve/load/reset/debug — the system is future-proof!
+✅ Wire up all connections in the scene tree:
+Ensure all exported fields in MenuSettings are correctly linked.
+Confirm both FadeComponent and LoadComponent are assigned.
+🔄 Implement Reset Logic in ConfirmStartOverPressed():
+Reset saved settings (sliders, mute state, HUD, etc.)
+Call G.SaveData.ResetAll() or whatever your reset function is.
+Optionally show a confirmation popup or sound.
+🎨 Hook Up Sliders and Toggle:
+Update HUD opacity, master volume, and SFX volume live.
+Save or apply values immediately or on exit.
+🧼 (Optional Refactor): Add FadeIn() to MenuLoadComponent to avoid manual _Ready() calls.
 
 ****************************************************************************************************************
 

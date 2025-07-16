@@ -30,7 +30,7 @@ public partial class MenuMain : Control
     private async void OnSettingsPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
-        await G.GF.FadeToSceneKeepBG("res://levels/level1/level_1.tscn");
+        await G.GF.FadeToSceneKeepBG("res://menus/menu_settings/menu_settings.tscn");
     }
 
     private async void OnQuitPressed()
