@@ -15,6 +15,11 @@ public partial class MenuLoadComponent : Node
             return;
         }
 
+        FadeIn();
+    }
+
+    public void FadeIn()
+    {
         CanvasContainer.Visible = true;
         CanvasContainer.Modulate = new Color(1, 1, 1, 0);
 

@@ -6,6 +6,7 @@ public partial class MenuSettings : Control
 {
     [Export] public VBoxContainer StartOverContainerVBox;
     [Export] public VBoxContainer PreferencesContainerVBox;
+    [Export] public HBoxContainer ReturnContainerHBox;
 
     // Preferences Section
     [Export] public HSlider OpacitySlider;
@@ -20,39 +21,128 @@ public partial class MenuSettings : Control
     [Export] public Button MuteToggleButton;
     [Export] public Button StartOverButton;
 
+    [Export] public Button SaveSettingsButton;
+    [Export] public Button ReturnButton;
+
     // Start Over Section
     [Export] public Button ConfirmStartOverButton;
     [Export] public Button CancelStartOverButton;
 
-    [Export] public MenuFadeComponent FadeComponent;
-    [Export] public MenuLoadComponent LoadComponent;
+    [Export] public MenuFadeComponent MenuFadeComponent;
+    [Export] public MenuLoadComponent MenuLoadComponent;
+
+    private static float LinearToDb(float linear)
+    {
+        if (linear <= 0.001f)
+            return -80f;
+        return 20f * (float)Math.Log10(linear);
+    }
 
     public override void _Ready()
     {
+        OpacitySlider.ValueChanged += OnOpacitySliderChanged;
+        VolumeSlider.ValueChanged += OnVolumeSliderChanged;
+        SfxSlider.ValueChanged += OnSfxSliderChanged;
+        MuteToggleButton.Pressed += OnMuteToggleButtonPressed;
+
+        SaveSettingsButton.Pressed += OnSaveSettingsPressed;
+        ReturnButton.Pressed += OnReturnPressed;
+
         StartOverButton.Pressed += OnStartOverPressed;
         ConfirmStartOverButton.Pressed += OnConfirmStartOverPressed;
         CancelStartOverButton.Pressed += OnCancelStartOverPressed;
+
+        OpacitySlider.Value = G.CF.HudOpacity;
+        OpacityLabel.Text = $"{(int)(G.CF.HudOpacity * 100)}%";
+
+        VolumeSlider.Value = G.CF.MasterVolume;
+        VolumeLabel.Text = $"{(int)(G.CF.MasterVolume * 100)}%";
+
+        SfxSlider.Value = G.CF.SfxVolume;
+        SfxLabel.Text = $"{(int)(G.CF.SfxVolume * 100)}%";
+
+        MuteToggleButton.ButtonPressed = G.CF.IsMuted;
+
+        G.MS.SetVolumeDb(LinearToDb(G.CF.MasterVolume));
+        G.SFX.SetVolumeDb(LinearToDb(G.CF.SfxVolume));
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), G.CF.IsMuted);
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("SFX"), G.CF.IsMuted);
     }
 
     private async void OnStartOverPressed()
     {
-        await FadeComponent.FadeOutAsync();
+        await MenuFadeComponent.FadeOutAsync();
         PreferencesContainerVBox.Visible = false;
+        ReturnContainerHBox.Visible = false;
         StartOverContainerVBox.Visible = true;
-        LoadComponent._Ready(); // Manual trigger to fade in again
+        MenuLoadComponent.FadeIn();
     }
 
     private async void OnCancelStartOverPressed()
     {
-        await FadeComponent.FadeOutAsync();
+        await MenuFadeComponent.FadeOutAsync();
         StartOverContainerVBox.Visible = false;
+        ReturnContainerHBox.Visible = true;
         PreferencesContainerVBox.Visible = true;
-        LoadComponent._Ready(); // Manual trigger to fade in again
+        MenuLoadComponent.FadeIn();
     }
 
-    private void OnConfirmStartOverPressed()
+    private async void OnConfirmStartOverPressed()
     {
-        // TODO: Add your reset logic here
-        GD.Print("DEBUG: MenuSettings - Start Over Confirmed");
+        G.GS.Reset();
+        G.SS.Reset();
+        G.WI.Reset();
+        G.CF.Reset();
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneBasic(G.GF.MenuMainScene);
+    }
+
+    private async void OnSaveSettingsPressed()
+    {
+        G.CF.Save();
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneBasic(G.GF.MenuMainScene);
+    }
+
+    private async void OnReturnPressed()
+    {
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneBasic(G.GF.MenuMainScene);
+    }
+
+    private void OnOpacitySliderChanged(double value)
+    {
+        float val = (float)value;
+        OpacityLabel.Text = $"{(int)(val * 100)}%";
+        G.CF.HudOpacity = val;
+        G.CF.Save();
+    }
+
+    private void OnVolumeSliderChanged(double value)
+    {
+        float val = (float)value;
+        VolumeLabel.Text = $"{(int)(val * 100)}%";
+        G.CF.MasterVolume = val;
+
+        G.MS.SetVolumeDb(LinearToDb(val));
+        G.CF.Save();
+    }
+
+    private void OnSfxSliderChanged(double value)
+    {
+        float val = (float)value;
+        SfxLabel.Text = $"{(int)(val * 100)}%";
+        G.CF.SfxVolume = val;
+
+        G.SFX.SetVolumeDb(LinearToDb(val));
+        G.CF.Save();
+    }
+
+    private void OnMuteToggleButtonPressed()
+    {
+        G.CF.IsMuted = !G.CF.IsMuted;
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), G.CF.IsMuted);
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("SFX"), G.CF.IsMuted);
+        G.CF.Save();
     }
 }

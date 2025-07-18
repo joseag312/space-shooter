@@ -16,6 +16,9 @@ public partial class AutoSFX : Node
         {
             Instance = this;
 
+            _sfxPlayer.Bus = "SFX";
+            _sfxPlayer.VolumeDb = LinearToDb(G.CF.SfxVolume);
+
             _sounds["oiia_slow"] = GD.Load<AudioStream>("res://assets/sounds/oiia_slow.ogg");
             _sounds["oiia_fast"] = GD.Load<AudioStream>("res://assets/sounds/oiia_fast.ogg");
             _sounds["oiia_death"] = GD.Load<AudioStream>("res://assets/sounds/oiia_death.ogg");
@@ -27,11 +30,17 @@ public partial class AutoSFX : Node
         }
     }
 
-    public void Play(string name, float volumeDb = -6)
+    private static float LinearToDb(float linear)
+    {
+        if (linear <= 0.001f)
+            return -80f;
+        return 20f * (float)Math.Log10(linear);
+    }
+
+    public void Play(string name)
     {
         if (_sounds.TryGetValue(name, out var stream))
         {
-            _sfxPlayer.VolumeDb = volumeDb;
             _sfxPlayer.Stream = stream;
             _sfxPlayer.Play();
         }
@@ -41,7 +50,7 @@ public partial class AutoSFX : Node
         }
     }
 
-    public void SetVolume(float db)
+    public void SetVolumeDb(float db)
     {
         _sfxPlayer.VolumeDb = db;
     }

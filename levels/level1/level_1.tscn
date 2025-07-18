@@ -40,8 +40,6 @@ metadata/_custom_type_script = "uid://b7kt20j1tgm7k"
 
 [node name="LevelMusicTriggerComponent" type="Node" parent="LevelFlowComponent"]
 script = ExtResource("8_tl3cw")
-TrackPath = "res://assets/music/level_amazing.ogg"
-TrackLengthSeconds = 96.0
 metadata/_custom_type_script = "uid://cx7err3tijmky"
 
 [node name="LevelDeathHandlerComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Ship", "SpawnerRecurrent", "LevelCleanup", "ParallaxBackground", "EffectContainer")]

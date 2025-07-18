@@ -29,8 +29,8 @@ public partial class AutoSFXTriggerComponent : Node
         G.SFX.Play("meow");
     }
 
-    public void SetVolume(float db)
+    public void ForceSetVolume(float db)
     {
-        G.SFX.SetVolume(db);
+        G.SFX.SetVolumeDb(db);
     }
 }

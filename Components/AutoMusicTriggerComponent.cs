@@ -4,9 +4,9 @@ using System;
 [GlobalClass]
 public partial class AutoMusicTriggerComponent : Node
 {
-    public void PlayMusic()
+    public void PlayTrack(string name)
     {
-        G.MS.Play();
+        G.MS.PlayTrack(name);
     }
 
     public void StopMusic()
@@ -14,9 +14,9 @@ public partial class AutoMusicTriggerComponent : Node
         G.MS.Stop();
     }
 
-    public void FadeInMusic(float duration = 1.0f, float targetDb = -6)
+    public void FadeInMusic(float duration = 1.0f)
     {
-        G.MS.FadeIn(duration, targetDb);
+        G.MS.FadeIn(duration);
     }
 
     public void FadeOutMusic(float duration = 1.0f)
@@ -24,7 +24,7 @@ public partial class AutoMusicTriggerComponent : Node
         G.MS.FadeOut(duration);
     }
 
-    public void SetVolume(float db)
+    public void ForceSetVolume(float db)
     {
         G.MS.SetVolumeDb(db);
     }

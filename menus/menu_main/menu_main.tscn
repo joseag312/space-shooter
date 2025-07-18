@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://c632ptddagx6c"]
+[gd_scene load_steps=114 format=3 uid="uid://c632ptddagx6c"]
 
 [ext_resource type="Script" uid="uid://sopuvbwbgiek" path="res://menus/menu_main/MenuMain.cs" id="1_esvi0"]
 [ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="2_diehv"]
@@ -737,6 +737,10 @@ animations = [{
 "speed": 28.0
 }]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yxyca"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cpxbq"]
+
 [node name="MenuMain" type="Control" node_paths=PackedStringArray("StartButton", "SettingsButton", "QuitButton", "MenuFadeComponent")]
 layout_mode = 3
 anchors_preset = 15
@@ -818,17 +822,20 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("7_yxyca")
-text = "Start"
+text = "            Start"
+alignment = 0
 
 [node name="SettingsButton" type="Button" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Settings"
+icon = SubResource("PlaceholderTexture2D_yxyca")
 
 [node name="QuitButton" type="Button" parent="UILayer/MainContainer/MainVBox/ButtonHBox/ButtonVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Quit"
+icon = SubResource("PlaceholderTexture2D_cpxbq")
 
 [node name="spacer2" type="Control" parent="UILayer/MainContainer/MainVBox/ButtonHBox"]
 custom_minimum_size = Vector2(200, 0)

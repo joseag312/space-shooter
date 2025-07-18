@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class AutoMusic : Node
 {
@@ -13,17 +14,19 @@ public partial class AutoMusic : Node
     private string _defaultTrackPath = "res://assets/music/soundtrack.ogg";
     private float _defaultTrackLength = 19.0f;
 
+    private Dictionary<string, TrackData> _trackRegistry = new();
 
     public override void _Ready()
     {
         if (Instance == null)
         {
             Instance = this;
-            ProcessMode = ProcessModeEnum.Always;
 
-            _musicPlayer.Stream = GD.Load<AudioStream>("res://assets/music/soundtrack.ogg");
-            _musicPlayer.VolumeDb = -6;
             _musicPlayer.Bus = "Music";
+            _musicPlayer.VolumeDb = LinearToDb(G.CF.MasterVolume);
+
+            _trackRegistry["main"] = new TrackData("res://assets/music/soundtrack.ogg", 19.0f, 0.75f);
+            _trackRegistry["level1"] = new TrackData("res://assets/music/level1_theme.ogg", 33.2f, 0.75f);
 
             SetupLoopTimer();
         }
@@ -31,6 +34,13 @@ public partial class AutoMusic : Node
         {
             QueueFree();
         }
+    }
+
+    private static float LinearToDb(float linear)
+    {
+        if (linear <= 0.001f)
+            return -80f;
+        return 20f * (float)Math.Log10(linear);
     }
 
     private void SetupLoopTimer()
@@ -53,19 +63,13 @@ public partial class AutoMusic : Node
 
     public void Play()
     {
-        if (_isPlaying)
+        if (_isPlaying || _musicPlayer.Stream == null)
             return;
 
-        if (_musicPlayer.Stream == null)
-            return;
-
-        // Ensure volume is audible if previously faded out
-        if (_musicPlayer.VolumeDb <= -79.9f)
-            _musicPlayer.VolumeDb = -6;
-
-        _isPlaying = true;
+        _musicPlayer.VolumeDb = LinearToDb(G.CF.MasterVolume);
         _musicPlayer.Play();
         _loopTimer.Start();
+        _isPlaying = true;
     }
 
 
@@ -98,7 +102,7 @@ public partial class AutoMusic : Node
         }));
     }
 
-    public void FadeIn(float duration = 1.0f, float targetDb = -6)
+    public void FadeIn(float duration = 1.0f)
     {
         if (_isPlaying)
             return;
@@ -109,10 +113,21 @@ public partial class AutoMusic : Node
         _loopTimer.Start();
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_musicPlayer, "volume_db", targetDb, duration);
+        tween.TweenProperty(_musicPlayer, "volume_db", LinearToDb(G.CF.MasterVolume), duration);
     }
 
-    public void PlayTrack(string resourcePath, float trackLength, float fadeDuration = 0.5f, float volumeDb = -6)
+    public void PlayTrack(string trackKey)
+    {
+        if (!_trackRegistry.TryGetValue(trackKey, out var track))
+        {
+            GD.PrintErr($"ERROR: AutoMusic - Unknown track key '{trackKey}'");
+            return;
+        }
+
+        PlayTrack(track.Path, track.Length, track.FadeDuration);
+    }
+
+    public void PlayTrack(string resourcePath, float trackLength, float fadeDuration = 0.5f)
     {
         if (_isPlaying && _musicPlayer.Stream.ResourcePath == resourcePath)
             return;
@@ -135,8 +150,22 @@ public partial class AutoMusic : Node
         _loopTimer.Start();
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_musicPlayer, "volume_db", volumeDb, fadeDuration);
+        tween.TweenProperty(_musicPlayer, "volume_db", LinearToDb(G.CF.MasterVolume), fadeDuration);
 
         _isPlaying = true;
+    }
+
+    private class TrackData
+    {
+        public string Path;
+        public float Length;
+        public float FadeDuration;
+
+        public TrackData(string path, float length, float fade = 0.5f)
+        {
+            Path = path;
+            Length = length;
+            FadeDuration = fade;
+        }
     }
 }

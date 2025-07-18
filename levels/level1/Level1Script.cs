@@ -119,7 +119,7 @@ public partial class Level1Script : Node
 	private void OnShipDeath()
 	{
 		G.MS.FadeOut();
-		G.SFX.Play("oiia_death", -15);
+		G.SFX.Play("oiia_death");
 		G.CR.Stop("LevelScript");
 	}
 

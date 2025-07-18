@@ -17,7 +17,7 @@ public partial class MenuMain : Control
         StartButton.Pressed += OnStartPressed;
         SettingsButton.Pressed += OnSettingsPressed;
         QuitButton.Pressed += OnQuitPressed;
-        G.MS.PlayTrack("res://assets/music/soundtrack.ogg", 19.0f, 0.75f, -6);
+        G.MS.PlayTrack("main");
     }
 
     private async void OnStartPressed()

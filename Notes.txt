@@ -2,52 +2,53 @@
 
 ✅ Summary of Today
 
-🧩 Settings UI Structure
-You finalized the structure:
-PreferencesContainerVBox (for sliders + mute)
-StartOverContainerVBox (for confirm/cancel reset)
-We exported and wired all nodes in MenuSettings.cs, with public [Export] fields.
+🔧 1. Built a AutoSettings Autoload
+Stored HudOpacity, MasterVolume, SfxVolume, IsMuted
+Saved to and loaded from user://settings.dat using FileAccess
+Defaults all start at 100% / 1.0f
 
-🎛 Component Integration
-You provided two reusable components:
-MenuLoadComponent → handles fade-in
-MenuFadeComponent → handles fade-out
-Both are wired to a shared CanvasContainer.
+🎛️ 2. Connected UI Sliders and Toggle
+Hooked up slider ValueChanged events
+Stored values into G.CF and called .Save()
+    Hooked mute toggle button using ToggleMode = true
+    Tied IsMuted to .ButtonPressed
+    No text! Just clean visual toggle
 
-🔁 Transition Logic in MenuSettings
-We created OnStartOverPressed() and OnCancelStartOverPressed() to:
-Fade out the current container
-Swap visibility
-Fade in the next screen
-ConfirmStartOverPressed() is stubbed for tomorrow.
+🎧 3. Refactored AutoMusic and AutoSFX
+Set Bus = "Music" / "SFX" for correct routing
+Removed manual volumeDb params — now always use G.CF.MasterVolume and G.CF.SfxVolume
+Set initial volume in _Ready() using LinearToDb(...)
+
+🔇 4. Mute Button Functionality
+Used AudioServer.SetBusMute(...) for Music and SFX buses
+Synced button state to G.CF.IsMuted on scene load
+Mute toggle now visually reflects state via ButtonPressed
+
+🎵 5. Track Registry for Music
+Created TrackData class with path, length, fade duration
+Registered tracks like:
+
+🧹 6. Polish & Clean-up
+Removed hardcoded -6 volume defaults
+Stopped loading music in _Ready() (waits for track call instead)
+Used button state over label text
+Ensured settings panel reads from saved values on open
 
 ****************************************************************************************************************
 
 🚀 Tomorrow’s Jump Point – Wire Settings
 
-✅ Wire up all connections in the scene tree:
-Ensure all exported fields in MenuSettings are correctly linked.
-Confirm both FadeComponent and LoadComponent are assigned.
-🔄 Implement Reset Logic in ConfirmStartOverPressed():
-Reset saved settings (sliders, mute state, HUD, etc.)
-Call G.SaveData.ResetAll() or whatever your reset function is.
-Optionally show a confirmation popup or sound.
-🎨 Hook Up Sliders and Toggle:
-Update HUD opacity, master volume, and SFX volume live.
-Save or apply values immediately or on exit.
-🧼 (Optional Refactor): Add FadeIn() to MenuLoadComponent to avoid manual _Ready() calls.
+🎵 SFX + Music usage with enums or static classes via AutoLoads
+🗺️ Level Selection Screen – World map or clean selection interface.
 
 ****************************************************************************************************************
 
 ✅ Portfolio Version Backlog
 
-🎵 SFX – Sound implementation with enums via AutoSFX (planned).
+
 🧹 Refactor – Code cleanup (esp. weapon system, components).
 🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
 🌌 3 Levels – Final content amount for portfolio cut.
-👾 More Enemies – A couple new ones for variety.
-⚙️ Settings Screen – Audio, controls, maybe visuals.
-🗺️ Level Selection Screen – World map or clean selection interface.
 🧬 Weapon Type System – Elemental/tech types, rock-paper-scissors-style behavior.
 
 ****************************************************************************************************************

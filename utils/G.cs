@@ -9,4 +9,5 @@ public static class G
     public static AutoCoroutineManager CR => AutoCoroutineManager.Instance;
     public static AutoMusic MS => AutoMusic.Instance;
     public static AutoSFX SFX => AutoSFX.Instance;
+    public static AutoSettings CF => AutoSettings.Instance;
 }

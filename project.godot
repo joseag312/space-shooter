@@ -14,8 +14,13 @@ config/name="galaxy-navigator-c"
 run/main_scene="uid://805auh5i5nv0"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 
+[audio]
+
+buses/default_bus_layout="uid://ud6awpg6o7ut"
+
 [autoload]
 
+AutoSettings="*res://autoload/auto_settings/AutoSettings.cs"
 AutoBackground="*res://autoload/auto_background/auto_background.tscn"
 AutoGameStats="*res://autoload/auto_game_stats/AutoGameStats.cs"
 AutoShipStats="*res://autoload/auto_ship_stats/AutoShipStats.cs"
