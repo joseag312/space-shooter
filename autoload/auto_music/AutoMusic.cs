@@ -25,8 +25,8 @@ public partial class AutoMusic : Node
             _musicPlayer.Bus = "Music";
             _musicPlayer.VolumeDb = LinearToDb(G.CF.MasterVolume);
 
-            _trackRegistry["main"] = new TrackData("res://assets/music/soundtrack.ogg", 19.0f, 0.75f);
-            _trackRegistry["level1"] = new TrackData("res://assets/music/level1_theme.ogg", 33.2f, 0.75f);
+            _trackRegistry[Music.MAIN] = new TrackData("res://assets/music/soundtrack.ogg", 19.0f, 0.75f);
+            _trackRegistry[Music.AMAZING] = new TrackData("res://assets/music/level_amazing.ogg", 33.2f, 0.75f);
 
             SetupLoopTimer();
         }

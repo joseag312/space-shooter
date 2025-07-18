@@ -24,6 +24,11 @@ public partial class AutoSettings : Node
         }
     }
 
+    public float GetHudOpacity()
+    {
+        return 0.2f + 0.8f * HudOpacity;
+    }
+
     public void Save()
     {
         var dict = new Godot.Collections.Dictionary

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://din7e88hu2cps"]
+[gd_scene load_steps=14 format=3 uid="uid://din7e88hu2cps"]
 
 [ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/bg_ocean.tscn" id="6_icxts"]
 [ext_resource type="Script" uid="uid://betbctis665ac" path="res://components/LevelDeathHandlerComponent.cs" id="6_o80m7"]
 [ext_resource type="Script" uid="uid://bhwduhk2gwo8t" path="res://components/LevelCleanupComponent.cs" id="6_tl3cw"]
-[ext_resource type="Script" uid="uid://cx7err3tijmky" path="res://components/LevelMusicTriggerComponent.cs" id="8_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://c5xf8n0lytpa3" path="res://enemies/enemy_human_bulldozer/enemy_human_bulldozer.tscn" id="9_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="13_u3t6j"]
 
@@ -37,10 +36,6 @@ SpawnerRecurrent = NodePath("SpawnerRecurrentComponent")
 SpawnerWave = NodePath("SpawnerWaveComponent")
 LevelCleanup = NodePath("LevelCleanupComponent")
 metadata/_custom_type_script = "uid://b7kt20j1tgm7k"
-
-[node name="LevelMusicTriggerComponent" type="Node" parent="LevelFlowComponent"]
-script = ExtResource("8_tl3cw")
-metadata/_custom_type_script = "uid://cx7err3tijmky"
 
 [node name="LevelDeathHandlerComponent" type="Node" parent="LevelFlowComponent" node_paths=PackedStringArray("Ship", "SpawnerRecurrent", "LevelCleanup", "ParallaxBackground", "EffectContainer")]
 script = ExtResource("6_o80m7")

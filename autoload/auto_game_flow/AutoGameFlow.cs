@@ -111,7 +111,7 @@ public partial class AutoGameFlow : Node
         AutoBackground.Instance.BlockInput();
         await AutoBackground.Instance.FadeOutStars(0.4f, 0.3f, 0.2f);
         await AutoBackground.Instance.FadeInBlack(fadeDuration);
-        G.SFX.Play("meow");
+        G.SFX.Play(SFX.MEOW);
         await AutoBackground.Instance.FadeInLoading(loadingFade);
         await ToSignal(GetTree().CreateTimer(holdDelay), "timeout");
         await AutoBackground.Instance.FadeOutLoading(loadingFade);

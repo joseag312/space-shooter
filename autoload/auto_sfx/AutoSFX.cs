@@ -19,10 +19,10 @@ public partial class AutoSFX : Node
             _sfxPlayer.Bus = "SFX";
             _sfxPlayer.VolumeDb = LinearToDb(G.CF.SfxVolume);
 
-            _sounds["oiia_slow"] = GD.Load<AudioStream>("res://assets/sounds/oiia_slow.ogg");
-            _sounds["oiia_fast"] = GD.Load<AudioStream>("res://assets/sounds/oiia_fast.ogg");
-            _sounds["oiia_death"] = GD.Load<AudioStream>("res://assets/sounds/oiia_death.ogg");
-            _sounds["meow"] = GD.Load<AudioStream>("res://assets/sounds/meow.ogg");
+            _sounds[SFX.OIIA_SLOW] = GD.Load<AudioStream>("res://assets/sounds/oiia_slow.ogg");
+            _sounds[SFX.OIIA_FAST] = GD.Load<AudioStream>("res://assets/sounds/oiia_fast.ogg");
+            _sounds[SFX.OIIA_DEATH] = GD.Load<AudioStream>("res://assets/sounds/oiia_death.ogg");
+            _sounds[SFX.MEOW] = GD.Load<AudioStream>("res://assets/sounds/meow.ogg");
         }
         else
         {

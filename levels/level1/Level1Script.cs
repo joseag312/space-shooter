@@ -14,9 +14,11 @@ public partial class Level1Script : Node
 
 	public override void _Ready()
 	{
-		G.CR.Run("LevelScript", RunLevelScript);
 		Ship.StatsComponent.Connect("NoHealth", new Callable(this, nameof(OnShipDeath)));
 		HUD.Powers.SetWeaponManager(Ship.WeaponManager);
+
+		G.MS.PlayTrack(Music.AMAZING);
+		G.CR.Run("LevelScript", RunLevelScript);
 	}
 
 	private async Task RunLevelScript(CancellationToken token)
@@ -119,7 +121,7 @@ public partial class Level1Script : Node
 	private void OnShipDeath()
 	{
 		G.MS.FadeOut();
-		G.SFX.Play("oiia_death");
+		G.SFX.Play(SFX.OIIA_DEATH);
 		G.CR.Stop("LevelScript");
 	}
 

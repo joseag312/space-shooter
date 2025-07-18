@@ -17,7 +17,7 @@ public partial class MenuMain : Control
         StartButton.Pressed += OnStartPressed;
         SettingsButton.Pressed += OnSettingsPressed;
         QuitButton.Pressed += OnQuitPressed;
-        G.MS.PlayTrack("main");
+        G.MS.PlayTrack(Music.MAIN);
     }
 
     private async void OnStartPressed()

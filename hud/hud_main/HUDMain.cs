@@ -86,13 +86,14 @@ public partial class HUDMain : CanvasLayer
     public async Task FadeInHUD()
     {
         var tasks = new List<Task>();
+        float opacity = G.CF.GetHudOpacity();
 
         if (IsInstanceValid(HealthBar))
-            tasks.Add(FadeNode(HealthBar, true, 150f / 255f));
+            tasks.Add(FadeNode(HealthBar, true, opacity));
         if (IsInstanceValid(Powers))
             tasks.Add(FadeNode(Powers, true, 1f));
         if (IsInstanceValid(Currency))
-            tasks.Add(FadeNode(Currency, true, 150f / 255f));
+            tasks.Add(FadeNode(Currency, true, opacity));
 
         await Task.WhenAll(tasks);
     }

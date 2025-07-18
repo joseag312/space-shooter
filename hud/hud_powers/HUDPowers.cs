@@ -23,7 +23,6 @@ public partial class HUDPowers : Control
     [Export] public TextureRect PowerUp4Icon;
     [Export] public TextureRect PowerUp4Overlay;
     [Export] public Label PowerUp4Amount;
-    [Export] public float opacity = 150;
 
     private Color _textColor;
     private Color _baseColor;
@@ -34,10 +33,12 @@ public partial class HUDPowers : Control
 
     public override void _Ready()
     {
-        _textColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-        _baseColor = new Color(220f / 255f, 220f / 255f, 220f / 255f, opacity / 255f);
-        _flashColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, opacity / 255f);
-        _overlayColor = new Color(150f / 255f, 0f / 255f, 155f / 255f, opacity / 255f);
+        float opacity = G.CF.GetHudOpacity();
+
+        _textColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 0.5f + opacity * 0.5f);
+        _baseColor = new Color(220f / 255f, 220f / 255f, 220f / 255f, opacity);
+        _flashColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, opacity);
+        _overlayColor = new Color(150f / 255f, 0f / 255f, 155f / 255f, opacity);
 
         BigLaserButton.Modulate = _baseColor;
         BigLaserOverlay.Modulate = _overlayColor;

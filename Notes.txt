@@ -2,49 +2,18 @@
 
 ✅ Summary of Today
 
-🔧 1. Built a AutoSettings Autoload
-Stored HudOpacity, MasterVolume, SfxVolume, IsMuted
-Saved to and loaded from user://settings.dat using FileAccess
-Defaults all start at 100% / 1.0f
-
-🎛️ 2. Connected UI Sliders and Toggle
-Hooked up slider ValueChanged events
-Stored values into G.CF and called .Save()
-    Hooked mute toggle button using ToggleMode = true
-    Tied IsMuted to .ButtonPressed
-    No text! Just clean visual toggle
-
-🎧 3. Refactored AutoMusic and AutoSFX
-Set Bus = "Music" / "SFX" for correct routing
-Removed manual volumeDb params — now always use G.CF.MasterVolume and G.CF.SfxVolume
-Set initial volume in _Ready() using LinearToDb(...)
-
-🔇 4. Mute Button Functionality
-Used AudioServer.SetBusMute(...) for Music and SFX buses
-Synced button state to G.CF.IsMuted on scene load
-Mute toggle now visually reflects state via ButtonPressed
-
-🎵 5. Track Registry for Music
-Created TrackData class with path, length, fade duration
-Registered tracks like:
-
-🧹 6. Polish & Clean-up
-Removed hardcoded -6 volume defaults
-Stopped loading music in _Ready() (waits for track call instead)
-Used button state over label text
-Ensured settings panel reads from saved values on open
+🎵 SFX + Music usage with enums or static classes via AutoLoads
+🧹 Refactor wired in opacity of the HUD
 
 ****************************************************************************************************************
 
 🚀 Tomorrow’s Jump Point – Wire Settings
 
-🎵 SFX + Music usage with enums or static classes via AutoLoads
 🗺️ Level Selection Screen – World map or clean selection interface.
 
 ****************************************************************************************************************
 
 ✅ Portfolio Version Backlog
-
 
 🧹 Refactor – Code cleanup (esp. weapon system, components).
 🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
