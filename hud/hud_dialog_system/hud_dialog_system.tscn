@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1qwtox2syayg"]
+[gd_scene load_steps=6 format=3 uid="uid://d1qwtox2syayg"]
 
 [ext_resource type="Script" uid="uid://c02e8tavf6au2" path="res://hud/hud_dialog_system/HUDDialogSystem.cs" id="1_pnina"]
 [ext_resource type="Resource" uid="uid://btyll18mv1tyi" path="res://resources/images/portrait_library.tres" id="2_01eb2"]
 [ext_resource type="Texture2D" uid="uid://lf5b4qs4rinl" path="res://assets/gui/gui_container_basic_square.png" id="2_hb8th"]
 [ext_resource type="Texture2D" uid="uid://dgn6bedgr7arl" path="res://assets/gui/gui_cat_paw_white.png" id="2_sqtwe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb8th"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.784314)
 
 [node name="HUDDialogSystem" type="CanvasLayer" node_paths=PackedStringArray("DialogBox", "DialogPortrait", "DialogName", "DialogText", "NextButton", "NextButtonContainer", "PopUpBox", "PopUpPortrait", "PopUpText", "PromptButtonBox", "SureButton", "Option1Button", "Option2Button")]
 script = ExtResource("1_pnina")
@@ -38,6 +41,7 @@ grow_vertical = 0
 layout_mode = 0
 offset_right = 632.0
 offset_bottom = 165.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hb8th")
 
 [node name="DialogMargin" type="MarginContainer" parent="DialogBox/DialogPanel"]
 layout_mode = 2

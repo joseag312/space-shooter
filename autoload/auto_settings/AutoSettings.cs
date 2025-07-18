@@ -62,8 +62,6 @@ public partial class AutoSettings : Node
         MasterVolume = dict.ContainsKey("master_volume") ? (float)dict["master_volume"] : 1.0f;
         SfxVolume = dict.ContainsKey("sfx_volume") ? (float)dict["sfx_volume"] : 1.0f;
         IsMuted = dict.ContainsKey("is_muted") ? (bool)dict["is_muted"] : false;
-
-        GD.Print("DEBUG: AutoSettings - Settings loaded");
     }
 
 

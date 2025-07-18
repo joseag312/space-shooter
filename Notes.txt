@@ -2,14 +2,60 @@
 
 ✅ Summary of Today
 
-🎵 SFX + Music usage with enums or static classes via AutoLoads
-🧹 Refactor wired in opacity of the HUD
+🌌 Level Selection UI
+
+Designed a scrollable grid of planet buttons with hover + click animations.
+Implemented PlanetPanel with:
+Hover + click feedback
+Availability + cleared indicators
+Emits a PlanetClicked(levelKey) signal
+
+🧠 Level Data System
+
+Created LevelDataResource (.tres) to store:
+Title
+Scene path
+Enemy + powerup preview sprites
+Implemented LevelCatalog as a static loader that scans and indexes level data
+
+🪐 LevelCard Display
+
+Built a LevelCard that:
+Populates enemy/powerup previews, title, and Play button from the level resource
+Now dynamically updates on planet click
+Can route to the correct level scene via LevelPath
+
+📖 Player Progress
+
+Extended AutoGameStats:
+Tracks which levels are cleared and which dialogs have been seen using dictionaries
+Saving/loading logic now includes this progress
+Primed for Kahn’s unlock dependency logic
 
 ****************************************************************************************************************
 
 🚀 Tomorrow’s Jump Point – Wire Settings
 
-🗺️ Level Selection Screen – World map or clean selection interface.
+1. ♻️ Reusable Level Component System
+
+Create a base RunLevelScript or RunLevelComponent
+Goal: unify enemy spawning, music, dialog, boss checks across levels
+Pull from the level’s .tres if needed for dynamic behavior
+
+2. 🛠️ Create 3 Prototype Levels
+
+Use the new format: planet + .tres + level scene
+Keep each one visually distinct to demo the system
+Try variations like:
+A mini-boss rush
+A powerup playground
+A pure enemy swarm
+
+3. 💬 Add Dialog Using the New Dictionary
+
+Add level IDs to unlock dialog states
+Start populating DialogSeen map
+Design a test level with a simple conversation flow
 
 ****************************************************************************************************************
 

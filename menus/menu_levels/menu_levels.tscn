@@ -1,0 +1,605 @@
+[gd_scene load_steps=44 format=3 uid="uid://b2wycilbe6afh"]
+
+[ext_resource type="Script" uid="uid://digfhbrdt3ixs" path="res://menus/menu_levels/MenuLevels.cs" id="1_41nlo"]
+[ext_resource type="Script" uid="uid://c4iesx17v7vif" path="res://components/MenuLoadComponent.cs" id="2_sjyew"]
+[ext_resource type="Script" uid="uid://bbg1n3i80miej" path="res://components/MenuFadeComponent.cs" id="3_ytm8e"]
+[ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="4_wak52"]
+[ext_resource type="LabelSettings" uid="uid://cq7v7yowl8sho" path="res://resources/fonts/font_syne_white_48_outline.tres" id="5_7rpbt"]
+[ext_resource type="Texture2D" uid="uid://chyl4e5iegqge" path="res://assets/gui/gui_container_extra_transparent.png" id="6_impck"]
+[ext_resource type="Script" uid="uid://wjkwff8bsnkv" path="res://menus/menu_levels/PlanetPanel.cs" id="7_w50ap"]
+[ext_resource type="Texture2D" uid="uid://bpeff57ihsfpr" path="res://assets/levels/level1.png" id="8_ss1vw"]
+[ext_resource type="Texture2D" uid="uid://cvlywsscpbsds" path="res://assets/gui/gui_button.png" id="9_mnadr"]
+[ext_resource type="Texture2D" uid="uid://cvs2ottwp4m85" path="res://assets/gui/gui_back_arrow.png" id="10_0rmnu"]
+[ext_resource type="Script" uid="uid://bqkvaytmnoedr" path="res://menus/menu_levels/LevelCard.cs" id="11_14c3m"]
+[ext_resource type="Texture2D" uid="uid://c2pycmfef0u0c" path="res://assets/gui/gui_card.png" id="12_ngcmr"]
+[ext_resource type="Texture2D" uid="uid://lf5b4qs4rinl" path="res://assets/gui/gui_container_basic_square.png" id="13_btnk4"]
+[ext_resource type="Texture2D" uid="uid://c7bm3th4b5u0b" path="res://assets/gui/gui_button_small.png" id="14_mcpjs"]
+[ext_resource type="PackedScene" uid="uid://d1qwtox2syayg" path="res://hud/hud_dialog_system/hud_dialog_system.tscn" id="15_6vh8r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7y01"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwl80"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp612"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mwon"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrwvi"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kj3c"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7we0"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kwya"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mlvq"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw44l"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhfv7"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(0, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvlhe"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(100, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfkgh"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(200, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4u7m"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(300, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhfrk"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(400, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hraxo"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(0, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snwl0"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(100, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y4eu"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(200, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbcq8"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(300, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k57xa"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(400, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uffc3"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(0, 400, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbw8l"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(100, 400, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3ex5"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(200, 400, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3trc0"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(300, 400, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqppl"]
+atlas = ExtResource("8_ss1vw")
+region = Rect2(400, 400, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1vhjw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7y01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwl80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp612")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mwon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrwvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kj3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7we0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kwya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mlvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw44l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhfv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvlhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfkgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4u7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhfrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hraxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snwl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y4eu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbcq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k57xa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uffc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbw8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3ex5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3trc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqppl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g7we0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2kwya"]
+
+[node name="MenuLevels_tscn" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_41nlo")
+MenuFadeComponent = NodePath("MenuFadeComponent")
+HUD = NodePath("HUDDialogSystem")
+LevelCard = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard")
+ReturnButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/ReturnButton")
+
+[node name="MenuLoadComponent" type="Node" parent="." node_paths=PackedStringArray("CanvasContainer")]
+script = ExtResource("2_sjyew")
+CanvasContainer = NodePath("../UILayer/MainContainer")
+metadata/_custom_type_script = "uid://c4iesx17v7vif"
+
+[node name="MenuFadeComponent" type="Node" parent="." node_paths=PackedStringArray("CanvasContainer")]
+script = ExtResource("3_ytm8e")
+CanvasContainer = NodePath("../UILayer/MainContainer")
+metadata/_custom_type_script = "uid://bbg1n3i80miej"
+
+[node name="AutoBackgroundTriggerComponent" type="Node" parent="."]
+script = ExtResource("4_wak52")
+metadata/_custom_type_script = "uid://du6dihgjlhy2v"
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="MainContainer" type="CenterContainer" parent="UILayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MainContainer"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1280, 660)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1220, 580)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Level Selection"
+label_settings = ExtResource("5_7rpbt")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+position = Vector2(-54, 0)
+scale = Vector2(2.9, 2.15)
+texture = ExtResource("6_impck")
+centered = false
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 380)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="PlanetPanel" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("PlanetSprite", "StatusSprite") groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_w50ap")
+LevelKey = "L1"
+PlanetSprite = NodePath("CenterContainer/AnimatedSprite2D")
+StatusSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel/CenterContainer"]
+sprite_frames = SubResource("SpriteFrames_1vhjw")
+autoplay = "default"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+texture = ExtResource("9_mnadr")
+offset = Vector2(90, 90)
+
+[node name="PlanetPanel2" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("PlanetSprite", "StatusSprite") groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_w50ap")
+LevelKey = "L2"
+PlanetSprite = NodePath("CenterContainer/AnimatedSprite2D")
+StatusSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel2"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel2/CenterContainer"]
+sprite_frames = SubResource("SpriteFrames_1vhjw")
+autoplay = "default"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel2"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+texture = ExtResource("9_mnadr")
+offset = Vector2(90, 90)
+
+[node name="PlanetPanel3" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("PlanetSprite", "StatusSprite") groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_w50ap")
+LevelKey = "L3"
+PlanetSprite = NodePath("CenterContainer/AnimatedSprite2D")
+StatusSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel3"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel3/CenterContainer"]
+sprite_frames = SubResource("SpriteFrames_1vhjw")
+autoplay = "default"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel3"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+texture = ExtResource("9_mnadr")
+offset = Vector2(90, 90)
+
+[node name="PlanetPanel4" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("PlanetSprite", "StatusSprite") groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_w50ap")
+LevelKey = "L4"
+PlanetSprite = NodePath("CenterContainer/AnimatedSprite2D")
+StatusSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel4"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel4/CenterContainer"]
+sprite_frames = SubResource("SpriteFrames_1vhjw")
+autoplay = "default"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel4"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+texture = ExtResource("9_mnadr")
+offset = Vector2(90, 90)
+
+[node name="PlanetPanel5" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("PlanetSprite", "StatusSprite") groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_w50ap")
+LevelKey = "L5"
+PlanetSprite = NodePath("CenterContainer/AnimatedSprite2D")
+StatusSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel5"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel5/CenterContainer"]
+sprite_frames = SubResource("SpriteFrames_1vhjw")
+autoplay = "default"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridContainer/PlanetPanel5"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+texture = ExtResource("9_mnadr")
+offset = Vector2(90, 90)
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+icon = ExtResource("10_0rmnu")
+icon_alignment = 1
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="ArmoryButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "Armory"
+icon = SubResource("PlaceholderTexture2D_g7we0")
+icon_alignment = 1
+
+[node name="Control3" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="FortuneButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "Fortune"
+icon = SubResource("PlaceholderTexture2D_g7we0")
+icon_alignment = 1
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="LevelCard" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MenuFadeComponent", "DisplayName", "enemy1", "enemy2", "enemy3", "powerUp1", "powerUp2", "EnemyLabel", "PowerUpLabel", "EnemyContainer", "PowerUpContainer", "PlayContainer", "PlayButton")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("11_14c3m")
+MenuFadeComponent = NodePath("../../../../../../../MenuFadeComponent")
+DisplayName = NodePath("LevelName")
+enemy1 = NodePath("EnemiesContainer/Enemy1Container/Enemy1Sprite")
+enemy2 = NodePath("EnemiesContainer/Enemy2Container/Enemy2Sprite")
+enemy3 = NodePath("EnemiesContainer/Enemy3Container/Enemy3Sprite")
+powerUp1 = NodePath("PowerUpContainer/PowerUp1Container/PowerUp1Sprite")
+powerUp2 = NodePath("PowerUpContainer/PowerUp2Container/PowerUp2Sprite")
+EnemyLabel = NodePath("EnemiesLabel")
+PowerUpLabel = NodePath("PowerUpsLabel")
+EnemyContainer = NodePath("EnemiesContainer")
+PowerUpContainer = NodePath("PowerUpContainer")
+PlayContainer = NodePath("PlayContainer")
+PlayButton = NodePath("PlayContainer/PlayButton")
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+scale = Vector2(1.2, 1.3)
+texture = ExtResource("12_ngcmr")
+centered = false
+
+[node name="m351" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="LevelName" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+theme_override_constants/outline_size = 15
+text = "Level 1"
+horizontal_alignment = 1
+
+[node name="m352" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="EnemiesLabel" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+text = "Enemies:"
+horizontal_alignment = 1
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="EnemiesContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Enemy1Container" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer"]
+layout_mode = 2
+
+[node name="Enemy1Box" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy1Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("13_btnk4")
+expand_mode = 1
+
+[node name="Enemy1Sprite" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy1Container"]
+position = Vector2(40, 40)
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Enemy2Container" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer"]
+layout_mode = 2
+
+[node name="Enemy2Box" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy2Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("13_btnk4")
+expand_mode = 1
+
+[node name="Enemy2Sprite" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy2Container"]
+position = Vector2(40, 40)
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Enemy3Container" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer"]
+layout_mode = 2
+
+[node name="Enemy3Box" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy3Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("13_btnk4")
+expand_mode = 1
+
+[node name="Enemy3Sprite" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/EnemiesContainer/Enemy3Container"]
+position = Vector2(40, 40)
+
+[node name="m251" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="PowerUpsLabel" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+text = "Recommended:"
+horizontal_alignment = 1
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="PowerUpContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="PowerUp1Container" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer"]
+layout_mode = 2
+
+[node name="PowerUp1Box" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer/PowerUp1Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("14_mcpjs")
+expand_mode = 1
+
+[node name="PowerUp1Sprite" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer/PowerUp1Container"]
+position = Vector2(4, 4)
+scale = Vector2(0.07, 0.07)
+centered = false
+
+[node name="Control4" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="PowerUp2Container" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer"]
+layout_mode = 2
+
+[node name="PowerUp2Box" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer/PowerUp2Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("14_mcpjs")
+expand_mode = 1
+
+[node name="PowerUp2Sprite" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PowerUpContainer/PowerUp2Container"]
+position = Vector2(4, 4)
+scale = Vector2(0.07, 0.07)
+centered = false
+
+[node name="m252" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="PlayContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard/PlayContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Go "
+icon = SubResource("PlaceholderTexture2D_2kwya")
+
+[node name="HUDDialogSystem" parent="." instance=ExtResource("15_6vh8r")]

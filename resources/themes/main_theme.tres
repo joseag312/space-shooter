@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://6kgkoc3btpsh"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://6kgkoc3btpsh"]
 
 [ext_resource type="FontFile" uid="uid://rj7fco2gskcg" path="res://assets/fonts/orbitron_variable.ttf" id="1_i4ejt"]
 [ext_resource type="Texture2D" uid="uid://dgn6bedgr7arl" path="res://assets/gui/gui_cat_paw_white.png" id="2_hf3i3"]
@@ -43,6 +43,8 @@ texture = ExtResource("7_yoenm")
 texture_margin_left = 2.0
 texture_margin_top = 3.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hf3i3"]
+
 [resource]
 Button/colors/font_hover_color = Color(0.568627, 0.490196, 0.901961, 1)
 Button/colors/font_hover_pressed_color = Color(0.568627, 0.490196, 0.901961, 1)
@@ -71,3 +73,4 @@ Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 5
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("1_i4ejt")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_hf3i3")

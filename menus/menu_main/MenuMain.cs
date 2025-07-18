@@ -23,14 +23,13 @@ public partial class MenuMain : Control
     private async void OnStartPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
-        G.MS.Stop();
-        await G.GF.FadeToSceneWithLoading("res://levels/level1/level_1.tscn");
+        await G.GF.FadeToSceneBasic("res://menus/menu_levels/menu_levels.tscn");
     }
 
     private async void OnSettingsPressed()
     {
         await MenuFadeComponent.FadeOutAsync();
-        await G.GF.FadeToSceneKeepBG("res://menus/menu_settings/menu_settings.tscn");
+        await G.GF.FadeToSceneBasic("res://menus/menu_settings/menu_settings.tscn");
     }
 
     private async void OnQuitPressed()
