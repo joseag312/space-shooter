@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource("1_fwrit")
 Key = "L1"
-DisplayName = "Earth 1: Scout"
+DisplayName = "Vanity"
 ScenePath = "res://levels/level1/level_1.tscn"
-EnemySprites = [ExtResource("1_xwdkh"), ExtResource("2_ndxtd"), null]
+EnemySprites = [ExtResource("2_ndxtd"), ExtResource("1_xwdkh"), null]
 RecommendedPowerups = [null, null]
 metadata/_custom_type_script = "uid://b03ol7t5nlv8i"

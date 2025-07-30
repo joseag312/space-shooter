@@ -7,12 +7,12 @@ using Godot;
 [GlobalClass]
 public partial class SpawnerWaveComponent : Node
 {
-    [Export] public int Margin = 8;
     [Export] public Node2D EnemyContainer;
     [Export] public Node2D DropContainer;
     [Export] public Node2D EffectContainer;
     [Export] public Node2D ProjectileContainer;
     [Export] public Node2D Ship;
+    [Export] public int Margin = 8;
 
     private int _leftBorder;
     private int _rightBorder;

@@ -3,25 +3,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-public partial class Level1Script : Node
+public partial class Level1Script : BaseLevelScript
 {
-	[Export] public Ship Ship { get; set; }
-	[Export] public LevelFlowComponent LevelFlowComponent { get; set; }
-	[Export] public SpawnerComponent Enemy1Spawner { get; set; }
-	[Export] public SpawnerComponent Enemy2Spawner { get; set; }
-	[Export] public SpawnerComponent Enemy3Spawner { get; set; }
-	[Export] public HUDMain HUD { get; set; }
+	protected override int GetLevelId() => 1;
+	protected override String GetLevelMusic() => Music.AMAZING;
 
-	public override void _Ready()
-	{
-		Ship.StatsComponent.Connect("NoHealth", new Callable(this, nameof(OnShipDeath)));
-		HUD.Powers.SetWeaponManager(Ship.WeaponManager);
-
-		G.MS.PlayTrack(Music.AMAZING);
-		G.CR.Run("LevelScript", RunLevelScript);
-	}
-
-	private async Task RunLevelScript(CancellationToken token)
+	protected override async Task RunLevel(CancellationToken token)
 	{
 		try
 		{
@@ -67,28 +54,28 @@ public partial class Level1Script : Node
 			StopDialog();
 
 			await Task.Delay(1000, token);
-			// _ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
+			_ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "Survive!!!");
 
-			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
-			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
+			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 15);
+			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(Enemy1Spawner, 300);
 
-			// await Task.Delay(20000, token);
-			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			await Task.Delay(20000, token);
+			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
 
-			// await Task.Delay(3000, token);
-			// LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
-			// _ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
-			// await Task.Delay(3000, token);
+			await Task.Delay(3000, token);
+			LevelFlowComponent.SpawnerWave.SpawnWave(Enemy2Spawner, 10, 30);
+			_ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Humans...");
+			await Task.Delay(3000, token);
 
-			// LevelFlowComponent.SpawnerRecurrent.StartSpawner1(300);
-			// _ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
-			// await Task.Delay(20000, token);
-			// LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
-			// await Task.Delay(500, token);
+			LevelFlowComponent.SpawnerRecurrent.StartSpawner1(Enemy1Spawner, 300);
+			_ = HUD.PopUpMessage(Char.COMMANDER, Mood.COMMANDER.Default, "Return at once, cat!");
+			await Task.Delay(20000, token);
+			LevelFlowComponent.SpawnerRecurrent.StopSpawner1();
+			await Task.Delay(500, token);
 
-			// await Task.Delay(1500, token);
-			// _ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
-			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy3Spawner, 3, 200);
+			await Task.Delay(1500, token);
+			_ = HUD.PopUpMessage(Char.ROOKIE, Mood.ROOKIE.Default, "They're blocking our return!");
+			await LevelFlowComponent.SpawnerWave.SpawnWaveUntilCleared(Enemy2Spawner, 10, 30);
 			await Task.Delay(3000, token);
 			await HandleLevelClear();
 		}
@@ -96,44 +83,5 @@ public partial class Level1Script : Node
 		{
 			GD.Print("DEBUG: Level1Script - Script canceled");
 		}
-	}
-
-	private async Task HandleLevelClear()
-	{
-		G.BG.BlockInput();
-		G.GF.BlockInput();
-		G.GS.Save();
-		await LevelFlowComponent.LevelCleanup.FadeOutAll();
-
-		Ship.StopFiring();
-		Ship.PositionClampComponent.Enabled = false;
-		Ship.MoveComponent.Velocity = new Vector2(0, -250);
-
-		await Task.Delay(3000);
-		G.MS.FadeOut();
-
-		await G.BG.FadeInBlack(0.3f);
-		G.GF.UnblockInput();
-
-		await G.GF.FadeToSceneWithBG(G.GF.LevelClearScene);
-	}
-
-	private void OnShipDeath()
-	{
-		G.MS.FadeOut();
-		G.SFX.Play(SFX.OIIA_DEATH);
-		G.CR.Stop("LevelScript");
-	}
-
-	private void StartDialog()
-	{
-		G.GF.StartDialog();
-		Ship.StopFiring();
-	}
-
-	private void StopDialog()
-	{
-		G.GF.StopDialog();
-		Ship.StartFiring();
 	}
 }

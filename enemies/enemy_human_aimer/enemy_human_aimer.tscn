@@ -95,7 +95,7 @@ Scene = ExtResource("6_t3c26")
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("Actor")]
 script = ExtResource("7_o8lbw")
 Actor = NodePath("..")
-Velocity = Vector2(0, 100)
+Velocity = Vector2(0, 250)
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("8_xgrot")

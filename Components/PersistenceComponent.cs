@@ -26,13 +26,14 @@ public partial class PersistenceComponent : Node2D
 	public async void Persist()
 	{
 		float speedY = MoveComponent.Velocity.Y;
+		float targetStopY = 175;
 
-		await Task.Delay(3000);
-		if (!IsInstanceValid(this))
-			return;
-
-		if (!ShouldPersist)
-			return;
+		while (GlobalPosition.Y < targetStopY)
+		{
+			await ToSignal(GetTree(), "process_frame");
+			if (!IsInstanceValid(this) || !ShouldPersist)
+				return;
+		}
 
 		MoveComponent.Velocity = Vector2.Zero;
 
@@ -48,7 +49,7 @@ public partial class PersistenceComponent : Node2D
 
 		float distanceToLeft = GlobalPosition.X - _leftBorder;
 		float distanceToRight = _rightBorder - GlobalPosition.X;
-		float targetSpeedX = (distanceToLeft < distanceToRight) ? -speedY : speedY;
+		float targetSpeedX = (distanceToLeft < distanceToRight) ? -100 : 100;
 
 		MoveComponent.Velocity = new Vector2(targetSpeedX, 0);
 	}

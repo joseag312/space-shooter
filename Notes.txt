@@ -63,7 +63,7 @@ Design a test level with a simple conversation flow
 
 🧹 Refactor – Code cleanup (esp. weapon system, components).
 🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
-🌌 3 Levels – Final content amount for portfolio cut.
+🌌 5 Levels – Final content amount for portfolio cut.
 🧬 Weapon Type System – Elemental/tech types, rock-paper-scissors-style behavior.
 
 ****************************************************************************************************************
@@ -78,5 +78,6 @@ Design a test level with a simple conversation flow
 📖 Lore System – Optional story content, maybe codex-style.
 🕹️ Touch GUI Finalization – Post-keyboard support polish.
 📦 Import/Export Save System – For continuity/testing.
+🧩 Randomness in levels.
 
 ****************************************************************************************************************

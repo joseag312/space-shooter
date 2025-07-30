@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_o18bt")
 Key = "L2"
-DisplayName = "SuPerraMadre"
+DisplayName = "Pain"
 ScenePath = "res://levels/level1/level_1.tscn"
 EnemySprites = [ExtResource("1_mhd4p"), null, null]
 RecommendedPowerups = [ExtResource("2_mpxpg"), null]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1qwtox2syayg"]
+[gd_scene load_steps=10 format=3 uid="uid://d1qwtox2syayg"]
 
 [ext_resource type="Script" uid="uid://c02e8tavf6au2" path="res://hud/hud_dialog_system/HUDDialogSystem.cs" id="1_pnina"]
 [ext_resource type="Resource" uid="uid://btyll18mv1tyi" path="res://resources/images/portrait_library.tres" id="2_01eb2"]
@@ -7,6 +7,15 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb8th"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 0.784314)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hb8th"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_01eb2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wylqx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01eb2"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.470588)
 
 [node name="HUDDialogSystem" type="CanvasLayer" node_paths=PackedStringArray("DialogBox", "DialogPortrait", "DialogName", "DialogText", "NextButton", "NextButtonContainer", "PopUpBox", "PopUpPortrait", "PopUpText", "PromptButtonBox", "SureButton", "Option1Button", "Option2Button")]
 script = ExtResource("1_pnina")
@@ -137,14 +146,17 @@ alignment = 1
 [node name="SureButton" type="Button" parent="ButtonBox/PromptButtonContainer"]
 layout_mode = 2
 text = "Sure"
+icon = SubResource("PlaceholderTexture2D_hb8th")
 
 [node name="Option1Button" type="Button" parent="ButtonBox/PromptButtonContainer"]
 layout_mode = 2
 text = "Papa?"
+icon = SubResource("PlaceholderTexture2D_01eb2")
 
 [node name="Option2Button" type="Button" parent="ButtonBox/PromptButtonContainer"]
 layout_mode = 2
 text = "Orale wei"
+icon = SubResource("PlaceholderTexture2D_wylqx")
 
 [node name="spacer" type="Control" parent="ButtonBox/PromptButtonContainer"]
 custom_minimum_size = Vector2(0, 150)
@@ -162,6 +174,7 @@ offset_bottom = 205.0
 layout_mode = 0
 offset_right = 487.0
 offset_bottom = 64.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_01eb2")
 
 [node name="PopUpMargin" type="MarginContainer" parent="PopUpBox/PopUpPanel"]
 layout_mode = 2
@@ -192,5 +205,6 @@ layout_mode = 2
 [node name="PopUpMessage" type="Label" parent="PopUpBox/PopUpPanel/PopUpMargin/PopUpHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 18
 text = "PopUpText"

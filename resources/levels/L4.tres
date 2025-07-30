@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelDataResource" load_steps=5 format=3 uid="uid://btp6sjlopaesn"]
+
+[ext_resource type="Texture2D" uid="uid://b2byj4y33ef6d" path="res://assets/enemy/enemy_human_aimer.png" id="1_eggh0"]
+[ext_resource type="Texture2D" uid="uid://mabeww6pjhiy" path="res://assets/enemy/enemy_human_kamikaze.png" id="2_pv8cl"]
+[ext_resource type="Texture2D" uid="uid://gmvy5goxi764" path="res://assets/powerups/missile.png" id="3_nurfq"]
+[ext_resource type="Script" uid="uid://b03ol7t5nlv8i" path="res://menus/menu_levels/LevelDataResource.cs" id="4_3d6md"]
+
+[resource]
+script = ExtResource("4_3d6md")
+Key = "L4"
+DisplayName = "Obsession"
+ScenePath = "res://levels/level1/level_1.tscn"
+EnemySprites = [ExtResource("1_eggh0"), ExtResource("2_pv8cl"), null]
+RecommendedPowerups = [ExtResource("3_nurfq"), null]
+metadata/_custom_type_script = "uid://b03ol7t5nlv8i"

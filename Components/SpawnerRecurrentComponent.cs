@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class SpawnerRecurrentComponent : Node
 {
-    [Export] public SpawnerComponent Enemy1Spawner { get; set; }
-    [Export] public SpawnerComponent Enemy2Spawner { get; set; }
-    [Export] public SpawnerComponent Enemy3Spawner { get; set; }
     [Export] public Node2D EnemyContainer;
     [Export] public Node2D DropContainer;
     [Export] public Node2D EffectContainer;
@@ -29,22 +26,22 @@ public partial class SpawnerRecurrentComponent : Node
         _rightBorder = (int)ProjectSettings.GetSetting("display/window/size/viewport_width") - Margin;
     }
 
-    public void StartSpawner1(int delay)
+    public void StartSpawner1(SpawnerComponent spawner, int delay)
     {
         _shouldSpawn1 = true;
-        G.CR.Run($"{GetInstanceId()}_Spawner1", token => RecurrentSpawn1(delay, token));
+        G.CR.Run($"{GetInstanceId()}_Spawner1", token => RecurrentSpawn1(spawner, delay, token));
     }
 
-    public void StartSpawner2(int delay)
+    public void StartSpawner2(SpawnerComponent spawner, int delay)
     {
         _shouldSpawn2 = true;
-        G.CR.Run($"{GetInstanceId()}_Spawner2", token => RecurrentSpawn2(delay, token));
+        G.CR.Run($"{GetInstanceId()}_Spawner2", token => RecurrentSpawn2(spawner, delay, token));
     }
 
-    public void StartSpawner3(int delay)
+    public void StartSpawner3(SpawnerComponent spawner, int delay)
     {
         _shouldSpawn3 = true;
-        G.CR.Run($"{GetInstanceId()}_Spawner3", token => RecurrentSpawn3(delay, token));
+        G.CR.Run($"{GetInstanceId()}_Spawner3", token => RecurrentSpawn3(spawner, delay, token));
     }
 
     public void StopSpawner1()
@@ -72,9 +69,9 @@ public partial class SpawnerRecurrentComponent : Node
         StopSpawner3();
     }
 
-    private async Task RecurrentSpawn1(int time, CancellationToken token)
+    private async Task RecurrentSpawn1(SpawnerComponent spawner, int time, CancellationToken token)
     {
-        if (Enemy1Spawner.Scene == null) return;
+        if (spawner.Scene == null) return;
 
         int spawnCount = 0;
         while (_shouldSpawn1 && !token.IsCancellationRequested && IsInsideTree())
@@ -85,7 +82,7 @@ public partial class SpawnerRecurrentComponent : Node
             int x = (int)GD.RandRange(_leftBorder + Margin, _rightBorder - Margin);
             Vector2 position = new Vector2(x, -120);
 
-            Node2D enemy = Enemy1Spawner.Scene.Instantiate<Node2D>();
+            Node2D enemy = spawner.Scene.Instantiate<Node2D>();
             enemy.GlobalPosition = position;
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
@@ -94,9 +91,9 @@ public partial class SpawnerRecurrentComponent : Node
         }
     }
 
-    private async Task RecurrentSpawn2(int time, CancellationToken token)
+    private async Task RecurrentSpawn2(SpawnerComponent spawner, int time, CancellationToken token)
     {
-        if (Enemy2Spawner.Scene == null) return;
+        if (spawner.Scene == null) return;
 
         int spawnCount = 0;
         while (_shouldSpawn2 && !token.IsCancellationRequested && IsInsideTree())
@@ -107,7 +104,7 @@ public partial class SpawnerRecurrentComponent : Node
             int x = (int)GD.RandRange(_leftBorder + Margin, _rightBorder - Margin);
             Vector2 position = new Vector2(x, -120);
 
-            Node2D enemy = Enemy2Spawner.Scene.Instantiate<Node2D>();
+            Node2D enemy = spawner.Scene.Instantiate<Node2D>();
             enemy.GlobalPosition = position;
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";
@@ -116,9 +113,9 @@ public partial class SpawnerRecurrentComponent : Node
         }
     }
 
-    private async Task RecurrentSpawn3(int time, CancellationToken token)
+    private async Task RecurrentSpawn3(SpawnerComponent spawner, int time, CancellationToken token)
     {
-        if (Enemy3Spawner.Scene == null) return;
+        if (spawner.Scene == null) return;
 
         int spawnCount = 0;
         while (_shouldSpawn3 && !token.IsCancellationRequested && IsInsideTree())
@@ -129,7 +126,7 @@ public partial class SpawnerRecurrentComponent : Node
             int x = (int)GD.RandRange(_leftBorder + Margin, _rightBorder - Margin);
             Vector2 position = new Vector2(x, -120);
 
-            Node2D enemy = Enemy3Spawner.Scene.Instantiate<Node2D>();
+            Node2D enemy = spawner.Scene.Instantiate<Node2D>();
             enemy.GlobalPosition = position;
             enemy.AddToGroup("despawnable");
             enemy.Name = $"Enemy_{spawnCount++}";

@@ -1,19 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmkyj16lllnex"]
+[gd_scene load_steps=5 format=3 uid="uid://dmkyj16lllnex"]
 
 [ext_resource type="PackedScene" uid="uid://uwm62ooy0apb" path="res://backgrounds/templates/bg_parallax_template.tscn" id="1_d4ltw"]
-[ext_resource type="Script" uid="uid://1ag5amfn00dm" path="res://components/BackgroundFadeComponent.cs" id="2_576li"]
 [ext_resource type="Texture2D" uid="uid://dxll1sk0iq4ck" path="res://assets/backgrounds/bg_ocean/bg_ocean_back.png" id="2_n72r0"]
 [ext_resource type="Texture2D" uid="uid://cypt25wglcpcf" path="res://assets/backgrounds/bg_ocean/bg_ocean_slow.png" id="3_576li"]
 [ext_resource type="Texture2D" uid="uid://d22vpktc5ry5" path="res://assets/backgrounds/bg_ocean/bg_ocean_fast.png" id="4_ya7ds"]
 
 [node name="Bg_Ocean" instance=ExtResource("1_d4ltw")]
-
-[node name="BackgroundFadeComponent" type="Node" parent="." index="2" node_paths=PackedStringArray("BackgroundLayer", "SlowLayer", "FastLayer")]
-script = ExtResource("2_576li")
-BackgroundLayer = NodePath("../Background/BackgroundTexture")
-SlowLayer = NodePath("../SlowLayer/SlowLayerTexture")
-FastLayer = NodePath("../FastLayer/FastLayerTexture")
-metadata/_custom_type_script = "uid://1ag5amfn00dm"
 
 [node name="Background" parent="." index="4"]
 z_index = 1

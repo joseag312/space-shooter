@@ -29,10 +29,10 @@ public partial class AutoGameStats : Node
 
 			LevelDependencies = new Dictionary<string, List<string>>
 			{
-				//{ "L2", new List<string> { "L3" } },
 				{ "L3", new List<string> { "L1" } },
-				{ "L4", new List<string> { "L5" } },
-				{ "L5", new List<string> { "L1" } }
+				{ "L4", new List<string> { "L1" } },
+				{ "L2", new List<string> { "L3" } },
+				{ "L5", new List<string> { "L2" , "L4"} }
 			};
 		}
 		else

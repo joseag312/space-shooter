@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LevelDataResource" load_steps=6 format=3 uid="uid://b7wlq558huiyx"]
+
+[ext_resource type="Texture2D" uid="uid://b2byj4y33ef6d" path="res://assets/enemy/enemy_human_aimer.png" id="1_4k36q"]
+[ext_resource type="Texture2D" uid="uid://baaje4crapiwc" path="res://assets/enemy/enemy_human_bulldozer.png" id="1_fdm6c"]
+[ext_resource type="Texture2D" uid="uid://cm3sx2vtm67v4" path="res://assets/enemy/enemy_human_basic.png" id="3_2maqi"]
+[ext_resource type="Texture2D" uid="uid://gmvy5goxi764" path="res://assets/powerups/missile.png" id="3_uprvj"]
+[ext_resource type="Script" uid="uid://b03ol7t5nlv8i" path="res://menus/menu_levels/LevelDataResource.cs" id="4_2maqi"]
+
+[resource]
+script = ExtResource("4_2maqi")
+Key = "L5"
+DisplayName = "Awake"
+ScenePath = "res://levels/level1/level_1.tscn"
+EnemySprites = [ExtResource("1_fdm6c"), ExtResource("1_4k36q"), ExtResource("3_2maqi")]
+RecommendedPowerups = [ExtResource("3_uprvj"), null]
+metadata/_custom_type_script = "uid://b03ol7t5nlv8i"
