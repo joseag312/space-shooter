@@ -938,7 +938,7 @@ animations = [{
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2kwya"]
 
-[node name="MenuLevels_tscn" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton")]
+[node name="MenuLevels" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_41nlo")
@@ -1273,7 +1273,7 @@ layout_mode = 2
 
 [node name="ArmoryButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
-text = "Armory"
+text = "   Store   "
 icon = SubResource("PlaceholderTexture2D_g7we0")
 icon_alignment = 1
 

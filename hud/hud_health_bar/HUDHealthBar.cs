@@ -49,6 +49,10 @@ public partial class HUDHealthBar : Control
 			return;
 		}
 
+		if (newHealth < 0)
+		{
+			newHealth = 0;
+		}
 		HealthBar.Value = newHealth;
 		HealthValue.Text = $"{newHealth}/{_statsComponent.MaxHealth}";
 		Color originalColor = new Color(97f / 255f, 1f, 1f, 1f);

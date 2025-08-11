@@ -12,7 +12,7 @@ public partial class Level002Script : BaseLevelScript
     {
         try
         {
-            G.GS.LevelMultiplier = 2;
+            G.GS.LevelMultiplier = 3;
             await Task.Delay(300, token);
 
             StartDialog();

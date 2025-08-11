@@ -1,0 +1,967 @@
+[gd_scene load_steps=32 format=3 uid="uid://bqf6fgm21jhgu"]
+
+[ext_resource type="Script" uid="uid://c4iesx17v7vif" path="res://components/MenuLoadComponent.cs" id="1_m2xc7"]
+[ext_resource type="Script" uid="uid://bbg1n3i80miej" path="res://components/MenuFadeComponent.cs" id="2_idm8s"]
+[ext_resource type="Script" uid="uid://du6dihgjlhy2v" path="res://components/AutoBackgroundTriggerComponent.cs" id="3_muuhc"]
+[ext_resource type="LabelSettings" uid="uid://cq7v7yowl8sho" path="res://resources/fonts/font_syne_white_48_outline.tres" id="4_cwyyt"]
+[ext_resource type="Texture2D" uid="uid://dfwh7r8vyxblv" path="res://assets/gui/gui_armory_window.png" id="5_yq1bv"]
+[ext_resource type="Texture2D" uid="uid://lf5b4qs4rinl" path="res://assets/gui/gui_container_basic_square.png" id="6_fj2u5"]
+[ext_resource type="Script" uid="uid://wjkwff8bsnkv" path="res://menus/menu_levels/PlanetPanel.cs" id="7_d5mcd"]
+[ext_resource type="Texture2D" uid="uid://c7bm3th4b5u0b" path="res://assets/gui/gui_button_small.png" id="8_o87el"]
+[ext_resource type="Texture2D" uid="uid://gmvy5goxi764" path="res://assets/powerups/missile.png" id="9_5ecgf"]
+[ext_resource type="Texture2D" uid="uid://bnfyvtjx4mo0u" path="res://assets/player_ship/player_ship_basic.png" id="11_6veqr"]
+[ext_resource type="Texture2D" uid="uid://cla7q0wxodcso" path="res://assets/gui/gui_plus.png" id="13_frvcs"]
+[ext_resource type="Texture2D" uid="uid://bhbusg7jrfvc0" path="res://assets/gui/gui_minus.png" id="14_frgp5"]
+[ext_resource type="Texture2D" uid="uid://cvs2ottwp4m85" path="res://assets/gui/gui_back_arrow.png" id="15_47uqe"]
+[ext_resource type="Texture2D" uid="uid://mvu63u0lkuaj" path="res://assets/gui/o_icon.png" id="15_sc1yn"]
+[ext_resource type="PackedScene" uid="uid://cjuilh3ky2tbn" path="res://hud/hud_currency/hud_currency.tscn" id="16_jesry"]
+[ext_resource type="Texture2D" uid="uid://c2pycmfef0u0c" path="res://assets/gui/gui_card.png" id="17_il4e6"]
+[ext_resource type="PackedScene" uid="uid://d1qwtox2syayg" path="res://hud/hud_dialog_system/hud_dialog_system.tscn" id="18_0bp78"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frvcs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frgp5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jesry"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpo2d"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2xc7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idm8s"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muuhc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cwyyt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq1bv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj2u5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5mcd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o87el"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frgp5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jesry"]
+texture = ExtResource("8_o87el")
+
+[node name="MenuStore" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuLoadComponent" type="Node" parent="."]
+script = ExtResource("1_m2xc7")
+metadata/_custom_type_script = "uid://c4iesx17v7vif"
+
+[node name="MenuFadeComponent" type="Node" parent="."]
+script = ExtResource("2_idm8s")
+metadata/_custom_type_script = "uid://bbg1n3i80miej"
+
+[node name="AutoBackgroundTriggerComponent" type="Node" parent="."]
+script = ExtResource("3_muuhc")
+metadata/_custom_type_script = "uid://du6dihgjlhy2v"
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="MainContainer" type="CenterContainer" parent="UILayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MainContainer"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1280, 660)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1220, 580)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Store                          "
+label_settings = ExtResource("4_cwyyt")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="PowerUpContainer" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(435, 500)
+layout_mode = 2
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer"]
+position = Vector2(-30, 0)
+scale = Vector2(2, 2.15)
+texture = ExtResource("5_yq1bv")
+centered = false
+
+[node name="Control" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer"]
+custom_minimum_size = Vector2(300, 380)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+columns = 3
+
+[node name="PowerUpPanel" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer" groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_d5mcd")
+LevelKey = "L1"
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PowerUpPanel"]
+layout_mode = 2
+
+[node name="PowerUp1ContainerTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PowerUpPanel/CenterContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("8_o87el")
+
+[node name="PowerUp1IconTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PowerUpPanel/CenterContainer"]
+modulate = Color(0.784314, 0.784314, 0.784314, 0.529412)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("9_5ecgf")
+expand_mode = 1
+
+[node name="PlanetPanel2" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer" groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_d5mcd")
+LevelKey = "L2"
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel2"]
+layout_mode = 2
+
+[node name="PowerUp1ContainerTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel2/CenterContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("8_o87el")
+
+[node name="PowerUp1IconTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel2/CenterContainer"]
+modulate = Color(0.784314, 0.784314, 0.784314, 0.529412)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("9_5ecgf")
+expand_mode = 1
+
+[node name="PlanetPanel3" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer" groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_d5mcd")
+LevelKey = "L3"
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel3"]
+layout_mode = 2
+
+[node name="PowerUp1ContainerTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel3/CenterContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("8_o87el")
+
+[node name="PowerUp1IconTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel3/CenterContainer"]
+modulate = Color(0.784314, 0.784314, 0.784314, 0.529412)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("9_5ecgf")
+expand_mode = 1
+
+[node name="PlanetPanel4" type="PanelContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer" groups=["planet_panels"]]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+script = ExtResource("7_d5mcd")
+LevelKey = "L4"
+metadata/_custom_type_script = "uid://wjkwff8bsnkv"
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel4"]
+layout_mode = 2
+
+[node name="PowerUp1ContainerTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel4/CenterContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("8_o87el")
+
+[node name="PowerUp1IconTextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/CenterContainer/ScrollContainer/GridContainer/PlanetPanel4/CenterContainer"]
+modulate = Color(0.784314, 0.784314, 0.784314, 0.529412)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("9_5ecgf")
+expand_mode = 1
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer"]
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpContainer/ButtonContainer"]
+layout_mode = 2
+icon = ExtResource("15_47uqe")
+icon_alignment = 1
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="SpecialContainers" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ShipUpgradesButton" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/ShipUpgradesButton"]
+layout_mode = 2
+texture = ExtResource("6_fj2u5")
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/ShipUpgradesButton"]
+layout_mode = 2
+texture = ExtResource("11_6veqr")
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/ShipUpgradesButton"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frvcs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_frgp5")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jpo2d")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_m2xc7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_idm8s")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_muuhc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cwyyt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_yq1bv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fj2u5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_d5mcd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o87el")
+
+[node name="Control2" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SpecialUpgradesButton2" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton2"]
+layout_mode = 2
+texture = ExtResource("6_fj2u5")
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frvcs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_frgp5")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jpo2d")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_m2xc7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_idm8s")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_muuhc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cwyyt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_yq1bv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fj2u5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_d5mcd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o87el")
+
+[node name="Control3" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SpecialUpgradesButton3" type="CenterContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton3"]
+layout_mode = 2
+texture = ExtResource("6_fj2u5")
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton3"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/SpecialContainers/SpecialUpgradesButton3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frvcs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_frgp5")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jpo2d")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_m2xc7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_idm8s")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_muuhc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cwyyt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_yq1bv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fj2u5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_d5mcd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o87el")
+
+[node name="Control3" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PowerUpDetailCard" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+scale = Vector2(1.2, 1.3)
+texture = ExtResource("17_il4e6")
+centered = false
+offset = Vector2(-50, 0)
+
+[node name="m351" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="PowerUpName" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+text = "Missile"
+horizontal_alignment = 1
+
+[node name="m352" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Speed:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m353" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Damage:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m355" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer5"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Cooldown:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer5"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer5"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m356" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer3"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Storage:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m354" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer4"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("15_sc1yn")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer4"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="PlayButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PowerUpDetailCard/HBoxContainer4"]
+custom_minimum_size = Vector2(85, 85)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+expand_icon = true
+
+[node name="ShipUpgradeCard" type="VBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+scale = Vector2(1.2, 1.3)
+texture = ExtResource("17_il4e6")
+centered = false
+offset = Vector2(-50, 0)
+
+[node name="m351" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="PowerUpName" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+text = "Missile"
+horizontal_alignment = 1
+
+[node name="m352" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Speed:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m353" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Damage:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m355" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer5"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Cooldown:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer5"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer5"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m356" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer3"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "   Storage:"
+
+[node name="m102" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("14_frgp5")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m101" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/icon_max_width = 30
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("PlaceholderTexture2D_frgp5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_jesry")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jesry")
+icon = ExtResource("13_frvcs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="m354" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer4"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("15_sc1yn")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer4"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="PlayButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ShipUpgradeCard/HBoxContainer4"]
+custom_minimum_size = Vector2(85, 85)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+expand_icon = true
+
+[node name="HUDDialogSystem" parent="." instance=ExtResource("18_0bp78")]
+
+[node name="HUDCurrency" parent="." instance=ExtResource("16_jesry")]
+layout_mode = 1

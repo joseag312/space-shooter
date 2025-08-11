@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 public partial class Level005Script : BaseLevelScript
 {
     protected override int GetLevelId() => 4;
-    protected override String GetLevelMusic() => Music.ANGRY;
+    protected override String GetLevelMusic() => Music.FINAL;
 
     protected override async Task RunLevel(CancellationToken token)
     {
         try
         {
-            G.GS.LevelMultiplier = 3;
+            G.GS.LevelMultiplier = 4;
             await Task.Delay(300, token);
 
             StartDialog();
