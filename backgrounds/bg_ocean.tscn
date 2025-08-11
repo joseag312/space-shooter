@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cypt25wglcpcf" path="res://assets/backgrounds/bg_ocean/bg_ocean_slow.png" id="3_576li"]
 [ext_resource type="Texture2D" uid="uid://d22vpktc5ry5" path="res://assets/backgrounds/bg_ocean/bg_ocean_fast.png" id="4_ya7ds"]
 
-[node name="Bg_Ocean" instance=ExtResource("1_d4ltw")]
+[node name="BgOcean" instance=ExtResource("1_d4ltw")]
 
 [node name="Background" parent="." index="4"]
 z_index = 1

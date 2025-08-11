@@ -17,7 +17,7 @@ public partial class AutoGameStats : Node
 	public Dictionary<string, bool> LevelCleared = new();
 	public Dictionary<string, bool> DialogSeen = new();
 	public int Karma = 0;
-	public int CurrentLevel;
+	public int LevelMultiplier;
 	public float CurrencyMultiplier = 1f;
 
 	public override void _Ready()
@@ -125,7 +125,7 @@ public partial class AutoGameStats : Node
 		Pawllars = 0;
 		Mewnits = 0;
 		Karma = 0;
-		CurrentLevel = 0;
+		LevelMultiplier = 0;
 		CurrencyMultiplier = 1f;
 
 		LevelCleared.Clear();

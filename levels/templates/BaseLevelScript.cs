@@ -26,7 +26,6 @@ public abstract partial class BaseLevelScript : Node
 	{
 		try
 		{
-			G.GS.CurrentLevel = GetLevelId();
 			await RunLevel(token);
 		}
 		catch (TaskCanceledException)
@@ -41,6 +40,7 @@ public abstract partial class BaseLevelScript : Node
 
 	protected void StartDialog()
 	{
+		Ship.MoveComponent.Velocity = Vector2.Zero;
 		G.GF.StartDialog();
 		Ship.StopFiring();
 	}
@@ -49,6 +49,11 @@ public abstract partial class BaseLevelScript : Node
 	{
 		G.GF.StopDialog();
 		Ship.StartFiring();
+	}
+
+	protected void StopEndingDialog()
+	{
+		G.GF.StopDialog();
 	}
 
 	protected async Task HandleLevelClear()

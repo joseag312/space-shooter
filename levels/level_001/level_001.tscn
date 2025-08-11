@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://din7e88hu2cps"]
 
-[ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level1/Level1Script.cs" id="2_f645t"]
+[ext_resource type="Script" uid="uid://baxjdaiuelb2s" path="res://levels/level_001/Level001Script.cs" id="2_f645t"]
 [ext_resource type="Script" uid="uid://15c5bbm4dl76" path="res://components/SpawnerComponent.cs" id="2_loufh"]
 [ext_resource type="Script" uid="uid://dsrlc8h0hnlgp" path="res://components/SpawnerRecurrentComponent.cs" id="4_54k3g"]
 [ext_resource type="Script" uid="uid://b7kt20j1tgm7k" path="res://components/LevelFlowComponent.cs" id="4_ebna0"]
@@ -12,13 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://c5xf8n0lytpa3" path="res://enemies/enemy_human_bulldozer/enemy_human_bulldozer.tscn" id="9_tl3cw"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="13_u3t6j"]
 
-[node name="Level1" type="Node2D"]
+[node name="Level001" type="Node2D"]
 
-[node name="Bg_Ocean" parent="." instance=ExtResource("6_icxts")]
+[node name="ParallaxBackground" parent="." instance=ExtResource("6_icxts")]
 
 [node name="HUDMain" parent="." instance=ExtResource("13_u3t6j")]
 
-[node name="Level1Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "HUD")]
+[node name="Level001Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "Enemy3Spawner", "HUD")]
 script = ExtResource("2_f645t")
 Ship = NodePath("../ShipContainer/Ship")
 LevelFlowComponent = NodePath("../LevelFlowComponent")
@@ -31,7 +31,7 @@ HUD = NodePath("../HUDMain")
 script = ExtResource("4_ebna0")
 Ship = NodePath("../ShipContainer/Ship")
 HUD = NodePath("../HUDMain")
-ParallaxBackground = NodePath("../Bg_Ocean")
+ParallaxBackground = NodePath("../ParallaxBackground")
 EffectContainer = NodePath("../EffectContainer")
 DropContainer = NodePath("../DropContainer")
 ProjectileContainer = NodePath("../ProjectileContainer")

@@ -68,6 +68,13 @@ Design a test level with a simple conversation flow
 
 ****************************************************************************************************************
 
+🐜 Bugs
+
+🩵 Life goes to -1 in the HUD
+❤️ When life is over 2500, taking damage sends the text flying
+
+****************************************************************************************************************
+
 🌀 Showcase Backlog
 
 🏆 Full Progression System – Unlocks, upgrades, meta-level persistence.

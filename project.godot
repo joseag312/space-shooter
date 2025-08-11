@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="galaxy-navigator-c"
-run/main_scene="uid://bg4r1huv1iutd"
+run/main_scene="uid://w5po6lg1rieg"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 
 [audio]

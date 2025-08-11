@@ -6,6 +6,7 @@ public static class Char
     public const string FRIEND = "Friend";
     public const string OIIA = "Oiia";
     public const string ROOKIE = "Rookie";
+    public const string FORTUNE = "Fortune";
 }
 
 public static class Mood
@@ -52,6 +53,11 @@ public static class Mood
     }
 
     public static class ROOKIE
+    {
+        public const string Default = "default";
+    }
+
+    public static class FORTUNE
     {
         public const string Default = "default";
     }

@@ -4,7 +4,7 @@ public partial class AutoShipStats : Node
 {
 	public static AutoShipStats Instance { get; private set; }
 
-	[Export] private int _health = 25;
+	[Export] private int _health = 2500;
 	[Export] private int _speed = 250;
 
 	private const string SavePath = "user://savegame_ship.dat";

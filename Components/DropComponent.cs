@@ -60,7 +60,7 @@ public partial class DropComponent : Node
 
                     var context = new DropContext
                     {
-                        Level = G.GS.CurrentLevel,
+                        LevelMultiplier = G.GS.LevelMultiplier,
                         CurrencyMultiplier = G.GS.CurrencyMultiplier,
                         Karma = G.GS.Karma,
                         SourceType = Type

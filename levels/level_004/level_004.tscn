@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dmkyj16lllnex" path="res://backgrounds/bg_ocean.tscn" id="1_mygd4"]
 [ext_resource type="PackedScene" uid="uid://t3gj82llt5tu" path="res://hud/hud_main/hud_main.tscn" id="2_x6yfe"]
-[ext_resource type="Script" uid="uid://nbgbe5wmspx1" path="res://levels/level4/Level4Script.cs" id="3_rgd72"]
+[ext_resource type="Script" uid="uid://nbgbe5wmspx1" path="res://levels/level_004/Level004Script.cs" id="3_rgd72"]
 [ext_resource type="Script" uid="uid://b7kt20j1tgm7k" path="res://components/LevelFlowComponent.cs" id="4_v31f5"]
 [ext_resource type="Script" uid="uid://dsrlc8h0hnlgp" path="res://components/SpawnerRecurrentComponent.cs" id="5_ny47j"]
 [ext_resource type="Script" uid="uid://7bpd0oehmqnw" path="res://components/SpawnerWaveComponent.cs" id="6_d8qmi"]
@@ -12,13 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://c5xf8n0lytpa3" path="res://enemies/enemy_human_bulldozer/enemy_human_bulldozer.tscn" id="10_k8lc3"]
 [ext_resource type="PackedScene" uid="uid://cm2ehypi27656" path="res://player_ship/ship.tscn" id="11_pf6kv"]
 
-[node name="Level4" type="Node2D"]
+[node name="Level004" type="Node2D"]
 
-[node name="Bg_Ocean" parent="." instance=ExtResource("1_mygd4")]
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_mygd4")]
 
 [node name="HUDMain" parent="." instance=ExtResource("2_x6yfe")]
 
-[node name="Level4Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "HUD")]
+[node name="Level004Script" type="Node" parent="." node_paths=PackedStringArray("Ship", "LevelFlowComponent", "Enemy1Spawner", "Enemy2Spawner", "HUD")]
 script = ExtResource("3_rgd72")
 Ship = NodePath("../ShipContainer/Ship")
 LevelFlowComponent = NodePath("../LevelFlowComponent")
@@ -30,7 +30,7 @@ HUD = NodePath("../HUDMain")
 script = ExtResource("4_v31f5")
 Ship = NodePath("../ShipContainer/Ship")
 HUD = NodePath("../HUDMain")
-ParallaxBackground = NodePath("../Bg_Ocean")
+ParallaxBackground = NodePath("../ParallaxBackground")
 EffectContainer = NodePath("../EffectContainer")
 DropContainer = NodePath("../DropContainer")
 ProjectileContainer = NodePath("../ProjectileContainer")

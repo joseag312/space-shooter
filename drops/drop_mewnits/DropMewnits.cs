@@ -13,7 +13,7 @@ public partial class DropMewnits : DropBase, IDropAmount
 
         if (context != null)
         {
-            multiplier *= 1f + (context.Level * 0.05f);
+            multiplier *= 1f + (context.LevelMultiplier * 0.05f);
             multiplier *= 1f + (context.Karma * 0.01f);
             switch (context.SourceType)
             {
