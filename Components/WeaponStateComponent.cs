@@ -124,6 +124,7 @@ public partial class WeaponStateComponent : Resource
             _ => BaseData.GlobalPriceGrowth
         };
 
+        GD.Print(BaseData.StoragePriceGrowth);
         double price = basePrice * Math.Pow(growth, level);
         return Mathf.CeilToInt((float)price);
     }

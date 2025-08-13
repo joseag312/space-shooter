@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://b2wycilbe6afh"]
+[gd_scene load_steps=152 format=3 uid="uid://b2wycilbe6afh"]
 
 [ext_resource type="Script" uid="uid://digfhbrdt3ixs" path="res://menus/menu_levels/MenuLevels.cs" id="1_41nlo"]
 [ext_resource type="Script" uid="uid://c4iesx17v7vif" path="res://components/MenuLoadComponent.cs" id="2_sjyew"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://lf5b4qs4rinl" path="res://assets/gui/gui_container_basic_square.png" id="13_btnk4"]
 [ext_resource type="Texture2D" uid="uid://c7bm3th4b5u0b" path="res://assets/gui/gui_button_small.png" id="14_mcpjs"]
 [ext_resource type="PackedScene" uid="uid://d1qwtox2syayg" path="res://hud/hud_dialog_system/hud_dialog_system.tscn" id="15_6vh8r"]
+[ext_resource type="PackedScene" uid="uid://cjuilh3ky2tbn" path="res://hud/hud_currency/hud_currency.tscn" id="19_7rpbt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7y01"]
 atlas = ExtResource("8_ss1vw")
@@ -940,7 +941,11 @@ animations = [{
 
 [node name="MenuLevels" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton", "StoreButton")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+size_flags_horizontal = 4
 script = ExtResource("1_41nlo")
 MenuFadeComponent = NodePath("MenuFadeComponent")
 HUD = NodePath("HUDDialogSystem")
@@ -991,9 +996,8 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-text = "Level Selection"
+text = "       Level Selection"
 label_settings = ExtResource("5_7rpbt")
-horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1459,3 +1463,6 @@ text = "Go "
 icon = SubResource("PlaceholderTexture2D_2kwya")
 
 [node name="HUDDialogSystem" parent="." instance=ExtResource("15_6vh8r")]
+
+[node name="HUDCurrency" parent="." instance=ExtResource("19_7rpbt")]
+layout_mode = 1

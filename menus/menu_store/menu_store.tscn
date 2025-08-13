@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bqf6fgm21jhgu"]
+[gd_scene load_steps=48 format=3 uid="uid://bqf6fgm21jhgu"]
 
 [ext_resource type="Script" uid="uid://nb1rf6g724vk" path="res://menus/menu_store/MenuStore.cs" id="1_a1tq6"]
 [ext_resource type="Script" uid="uid://c4iesx17v7vif" path="res://components/MenuLoadComponent.cs" id="1_m2xc7"]
@@ -29,6 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://dt3os33c5y83x" path="res://assets/gui/gui_container_basic.png" id="22_d5kww"]
 [ext_resource type="Script" uid="uid://d4ckidvval1h" path="res://menus/menu_store/UpgradePowerUpContainer.cs" id="23_f8gmq"]
 [ext_resource type="Script" uid="uid://sgogjvjxogn3" path="res://menus/menu_store/UpgradeShipContainer.cs" id="25_f8gmq"]
+[ext_resource type="Script" uid="uid://dwptb8pybl1kq" path="res://menus/menu_store/AssignContainer.cs" id="27_b0a3i"]
+[ext_resource type="Script" uid="uid://de0gppxxhe2c5" path="res://menus/menu_store/AssignContainerBox.cs" id="27_oy85e"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frvcs"]
 
@@ -74,7 +76,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jesry"]
 texture = ExtResource("8_o87el")
 
-[node name="MenuStore" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "BuyPowerUpContainer", "UpgradePowerUpContainer", "UpgradeShipContainer", "AssignContainer", "ReturnButton", "EquipButton", "BuyButton", "UpgradeButton")]
+[node name="MenuStore" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "BuyPowerUpContainer", "UpgradePowerUpContainer", "UpgradeShipContainer", "AssignContainerBox", "ReturnButton", "EquipButton", "BuyButton", "UpgradeButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,7 +89,7 @@ HUD = NodePath("HUDDialogSystem")
 BuyPowerUpContainer = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/BuyPowerUpContainer")
 UpgradePowerUpContainer = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/UpgradePowerUpContainer")
 UpgradeShipContainer = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/UpgradeShipContainer")
-AssignContainer = NodePath("UILayer/MainContainer/AssignContainer")
+AssignContainerBox = NodePath("UILayer/MainContainer/AssignContainerBox")
 ReturnButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/ReturnButton")
 EquipButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/EquipButton")
 BuyButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/BuyButton")
@@ -715,6 +717,7 @@ theme_override_font_sizes/font_size = 30
 expand_icon = true
 
 [node name="UpgradePowerUpContainer" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard" node_paths=PackedStringArray("TitleLabel", "SpeedRow", "SpeedLevelLabel", "SpeedAddButton", "SpeedMinusButton", "DamageRow", "DamageLevelLabel", "DamageAddButton", "DamageMinusButton", "CooldownRow", "CooldownLevelLabel", "CooldownAddButton", "CooldownMinusButton", "StorageRow", "StorageLevelLabel", "StorageAddButton", "StorageMinusButton", "TotalPriceLabel", "ConfirmButton")]
+visible = false
 layout_mode = 2
 script = ExtResource("23_f8gmq")
 TitleLabel = NodePath("PowerUpName")
@@ -1092,10 +1095,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 expand_icon = true
 
-[node name="UpgradeShipContainer" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard"]
-visible = false
+[node name="UpgradeShipContainer" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard" node_paths=PackedStringArray("TitleLabel", "HealthRow", "HealthValueLabel", "HealthAddButton", "HealthMinusButton", "SpeedRow", "SpeedValueLabel", "SpeedAddButton", "SpeedMinusButton", "TotalPriceLabel", "ConfirmButton")]
 layout_mode = 2
 script = ExtResource("25_f8gmq")
+TitleLabel = NodePath("PowerUpName")
+HealthRow = NodePath("HealthContainer")
+HealthValueLabel = NodePath("HealthContainer/HealthValue")
+HealthAddButton = NodePath("HealthContainer/Health+Button")
+HealthMinusButton = NodePath("HealthContainer/Health-Button")
+SpeedRow = NodePath("SpeedContainer")
+SpeedValueLabel = NodePath("SpeedContainer/SpeedValue")
+SpeedAddButton = NodePath("SpeedContainer/Speed+Button")
+SpeedMinusButton = NodePath("SpeedContainer/Speed-Button")
+TotalPriceLabel = NodePath("PurchaseContainer/CurrencyAmount")
+ConfirmButton = NodePath("PurchaseContainer/UpgradeConfirm")
 
 [node name="m35" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/UpgradeShipContainer"]
 custom_minimum_size = Vector2(0, 35)
@@ -1212,7 +1225,7 @@ text = " Speed:"
 [node name="SpeedValue" type="Label" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/UpgradeShipContainer/SpeedContainer"]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
-text = "1"
+text = "250"
 
 [node name="m10-1" type="Control" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DetailCard/UpgradeShipContainer/SpeedContainer"]
 custom_minimum_size = Vector2(10, 0)
@@ -1300,88 +1313,105 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 expand_icon = true
 
-[node name="AssignContainer" type="CenterContainer" parent="UILayer/MainContainer"]
+[node name="AssignContainerBox" type="CenterContainer" parent="UILayer/MainContainer" node_paths=PackedStringArray("ContainerSlot1", "ContainerSlot2", "ContainerSlot3", "ContainerSlot4")]
 visible = false
 layout_mode = 2
+script = ExtResource("27_oy85e")
+ContainerSlot1 = NodePath("HBoxContainer/CenterContainer")
+ContainerSlot2 = NodePath("HBoxContainer/CenterContainer2")
+ContainerSlot3 = NodePath("HBoxContainer/CenterContainer3")
+ContainerSlot4 = NodePath("HBoxContainer/CenterContainer4")
 
-[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/AssignContainer"]
+[node name="TextureRect" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox"]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 2
 texture = ExtResource("22_d5kww")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/AssignContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MainContainer/AssignContainerBox"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer" node_paths=PackedStringArray("ContainerSprite", "WeaponSprite")]
 layout_mode = 2
+script = ExtResource("27_b0a3i")
+SlotKey = "special_1"
+ContainerSprite = NodePath("PowerUpContainer")
+WeaponSprite = NodePath("PowerUpIcon")
 
-[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer"]
+[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("8_o87el")
 
-[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer"]
+[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer"]
 modulate = Color(1, 1, 1, 0.980392)
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("9_5ecgf")
 expand_mode = 1
 
-[node name="m10-1" type="Control" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="m10-1" type="Control" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer" node_paths=PackedStringArray("ContainerSprite", "WeaponSprite")]
 layout_mode = 2
+script = ExtResource("27_b0a3i")
+SlotKey = "special_2"
+ContainerSprite = NodePath("PowerUpContainer")
+WeaponSprite = NodePath("PowerUpIcon")
 
-[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer2"]
+[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("8_o87el")
 
-[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer2"]
+[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer2"]
 modulate = Color(1, 1, 1, 0.980392)
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("9_5ecgf")
 expand_mode = 1
 
-[node name="m10-2" type="Control" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="m10-2" type="Control" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="CenterContainer3" type="CenterContainer" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer" node_paths=PackedStringArray("ContainerSprite", "WeaponSprite")]
 layout_mode = 2
+script = ExtResource("27_b0a3i")
+SlotKey = "special_3"
+ContainerSprite = NodePath("PowerUpContainer")
+WeaponSprite = NodePath("PowerUpIcon")
 
-[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer3"]
+[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer3"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("8_o87el")
 
-[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer3"]
+[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer3"]
 modulate = Color(1, 1, 1, 0.980392)
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("9_5ecgf")
 expand_mode = 1
 
-[node name="m10-3" type="Control" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="m10-3" type="Control" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="CenterContainer4" type="CenterContainer" parent="UILayer/MainContainer/AssignContainer/HBoxContainer"]
+[node name="CenterContainer4" type="CenterContainer" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer" node_paths=PackedStringArray("ContainerSprite", "WeaponSprite")]
 layout_mode = 2
+script = ExtResource("27_b0a3i")
+SlotKey = "special_4"
+ContainerSprite = NodePath("PowerUpContainer")
+WeaponSprite = NodePath("PowerUpIcon")
 
-[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer4"]
+[node name="PowerUpContainer" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer4"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("8_o87el")
 
-[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainer/HBoxContainer/CenterContainer4"]
+[node name="PowerUpIcon" type="TextureRect" parent="UILayer/MainContainer/AssignContainerBox/HBoxContainer/CenterContainer4"]
 modulate = Color(1, 1, 1, 0.980392)
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("9_5ecgf")
 expand_mode = 1
 
 [node name="HUDDialogSystem" parent="." instance=ExtResource("18_0bp78")]

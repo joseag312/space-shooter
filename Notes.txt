@@ -1,48 +1,24 @@
 ****************************************************************************************************************
 
-✅ Summary of Today - 🛠 Weapon Upgrade Pricing Overhaul
+✅ Summary of Today
 
-Added GetPriceAtLevel() to WeaponStateComponent for flexible, level-based price calculation.
-Kept GetNextPrice() as a wrapper for normal use.
-Enabled the store to preview progressive upgrade costs without touching actual weapon state.
-🎯 Upgrade UI Refactor
-Rebuilt UpgradePowerUpContainer as a multi-row upgrade panel for: Speed, Damage/Damage%, Cooldown, and Storage.
-Each row hides if not upgradeable and uses progressive pricing from WeaponStateComponent.
-Removed per-row price labels → now one Total Price at the bottom.
-Green highlight for level number when pending an upgrade.
-Confirm button applies all queued upgrades in one transaction.
-💰 HUD Currency Glow-Up
-Overhauled HUDCurrency to animate currency changes:
-Slot-machine scramble of same-digit numbers.
-Color flash (green for gain, red for spend).
-Punch-scale animation for extra juice.
-Safe concurrent updates via per-label animation gating.
+🛒 Store/Armory complete: two-stat ship upgrades (Health/Speed) with exponential pricing, live pending preview, total cost calc, and confirm gating.
+🧠 AutoShipStats: levels + effective values, GetPriceAtLevel with ratio, no signals; ready for tuning per your budgets.
+🧩 Equip UI: AssignContainer + AssignContainerBox wired to G.WI.EquipSlotWeapon(), uniqueness enforced, proper unequip, robust debug logs, and fade-in/out with delayed hide so click animation plays.
+🖼️ Icons: safe Texture2D loading from IconPath, empties clear visuals.
+💰 Demo economy: calibrator to target ~50k across levels using multipliers, jitter, and mid-demo recalibration.
+💾 Persistence: equip/save flows updated; debug dump helpers added.
 
 ****************************************************************************************************************
 
-🚀 Tomorrow’s Jump Point – Ship Upgrades & Weapon Equip
+🚀 Tomorrow’s Jump Point – POLISH
 
-🎯 Goal:
-Implement a Ship Armory / Loadout screen where the player can:
-
-Equip weapons from their unlocked inventory into ship slots.
-View weapon stats (Effective values from WeaponStateComponent).
-Integrate upgrades directly into weapon equip flow so changes reflect in the loadout.
-Save/load equipped weapons into WeaponInventoryManager for persistence.
-📋 Key Steps:
-Build Loadout UI: Slot buttons (basic, big, special 1–4) that open a weapon selection panel.
-Weapon selection panel lists unlocked weapons with their current stats.
-Selecting a weapon assigns it to that slot in WeaponInventoryManager.
-Tie in to WeaponManagerComponent so equipped weapons are used in gameplay.
-Add a quick compare overlay so the player can see stat changes before confirming.
+🧹 Refactor – Code cleanup (esp. weapon system, components).
+🚀 PlayThrough and Tutorial for intro dialogs
 
 ****************************************************************************************************************
 
 ✅ Portfolio Version Backlog
-
-🧹 Refactor – Code cleanup (esp. weapon system, components).
-🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
-🧬 Weapon Type System – Elemental/tech types, rock-paper-scissors-style behavior.
 
 ****************************************************************************************************************
 
@@ -55,6 +31,7 @@ Add a quick compare overlay so the player can see stat changes before confirming
 
 🌀 Showcase Backlog
 
+🧬 Weapon Type System – Elemental/tech types, rock-paper-scissors-style behavior.
 🏆 Full Progression System – Unlocks, upgrades, meta-level persistence.
 🐾 Full Oiia Narrative & Final Battle – Thematic arc and resolution.
 🧠 Advanced AI Patterns – Smarter enemies with behaviors.

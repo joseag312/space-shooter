@@ -22,8 +22,6 @@ public partial class HUDCurrency : Control
 
     public override void _Ready()
     {
-        G.GS.Mewnits += 1000;
-        G.GS.Pawllars += 100;
         _lastMewnits = G.GS.Mewnits;
         _lastPawllars = G.GS.Pawllars;
         SetLabel(MewnitsLabel, _lastMewnits);
@@ -108,7 +106,7 @@ public partial class HUDCurrency : Control
         tween.TweenProperty(label, "modulate", flashColor, 0.05f);
 
         var baseScale = label.Scale;
-        tween.Parallel().TweenProperty(label, "scale", baseScale * 1.15f, 0.08f)
+        tween.Parallel().TweenProperty(label, "scale", baseScale * 1.05f, 0.08f)
             .SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
         tween.TweenProperty(label, "scale", baseScale, 0.12f)
             .SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);

@@ -8,7 +8,7 @@ public partial class MenuStore : Control
     [Export] public BuyPowerUpContainer BuyPowerUpContainer;
     [Export] public UpgradePowerUpContainer UpgradePowerUpContainer;
     [Export] public UpgradeShipContainer UpgradeShipContainer;
-    [Export] public CenterContainer AssignContainer;
+    [Export] public AssignContainerBox AssignContainerBox;
     [Export] public Button ReturnButton;
     [Export] public Button EquipButton;
     [Export] public Button BuyButton;
@@ -106,7 +106,7 @@ public partial class MenuStore : Control
 
     private void OnEquipPressed()
     {
-        AssignContainer.Visible = true;
+        AssignContainerBox.OpenFor(_selectedWeaponKey);
     }
 
     private void OnBuyPressed()

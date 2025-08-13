@@ -78,5 +78,5 @@ public partial class WeaponDataComponent : Resource
     [Export] public float DamagePriceGrowth { get; set; } = -1f;
     [Export] public float DamagePctPriceGrowth { get; set; } = -1f;
     [Export] public float CooldownPriceGrowth { get; set; } = -1f;
-    [Export] public float StoragePriceGrowth { get; set; } = -1f;
+    [Export] public float StoragePriceGrowth { get; set; } = 1.05f;
 }

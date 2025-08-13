@@ -35,8 +35,10 @@ texture = ExtResource("2_t37l0")
 expand_mode = 1
 
 [node name="MewnitsValue" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "10321654"
+text = "103244"
+horizontal_alignment = 1
 
 [node name="m20" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -52,8 +54,10 @@ texture = ExtResource("3_ahq7o")
 expand_mode = 1
 
 [node name="PawllarsValue" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "65132012"
+text = "65135"
+horizontal_alignment = 1
 
 [node name="m35" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(35, 0)

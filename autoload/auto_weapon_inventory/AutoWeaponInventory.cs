@@ -88,9 +88,10 @@ public partial class AutoWeaponInventory : Node
 
         string targetSlot = WeaponSlotNames.GetSpecialSlot(index);
 
-        if (weaponKey == null)
+        if (string.IsNullOrWhiteSpace(weaponKey))
         {
             _equippedWeapons[targetSlot] = null;
+            Save();
             return;
         }
 
@@ -101,6 +102,7 @@ public partial class AutoWeaponInventory : Node
             return;
         }
 
+        // Ensure same weapon can't be in two special slots
         foreach (var kvp in _equippedWeapons)
         {
             if (kvp.Key != targetSlot && kvp.Value == weaponKey && kvp.Key.StartsWith("special_"))
@@ -111,7 +113,14 @@ public partial class AutoWeaponInventory : Node
 
         _equippedWeapons[targetSlot] = weaponKey;
         AddWeaponState(weaponKey);
+        Save();
     }
+
+    public void UnequipSlotWeapon(int index)
+    {
+        EquipSlotWeapon(index, null);
+    }
+
 
     private void DefaultWeaponEquip()
     {

@@ -46,4 +46,4 @@ SpeedPriceGrowth = -1.0
 DamagePriceGrowth = -1.0
 DamagePctPriceGrowth = -1.0
 CooldownPriceGrowth = -1.0
-StoragePriceGrowth = -1.0
+StoragePriceGrowth = 1.22
