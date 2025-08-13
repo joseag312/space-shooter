@@ -77,7 +77,7 @@ public partial class BuyPowerUpContainer : Control
 
         G.GS.Mewnits -= _purchasePrice;
         _state.CurrentAmount += _purchaseAmount;
-        // G.WI.Save(); Note: Change Later
+        G.WI.Save();
         LoadContainer(_state.Key);
 
         EmitSignal(SignalName.PurchaseMessage, "Thank you for your business!");

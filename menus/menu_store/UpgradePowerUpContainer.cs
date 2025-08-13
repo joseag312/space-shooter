@@ -209,6 +209,7 @@ public partial class UpgradePowerUpContainer : Control
         }
 
         EmitSignal(SignalName.UpgradeMessage, "Upgrades applied!");
+        G.WI.Save();
         LoadContainer(_state.Key);
     }
 }

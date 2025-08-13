@@ -50,6 +50,7 @@ public partial class MenuStore : Control
     {
         BuyPowerUpContainer.PurchaseMessage += OnPurchaseMessage;
         UpgradePowerUpContainer.UpgradeMessage += OnUpgradeMessage;
+        UpgradeShipContainer.UpgradeMessage += OnUpgradeMessage;
     }
 
     private void WireButtons()

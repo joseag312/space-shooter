@@ -9,7 +9,7 @@ public partial class UpgradeShipContainer : Control
 
     [ExportGroup("Health Row")]
     [Export] public HBoxContainer HealthRow { get; set; }
-    [Export] public Label HealthValueLabel { get; set; }     // shows effective value (e.g., 25 -> 30)
+    [Export] public Label HealthValueLabel { get; set; }
     [Export] public Button HealthAddButton { get; set; }
     [Export] public Button HealthMinusButton { get; set; }
 
@@ -129,7 +129,6 @@ public partial class UpgradeShipContainer : Control
 
     private void UpdateButtonsEnabled()
     {
-        // Enable/disable plus/minus based on levels & pending
         HealthAddButton.Disabled =
             S.GetLevel(AutoShipStats.UpgradeKind.Health) + _pending[AutoShipStats.UpgradeKind.Health] >=
             S.GetMaxLevel(AutoShipStats.UpgradeKind.Health);
@@ -150,10 +149,8 @@ public partial class UpgradeShipContainer : Control
             return;
         }
 
-        // Pay first
         G.GS.Pawllars -= totalCost;
 
-        // Apply upgrades
         foreach (var kvp in _pending)
         {
             var kind = kvp.Key;
@@ -162,11 +159,11 @@ public partial class UpgradeShipContainer : Control
                 S.TryApplyUpgrade(kind);
         }
 
-        // Reset pending and refresh UI
         _pending[AutoShipStats.UpgradeKind.Health] = 0;
         _pending[AutoShipStats.UpgradeKind.Speed] = 0;
 
         EmitSignal(SignalName.UpgradeMessage, "Upgrades applied!");
+        G.GS.Save();
         RefreshAll();
     }
 }

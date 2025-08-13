@@ -14,8 +14,7 @@ public partial class AutoWeaponInventory : Node
         if (Instance == null)
         {
             Instance = this;
-            Reset(); // Note: Change to Load()
-            DebugPrintSaveContents();
+            Load();
         }
         else
         {
