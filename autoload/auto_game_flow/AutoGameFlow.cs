@@ -7,6 +7,9 @@ public partial class AutoGameFlow : Node
 
     public string LastPlayedScene { get; set; } = "";
     public string MenuMainScene = "res://menus/menu_main/menu_main.tscn";
+    public string MenuLevelsScene = "res://menus/menu_levels/menu_levels.tscn";
+    public string MenuStoreScene = "res://menus/menu_store/menu_store.tscn";
+    public string MenuSettingsScene = "res://menus/menu_settings/menu_settings.tscn";
     public string GameOverScene = "res://menus/game_flow/flow_game_over.tscn";
     public string LevelClearScene = "res://menus/game_flow/flow_level_clear.tscn";
 

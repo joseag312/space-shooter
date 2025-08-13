@@ -51,7 +51,35 @@ public partial class WeaponStateComponent : Resource
 
     public override string ToString()
     {
-        return $"WeaponStateComponent {{ ID = {BaseData?.Key}, SlotType = {BaseData?.SlotType}, Cooldown = {EffectiveCooldown}, Remaining = {CooldownRemaining}, Amount = {CurrentAmount} }}";
+        return
+            $@"
+            WeaponStateComponent {{
+                Key: {Key}
+                BaseData: {(BaseData != null ? BaseData.Key : "null")}
+                SlotType: {BaseData?.SlotType}
+                WeaponType: {BaseData?.Type}
+
+                --- Effective Values ---
+                Speed: {EffectiveSpeed} {(HasOverrideSpeed ? "(Override)" : "(Base)")}
+                Damage: {EffectiveDamage} {(HasOverrideDamage ? "(Override)" : "(Base)")}
+                Damage%: {EffectiveDamagePercentage} {(HasOverrideDamagePercentage ? "(Override)" : "(Base)")}
+                Cooldown: {EffectiveCooldown:0.00}s {(HasOverrideCooldown ? "(Override)" : "(Base)")}
+                MaxAmount: {EffectiveMaxAmount} {(HasOverrideMaxAmount ? "(Override)" : "(Base)")}
+                Unlocked: {EffectiveUnlocked} {(HasOverrideUnlocked ? "(Override)" : "(Base)")}
+
+                --- Current State ---
+                CurrentAmount: {CurrentAmount}
+                CooldownRemaining: {CooldownRemaining:0.00}s
+
+                --- Overrides Raw ---
+                OverrideSpeed: {OverrideSpeed}
+                OverrideDamage: {OverrideDamage}
+                OverrideDamagePercentage: {OverrideDamagePercentage}
+                OverrideCooldownTime: {OverrideCooldownTime}
+                OverrideMaxAmount: {OverrideMaxAmount}
+                OverrideUnlocked: {OverrideUnlocked}
+                UseOverrideUnlocked: {UseOverrideUnlocked}
+            }}";
     }
 }
 

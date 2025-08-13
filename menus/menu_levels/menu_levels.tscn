@@ -938,7 +938,7 @@ animations = [{
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2kwya"]
 
-[node name="MenuLevels" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton")]
+[node name="MenuLevels" type="Control" node_paths=PackedStringArray("MenuFadeComponent", "HUD", "LevelCard", "ReturnButton", "StoreButton")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_41nlo")
@@ -946,6 +946,7 @@ MenuFadeComponent = NodePath("MenuFadeComponent")
 HUD = NodePath("HUDDialogSystem")
 LevelCard = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LevelCard")
 ReturnButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/ReturnButton")
+StoreButton = NodePath("UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer/StoreButton")
 
 [node name="MenuLoadComponent" type="Node" parent="." node_paths=PackedStringArray("CanvasContainer")]
 script = ExtResource("2_sjyew")
@@ -1271,7 +1272,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="ArmoryButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
+[node name="StoreButton" type="Button" parent="UILayer/MainContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 text = "   Store   "
 icon = SubResource("PlaceholderTexture2D_g7we0")

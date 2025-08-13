@@ -1,31 +1,27 @@
 using Godot;
 
 [GlobalClass]
-public partial class PlanetPanel : PanelContainer
+public partial class StoreItemPanel : PanelContainer
 {
-    [Signal]
-    public delegate void PlanetClickedEventHandler(string levelKey);
+    [Signal] public delegate void StoreItemClickedEventHandler(string weaponKey);
 
-    [Export] public string LevelKey;
-    [Export] public AnimatedSprite2D PlanetSprite;
-    [Export] public Sprite2D StatusSprite;
+    [Export] public string WeaponKey;
+    [Export] public TextureRect ContainerSprite;
+    [Export] public TextureRect WeaponSprite;
     [Export] public bool Available;
-    [Export] public bool Cleared;
 
-    private Color _disabledColor = new Color(20f / 255f, 20f / 255f, 20f / 255f, 255f / 255f);
-    private Color _normalColor = new Color(200f / 255f, 200f / 255f, 200f / 255f, 255f / 255f);
-    private Color _hoverColor = new Color(230f / 255f, 230f / 255f, 230f / 255f, 255f / 255f);
+    private Color _normalColor = new Color(150f / 255f, 150f / 255f, 150f / 255f, 255f / 255f);
+    private Color _hoverColor = new Color(200f / 255f, 200f / 255f, 200f / 255f, 255f / 255f);
     private Color _clickColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
 
     public override void _Ready()
     {
-        Cleared = G.GS.IsLevelCleared(LevelKey);
-        Available = G.GS.IsLevelAvailable(LevelKey);
+        var weaponState = G.WI.GetWeaponState(WeaponKey);
+        GD.Print(weaponState.ToString());
 
-        Modulate = Available ? _normalColor : _disabledColor;
-        StatusSprite.Visible = Available && !Cleared;
-        StatusSprite.Offset = new Vector2(95, 95);
-        PlanetSprite.Offset = new Vector2(10, 10);
+        Available = weaponState.EffectiveUnlocked;
+        Modulate = _normalColor;
+        this.Visible = Available;
 
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
@@ -34,7 +30,9 @@ public partial class PlanetPanel : PanelContainer
 
     private void OnGuiInput(InputEvent @event)
     {
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+        if (@event is InputEventMouseButton mouseEvent &&
+            mouseEvent.Pressed &&
+            mouseEvent.ButtonIndex == MouseButton.Left)
         {
             OnClicked();
         }
@@ -55,14 +53,14 @@ public partial class PlanetPanel : PanelContainer
     private void OnClicked()
     {
         if (!Available) return;
-        EmitSignal(SignalName.PlanetClicked, LevelKey);
+        EmitSignal(SignalName.StoreItemClicked, WeaponKey);
         AnimateClicked();
     }
 
     private async void AnimateClicked()
     {
         var colorTween = GetTree().CreateTween();
-        Modulate = new Color(1f, 1f, 1f, 1f);
+        Modulate = _clickColor;
         colorTween.TweenProperty(this, "modulate", _normalColor, 0.2f);
 
         var scaleTween = GetTree().CreateTween();

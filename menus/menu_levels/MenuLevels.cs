@@ -9,6 +9,7 @@ public partial class MenuLevels : Control
     [Export] public HUDDialogSystem HUD;
     [Export] public LevelCard LevelCard;
     [Export] public Button ReturnButton;
+    [Export] public Button StoreButton;
 
     public override void _Ready()
     {
@@ -21,6 +22,7 @@ public partial class MenuLevels : Control
             }
         }
         ReturnButton.Pressed += OnReturnPressed;
+        StoreButton.Pressed += OnStorePressed;
     }
 
     private void OnPlanetClicked(string levelKey)
@@ -28,11 +30,17 @@ public partial class MenuLevels : Control
         LevelCard.LoadLevel(levelKey);
     }
 
-    private async Task testDialog(CancellationToken token)
+    private async Task TestDialog(CancellationToken token)
     {
         await HUD.FirstMessage(Char.COMMANDER, Mood.COMMANDER.Annoyed, "Wussup");
-        await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Annoyed, "Imma touch you");
+        await HUD.Message(Char.COMMANDER, Mood.COMMANDER.Annoyed, "Testing...");
         await HUD.LastMessage(Char.COMMANDER, Mood.COMMANDER.Annoyed, "That's all");
+    }
+
+    private async void OnStorePressed()
+    {
+        await MenuFadeComponent.FadeOutAsync();
+        await G.GF.FadeToSceneBasic(G.GF.MenuStoreScene);
     }
 
     private async void OnReturnPressed()
