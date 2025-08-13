@@ -14,7 +14,8 @@ public partial class AutoWeaponInventory : Node
         if (Instance == null)
         {
             Instance = this;
-            Reset();
+            Reset(); // Note: Change to Load()
+            DebugPrintSaveContents();
         }
         else
         {
@@ -142,7 +143,7 @@ public partial class AutoWeaponInventory : Node
             OverrideDamage = -1,
             OverrideDamagePercentage = -1,
             OverrideCooldownTime = -1f,
-            OverrideMaxAmount = isSlotWeapon ? -1 : 0,
+            OverrideMaxAmount = -1,
             OverrideUnlocked = false,
             UseOverrideUnlocked = false
         };
@@ -153,32 +154,43 @@ public partial class AutoWeaponInventory : Node
     public void Save()
     {
         var weaponArray = new Godot.Collections.Array<Godot.Collections.Dictionary>();
+
         foreach (var pair in _weaponStates)
         {
+            var s = pair.Value;
+
             var dict = new Godot.Collections.Dictionary
-            {
-                { "key", pair.Value.Key },
-                { "amount", pair.Value.CurrentAmount },
-                { "cooldown", pair.Value.CooldownRemaining },
-                { "override_speed", pair.Value.OverrideSpeed},
-                { "override_dmg", pair.Value.OverrideDamage },
-                { "override_dmg_pct", pair.Value.OverrideDamagePercentage },
-                { "override_cd", pair.Value.OverrideCooldownTime },
-                { "override_max", pair.Value.OverrideMaxAmount },
-                { "override_unlocked", pair.Value.OverrideUnlocked },
-                { "use_override_unlocked", pair.Value.UseOverrideUnlocked }
-            };
+        {
+            { "key", s.Key },
+            { "amount", s.CurrentAmount },
+            { "cooldown", s.CooldownRemaining },
+
+            { "speed_level",        s.SpeedUpgradeLevel },
+            { "damage_level",       s.DamageUpgradeLevel },
+            { "damage_pct_level",   s.DamagePctUpgradeLevel },
+            { "cooldown_level",     s.CooldownUpgradeLevel },
+            { "storage_level",      s.StorageUpgradeLevel },
+
+            { "override_speed",     s.OverrideSpeed },
+            { "override_dmg",       s.OverrideDamage },
+            { "override_dmg_pct",   s.OverrideDamagePercentage },
+            { "override_cd",        s.OverrideCooldownTime },
+            { "override_max",       s.OverrideMaxAmount },
+
+            { "override_unlocked",      s.OverrideUnlocked },
+            { "use_override_unlocked",  s.UseOverrideUnlocked }
+        };
+
             weaponArray.Add(dict);
         }
 
         var equippedDict = new Godot.Collections.Dictionary();
         foreach (var pair in _equippedWeapons)
-        {
             equippedDict[pair.Key] = pair.Value ?? "";
-        }
 
         var root = new Godot.Collections.Dictionary
         {
+            { "v", 2 },
             { "weapons", weaponArray },
             { "equipped", equippedDict }
         };
@@ -216,21 +228,26 @@ public partial class AutoWeaponInventory : Node
                     continue;
                 }
 
-                var data = new WeaponStateComponent(key)
+                var s = new WeaponStateComponent(key)
                 {
                     BaseData = baseData,
+
                     CurrentAmount = (int)entry["amount"],
                     CooldownRemaining = (float)entry["cooldown"],
-                    OverrideSpeed = (int)entry["override_speed"],
-                    OverrideDamage = (int)entry["override_dmg"],
-                    OverrideDamagePercentage = (int)entry["override_dmg_pct"],
-                    OverrideCooldownTime = (float)entry["override_cd"],
-                    OverrideMaxAmount = (int)entry.GetValueOrDefault("override_max", -1),
-                    OverrideUnlocked = (bool)entry.GetValueOrDefault("override_unlocked", false),
-                    UseOverrideUnlocked = (bool)entry.GetValueOrDefault("use_override_unlocked", false)
+
+                    SpeedUpgradeLevel = (int)entry["speed_level"],
+                    DamageUpgradeLevel = (int)entry["damage_level"],
+                    DamagePctUpgradeLevel = (int)entry["damage_pct_level"],
+                    CooldownUpgradeLevel = (int)entry["cooldown_level"],
+                    StorageUpgradeLevel = (int)entry["storage_level"],
+
+                    OverrideUnlocked = (bool)entry["override_unlocked"],
+                    UseOverrideUnlocked = (bool)entry["use_override_unlocked"],
                 };
 
-                _weaponStates[key] = data;
+                s.SyncOverridesFromLevels();
+
+                _weaponStates[key] = s;
             }
         }
 
@@ -269,22 +286,23 @@ public partial class AutoWeaponInventory : Node
         var root = (Godot.Collections.Dictionary)file.GetVar();
 
         GD.Print("DEBUG: AutoWeaponInventory - Save File Contents:");
+        GD.Print($"  Schema Version: {root.GetValueOrDefault("v", 2)}");
 
         if (root.TryGetValue("weapons", out var weaponsRaw))
         {
             GD.Print("  Weapons:");
-            foreach (Godot.Collections.Dictionary weapon in (Godot.Collections.Array)weaponsRaw)
+            foreach (Godot.Collections.Dictionary w in (Godot.Collections.Array)weaponsRaw)
             {
-                GD.Print($"    Key: {weapon.GetValueOrDefault("key", "UNKNOWN")}");
-                GD.Print($"      Amount: {weapon.GetValueOrDefault("amount", -1)}");
-                GD.Print($"      Cooldown: {weapon.GetValueOrDefault("cooldown", -1f)}");
-                GD.Print($"      Override Speed: {weapon.GetValueOrDefault("override_speed", -1)}");
-                GD.Print($"      Override Damage: {weapon.GetValueOrDefault("override_dmg", -1)}");
-                GD.Print($"      Override %: {weapon.GetValueOrDefault("override_dmg_pct", -1)}");
-                GD.Print($"      Override CD: {weapon.GetValueOrDefault("override_cd", -1f)}");
-                GD.Print($"      Override Max: {weapon.GetValueOrDefault("override_max", -1)}");
-                GD.Print($"      Override Unlocked: {weapon.GetValueOrDefault("override_unlocked", false)}");
-                GD.Print($"      Use Override Unlocked: {weapon.GetValueOrDefault("use_override_unlocked", false)}");
+                GD.Print($"    Key: {w.GetValueOrDefault("key", "UNKNOWN")}");
+
+                GD.Print($"      Amount: {w.GetValueOrDefault("amount", -1)}");
+                GD.Print($"      Cooldown: {w.GetValueOrDefault("cooldown", -1f)}");
+
+                GD.Print($"      Levels -> speed:{w.GetValueOrDefault("speed_level", 0)}, dmg:{w.GetValueOrDefault("damage_level", 0)}, dmg%:{w.GetValueOrDefault("damage_pct_level", 0)}, cd:{w.GetValueOrDefault("cooldown_level", 0)}, storage:{w.GetValueOrDefault("storage_level", 0)}");
+
+                GD.Print($"      Overrides -> speed:{w.GetValueOrDefault("override_speed", -1)}, dmg:{w.GetValueOrDefault("override_dmg", -1)}, dmg%:{w.GetValueOrDefault("override_dmg_pct", -1)}, cd:{w.GetValueOrDefault("override_cd", -1f)}, max:{w.GetValueOrDefault("override_max", -1)}");
+
+                GD.Print($"      Unlock -> override:{w.GetValueOrDefault("override_unlocked", false)}, use_override:{w.GetValueOrDefault("use_override_unlocked", false)}");
             }
         }
         else

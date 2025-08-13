@@ -58,6 +58,7 @@ Button/constants/outline_size = 20
 Button/font_sizes/font_size = 40
 Button/fonts/font = ExtResource("1_i4ejt")
 Button/icons/icon = ExtResource("2_hf3i3")
+Button/styles/disabled = SubResource("StyleBoxTexture_xtbu8")
 Button/styles/focus = SubResource("StyleBoxTexture_xtbu8")
 Button/styles/hover = SubResource("StyleBoxTexture_0wthw")
 Button/styles/hover_pressed = SubResource("StyleBoxTexture_0wthw")

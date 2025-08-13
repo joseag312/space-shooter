@@ -15,7 +15,7 @@ bg_color = Color(0.117647, 0.117647, 0.117647, 0.784314)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wylqx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01eb2"]
-bg_color = Color(0.117647, 0.117647, 0.117647, 0.470588)
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.784314)
 
 [node name="HUDDialogSystem" type="CanvasLayer" node_paths=PackedStringArray("DialogBox", "DialogPortrait", "DialogName", "DialogText", "NextButton", "NextButtonContainer", "PopUpBox", "PopUpPortrait", "PopUpText", "PromptButtonBox", "SureButton", "Option1Button", "Option2Button")]
 script = ExtResource("1_pnina")

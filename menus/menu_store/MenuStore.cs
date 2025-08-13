@@ -20,6 +20,7 @@ public partial class MenuStore : Control
     {
         WireGrid();
         WireSpecials();
+        WireCards();
         WireButtons();
     }
 
@@ -45,6 +46,12 @@ public partial class MenuStore : Control
         }
     }
 
+    private void WireCards()
+    {
+        BuyPowerUpContainer.PurchaseMessage += OnPurchaseMessage;
+        UpgradePowerUpContainer.UpgradeMessage += OnUpgradeMessage;
+    }
+
     private void WireButtons()
     {
         EquipButton.Pressed += OnEquipPressed;
@@ -63,9 +70,11 @@ public partial class MenuStore : Control
         }
         else
         {
+            GD.Print(specialItemKey);
             _selectedWeaponKey = specialItemKey;
             BuyPowerUpContainer.Visible = false;
             UpgradeShipContainer.Visible = false;
+            UpgradePowerUpContainer.LoadContainer(_selectedWeaponKey);
             UpgradePowerUpContainer.Visible = true;
         }
         EquipButton.Visible = false;
@@ -85,6 +94,16 @@ public partial class MenuStore : Control
         BuyPowerUpContainer.Visible = true;
     }
 
+    private void OnPurchaseMessage(string message)
+    {
+        _ = HUD.PopUpMessage(Char.FRIEND, Mood.FRIEND.Default, message);
+    }
+
+    private void OnUpgradeMessage(string message)
+    {
+        _ = HUD.PopUpMessage(Char.FRIEND, Mood.FRIEND.Default, message);
+    }
+
     private void OnEquipPressed()
     {
         AssignContainer.Visible = true;
@@ -102,6 +121,7 @@ public partial class MenuStore : Control
     {
         BuyPowerUpContainer.Visible = false;
         UpgradeShipContainer.Visible = false;
+        UpgradePowerUpContainer.LoadContainer(_selectedWeaponKey);
         UpgradePowerUpContainer.Visible = true;
     }
 
