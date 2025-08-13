@@ -1,32 +1,40 @@
 ****************************************************************************************************************
 
-✅ Summary of Today
+✅ Summary of Today - 🛠 Weapon Upgrade Pricing Overhaul
 
-🎭 Level 5 Dialog & Branching Endings
-Wrote complete LevelDialog and ClearLevelDialog sequences for Level 5.
-Incorporated Karma-based branching:
-Positive: Redemption arc with human family reunion and Spin God slowing/stopping his spin.
-Neutral: Resigned detachment, hints at stopping but no clear resolution.
-Negative: Full villain turn with “age of spinning gods” declaration.
-Blended absurd humor (Cat GPT decoding stalls, Bob with doughnuts) with emotional beats.
-Integrated subtle callbacks to Spin God’s backstory (“been spinning forever…”) for continuity and impact.
-
-🌀 Final Touches on Spin God Arc
-Locked in escalation beats: calm → triggered (“Dr. Ethel”) → grandiose mission statements → vulnerability or rage depending on choices.
-Added multiple HandleChoice moments for player agency mid-dialog.
-Maintained character voices for OIIA, Commander, Bob, and Cat GPT with consistent humor-tone balance.
-
-🏁 Portfolio Version Milestone
-All 5 levels completed with dialogs, encounters, and endings.
-Portfolio cut now contains full gameplay loop from start to finish.
+Added GetPriceAtLevel() to WeaponStateComponent for flexible, level-based price calculation.
+Kept GetNextPrice() as a wrapper for normal use.
+Enabled the store to preview progressive upgrade costs without touching actual weapon state.
+🎯 Upgrade UI Refactor
+Rebuilt UpgradePowerUpContainer as a multi-row upgrade panel for: Speed, Damage/Damage%, Cooldown, and Storage.
+Each row hides if not upgradeable and uses progressive pricing from WeaponStateComponent.
+Removed per-row price labels → now one Total Price at the bottom.
+Green highlight for level number when pending an upgrade.
+Confirm button applies all queued upgrades in one transaction.
+💰 HUD Currency Glow-Up
+Overhauled HUDCurrency to animate currency changes:
+Slot-machine scramble of same-digit numbers.
+Color flash (green for gain, red for spend).
+Punch-scale animation for extra juice.
+Safe concurrent updates via per-label animation gating.
 
 ****************************************************************************************************************
 
-🚀 Tomorrow’s Jump Point – Wrap-Up & Polish
+🚀 Tomorrow’s Jump Point – Ship Upgrades & Weapon Equip
 
-🪲 Bug Fixing – Fix known bugs.
-🧹 Refactor – Code cleanup (esp. weapon system, components).
-🛒 Armory or Shop – Inventory/shop screen for loadout or upgrades.
+🎯 Goal:
+Implement a Ship Armory / Loadout screen where the player can:
+
+Equip weapons from their unlocked inventory into ship slots.
+View weapon stats (Effective values from WeaponStateComponent).
+Integrate upgrades directly into weapon equip flow so changes reflect in the loadout.
+Save/load equipped weapons into WeaponInventoryManager for persistence.
+📋 Key Steps:
+Build Loadout UI: Slot buttons (basic, big, special 1–4) that open a weapon selection panel.
+Weapon selection panel lists unlocked weapons with their current stats.
+Selecting a weapon assigns it to that slot in WeaponInventoryManager.
+Tie in to WeaponManagerComponent so equipped weapons are used in gameplay.
+Add a quick compare overlay so the player can see stat changes before confirming.
 
 ****************************************************************************************************************
 
